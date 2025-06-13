@@ -1,9 +1,5 @@
 require "nvchad.options"
 
-local o = vim
-
--- Indenting
-o.shiftwidth = 4
-o.tabstop = 4
-o.softtabstop = 4
--- o.cursorlineopt ='both' -- to enable cursorline!
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
