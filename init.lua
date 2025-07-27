@@ -2,6 +2,7 @@ require("config.lazy")
 
 vim.opt.shiftwidth = 4
 
+-- set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
 
