@@ -1,17 +1,12 @@
+-- Set leader keys before loading lazy.nvim
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 require("config.lazy")
+require("config.options")
+require("config.keymaps")
 
-vim.opt.shiftwidth = 4
-
--- set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
-vim.opt.number = true
-vim.opt.clipboard = "unnamedplus"
-
-vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
-vim.keymap.set("n", "<space>x", ":.lua<CR>")
-vim.keymap.set("v", "<space>x", ":lua<CR>")
-
-vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
-vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
+vim.g.have_nerd_font = false
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking text',
@@ -28,7 +23,6 @@ vim.diagnostic.config({
 	update_in_insert = false,
 })
 
-
 vim.api.nvim_create_autocmd("TermOpen", {
 	group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
 	callback = function()
@@ -38,10 +32,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		end
 	end,
 })
-
-vim.keymap.set("n", "<space>to", function()
-	vim.cmd.vnew()
-	vim.cmd.term()
-	vim.cmd.wincmd("J")
-	vim.api.nvim_win_set_height(0, 5)
-end)
