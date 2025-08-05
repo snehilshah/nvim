@@ -61,22 +61,10 @@ return {
 						},
 					},
 				},
-				-- pyright = {},
-				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				-- ts_ls = {},
-				--
-
 				lua_ls = {
 					capabilities = capabilities,
 					-- cmd = { ... },
-					-- filetypes = { ... },
-					-- capabilities = {},
+					filetypes = { "lua" },
 					settings = {
 						Lua = {
 							diagnostics = {
@@ -91,7 +79,8 @@ return {
 			}
 			for server_name, server_config in pairs(servers) do
 				-- Merge capabilities
-				server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
+				server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities,
+					server_config.capabilities or {})
 
 				-- Setup the server
 				require('lspconfig')[server_name].setup(server_config)
