@@ -7,12 +7,29 @@ return {
 			local lint = require("lint")
 
 			lint.linters_by_ft = {
+				-- JavaScript/TypeScript
 				javascript = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
 				typescript = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
+				
+				-- JSON
 				json = { "jsonlint" },
-				go = { "golangci-lint" },
+				
+				-- Go
+				go = { "golangcilint" },
+				
+				-- Shell scripts
+				sh = { "shellcheck" },
+				bash = { "shellcheck" },
+				zsh = { "shellcheck" },
+				
+				-- Docker
+				dockerfile = { "hadolint" },
+				
+				-- YAML
+				yaml = { "yamllint" },
+				yml = { "yamllint" },
 			}
 
 			-- Create autocommand which carries out the actual linting on the specified events

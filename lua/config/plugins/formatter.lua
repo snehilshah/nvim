@@ -30,14 +30,16 @@ return {
         end,
         formatters_by_ft = {
             lua = { 'stylua' },
-            -- Conform can also run multiple formatters sequentially
+            -- Python formatters 
             -- python = { "isort", "black" },
-            --
-            -- You can use 'stop_after_first' to run the first available formatter from the list
+            
+            -- JavaScript/TypeScript
             javascript = { "prettierd", "prettier", stop_after_first = true },
             javascriptreact = { "prettierd", "prettier", stop_after_first = true },
             typescript = { "prettierd", "prettier", stop_after_first = true },
             typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+            
+            -- Web
             json = { "prettierd", "prettier", stop_after_first = true },
             jsonc = { "prettierd", "prettier", stop_after_first = true },
             css = { "prettierd", "prettier", stop_after_first = true },
@@ -45,7 +47,18 @@ return {
             html = { "prettierd", "prettier", stop_after_first = true },
             markdown = { "prettierd", "prettier", stop_after_first = true },
             yaml = { "prettierd", "prettier", stop_after_first = true },
+            yml = { "prettierd", "prettier", stop_after_first = true },
+            
+            -- Go
             go = { "gofumpt", "goimports" },
+            
+            -- Shell scripts
+            sh = { "shfmt" },
+            bash = { "shfmt" },
+            zsh = { "shfmt" },
+            
+            -- Dockerfile
+            dockerfile = { "hadolint" },
         },
     },
 }
