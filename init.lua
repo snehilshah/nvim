@@ -7,6 +7,7 @@ require("config.options")
 require("config.keymaps")
 
 vim.g.have_nerd_font = false
+vim.o.background = "dark"
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking text',

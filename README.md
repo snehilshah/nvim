@@ -8,3 +8,4 @@ shfmt
 hadolint
 goimports
 prettierd
+yamllint
