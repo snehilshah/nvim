@@ -5,6 +5,14 @@ vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.virtualedit = "block"
+
+vim.opt.inccommand = "split"
+
+vim.opt.ignorecase = true
+
 vim.opt.termguicolors = true
 
 vim.opt.splitbelow = true

@@ -1,5 +1,3 @@
-vim.opt.shiftwidth = 4
-
 -- set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 vim.opt.number = true
 vim.o.showmode = false
