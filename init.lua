@@ -2,11 +2,18 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.opt.termguicolors = true
+
+vim.opt.splitbelow = true
+
 require("config.lazy")
 require("config.options")
 require("config.keymaps")
 
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 vim.o.background = "dark"
 
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -22,14 +29,4 @@ vim.diagnostic.config({
 	signs = true,
 	underline = true,
 	update_in_insert = false,
-})
-
-vim.api.nvim_create_autocmd("TermOpen", {
-	group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
-	callback = function()
-		local current_job_id = vim.bo.channel
-		if current_job_id and current_job_id > 0 then
-			vim.fn.chansend(current_job_id, { "make all \r\n" })
-		end
-	end,
 })
