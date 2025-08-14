@@ -1,26 +1,33 @@
--- set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+vim.opt.wrap = false
+
+vim.opt.expandtab = true;
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+
 vim.o.showmode = false
 
 vim.schedule(function()
 	vim.o.clipboard = 'unnamedplus'
 end)
 
---  Notice listchars is set using `vim.opt` instead of `vim.o`.
---  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
---   See `:help lua-options`
---   and `:help lua-options-guide`
-vim.o.list = true
-vim.opt.listchars = { tab = '→ ', trail = '·', nbsp = '␣' }
--- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- vim.o.list = true
+-- vim.opt.listchars = { tab = '',trail = '·', nbsp = '␣' }
+-- vim.opt.listchars = { trail = '·', nbsp = '␣' }
 
--- Preview substitutions live, as you type!
+vim.opt.virtualedit = "block"
 vim.o.inccommand = 'split'
 
---- Show which line your cursor is on
+vim.opt.ignorecase = true
+
+vim.opt.termguicolors = true
+vim.o.background = "dark"
+
 vim.o.cursorline = true
 
--- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s)
--- See `:help 'confirm'`
 vim.o.confirm = true

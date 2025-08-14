@@ -5,24 +5,11 @@ vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.virtualedit = "block"
-
-vim.opt.inccommand = "split"
-
-vim.opt.ignorecase = true
-
-vim.opt.termguicolors = true
-
-vim.opt.splitbelow = true
-
 require("config.lazy")
 require("config.options")
 require("config.keymaps")
 
 vim.g.have_nerd_font = true
-vim.o.background = "dark"
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking text',
