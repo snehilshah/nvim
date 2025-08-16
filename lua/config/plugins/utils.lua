@@ -29,6 +29,10 @@ return {
 			},
 		},
 	},
+  {
+    "tpope/vim-sleuth",
+    -- no further changes required here as this is a actual vim-script plugin not a lua plugin
+  },
 	{
 		"AckslD/nvim-neoclip.lua",
 		dependencies = {

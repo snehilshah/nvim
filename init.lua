@@ -5,8 +5,8 @@ vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("config.lazy")
 require("config.options")
+require("config.lazy")
 require("config.keymaps")
 
 vim.g.have_nerd_font = true
@@ -20,7 +20,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.diagnostic.config({
-	virtual_text = true,
+	-- virtual_text = true,
+	virtual_lines = true,
 	signs = true,
 	underline = true,
 	update_in_insert = false,
