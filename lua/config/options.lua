@@ -38,6 +38,9 @@ vim.opt.scrolloff = 5
 -- disable the vim cmd line until required, this will overwrite the statusline when cmd is required
 vim.opt.cmdheight = 0
 
+-- set the default border for all floating windows rounded
+vim.opt.winborder = "rounded"
+
 vim.schedule(function()
 	vim.o.clipboard = 'unnamedplus'
 end)
@@ -56,4 +59,3 @@ vim.o.background = "dark"
 vim.o.cursorline = true
 
 vim.o.confirm = true
-

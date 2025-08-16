@@ -1,28 +1,18 @@
 -- Set leader keys before loading lazy.nvim
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 require("config.options")
-require("config.lazy")
+require("core.lazy")
+require("core.lsp")
 require("config.keymaps")
 
 vim.g.have_nerd_font = true
 
-vim.api.nvim_create_autocmd('TextYankPost', {
-	desc = 'Highlight when yanking text',
-	group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
 		vim.highlight.on_yank()
-	end
-})
-
-vim.diagnostic.config({
-	-- virtual_text = true,
-	virtual_lines = true,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
+	end,
 })
