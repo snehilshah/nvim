@@ -14,6 +14,7 @@ end
 return {
   'nvim-telescope/telescope.nvim',
   event = "VimEnter",
+  enabled = false,
   tag = '0.1.8',
   dependencies = {
     'nvim-lua/plenary.nvim',

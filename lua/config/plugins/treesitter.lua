@@ -5,8 +5,21 @@ return {
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      require 'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "gomod", "gosum" },
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "c",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "markdown",
+          "markdown_inline",
+          "go",
+          "gomod",
+          "gosum",
+          "typescript",
+          "tsx",
+        },
         auto_install = true,
 
         highlight = {
@@ -43,9 +56,9 @@ return {
               ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
             },
             selection_modes = {
-              ['@parameter.outer'] = 'v',
-              ['@function.outer'] = 'v',
-              ['@class.outer'] = '<c-v>',
+              ["@parameter.outer"] = "v",
+              ["@function.outer"] = "v",
+              ["@class.outer"] = "<c-v>",
             },
             include_surrounding_whitespace = true,
           },
@@ -94,13 +107,13 @@ return {
             },
             goto_previous = {
               ["[d"] = "@conditional.outer",
-            }
+            },
           },
         },
-      }
-    end
+      })
+    end,
   },
   {
-    "nvim-treesitter/nvim-treesitter-textobjects"
-  }
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  },
 }

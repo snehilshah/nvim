@@ -3,36 +3,97 @@ return {
 	priority = 1000,
 	lazy = false,
 	---@type snacks.Config
-	opts = {
-		dashboard = { enabled = true },
-		explorer = { enabled = true },
-		indent = { enabled = true },
-		input = { enabled = true },
-		notifier = {
-			enabled = true,
-			timeout = 3000,
-		},
-		picker = { enabled = true },
-		quickfile = { enabled = true },
-		scope = { enabled = true },
-		scroll = { enabled = true },
-		statuscolumn = { enabled = true },
-		words = { enabled = true },
-		styles = {
-			notification = {
-				-- wo = { wrap = true } -- Wrap notifications
-			},
-		},
-	},
 	keys = {
-		-- Top Pickers & Explorer
+		-- reviewed
+		-- git
+		{
+			"<leader>gb",
+			function()
+				Snacks.picker.git_branches({
+					layout = "vertical",
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
+				})
+			end,
+			desc = "[G]it [B]ranches",
+		},
+		{
+			"<leader>gl",
+			function()
+				Snacks.picker.git_log({
+					layout = "vertical",
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
+				})
+			end,
+			desc = "[G]it [L]og",
+		},
 		{
 			"<leader><space>",
 			function()
-				Snacks.picker.smart()
+				Snacks.picker.smart({
+					layout = "ivy_split",
+				})
 			end,
 			desc = "Smart Find Files",
 		},
+		{
+			"<leader>nc",
+			function()
+				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+			end,
+			desc = "[N]vim [C]onfig",
+		},
+		{
+			"<M-S-k>",
+			function()
+				Snacks.picker.keymaps({
+					layout = "vertical",
+				})
+			end,
+			desc = "[K]eymaps",
+		},
+		{
+			"<leader>ff",
+			function()
+				Snacks.picker.files({
+					layout = "ivy_split",
+					supports_live = true,
+					format = "file",
+					finder = "files"
+				})
+			end,
+			desc = "Find Files",
+		},
+		{
+			"<S-h>",
+			function()
+				Snacks.picker.buffers({
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
+					finder = "buffers",
+					format = "buffer",
+					hidden = false,
+					unloaded = true,
+					current = true,
+					sort_lastused = true,
+					win = {
+						input = {
+							keys = {
+								["d"] = "bufdelete",
+							},
+						},
+						list = { keys = { ["d"] = "bufdelete" } },
+					},
+					layout = "ivy_split",
+				})
+			end,
+			desc = "[P]Snacks picker buffers",
+		},
+		-- not-reviewed
 		{
 			"<leader>,",
 			function()
@@ -84,13 +145,6 @@ return {
 			desc = "Find Config File",
 		},
 		{
-			"<leader>ff",
-			function()
-				Snacks.picker.files()
-			end,
-			desc = "Find Files",
-		},
-		{
 			"<leader>fg",
 			function()
 				Snacks.picker.git_files()
@@ -112,20 +166,6 @@ return {
 			desc = "Recent",
 		},
 		-- git
-		{
-			"<leader>gb",
-			function()
-				Snacks.picker.git_branches()
-			end,
-			desc = "Git Branches",
-		},
-		{
-			"<leader>gl",
-			function()
-				Snacks.picker.git_log()
-			end,
-			desc = "Git Log",
-		},
 		{
 			"<leader>gL",
 			function()
@@ -275,13 +315,6 @@ return {
 				Snacks.picker.jumps()
 			end,
 			desc = "Jumps",
-		},
-		{
-			"<leader>sk",
-			function()
-				Snacks.picker.keymaps()
-			end,
-			desc = "Keymaps",
 		},
 		{
 			"<leader>sl",
@@ -511,18 +544,55 @@ return {
 			end,
 		},
 	},
+	opts = {
+		dashboard = { enabled = true },
+		explorer = { enabled = true },
+		indent = { enabled = true },
+		input = { enabled = true },
+		notifier = {
+			enabled = true,
+			timeout = 3000,
+		},
+
+		picker = {
+			layout = {
+				preset = "ivy",
+				cycle = false,
+			},
+			matcher = {
+				frecency = true,
+			},
+			win = {
+				input = {
+					keys = {
+						-- ["<Esc>"] = { "close", mode = { "n", "i" } },
+						["J"] = { "preview_scroll_down", mode = { "i", "n" } },
+						["K"] = { "preview_scroll_up", mode = { "i", "n" } },
+						["H"] = { "preview_scroll_left", mode = { "i", "n" } },
+						["L"] = { "preview_scroll_right", mode = { "i", "n" } },
+					},
+				},
+			},
+			formatters = {
+				file = {
+					filename_first = true,     -- display filename before the file path
+					truncate = 80,
+				},
+			},
+		},
+	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "VeryLazy",
 			callback = function()
 				-- Setup some globals for debugging (lazy-loaded)
-				_G.dd = function(...)
-					Snacks.debug.inspect(...)
-				end
-				_G.bt = function()
-					Snacks.debug.backtrace()
-				end
-				vim.print = _G.dd -- Override print to use snacks for `:=` command
+				-- _G.dd = function(...)
+				-- 	Snacks.debug.inspect(...)
+				-- end
+				-- _G.bt = function()
+				-- 	Snacks.debug.backtrace()
+				-- end
+				-- vim.print = _G.dd -- Override print to use snacks for `:=` command
 
 				-- Create some toggle mappings
 				Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
