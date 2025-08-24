@@ -1,6 +1,11 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = { "rafamadriz/friendly-snippets", "folke/lazydev.nvim", "fang2hou/blink-copilot" },
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+		"folke/lazydev.nvim",
+		"fang2hou/blink-copilot",
+		"echasnovski/mini.nvim",
+	},
 	version = "1.*",
 
 	opts = {
@@ -17,30 +22,12 @@ return {
 				draw = {
 					columns = {
 						{ "kind_icon" },
-						{ "label",    "label_description", "kind", gap = 1 },
-					},
-					components = {
-						kind_icon = {
-							text = function(ctx)
-								local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-								return kind_icon .. " "
-							end,
-							highlight = function(ctx)
-								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-								return hl
-							end,
-						},
-						kind = {
-							highlight = function(ctx)
-								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-								return hl
-							end,
-						},
+						{ "label", "label_description", "kind", gap = 1 },
 					},
 					treesitter = {
 						"lsp",
 					},
-				}
+				},
 			},
 			ghost_text = {
 				enabled = true,

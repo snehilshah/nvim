@@ -15,7 +15,7 @@ vim.opt.wrap = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.expandtab = true;
+vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -42,7 +42,7 @@ vim.opt.cmdheight = 0
 vim.opt.winborder = "rounded"
 
 vim.schedule(function()
-	vim.o.clipboard = 'unnamedplus'
+	vim.o.clipboard = "unnamedplus"
 end)
 
 -- vim.o.list = true
@@ -50,8 +50,7 @@ end)
 -- vim.opt.listchars = { trail = '·', nbsp = '␣' }
 
 vim.opt.virtualedit = "block"
-vim.o.inccommand = 'split'
-
+vim.o.inccommand = "split"
 
 vim.opt.termguicolors = true
 vim.o.background = "dark"
@@ -59,3 +58,4 @@ vim.o.background = "dark"
 vim.o.cursorline = true
 
 vim.o.confirm = true
+vim.opt.laststatus = 3

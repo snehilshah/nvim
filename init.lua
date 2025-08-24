@@ -7,6 +7,12 @@ require("core.lazy")
 require("core.lsp")
 require("config.keymaps")
 
+-- Setup custom statusline
+local statusline = require("config.statusline")
+if statusline and statusline.setup then
+	statusline.setup()
+end
+
 vim.g.have_nerd_font = true
 
 vim.api.nvim_create_autocmd("TextYankPost", {

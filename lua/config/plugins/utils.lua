@@ -1,14 +1,14 @@
 return {
 	{ -- Add indentation guides even on blank lines
-		'lukas-reineke/indent-blankline.nvim',
+		"lukas-reineke/indent-blankline.nvim",
 		-- Enable `lukas-reineke/indent-blankline.nvim`
 		-- See `:help ibl`
-		main = 'ibl',
+		main = "ibl",
 		opts = {},
 	},
 	{
-		'windwp/nvim-autopairs',
-		event = 'InsertEnter',
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
 		opts = {},
 	},
 	{
@@ -45,11 +45,11 @@ return {
 	{
 		"AckslD/nvim-neoclip.lua",
 		dependencies = {
-			{ 'nvim-telescope/telescope.nvim' },
-			{ 'ibhagwan/fzf-lua' },
+			{ "nvim-telescope/telescope.nvim" },
+			{ "ibhagwan/fzf-lua" },
 		},
 		config = function()
-			require('neoclip').setup({
+			require("neoclip").setup({
 				history = 1000,
 				enable_persistent_history = false,
 				length_limit = 1048576,
@@ -59,12 +59,12 @@ return {
 				preview = true,
 				prompt = nil,
 				default_register = '"',
-				default_register_macros = 'q',
+				default_register_macros = "q",
 				enable_macro_history = true,
 				content_spec_column = false,
 				disable_keycodes_parsing = false,
 				dedent_picker_display = false,
-				initial_mode = 'insert',
+				initial_mode = "insert",
 				on_select = {
 					move_to_front = false,
 					close_telescope = true,
@@ -85,30 +85,30 @@ return {
 				keys = {
 					telescope = {
 						i = {
-							select = '<cr>',
-							paste = '<c-p>',
-							paste_behind = '<c-k>',
-							replay = '<c-q>', -- replay a macro
-							delete = '<c-d>', -- delete an entry
-							edit = '<c-e>', -- edit an entry
+							select = "<cr>",
+							paste = "<c-p>",
+							paste_behind = "<c-k>",
+							replay = "<c-q>", -- replay a macro
+							delete = "<c-d>", -- delete an entry
+							edit = "<c-e>", -- edit an entry
 							custom = {},
 						},
 						n = {
-							select = '<cr>',
-							paste = 'p',
+							select = "<cr>",
+							paste = "p",
 							--- It is possible to map to more than one key.
 							-- paste = { 'p', '<c-p>' },
-							paste_behind = 'P',
-							replay = 'q',
-							delete = 'd',
-							edit = 'e',
+							paste_behind = "P",
+							replay = "q",
+							delete = "d",
+							edit = "e",
 							custom = {},
 						},
 					},
 					fzf = {
-						select = 'default',
-						paste = 'ctrl-p',
-						paste_behind = 'ctrl-k',
+						select = "default",
+						paste = "ctrl-p",
+						paste_behind = "ctrl-k",
 						custom = {},
 					},
 				},
@@ -134,7 +134,7 @@ return {
 			-- * `false`/`{}`: matches will always be case-sensitive
 			-- * a table of filetypes to use use case-insensitive matching for.
 			case_insensitive = { "markdown", "text", "help" },
-		}
+		},
 	},
 	{
 		"kevinhwang91/nvim-hlslens",
@@ -145,10 +145,10 @@ return {
 			local keymap = vim.keymap
 			local hlslens = require("hlslens")
 
-			hlslens.setup {
+			hlslens.setup({
 				calm_down = true,
 				nearest_only = true,
-			}
+			})
 
 			local activate_hlslens = function(direction)
 				local cmd = string.format("normal! %s%szzzv", vim.v.count1, direction)
@@ -202,8 +202,7 @@ return {
 				local full_cmd = cmd .. escaped_enter .. "N"
 				vim.fn.execute(full_cmd)
 				hlslens.start()
-			end
-			)
+			end)
 			keymap.set("n", "#", function()
 				local cursor_word_empty, cursor_word = check_cursor_word()
 				if cursor_word_empty then
@@ -216,8 +215,22 @@ return {
 				local full_cmd = cmd .. escaped_enter .. "N"
 				vim.fn.execute(full_cmd)
 				hlslens.start()
-			end
-			)
+			end)
+		end,
+	},
+	{
+		"TobinPalmer/rayso.nvim",
+		config = function()
+			require("rayso").setup({
+				open_cmd = "zen",
+				options = {
+					logging_path = "", -- Notices the trailing slash
+					logging_file = "",
+					logging_enabled = false,
+					theme = "midnight",
+				},
+			})
+			vim.keymap.set("v", "<leader>rs", require("lib.create").create_snippet)
 		end,
 	},
 }

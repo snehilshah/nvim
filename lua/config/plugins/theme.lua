@@ -40,12 +40,12 @@ return {
 
 					-- Change background for completion and hover popups
 					if
-						group == "Pmenu"
-						or group == "PmenuExtra"
-						or group == "PmenuThumb"
-						or group == "PmenuSbar"
-						or group == "PmenuKind"
-						or group == "NormalFloat"
+							group == "Pmenu"
+							or group == "PmenuExtra"
+							or group == "PmenuThumb"
+							or group == "PmenuSbar"
+							or group == "PmenuKind"
+							or group == "NormalFloat"
 					then
 						opts.bg = colors.bg2
 					end
@@ -72,6 +72,7 @@ return {
 					return opts
 				end,
 			})
+			vim.cmd.colorscheme("gruvbox-material")
 			-- TODO: The light theme needs work
 			-- AUTO CHANGE MARKER: LIGHT/DARK
 			vim.opt.background = "dark"
@@ -84,7 +85,7 @@ return {
 			require("vague").setup({
 				-- optional configuration here
 			})
-			vim.cmd.colorscheme("vague")
-		end
-	}
+			-- vim.cmd.colorscheme("vague")
+		end,
+	},
 }

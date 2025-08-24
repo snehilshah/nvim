@@ -1,6 +1,11 @@
 return {
     'echasnovski/mini.nvim',
+    priority = 1000, -- Load early to ensure icons are available
+    lazy = false,    -- Load immediately, not lazily
     config = function()
+        -- Setup mini.icons first (required for other mini modules and completions)
+        require('mini.icons').setup()
+
         -- Better Around/Inside textobjects
         --
         -- Examples:
@@ -16,19 +21,23 @@ return {
         -- - sr)'  - [S]urround [R]eplace [)] [']
         require('mini.surround').setup()
 
+        -- Note: mini.statusline is commented out since you have a custom statusline
+        -- If you want to use mini.statusline instead, uncomment the lines below
+        -- and remove the custom statusline require from init.lua
+
         -- Simple and easy statusline.
         --  You could remove this setup call if you don't like it,
         --  and try some other statusline plugin
-        local statusline = require 'mini.statusline'
-        statusline.setup { use_icons = true }
+        -- local statusline = require 'mini.statusline'
+        -- statusline.setup { use_icons = true }
 
         -- You can configure sections in the statusline by overriding their
         -- default behavior. For example, here we set the section for
         -- cursor location to LINE:COLUMN
         ---@diagnostic disable-next-line: duplicate-set-field
-        statusline.section_location = function()
-            return '%2l:%-2v'
-        end
+        -- statusline.section_location = function()
+        --     return '%2l:%-2v'
+        -- end
 
         -- ... and there is more!
         --  Check out: https://github.com/echasnovski/mini.nvim
