@@ -65,7 +65,7 @@ return {
 					finder = "files"
 				})
 			end,
-			desc = "Find Files",
+			desc = "[F]ind [F]iles",
 		},
 		{
 			"<S-h>",
@@ -91,27 +91,23 @@ return {
 					layout = "ivy_split",
 				})
 			end,
-			desc = "[P]Snacks picker buffers",
-		},
-		-- not-reviewed
-		{
-			"<leader>,",
-			function()
-				Snacks.picker.buffers()
-			end,
-			desc = "Buffers",
+			desc = "Snacks picker buffers",
 		},
 		{
-			"<leader>/",
+			"<leader>fa",
 			function()
-				Snacks.picker.grep()
+				Snacks.picker.grep({
+					layout = "default",
+				})
 			end,
-			desc = "Grep",
+			desc = "[F]ind [A]ll",
 		},
 		{
 			"<leader>:",
 			function()
-				Snacks.picker.command_history()
+				Snacks.picker.command_history({
+					layout = "select",
+				})
 			end,
 			desc = "Command History",
 		},
@@ -130,20 +126,6 @@ return {
 			desc = "File Explorer",
 		},
 		-- find
-		{
-			"<leader>fb",
-			function()
-				Snacks.picker.buffers()
-			end,
-			desc = "Buffers",
-		},
-		{
-			"<leader>fc",
-			function()
-				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-			end,
-			desc = "Find Config File",
-		},
 		{
 			"<leader>fg",
 			function()
@@ -203,7 +185,7 @@ return {
 		},
 		-- Grep
 		{
-			"<leader>sb",
+			"<leader>fl",
 			function()
 				Snacks.picker.lines()
 			end,
@@ -555,8 +537,11 @@ return {
 		},
 
 		picker = {
+			actions = {
+				cycle_layouts = function(picker) require("util.snacks_picker").set_next_preferred_layout(picker) end,
+			},
 			layout = {
-				preset = "ivy",
+				preset = function() return require("util.snacks_picker").preferred_layout() end,
 				cycle = false,
 			},
 			matcher = {
@@ -566,6 +551,7 @@ return {
 				input = {
 					keys = {
 						-- ["<Esc>"] = { "close", mode = { "n", "i" } },
+						["<M-p>"] = { "cycle_layouts", mode = { "i", "n" } },
 						["J"] = { "preview_scroll_down", mode = { "i", "n" } },
 						["K"] = { "preview_scroll_up", mode = { "i", "n" } },
 						["H"] = { "preview_scroll_left", mode = { "i", "n" } },
@@ -575,7 +561,7 @@ return {
 			},
 			formatters = {
 				file = {
-					filename_first = true,     -- display filename before the file path
+					filename_first = true, -- display filename before the file path
 					truncate = 80,
 				},
 			},

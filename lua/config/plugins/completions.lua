@@ -13,15 +13,57 @@ return {
 		completion = {
 			menu = {
 				border = "rounded",
+				scrollbar = true,
+				draw = {
+					columns = {
+						{ "kind_icon" },
+						{ "label",    "label_description", "kind", gap = 1 },
+					},
+					components = {
+						kind_icon = {
+							text = function(ctx)
+								local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+								return kind_icon .. " "
+							end,
+							highlight = function(ctx)
+								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+								return hl
+							end,
+						},
+						kind = {
+							highlight = function(ctx)
+								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+								return hl
+							end,
+						},
+					},
+					treesitter = {
+						"lsp",
+					},
+				}
 			},
 			ghost_text = {
 				enabled = true,
 			},
-			documentation = { auto_show = true },
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 200,
+				window = {
+					border = "rounded",
+					scrollbar = true,
+				},
+			},
 			trigger = { prefetch_on_insert = true },
+			list = {
+				selection = {
+					preselect = false,
+					auto_insert = true,
+				},
+			},
+			cmdline = {
+				enabled = false,
+			},
 		},
-
-		signature = { enabled = true },
 
 		sources = {
 			default = { "lsp", "path", "copilot", "snippets", "buffer", "lazydev" },
@@ -37,6 +79,14 @@ return {
 		},
 
 		fuzzy = { implementation = "prefer_rust_with_warning" },
+
+		signature = {
+			enabled = true,
+			window = {
+				show_documentation = true,
+				border = "rounded",
+			},
+		},
 	},
 	opts_extend = { "sources.default" },
 }

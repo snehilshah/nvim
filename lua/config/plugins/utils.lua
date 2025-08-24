@@ -186,40 +186,38 @@ return {
 				return result, cursor_word
 			end
 
-			keymap.set("n", "*", {
-				callback = function()
-					local cursor_word_empty, cursor_word = check_cursor_word()
-					if cursor_word_empty then
-						return
-					end
+			keymap.set("n", "*", function()
+				local cursor_word_empty, cursor_word = check_cursor_word()
+				if cursor_word_empty then
+					return
+				end
 
-					local cmd = string.format([[normal! /\v<%s>]], cursor_word)
+				local cmd = string.format([[normal! /\v<%s>]], cursor_word)
 
-					-- In order to say that we are pressing Enter key, instead of typing literally the character,
-					-- we need to replace special notation with their internal representation.
-					local escaped_enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
+				-- In order to say that we are pressing Enter key, instead of typing literally the character,
+				-- we need to replace special notation with their internal representation.
+				local escaped_enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
 
-					-- character `N` is used to keep the cursor when pressing `*`
-					local full_cmd = cmd .. escaped_enter .. "N"
-					vim.fn.execute(full_cmd)
-					hlslens.start()
-				end,
-			})
-			keymap.set("n", "#",  {
-				callback = function()
-					local cursor_word_empty, cursor_word = check_cursor_word()
-					if cursor_word_empty then
-						return
-					end
+				-- character `N` is used to keep the cursor when pressing `*`
+				local full_cmd = cmd .. escaped_enter .. "N"
+				vim.fn.execute(full_cmd)
+				hlslens.start()
+			end
+			)
+			keymap.set("n", "#", function()
+				local cursor_word_empty, cursor_word = check_cursor_word()
+				if cursor_word_empty then
+					return
+				end
 
-					local cmd = string.format([[normal! ?\v<%s>]], cursor_word)
-					local escaped_enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
+				local cmd = string.format([[normal! ?\v<%s>]], cursor_word)
+				local escaped_enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
 
-					local full_cmd = cmd .. escaped_enter .. "N"
-					vim.fn.execute(full_cmd)
-					hlslens.start()
-				end,
-			})
+				local full_cmd = cmd .. escaped_enter .. "N"
+				vim.fn.execute(full_cmd)
+				hlslens.start()
+			end
+			)
 		end,
 	},
 }
