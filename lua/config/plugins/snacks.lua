@@ -568,6 +568,9 @@ return {
 		},
 	},
 	init = function()
+		-- Setup custom layouts immediately
+		require("util.snacks_picker").setup_layouts()
+
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "VeryLazy",
 			callback = function()
