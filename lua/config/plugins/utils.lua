@@ -37,6 +37,9 @@ return {
 		"tpope/vim-surround",
 	},
 	{
+		"tpope/vim-fugitive",
+	},
+	{
 		"vim-scripts/ReplaceWithRegister",
 	},
 	{
