@@ -2,7 +2,7 @@ return {
 	{
 		"rachartier/tiny-inline-diagnostic.nvim",
 		event = "VeryLazy", -- Or `LspAttach`
-		priority = 1000,  -- needs to be loaded in first
+		priority = 1000, -- needs to be loaded in first
 		config = function()
 			-- Default configuration
 			require("tiny-inline-diagnostic").setup({
@@ -10,17 +10,17 @@ return {
 				-- Available options:
 				-- "modern", "classic", "minimal", "powerline",
 				-- "ghost", "simple", "nonerdfont", "amongus"
-				preset = "modern",
+				preset = "classic",
 
-				transparent_bg = true,     -- Set the background of the diagnostic to transparent
-				transparent_cursorline = true, -- Set the background of the cursorline to transparent (only one the first diagnostic)
+				transparent_bg = false, -- Set the background of the diagnostic to transparent
+				transparent_cursorline = false, -- Set the background of the cursorline to transparent (only one the first diagnostic)
 
 				hi = {
 					error = "DiagnosticError", -- Highlight group for error messages
 					warn = "DiagnosticWarn", -- Highlight group for warning messages
 					info = "DiagnosticInfo", -- Highlight group for informational messages
 					hint = "DiagnosticHint", -- Highlight group for hint or suggestion messages
-					arrow = "NonText",    -- Highlight group for diagnostic arrows
+					arrow = "NonText", -- Highlight group for diagnostic arrows
 
 					-- Background color for diagnostics
 					-- Can be a highlight group or a hexadecimal color (#RRGGBB)
@@ -39,7 +39,7 @@ return {
 					},
 
 					-- Use icons defined in the diagnostic configuration
-					use_icons_from_diagnostic = true,
+					use_icons_from_diagnostic = false,
 
 					-- Set the arrow icon to the same color as the first diagnostic severity
 					set_arrow_to_diag_color = false,
@@ -137,9 +137,9 @@ return {
 					-- You should not change this unless the plugin does not work with your configuration
 					overwrite_events = nil,
 				},
-				disabled_ft = {},                          -- List of filetypes to disable the plugin
+				disabled_ft = {}                   -- List of filetypes to disable the plugin
 			})
 			vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
-		end,
-	},
+		end
+	}
 }

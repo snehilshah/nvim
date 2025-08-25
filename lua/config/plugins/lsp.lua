@@ -151,7 +151,7 @@ return {
 			})
 			vim.diagnostic.config({
 				severity_sort = true,
-				float = { border = "rounded", source = "true" },
+				float = { border = "rounded", source = true },
 				underline = true,
 				update_in_insert = false,
 				signs = {
