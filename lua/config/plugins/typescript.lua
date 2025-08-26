@@ -3,14 +3,14 @@ return {
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-		keys = {
-			{
-				"<leader>gd",
-				"<cmd>TSToolsGoToSourceDefinition<cr>",
-				desc = "Go to source definition",
-				ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-			},
-		},
+		-- keys = {
+		-- 	{
+		-- 		"<leader>gd",
+		-- 		"<cmd>TSToolsGoToSourceDefinition<cr>",
+		-- 		desc = "Go to source definition",
+		-- 		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+		-- 	},
+		-- },
 		opts = {
 			settings = {
 				-- spawn additional tsserver instance to calculate diagnostics on it

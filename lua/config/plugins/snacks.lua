@@ -62,7 +62,7 @@ return {
 					layout = "ivy_split",
 					supports_live = true,
 					format = "file",
-					finder = "files"
+					finder = "files",
 				})
 			end,
 			desc = "[F]ind [F]iles",
@@ -88,7 +88,7 @@ return {
 						},
 						list = { keys = { ["d"] = "bufdelete" } },
 					},
-					layout = "ivy_split",
+					layout = "ivy_tall",
 				})
 			end,
 			desc = "Snacks picker buffers",
@@ -169,13 +169,13 @@ return {
 			end,
 			desc = "Git Stash",
 		},
-		{
-			"<leader>gd",
-			function()
-				Snacks.picker.git_diff()
-			end,
-			desc = "Git Diff (Hunks)",
-		},
+		-- {
+		-- 	"<leader>gd",
+		-- 	function()
+		-- 		Snacks.picker.git_diff()
+		-- 	end,
+		-- 	desc = "Git Diff (Hunks)",
+		-- },
 		{
 			"<leader>gf",
 			function()
@@ -370,7 +370,7 @@ return {
 			desc = "Goto Declaration",
 		},
 		{
-			"gr",
+			"<leader>gr",
 			function()
 				Snacks.picker.lsp_references()
 			end,
@@ -538,10 +538,14 @@ return {
 
 		picker = {
 			actions = {
-				cycle_layouts = function(picker) require("util.snacks_picker").set_next_preferred_layout(picker) end,
+				cycle_layouts = function(picker)
+					require("util.snacks_picker").set_next_preferred_layout(picker)
+				end,
 			},
 			layout = {
-				preset = function() return require("util.snacks_picker").preferred_layout() end,
+				preset = function()
+					return require("util.snacks_picker").preferred_layout()
+				end,
 				cycle = false,
 			},
 			matcher = {

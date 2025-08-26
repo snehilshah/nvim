@@ -123,7 +123,7 @@ return {
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
 					-- map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+					-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })

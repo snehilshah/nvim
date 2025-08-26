@@ -3,9 +3,9 @@ local M = {}
 -- Track current layout index
 local idx = 1
 local preferred = {
+	"ivy_taller",
 	"ivy_wider_results",
 	"ivy_wider_preview",
-	"ivy_taller",
 	"bottom",
 	"default",
 	"dropdown",
@@ -25,7 +25,9 @@ local layouts_setup = false
 
 -- Setup custom layouts
 M.setup_layouts = function()
-	if layouts_setup then return end
+	if layouts_setup then
+		return
+	end
 
 	local layouts = require("snacks.picker.config.layouts")
 
