@@ -52,7 +52,7 @@ return {
     vim.keymap.set("n", "<space>gss", builtin.git_status)
     vim.keymap.set("n", "<space>gst", builtin.git_stash)
     -- FILES
-    vim.keymap.set("n", "<space>ff", builtin.live_grep)
+    vim.keymap.set("n", "<space>fq", builtin.live_grep)
     vim.keymap.set("n", "<space>fd", builtin.find_files)
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })

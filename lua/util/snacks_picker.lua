@@ -23,7 +23,6 @@ local preferred = {
 
 local layouts_setup = false
 
--- Setup custom layouts
 M.setup_layouts = function()
 	if layouts_setup then
 		return
