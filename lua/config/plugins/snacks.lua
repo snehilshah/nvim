@@ -2,6 +2,7 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
+	---@diagnostic disable-next-line: undefined-doc-name
 	---@type snacks.Config
 	keys = {
 		-- reviewed
@@ -22,7 +23,7 @@ return {
 			"<leader>gl",
 			function()
 				Snacks.picker.git_log({
-					layout = "vertical",
+					layout = "ivy_taller",
 					on_show = function()
 						vim.cmd.stopinsert()
 					end,
@@ -31,10 +32,10 @@ return {
 			desc = "[G]it [L]og",
 		},
 		{
-			"<leader><space>",
+			"<space><space>",
 			function()
 				Snacks.picker.smart({
-					layout = "ivy_split",
+					layout = "ivy_taller",
 				})
 			end,
 			desc = "Smart Find Files",
@@ -50,7 +51,7 @@ return {
 			"<M-S-k>",
 			function()
 				Snacks.picker.keymaps({
-					layout = "vertical",
+					layout = "default",
 				})
 			end,
 			desc = "[K]eymaps",
@@ -59,7 +60,7 @@ return {
 			"<leader>ff",
 			function()
 				Snacks.picker.files({
-					layout = "ivy_split",
+					layout = "ivy_taller",
 					supports_live = true,
 					format = "file",
 					finder = "files",
@@ -68,7 +69,7 @@ return {
 			desc = "[F]ind [F]iles",
 		},
 		{
-			"<S-h>",
+			"<S-p>",
 			function()
 				Snacks.picker.buffers({
 					on_show = function()
@@ -88,7 +89,7 @@ return {
 						},
 						list = { keys = { ["d"] = "bufdelete" } },
 					},
-					layout = "ivy_tall",
+					layout = "ivy_taller",
 				})
 			end,
 			desc = "Snacks picker buffers",
@@ -97,7 +98,7 @@ return {
 			"<leader>fa",
 			function()
 				Snacks.picker.grep({
-					layout = "default",
+					layout = "ivy_split",
 				})
 			end,
 			desc = "[F]ind [A]ll",
@@ -127,13 +128,6 @@ return {
 		},
 		-- find
 		{
-			"<leader>fg",
-			function()
-				Snacks.picker.git_files()
-			end,
-			desc = "Find Git Files",
-		},
-		{
 			"<leader>fp",
 			function()
 				Snacks.picker.projects()
@@ -151,7 +145,11 @@ return {
 		{
 			"<leader>gL",
 			function()
-				Snacks.picker.git_log_line()
+				Snacks.picker.git_log_line({
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
+				})
 			end,
 			desc = "Git Log Line",
 		},
@@ -169,13 +167,13 @@ return {
 			end,
 			desc = "Git Stash",
 		},
-		-- {
-		-- 	"<leader>gd",
-		-- 	function()
-		-- 		Snacks.picker.git_diff()
-		-- 	end,
-		-- 	desc = "Git Diff (Hunks)",
-		-- },
+		{
+			"<leader>gd",
+			function()
+				Snacks.picker.git_diff()
+			end,
+			desc = "Git Diff (Hunks)",
+		},
 		{
 			"<leader>gf",
 			function()
@@ -192,21 +190,14 @@ return {
 			desc = "Buffer Lines",
 		},
 		{
-			"<leader>sB",
+			"<leader>fb",
 			function()
 				Snacks.picker.grep_buffers()
 			end,
 			desc = "Grep Open Buffers",
 		},
 		{
-			"<leader>sg",
-			function()
-				Snacks.picker.grep()
-			end,
-			desc = "Grep",
-		},
-		{
-			"<leader>sw",
+			"<leader>fv",
 			function()
 				Snacks.picker.grep_word()
 			end,
@@ -257,14 +248,14 @@ return {
 			desc = "Commands",
 		},
 		{
-			"<leader>sd",
+			"<leader>sD",
 			function()
 				Snacks.picker.diagnostics()
 			end,
 			desc = "Diagnostics",
 		},
 		{
-			"<leader>sD",
+			"<leader>sd",
 			function()
 				Snacks.picker.diagnostics_buffer()
 			end,
@@ -370,7 +361,7 @@ return {
 			desc = "Goto Declaration",
 		},
 		{
-			"<leader>gr",
+			"gr",
 			function()
 				Snacks.picker.lsp_references()
 			end,
@@ -378,7 +369,7 @@ return {
 			desc = "References",
 		},
 		{
-			"gI",
+			"gi",
 			function()
 				Snacks.picker.lsp_implementations()
 			end,
