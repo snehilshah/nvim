@@ -22,6 +22,7 @@ return {
 					changedelete = { text = "~" },
 					untracked = { text = "┆" },
 				},
+				signs_staged_enable = true,
 				signcolumn = true,
 				numhl = false,
 				linehl = false,
