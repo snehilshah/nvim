@@ -4,7 +4,6 @@ return {
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			-- local icons = require('config.icons')
 			require("gitsigns").setup({
 				signs = {
 					add = { text = "┃" },
@@ -52,24 +51,6 @@ return {
 					col = 1,
 				},
 				-- yadm = { enable = false },
-
-				on_attach = function(bufnr)
-					vim.keymap.set(
-						"n",
-						"<leader>H",
-						require("gitsigns").preview_hunk,
-						{ buffer = bufnr, desc = "Preview git hunk" }
-					)
-
-					vim.keymap.set("n", "]]", require("gitsigns").next_hunk, { buffer = bufnr, desc = "Next git hunk" })
-
-					vim.keymap.set(
-						"n",
-						"[[",
-						require("gitsigns").prev_hunk,
-						{ buffer = bufnr, desc = "Previous git hunk" }
-					)
-				end,
 			})
 		end,
 		keys = {
@@ -91,6 +72,13 @@ return {
 				"<leader>Gp",
 				function()
 					require("gitsigns").preview_hunk()
+				end,
+				desc = "Preview Hunk",
+			},
+			{
+				"<leader>Gn",
+				function()
+					require("gitsigns").preview_hunk_inline()
 				end,
 				desc = "Preview Hunk",
 			},
@@ -163,7 +151,6 @@ return {
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 
-	-- not git, but it's okay
 	{
 		"mbbill/undotree",
 		keys = {
