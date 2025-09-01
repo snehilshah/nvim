@@ -19,10 +19,10 @@ return {
 				assignVariableTypes = false,
 				compositeLiteralFields = false,
 				compositeLiteralTypes = false,
-				constantValues = false,
+				constantValues = true,
 				functionTypeParameters = false,
-				parameterNames = false,
-				rangeVariableTypes = false,
+				parameterNames = true,
+				rangeVariableTypes = true,
 			},
 			analyses = {
 				-- NOTE: To temporarily enable disabled analyzers for specific debugging:
@@ -44,14 +44,15 @@ return {
 
 				-- Performance-intensive analyzers (disabled for better performance)
 				shadow = false, -- Check for shadowed variables (can be slow)
-				printf = false, -- Check printf-style functions (can be slow)
-				structtag = false, -- Check struct tags (can be slow)
+				printf = false, -- Check printf-style functions 
+				structtag = true, -- Check struct tags 
 				-- fieldalignment = false,  -- Check struct field alignment (very slow)
 				-- unusedvariable = false,  -- Can be slow on large codebases
 
 				-- Less commonly needed analyzers (disabled)
-				modernize = false,
-				stylecheck = false,
+				modernize = true,
+				stylecheck = true,
+				gocritic = true,  -- Enable gocritic analyzer for more style suggestions
 				appends = false,
 				asmdecl = false,
 				assign = false,
@@ -67,7 +68,7 @@ return {
 				deba = false,
 				deepequalerrors = false,
 				defers = false,
-				deprecated = false,
+				deprecated = true,
 				directive = false,
 				embed = false,
 				errorsas = false,
