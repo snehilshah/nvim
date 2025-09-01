@@ -575,6 +575,18 @@ return {
 		},
 
 		picker = {
+			sources = {
+				explorer = {
+					win = {
+						list = {
+							wo = {
+								number = true,
+								relativenumber = false,
+							},
+						},
+					},
+				},
+			},
 			actions = {
 				cycle_layouts = function(picker)
 					require("util.snacks_picker").set_next_preferred_layout(picker)
@@ -592,12 +604,20 @@ return {
 			win = {
 				input = {
 					keys = {
-						-- ["<Esc>"] = { "close", mode = { "n", "i" } },
+						["<Esc>"] = { "close", mode = { "n", "i" } },
 						["<M-p>"] = { "cycle_layouts", mode = { "i", "n" } },
 						["J"] = { "preview_scroll_down", mode = { "i", "n" } },
 						["K"] = { "preview_scroll_up", mode = { "i", "n" } },
 						["H"] = { "preview_scroll_left", mode = { "i", "n" } },
 						["L"] = { "preview_scroll_right", mode = { "i", "n" } },
+					},
+				},
+				preview = {
+					wo = {
+						number = true, -- Show line numbers
+						relativenumber = true, -- Show relative line numbers (optional)
+						signcolumn = "yes", -- Show sign column
+						wrap = false, -- Don't wrap lines
 					},
 				},
 			},
