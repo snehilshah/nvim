@@ -4,4 +4,5 @@ vim.lsp.enable({
     "html-ls",
     "tailwindcss",
     "lua-ls",
+    "clangd",
 })
