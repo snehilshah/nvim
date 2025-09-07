@@ -24,6 +24,10 @@ return {
 			-- Python formatters
 			-- python = { "isort", "black" },
 
+			-- C/C++
+			c = { "clang_format" },
+			cpp = { "clang_format" },
+
 			-- JavaScript/TypeScript
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
