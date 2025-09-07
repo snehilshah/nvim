@@ -10,6 +10,9 @@ return {
 			golangcilint.ignore_exitcode = true
 
 			lint.linters_by_ft = {
+				-- C/C++
+				c = { "cppcheck" },
+				cpp = { "cppcheck" },
 				-- JavaScript/TypeScript
 				javascript = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
