@@ -20,64 +20,6 @@ return {
 			"folke/lazydev.nvim",
 		},
 		config = function()
-			local servers = {
-				gopls = {
-					cmd = { "gopls" },
-					filetypes = { "go", "gomod", "gowork", "gotmpl" },
-					root_dir = require("lspconfig").util.root_pattern("go.work", "go.mod", ".git"),
-					settings = {
-						gopls = {
-							staticcheck = true,
-							completeUnimported = true,
-							usePlaceholders = true,
-							completionDocumentation = true,
-							-- Code organization settings
-							gofumpt = true, -- Stricter formatting
-							codelenses = {
-								gc_details = true,
-								generate = true,
-								regenerate_cgo = true,
-								test = true,
-								tidy = true,
-								upgrade_dependency = true,
-								vendor = true,
-							},
-							diagnosticsDelay = "500ms",
-							buildFlags = { "-tags=integration,e2e" },
-							importShortcut = "Definition",
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
-							},
-							semanticTokens = true,
-							matcher = "Fuzzy",
-							symbolMatcher = "fuzzy",
-							symbolStyle = "Dynamic",
-							linkTarget = "pkg.go.dev",
-						},
-					},
-				},
-
-				lua_ls = {
-					filetypes = { "lua" },
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-							telemetry = {
-								enable = false,
-							},
-						},
-					},
-				},
-			}
-
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 				callback = function(args)
