@@ -10,3 +10,10 @@ hadolint
 goimports
 prettierd
 yamllint
+
+C/C++
+
+clangd
+clang-format
+cppcheck
+build-essential
