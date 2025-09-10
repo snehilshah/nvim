@@ -483,7 +483,7 @@ return {
 			desc = "which_key_ignore",
 		},
 		{
-			"]]",
+			"<leader>fn",
 			function()
 				Snacks.words.jump(vim.v.count1)
 			end,
