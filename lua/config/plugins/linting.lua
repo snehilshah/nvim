@@ -9,6 +9,26 @@ return {
 			local golangcilint = require('lint').linters.golangcilint
 			golangcilint.ignore_exitcode = true
 
+			-- Add nilaway linter configuration
+			lint.linters.nilaway = {
+				cmd = 'nilaway',
+				stdin = false,
+				args = {
+					'-include-tests', -- Include test files in analysis
+					'./...', -- Analyze all packages
+				},
+				ignore_exitcode = true,
+				parser = require('lint.parser').from_pattern(
+					'^([^:]+):(%d+):(%d+): (.+)$',
+					{ 'file', 'lnum', 'col', 'message' },
+					nil,
+					{
+						['source'] = 'nilaway',
+						['severity'] = vim.diagnostic.severity.WARN,
+					}
+				),
+			}
+
 			lint.linters_by_ft = {
 				-- C/C++
 				c = { "cppcheck" },
@@ -21,7 +41,7 @@ return {
 				-- JSON
 				json = { "jsonlint" },
 				-- Go
-				go = { "golangcilint" },
+				go = { "golangcilint", "nilaway" },
 				-- Shell scripts
 				sh = { "shellcheck" },
 				bash = { "shellcheck" },

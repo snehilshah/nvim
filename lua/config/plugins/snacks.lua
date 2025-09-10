@@ -356,14 +356,33 @@ return {
 		{
 			"gD",
 			function()
-				Snacks.picker.lsp_declarations()
+				local clients = vim.lsp.get_clients({ bufnr = 0 })
+				local has_declaration_support = false
+
+				for _, client in pairs(clients) do
+					if client.server_capabilities.declarationProvider then
+						has_declaration_support = true
+						break
+					end
+				end
+
+				if has_declaration_support then
+					Snacks.picker.lsp_declarations()
+				else
+					Snacks.picker.lsp_definitions()
+				end
 			end,
 			desc = "Goto Declaration",
 		},
 		{
-			"gr",
+			"grp",
 			function()
-				Snacks.picker.lsp_references()
+				Snacks.picker.lsp_references({
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
+					layout = "ivy_split",
+				})
 			end,
 			nowait = true,
 			desc = "References",
@@ -371,19 +390,47 @@ return {
 		{
 			"gi",
 			function()
-				Snacks.picker.lsp_implementations()
+				local clients = vim.lsp.get_clients({ bufnr = 0 })
+				local has_implementation_support = false
+
+				for _, client in pairs(clients) do
+					if client.server_capabilities.implementationProvider then
+						has_implementation_support = true
+						break
+					end
+				end
+
+				if has_implementation_support then
+					Snacks.picker.lsp_implementations()
+				else
+					vim.notify("Implementation not supported by LSP server", vim.log.levels.WARN)
+				end
 			end,
 			desc = "Goto Implementation",
 		},
 		{
 			"gy",
 			function()
-				Snacks.picker.lsp_type_definitions()
+				local clients = vim.lsp.get_clients({ bufnr = 0 })
+				local has_type_definition_support = false
+
+				for _, client in pairs(clients) do
+					if client.server_capabilities.typeDefinitionProvider then
+						has_type_definition_support = true
+						break
+					end
+				end
+
+				if has_type_definition_support then
+					Snacks.picker.lsp_type_definitions()
+				else
+					vim.notify("Type definition not supported by LSP server", vim.log.levels.WARN)
+				end
 			end,
 			desc = "Goto T[y]pe Definition",
 		},
 		{
-			"<leader>ss",
+			"<leader>sf",
 			function()
 				Snacks.picker.lsp_symbols()
 			end,
@@ -528,6 +575,18 @@ return {
 		},
 
 		picker = {
+			sources = {
+				explorer = {
+					win = {
+						list = {
+							wo = {
+								number = true,
+								relativenumber = false,
+							},
+						},
+					},
+				},
+			},
 			actions = {
 				cycle_layouts = function(picker)
 					require("util.snacks_picker").set_next_preferred_layout(picker)
@@ -545,12 +604,20 @@ return {
 			win = {
 				input = {
 					keys = {
-						-- ["<Esc>"] = { "close", mode = { "n", "i" } },
+						["<Esc>"] = { "close", mode = { "n", "i" } },
 						["<M-p>"] = { "cycle_layouts", mode = { "i", "n" } },
 						["J"] = { "preview_scroll_down", mode = { "i", "n" } },
 						["K"] = { "preview_scroll_up", mode = { "i", "n" } },
 						["H"] = { "preview_scroll_left", mode = { "i", "n" } },
 						["L"] = { "preview_scroll_right", mode = { "i", "n" } },
+					},
+				},
+				preview = {
+					wo = {
+						number = true, -- Show line numbers
+						relativenumber = true, -- Show relative line numbers (optional)
+						signcolumn = "yes", -- Show sign column
+						wrap = false, -- Don't wrap lines
 					},
 				},
 			},
