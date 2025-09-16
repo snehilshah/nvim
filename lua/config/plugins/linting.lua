@@ -34,12 +34,13 @@ return {
 				c = { "cppcheck" },
 				cpp = { "cppcheck" },
 				-- JavaScript/TypeScript
-				javascript = { "eslint_d" },
-				javascriptreact = { "eslint_d" },
-				typescript = { "eslint_d" },
-				typescriptreact = { "eslint_d" },
+				javascript = { "biome" },
+				javascriptreact = { "biome" },
+				typescript = { "biome" },
+				typescriptreact = { "biome" },
 				-- JSON
-				json = { "jsonlint" },
+				json = { "biome" },
+				jsonc = { "biome" },
 				-- Go
 				go = { "golangcilint", "nilaway" },
 				-- Shell scripts
