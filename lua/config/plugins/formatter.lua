@@ -29,14 +29,14 @@ return {
 			cpp = { "clang_format" },
 
 			-- JavaScript/TypeScript
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "biome" },
+			javascriptreact = { "biome" },
+			typescript = { "biome" },
+			typescriptreact = { "biome" },
 
-			-- Web
-			json = { "prettierd", "prettier", stop_after_first = true },
-			jsonc = { "prettierd", "prettier", stop_after_first = true },
+			-- Web (JSON handled by biome, others by prettier)
+			json = { "biome" },
+			jsonc = { "biome" },
 			css = { "prettierd", "prettier", stop_after_first = true },
 			scss = { "prettierd", "prettier", stop_after_first = true },
 			html = { "prettierd", "prettier", stop_after_first = true },
