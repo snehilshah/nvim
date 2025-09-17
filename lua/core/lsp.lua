@@ -5,4 +5,5 @@ vim.lsp.enable({
     "tailwindcss",
     "lua-ls",
     "clangd",
+    "biome",
 })
