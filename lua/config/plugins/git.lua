@@ -69,14 +69,14 @@ return {
 				desc = "Blame",
 			},
 			{
-				"<leader>Gp",
+				"<leader>gp",
 				function()
 					require("gitsigns").preview_hunk()
 				end,
 				desc = "Preview Hunk",
 			},
 			{
-				"<leader>Gn",
+				"<leader>Gp",
 				function()
 					require("gitsigns").preview_hunk_inline()
 				end,
