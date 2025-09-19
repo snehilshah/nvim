@@ -39,10 +39,10 @@ return {
 					},
 
 					-- Use icons defined in the diagnostic configuration
-					use_icons_from_diagnostic = false,
+					use_icons_from_diagnostic = true,
 
 					-- Set the arrow icon to the same color as the first diagnostic severity
-					set_arrow_to_diag_color = false,
+					set_arrow_to_diag_color = true,
 
 					-- Add messages to diagnostics when multiline diagnostics are enabled
 					-- If set to false, only signs will be displayed
@@ -51,7 +51,7 @@ return {
 					-- Time (in milliseconds) to throttle updates while moving the cursor
 					-- Increase this value for better performance if your computer is slow
 					-- or set to 0 for immediate updates and better visual
-					throttle = 20,
+					throttle = 100,
 
 					-- Minimum message length before wrapping to a new line
 					softwrap = 30,
@@ -68,15 +68,12 @@ return {
 					--      always_show = false,
 					-- }
 					multilines = {
-						-- Enable multiline diagnostic messages
 						enabled = false,
-
-						-- Always show messages on all lines for multiline diagnostics
 						always_show = false,
 					},
 
 					-- Display all diagnostic messages on the cursor line
-					show_all_diags_on_cursorline = false,
+					show_all_diags_on_cursorline = true,
 
 					-- Enable diagnostics in Insert mode
 					-- If enabled, it is better to set the `throttle` option to 0 to avoid visual artifacts
@@ -137,9 +134,9 @@ return {
 					-- You should not change this unless the plugin does not work with your configuration
 					overwrite_events = nil,
 				},
-				disabled_ft = {}                   -- List of filetypes to disable the plugin
+				disabled_ft = {}, -- List of filetypes to disable the plugin
 			})
 			vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
-		end
-	}
+		end,
+	},
 }
