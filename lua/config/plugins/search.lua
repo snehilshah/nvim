@@ -1,8 +1,10 @@
+-- TODO: remove this when confident with statusline replacement for this
 return {
     "kevinhwang91/nvim-hlslens",
-    branch = "main",
-    keys = { "*", "n", "N" },
-    config = function()
+    branch  = "main",
+    enabled = false,
+    keys    = { "*", "n", "N" },
+    config  = function()
         local api = vim.api
         local keymap = vim.keymap
         local hlslens = require("hlslens")
