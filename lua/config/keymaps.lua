@@ -27,6 +27,31 @@ end)
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+
+-- Make hover window interactive
+vim.keymap.set("n", "<C-k>", function()
+	local winid = vim.lsp.buf.hover()
+	if winid then
+		vim.defer_fn(function()
+			vim.api.nvim_set_current_win(winid)
+		end, 100)
+	end
+end, { desc = "Show hover and focus window" })
+
+-- Alternative: Enter any floating window
+vim.keymap.set("n", "<leader>wf", function()
+	local wins = vim.api.nvim_list_wins()
+	for _, win in ipairs(wins) do
+		local config = vim.api.nvim_win_get_config(win)
+		if config.relative ~= "" then -- This is a floating window
+			vim.api.nvim_set_current_win(win)
+			break
+		end
+	end
+end, { desc = "Focus floating [W]indow" })
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
