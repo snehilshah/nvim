@@ -16,10 +16,12 @@ end)
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", function()
 	vim.cmd("nohlsearch")
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_config(win).relative ~= "" then
-			vim.api.nvim_win_close(win, false)
-		end
+	-- Close LSP hover and diagnostic windows specifically
+	pcall(vim.lsp.buf.clear_references)
+	vim.diagnostic.hide()
+
+	if vim.fn.pumvisible() == 1 then
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-e>", true, false, true), "n", false)
 	end
 end)
 
