@@ -371,6 +371,7 @@ return {
 					gitsigns = true,
 					-- hop = true,
 					-- illuminate = { enabled = true },
+					lualine = true,
 					native_lsp = { enabled = true, inlay_hints = { background = true } },
 					-- neogit = true,
 					-- neotree = true,
