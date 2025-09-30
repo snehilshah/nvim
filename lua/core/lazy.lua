@@ -18,7 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
-		-- { "catppuccin/nvim",          config = function() vim.cmd.colorscheme "catppuccin" end, name = "catppuccin",                        priority = 1000 },
 		{ 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 		{ import = "config.plugins" },
 	},
