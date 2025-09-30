@@ -30,6 +30,7 @@
   "nvim-lint": { "branch": "master", "commit": "335a6044be16d7701001059cba9baa36fbeef422" },
   "nvim-lspconfig": { "branch": "master", "commit": "8e4cdc6aeddb7361ff774b41dd85a86e8b87404f" },
   "nvim-neoclip.lua": { "branch": "main", "commit": "831a97c7697736411a05ff8b91e8798ea4c2d6fb" },
+  "nvim-numbertoggle": { "branch": "main", "commit": "1416256538f01c1cf364805952fe7d143dc7ec56" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "nvim-treesitter-context": { "branch": "master", "commit": "41847d3dafb5004464708a3db06b14f12bde548a" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "71385f191ec06ffc60e80e6b0c9a9d5daed4824c" },
