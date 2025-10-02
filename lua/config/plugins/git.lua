@@ -59,98 +59,209 @@ return {
 				function()
 					require("gitsigns").prev_hunk({ navigation_message = false })
 				end,
-				desc = "Prev Hunk",
-			},
-			{
-				"<leader>Gl",
-				function()
-					require("gitsigns").blame_line()
-				end,
-				desc = "Blame",
-			},
-			{
-				"<leader>gp",
-				function()
-					require("gitsigns").preview_hunk()
-				end,
-				desc = "Preview Hunk",
-			},
-			{
-				"<leader>Gp",
-				function()
-					require("gitsigns").preview_hunk_inline()
-				end,
-				desc = "Preview Hunk",
-			},
-			{
-				"<leader>Gr",
-				function()
-					require("gitsigns").reset_hunk()
-				end,
-				desc = "Reset Hunk",
-			},
-			{
-				"<leader>GR",
-				function()
-					require("gitsigns").reset_buffer()
-				end,
-				desc = "Reset Buffer",
+				desc = "[k] Prev Hunk",
 			},
 			{
 				"<leader>Gj",
 				function()
 					require("gitsigns").next_hunk({ navigation_message = false })
 				end,
-				desc = "Next Hunk",
+				desc = "[j] Next Hunk",
 			},
+			{
+				"<leader>Gb",
+				function()
+					require("gitsigns").blame_line()
+				end,
+				desc = "[b]lame",
+			},
+			{
+				"<leader>Gp",
+				function()
+					require("gitsigns").preview_hunk()
+				end,
+				desc = "[p]review Hunk",
+			},
+			{
+				"<leader>GP",
+				function()
+					require("gitsigns").preview_hunk_inline()
+				end,
+				desc = "[P]review Hunk (Inline)",
+			},
+			{
+				"<leader>Gr",
+				function()
+					require("gitsigns").reset_hunk()
+				end,
+				desc = "[r]eset Hunk",
+			},
+			{
+				"<leader>GR",
+				function()
+					require("gitsigns").reset_buffer()
+				end,
+				desc = "[R]eset Buffer",
+			},
+
 			{
 				"<leader>Gs",
 				function()
 					require("gitsigns").stage_hunk()
 				end,
-				desc = "Stage Hunk",
+				desc = "[s]tage Hunk",
 			},
 			{
 				"<leader>Gu",
 				function()
 					require("gitsigns").undo_stage_hunk()
 				end,
-				desc = "Undo Stage Hunk",
+				desc = "[u]ndo Stage Hunk",
 			},
-			-- {
-			--   "<leader>Go", require("telescope.builtin").git_status,
-			--   desc = "Open changed file"
-			-- },
-			-- {
-			--   "<leader>Gb", require("telescope.builtin").git_branches,
-			--   desc = "Checkout branch"
-			-- },
-			-- {
-			--   "<leader>Gc", require("telescope.builtin").git_commits,
-			--   desc = "Checkout commit"
-			-- },
-			-- {
-			--   "<leader>GC", require("telescope.builtin").git_bcommits,
-			--   desc = "Checkout commit(for current file)"
-			-- },
+			{
+				"<leader>gs",
+				function()
+					Snacks.picker.git_status()
+				end,
+				desc = "[s]tatus (Snacks)",
+			},
+			{
+				"<leader>gd",
+				function()
+					Snacks.picker.git_diff()
+				end,
+				desc = "[d]iff Hunks (Snacks)",
+			},
+			{
+				"<leader>gS",
+				function()
+					Snacks.picker.git_stash()
+				end,
+				desc = "[S]tash (Snacks)",
+			},
 			{
 				"<leader>Gd",
 				function()
 					vim.cmd("Gitsigns diffthis HEAD")
 				end,
-				desc = "Git Diff HEAD",
+				desc = "[d]iff HEAD",
+			},
+			{
+				"<leader>GB",
+				function()
+					require("gitsigns").toggle_current_line_blame()
+				end,
+				desc = "[B]lame mode",
+			},
+			{
+				"<leader>GS",
+				function()
+					require("gitsigns").stage_buffer()
+				end,
+				desc = "[S]tage Buffer",
 			},
 		},
 	},
 	{
 		"sindrets/diffview.nvim",
 		event = "VeryLazy",
-		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
+		config = function()
+			require("diffview").setup({
+				diff_binaries = false,
+				enhanced_diff_hl = false,
+				git = {
+					max_files = 300,
+				},
+				file_panel = {
+					listing_style = "tree",
+					tree_options = {
+						flatten_dirs = true,
+						folder_statuses = "only_folded",
+					},
+					win_config = {
+						position = "left",
+						width = 35,
+					},
+				},
+				file_history_panel = {
+					log_options = {
+						git = {
+							single_file = {
+								diff_merges = "combined",
+							},
+							multi_file = {
+								diff_merges = "first-parent",
+							},
+						},
+					},
+					win_config = {
+						position = "bottom",
+						height = 16,
+					},
+				},
+				commit_log_panel = {
+					win_config = {
+						position = "bottom",
+						height = 16,
+					},
+				},
+				default_args = {
+					DiffviewOpen = {},
+					DiffviewFileHistory = {},
+				},
+				hooks = {},
+			})
+		end,
+		keys = {
+			{
+				"<leader>Dv",
+				":DiffviewOpen<CR>",
+				desc = "[v]iew",
+			},
+			{
+				"<leader>Dc",
+				":DiffviewClose<CR>",
+				desc = "[c]lose",
+			},
+			{
+				"<leader>Df",
+				":DiffviewFileHistory<CR>",
+				desc = "[f]ile History (all files)",
+			},
+			{
+				"<leader>D.",
+				":DiffviewFileHistory %<CR>",
+				desc = "[.] Current File History (current file)",
+			},
+			{
+				"<leader>DF",
+				":DiffviewToggleFiles<CR>",
+				desc = "[F]iles Panel Toggle Diffview",
+			},
+			{
+				"<leader>Gm",
+				":DiffviewOpen origin/main...HEAD<CR>",
+				desc = "Compare with origin/main",
+			},
+			{
+				"<leader>GM",
+				function()
+					local branch = vim.fn.input("Compare with branch: ", "origin/")
+					if branch ~= "" and branch ~= "origin/" then
+						vim.cmd("DiffviewOpen " .. branch .. "...HEAD")
+					end
+				end,
+				desc = "Compare with specific branch",
+			},
+			{
+				"<leader>Gc",
+				":DiffviewOpen --imply-local<CR>",
+				desc = "Open merge conflicts",
+			},
+		},
 	},
-	-- Git related plugins
 	"tpope/vim-fugitive",
-	"tpope/vim-rhubarb",
-
 	{
 		"mbbill/undotree",
 		keys = {
