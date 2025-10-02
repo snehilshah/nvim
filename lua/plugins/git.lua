@@ -216,7 +216,6 @@ return {
 					{ "n", "gf",         function() require("diffview.actions").goto_file() end,         { desc = "Go to file" } },
 					{ "n", "<C-w><C-f>", function() require("diffview.actions").goto_file_split() end,   { desc = "Go to file in split" } },
 					{ "n", "<C-w>gf",    function() require("diffview.actions").goto_file_tab() end,     { desc = "Go to file in tab" } },
-					{ "n", "<leader>e",  function() require("diffview.actions").focus_files() end,       { desc = "Focus files panel" } },
 					{ "n", "<leader>b",  function() require("diffview.actions").toggle_files() end,      { desc = "Toggle files panel" } },
 					{ "n", "g<C-x>",     function() require("diffview.actions").cycle_layout() end,      { desc = "Cycle layout" } },
 					{ "n", "[x",         function() require("diffview.actions").prev_conflict() end,     { desc = "Previous conflict" } },
