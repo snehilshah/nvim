@@ -4,6 +4,7 @@ vim.keymap.set("v", "<space>x", ":lua<CR>")
 
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
+vim.keymap.set("n", "<M-q>", "<cmd>copen<CR>")
 
 vim.keymap.set("n", "<space>to", function()
 	vim.cmd.vnew()
@@ -29,7 +30,7 @@ end)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 
 -- Make hover window interactive
 vim.keymap.set("n", "<C-k>", function()
