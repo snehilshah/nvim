@@ -30,7 +30,14 @@ return {
 		},
 	},
 	{ "tpope/vim-sleuth" },
-	{ "tpope/vim-surround" },
+	{
+		"kylechui/nvim-surround",
+		version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
 	{ "vim-scripts/ReplaceWithRegister" },
 	{
 		"bkad/CamelCaseMotion",
@@ -133,13 +140,13 @@ return {
 		"norcalli/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup({ "*" }, {
-				RGB = true, -- #RGB hex codes
+				RGB = true,  -- #RGB hex codes
 				RRGGBB = true, -- #RRGGBB hex codes
 				names = false, -- "Name" codes like Blue
 				RRGGBBAA = true, -- #RRGGBBAA hex codes
 				rgb_fn = true, -- CSS rgb() and rgba() functions
 				hsl_fn = true, -- CSS hsl() and hsla() functions
-				css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+				css = true,  -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
 				css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
 			})
 		end,
