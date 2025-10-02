@@ -572,12 +572,12 @@ return {
 			},
 			actions = {
 				cycle_layouts = function(picker)
-					require("util.snacks_picker").set_next_preferred_layout(picker)
+					require("lua.utils.snacks_picker").set_next_preferred_layout(picker)
 				end,
 			},
 			layout = {
 				preset = function()
-					return require("util.snacks_picker").preferred_layout()
+					return require("lua.utils.snacks_picker").preferred_layout()
 				end,
 				cycle = false,
 			},
@@ -622,7 +622,7 @@ return {
 	},
 	init = function()
 		-- Setup custom layouts immediately
-		require("util.snacks_picker").setup_layouts()
+		require("lua.utils.snacks_picker").setup_layouts()
 
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "VeryLazy",
