@@ -13,6 +13,14 @@ vim.keymap.set("n", "<space>to", function()
 	vim.api.nvim_win_set_height(0, 5)
 end)
 
+-- moving lines up or down (Alt+j/k to avoid conflicts with J for join and K for LSP hover)
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
+vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
 -- Clear highlights on search when pressing <Esc> in normal mode and close LSP hover
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", function()
