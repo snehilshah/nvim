@@ -1,11 +1,10 @@
 return {
-	"echasnovski/mini.nvim",
+	"nvim-mini/mini.nvim",
 	priority = 1000, -- Load early to ensure icons are available
 	lazy = false, -- Load immediately, not lazily
+	version = false,
 	config = function()
-		-- Setup mini.icons first (required for other mini modules and completions)
-		-- require('mini.icons').setup()
-
+		require('mini.icons').setup()
 		-- Better Around/Inside textobjects
 		--
 		-- Examples:
@@ -13,6 +12,7 @@ return {
 		--  - yinq - [Y]ank [I]nside [N]ext [Q]uote
 		--  - ci'  - [C]hange [I]nside [']quote
 		require("mini.ai").setup({ n_lines = 500 })
+		require("mini.cursorword").setup()
 
 		-- Add/delete/replace surroundings (brackets, quotes, etc.)
 		--
