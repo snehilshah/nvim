@@ -140,13 +140,13 @@ return {
 		"norcalli/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup({ "*" }, {
-				RGB = true,  -- #RGB hex codes
+				RGB = true, -- #RGB hex codes
 				RRGGBB = true, -- #RRGGBB hex codes
 				names = false, -- "Name" codes like Blue
 				RRGGBBAA = true, -- #RRGGBBAA hex codes
 				rgb_fn = true, -- CSS rgb() and rgba() functions
 				hsl_fn = true, -- CSS hsl() and hsla() functions
-				css = true,  -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+				css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
 				css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
 			})
 		end,
@@ -162,4 +162,15 @@ return {
 		},
 	},
 	{ "sitiom/nvim-numbertoggle" },
+	{
+		"mluders/comfy-line-numbers.nvim",
+		utils = {
+			up_key = "k",
+			down_key = "j",
+
+			hidden_file_types = { "undotree" },
+			hidden_buffer_types = { "terminal", "nofile" },
+			hide_in_insert_mode = true,
+		},
+	},
 }
