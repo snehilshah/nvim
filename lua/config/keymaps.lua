@@ -38,6 +38,23 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
 vim.keymap.set("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 
+-- Yank diagnostic message under cursor
+vim.keymap.set("n", "<leader>dy", function()
+	local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
+	if #diagnostics > 0 then
+		local messages = {}
+		for _, diag in ipairs(diagnostics) do
+			table.insert(messages, diag.message)
+		end
+		local full_message = table.concat(messages, "\n")
+		vim.fn.setreg("+", full_message)
+		vim.fn.setreg('"', full_message)
+		vim.notify("Diagnostic message(s) yanked to clipboard", vim.log.levels.INFO)
+	else
+		vim.notify("No diagnostic message on this line", vim.log.levels.WARN)
+	end
+end, { desc = "[D]iagnostic [Y]ank message" })
+
 -- Make hover window interactive
 vim.keymap.set("n", "<C-k>", function()
 	local winid = vim.lsp.buf.hover()
