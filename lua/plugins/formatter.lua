@@ -19,14 +19,6 @@ return {
 			timeout_ms = 1000,
 			lsp_format = "fallback",
 		},
-		formatters = {
-			-- Custom biome formatter that handles both formatting and import organizing
-			["biome-check"] = {
-				command = "biome",
-				args = { "check", "--apply", "--stdin-file-path", "$FILENAME" },
-				stdin = true,
-			},
-		},
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- Python formatters
@@ -36,15 +28,15 @@ return {
 			c = { "clang_format" },
 			cpp = { "clang_format" },
 
-			-- JavaScript/TypeScript (biome handles both formatting and import sorting)
-			javascript = { "biome-check" },
-			javascriptreact = { "biome-check" },
-			typescript = { "biome-check" },
-			typescriptreact = { "biome-check" },
+			-- JavaScript/TypeScript (prettier handles formatting)
+			javascript = { "prettierd", "prettier", stop_after_first = true },
+			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+			typescript = { "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 
-			-- Web (JSON handled by biome, others by prettier)
-			json = { "biome" },
-			jsonc = { "biome" },
+			-- Web (all handled by prettier)
+			json = { "prettierd", "prettier", stop_after_first = true },
+			jsonc = { "prettierd", "prettier", stop_after_first = true },
 			css = { "prettierd", "prettier", stop_after_first = true },
 			scss = { "prettierd", "prettier", stop_after_first = true },
 			html = { "prettierd", "prettier", stop_after_first = true },
