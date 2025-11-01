@@ -28,21 +28,21 @@ return {
 			c = { "clang_format" },
 			cpp = { "clang_format" },
 
-			-- JavaScript/TypeScript (prettier handles formatting)
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+		-- JavaScript/TypeScript (use Biome for formatting)
+		javascript = { "biome", stop_after_first = true },
+		javascriptreact = { "biome", stop_after_first = true },
+		typescript = { "biome", stop_after_first = true },
+		typescriptreact = { "biome", stop_after_first = true },
 
-			-- Web (all handled by prettier)
-			json = { "prettierd", "prettier", stop_after_first = true },
-			jsonc = { "prettierd", "prettier", stop_after_first = true },
-			css = { "prettierd", "prettier", stop_after_first = true },
-			scss = { "prettierd", "prettier", stop_after_first = true },
-			html = { "prettierd", "prettier", stop_after_first = true },
-			markdown = { "prettierd", "prettier", stop_after_first = true },
-			yaml = { "prettierd", "prettier", stop_after_first = true },
-			yml = { "prettierd", "prettier", stop_after_first = true },
+		-- Web and config files (use Biome)
+		json = { "biome", stop_after_first = true },
+		jsonc = { "biome", stop_after_first = true },
+		css = { "biome", stop_after_first = true },
+		scss = { "biome", stop_after_first = true },
+		html = { "biome", stop_after_first = true },
+		markdown = { "biome", stop_after_first = true },
+		yaml = { "biome", stop_after_first = true },
+		yml = { "biome", stop_after_first = true },
 
 			-- Go
 			go = { "gofumpt", "goimports" },

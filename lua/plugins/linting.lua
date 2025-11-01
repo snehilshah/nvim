@@ -5,56 +5,42 @@ return {
 		config = function()
 			local lint = require("lint")
 
-			-- Customize golangcilint to ignore exit codes (golangci-lint exits with code 1-3 when issues are found)
-			local golangcilint = require('lint').linters.golangcilint
+			-- Customize golangcilint to ignore exit codes
+			local golangcilint = require("lint").linters.golangcilint
 			golangcilint.ignore_exitcode = true
 
-			-- Add nilaway linter configuration
-			lint.linters.nilaway = {
-				cmd = 'nilaway',
+			-- biome-check
+			lint.linters["biome-check"] = {
+				cmd = "biome",
 				stdin = false,
-				args = {
-					'-include-tests', -- Include test files in analysis
-					'./...', -- Analyze all packages
-				},
+				args = { "check", "." },
 				ignore_exitcode = true,
-				parser = require('lint.parser').from_pattern(
-					'^([^:]+):(%d+):(%d+): (.+)$',
-					{ 'file', 'lnum', 'col', 'message' },
+				parser = require("lint.parser").from_pattern(
+					"^([^:]+):(%d+):(%d+): (.+)$",
+					{ "file", "lnum", "col", "message" },
 					nil,
-					{
-						['source'] = 'nilaway',
-						['severity'] = vim.diagnostic.severity.WARN,
-					}
+					{ ["source"] = "biome", ["severity"] = vim.diagnostic.severity.WARN }
 				),
 			}
 
 			lint.linters_by_ft = {
-				-- C/C++
-				c = { "cppcheck" },
-				cpp = { "cppcheck" },
-				-- JavaScript/TypeScript
-				javascript = { "eslint" },
-				javascriptreact = { "eslint" },
-				typescript = { "eslint" },
-				typescriptreact = { "eslint" },
-				-- JSON
+				javascript = { "biome-check" },
+				javascriptreact = { "biome-check" },
+				typescript = { "biome-check" },
+				typescriptreact = { "biome-check" },
 				json = { "jsonlint" },
 				jsonc = { "jsonlint" },
-				-- Go
-				go = { "golangcilint", "nilaway" },
-				-- Shell scripts
+				go = { "golangcilint" },
 				sh = { "shellcheck" },
 				bash = { "shellcheck" },
 				zsh = { "shellcheck" },
-				-- Docker
 				dockerfile = { "hadolint" },
-				-- YAML
 				yaml = { "yamllint" },
 				yml = { "yamllint" },
+				c = { "cppcheck" },
+				cpp = { "cppcheck" },
 			}
 
-			-- Auto lint on save and when leaving insert mode
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
@@ -67,7 +53,6 @@ return {
 				end,
 			})
 
-			-- Manual linting command
 			vim.keymap.set("n", "<leader>ll", function()
 				lint.try_lint()
 				vim.notify("Linting...", vim.log.levels.INFO)
