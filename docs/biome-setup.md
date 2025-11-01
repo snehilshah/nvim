@@ -5,14 +5,13 @@ This Neovim configuration uses [Biome](https://biomejs.dev/) as the primary lint
 ## What Changed
 
 ### Linting (`lua/config/plugins/linting.lua`)
-- **JavaScript/TypeScript**: Changed from `eslint_d` to `biome`
-- **JSON**: Changed from `jsonlint` to `biome` (added `jsonc` support)
+- **JavaScript/TypeScript**: Managed exclusively by `biome` (via `biome-check`)
+- **JSON**: Managed by `biome` (added `jsonc` support)
 - **Other languages**: Unchanged (Go, C/C++, Shell, etc.)
 
 ### Formatting (`lua/config/plugins/formatter.lua`)
-- **JavaScript/TypeScript**: Changed from `prettierd`/`prettier` to `biome`
-- **JSON**: Changed from `prettier` to `biome` (added `jsonc` support)
-- **Other languages**: Unchanged (CSS, HTML, YAML still use Prettier)
+- **JavaScript/TypeScript & Web config files**: Formatted by `biome`
+- **Other languages**: Unchanged (existing formatters still apply)
 
 ## Setup for Projects
 
