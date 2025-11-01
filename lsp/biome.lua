@@ -1,12 +1,10 @@
 return {
 	cmd = { "biome", "lsp-proxy" },
 	filetypes = {
-		"javascript",
-		"javascriptreact",
+		-- JS/TS removed - tsserver handles LSP features
+		-- Biome is used only for formatting and linting via conform.nvim and nvim-lint
 		"json",
 		"jsonc",
-		"typescript",
-		"typescriptreact",
 		"astro",
 		"svelte",
 		"vue",
