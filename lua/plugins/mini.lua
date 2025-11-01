@@ -1,10 +1,10 @@
 return {
 	"nvim-mini/mini.nvim",
 	priority = 1000, -- Load early to ensure icons are available
-	lazy = false, -- Load immediately, not lazily
+	lazy = false,   -- Load immediately, not lazily
 	version = false,
 	config = function()
-		require('mini.icons').setup()
+		require("mini.icons").setup()
 		-- Better Around/Inside textobjects
 		--
 		-- Examples:
