@@ -2,6 +2,7 @@ return {
 	"github/copilot.vim",
 	cmd = "Copilot",
 	event = "BufWinEnter",
+	disabled = true,
 	init = function()
 		vim.g.copilot_no_maps = true
 	end,
