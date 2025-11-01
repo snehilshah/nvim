@@ -1,8 +1,11 @@
 return {
 	cmd = { "biome", "lsp-proxy" },
 	filetypes = {
-		-- JS/TS removed - tsserver handles LSP features
-		-- Biome is used only for formatting and linting via conform.nvim and nvim-lint
+		-- Enable for JS/TS to get diagnostics
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
 		"json",
 		"jsonc",
 		"astro",
@@ -20,28 +23,10 @@ return {
 	},
 	single_file_support = false,
 	settings = {},
-	init_options = {
-		-- Enable import sorting and formatting capabilities
-		capabilities = {
-			textDocument = {
-				codeAction = {
-					dynamicRegistration = false,
-					codeActionLiteralSupport = {
-						codeActionKind = {
-							valueSet = {
-								"quickfix",
-								"refactor",
-								"refactor.extract",
-								"refactor.inline",
-								"refactor.rewrite",
-								"source",
-								"source.organizeImports",
-								"source.fixAll",
-							},
-						},
-					},
-				},
-			},
-		},
-	},
+	on_attach = function(client, bufnr)
+		-- Enable diagnostics and code actions from Biome
+		-- Disable formatting if you want conform.nvim to handle it exclusively
+		-- client.server_capabilities.documentFormattingProvider = false
+		-- client.server_capabilities.documentRangeFormattingProvider = false
+	end,
 }

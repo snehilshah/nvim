@@ -9,25 +9,10 @@ return {
 			local golangcilint = require("lint").linters.golangcilint
 			golangcilint.ignore_exitcode = true
 
-			-- biome-check
-			lint.linters["biome-check"] = {
-				cmd = "biome",
-				stdin = false,
-				args = { "check", "." },
-				ignore_exitcode = true,
-				parser = require("lint.parser").from_pattern(
-					"^([^:]+):(%d+):(%d+): (.+)$",
-					{ "file", "lnum", "col", "message" },
-					nil,
-					{ ["source"] = "biome", ["severity"] = vim.diagnostic.severity.WARN }
-				),
-			}
-
+			-- Note: Biome diagnostics come from the LSP server (biome lsp-proxy)
+			-- nvim-lint is not needed for biome since LSP provides real-time diagnostics
 			lint.linters_by_ft = {
-				javascript = { "biome-check" },
-				javascriptreact = { "biome-check" },
-				typescript = { "biome-check" },
-				typescriptreact = { "biome-check" },
+				-- Biome removed - using LSP for JS/TS diagnostics
 				json = { "jsonlint" },
 				jsonc = { "jsonlint" },
 				go = { "golangcilint" },
