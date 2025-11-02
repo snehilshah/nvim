@@ -101,10 +101,9 @@ return {
 			restriction_mode = "hint",
 		},
 	},
-	{ "sitiom/nvim-numbertoggle" },
 	{
-		"mluders/comfy-line-numbers.nvim",
-		utils = {
+		"snehilshah/comfy-line-numbers.nvim",
+		opts = {
 			up_key = "k",
 			down_key = "j",
 
