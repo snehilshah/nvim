@@ -47,75 +47,21 @@ return {
 	{
 		"AckslD/nvim-neoclip.lua",
 		dependencies = {
+			{ 'kkharji/sqlite.lua',           module = 'sqlite' },
 			{ "nvim-telescope/telescope.nvim" },
-			{ "ibhagwan/fzf-lua" },
 		},
 		config = function()
-			require("neoclip").setup({
-				history = 1000,
-				enable_persistent_history = false,
-				length_limit = 1048576,
-				continuous_sync = false,
+			require('neoclip').setup({
+				enable_persistent_history = true,
 				db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
-				filter = nil,
-				preview = true,
-				prompt = nil,
-				default_register = '"',
-				default_register_macros = "q",
-				enable_macro_history = true,
-				content_spec_column = false,
-				disable_keycodes_parsing = false,
-				dedent_picker_display = false,
-				initial_mode = "insert",
-				on_select = {
-					move_to_front = false,
-					close_telescope = true,
-				},
-				on_paste = {
-					set_reg = false,
-					move_to_front = false,
-					close_telescope = true,
-				},
-				on_replay = {
-					set_reg = false,
-					move_to_front = false,
-					close_telescope = true,
-				},
-				on_custom_action = {
-					close_telescope = true,
-				},
-				keys = {
-					telescope = {
-						i = {
-							select = "<cr>",
-							paste = "<c-p>",
-							paste_behind = "<c-k>",
-							replay = "<c-q>", -- replay a macro
-							delete = "<c-d>", -- delete an entry
-							edit = "<c-e>", -- edit an entry
-							custom = {},
-						},
-						n = {
-							select = "<cr>",
-							paste = "p",
-							--- It is possible to map to more than one key.
-							-- paste = { 'p', '<c-p>' },
-							paste_behind = "P",
-							replay = "q",
-							delete = "d",
-							edit = "e",
-							custom = {},
-						},
-					},
-					fzf = {
-						select = "default",
-						paste = "ctrl-p",
-						paste_behind = "ctrl-k",
-						custom = {},
-					},
-				},
+				-- Load neoclip extension for telescope
 			})
+			require('telescope').load_extension('neoclip')
 		end,
+		keys = {
+			{ "<leader>y", "<cmd>Telescope neoclip<cr>",    desc = "Open Neoclip (Clipboard History)" },
+			{ "<leader>q", "<cmd>Telescope macroscope<cr>", desc = "Open Macroscope (Macro History)" },
+		},
 	},
 	{
 		"wurli/visimatch.nvim",
@@ -142,13 +88,13 @@ return {
 		"norcalli/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup({ "*" }, {
-				RGB = true,  -- #RGB hex codes
+				RGB = true, -- #RGB hex codes
 				RRGGBB = true, -- #RRGGBB hex codes
 				names = false, -- "Name" codes like Blue
 				RRGGBBAA = true, -- #RRGGBBAA hex codes
 				rgb_fn = true, -- CSS rgb() and rgba() functions
 				hsl_fn = true, -- CSS hsl() and hsla() functions
-				css = true,  -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+				css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
 				css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
 			})
 		end,
