@@ -38,7 +38,6 @@ return {
 			require("nvim-surround").setup({})
 		end,
 	},
-	{ "vim-scripts/ReplaceWithRegister" },
 	{
 		"bkad/CamelCaseMotion",
 		init = function()
