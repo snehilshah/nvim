@@ -66,7 +66,7 @@ vim.keymap.set("n", "<C-k>", function()
 end, { desc = "Show hover and focus window" })
 
 -- Alternative: Enter any floating window
-vim.keymap.set("n", "<leader>wf", function()
+vim.keymap.set("n", "<C-w>f", function()
 	local wins = vim.api.nvim_list_wins()
 	for _, win in ipairs(wins) do
 		local config = vim.api.nvim_win_get_config(win)

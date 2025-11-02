@@ -41,6 +41,9 @@ return {
 	{ "vim-scripts/ReplaceWithRegister" },
 	{
 		"bkad/CamelCaseMotion",
+		init = function()
+			vim.g.camelcasemotion_key = "<leader>"
+		end,
 	},
 	{
 		"AckslD/nvim-neoclip.lua",
