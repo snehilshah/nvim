@@ -353,11 +353,11 @@ return {
 					},
 				},
 				transparent_background = false,
-				show_end_of_buffer = false,
+				show_end_of_buffer = true,
 				integration_default = false,
-				no_bold = true,
-				no_italic = true,
-				no_underline = true,
+				no_bold = false,
+				no_italic = false,
+				no_underline = false,
 				integrations = {
 					blink_cmp = {
 						style = "bordered",
@@ -721,6 +721,75 @@ return {
 			-- vim.api.nvim_set_hl(0, "NavicSeparator", { default = true, bg = "none", fg = "#eedaad" })
 
 			vim.api.nvim_command("colorscheme catppuccin")
+		end,
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		enabled = false,
+		config = function()
+			require("kanagawa").setup({
+				compile = false, -- enable compiling the colorscheme
+				undercurl = true, -- enable undercurls
+				commentStyle = { italic = true },
+				functionStyle = {},
+				keywordStyle = { italic = true },
+				statementStyle = { bold = true },
+				typeStyle = {},
+				transparent = false, -- do not set background color
+				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+				terminalColors = true, -- define vim.g.terminal_color_{0,17}
+				colors = { -- add/modify theme and palette colors
+					palette = {},
+					theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+				},
+				overrides = function(colors) -- add/modify highlights
+					return {}
+				end,
+				theme = "dragon", -- Load "wave" theme
+				background = { -- map the value of 'background' option to a theme
+					dark = "dragon", -- try "dragon" !
+					light = "dragon",
+				},
+			})
+			vim.cmd("colorscheme kanagawa")
+		end,
+	},
+	{
+		"sainnhe/everforest",
+		lazy = false,
+		enabled = false,
+		priority = 1000,
+		config = function()
+			vim.o.background = "dark"
+			vim.g.everforest_background = "dark"
+			vim.g.everforest_enable_italic = true
+			vim.g.everforest_better_performance = 1
+
+			vim.cmd.colorscheme("everforest")
+		end,
+	},
+	{
+		"ribru17/bamboo.nvim",
+		lazy = false,
+		enabled = false,
+		priority = 1000,
+		config = function()
+			require("bamboo").setup({
+				dim_inactive = true,
+				term_colors = true,
+				ending_tildes = true,
+
+				lualine = {
+					transparent = true,
+				},
+
+				diagnostics = {
+					darker = true,
+					undercurl = true,
+					background = true,
+				},
+			})
+			require("bamboo").load()
 		end,
 	},
 }
