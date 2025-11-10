@@ -591,6 +591,8 @@ return {
 				"*.pb.gw.go",
 				"*.pb.validate.go",
 				"*.swagger.json",
+				".git",
+				"node_modules",
 			},
 			win = {
 				input = {
