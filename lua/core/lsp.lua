@@ -1,9 +1,9 @@
 vim.lsp.enable({
-    "gopls",
-    -- "ts-ls", removed in favour of typescript plugin
-    "html-ls",
-    "tailwindcss",
-    "lua-ls",
-    "clangd",
     "biome",
+    "clangd",
+    -- "gopls", -- managed by go.nvim plugin
+    "html-ls",
+    "lua-ls",
+    "tailwindcss",
+    -- "ts-ls", -- managed by typescript-tools plugin
 })
