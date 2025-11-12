@@ -30,29 +30,29 @@ return {
 				-- Then edit this file and save, LSP will restart with new settings
 
 				-- Essential analyzers for catching common issues
-				nilness = true, -- Check for nil pointer dereferences
+				nilness = true,  -- Check for nil pointer dereferences
 				unusedparams = true, -- Find unused function parameters
 				unusedwrite = true, -- Find unused writes to variables
-				useany = true, -- Suggest using 'any' instead of 'interface{}'
+				useany = true,   -- Suggest using 'any' instead of 'interface{}'
 				unreachable = true, -- Find unreachable code
 				unusedresult = true, -- Check for unused results of calls to certain functions
 
 				-- Helpful but not critical (enable as needed)
-				simplifyslice = true, -- Simplify slice expressions
-				simplifyrange = true, -- Simplify range loops
+				simplifyslice = true,    -- Simplify slice expressions
+				simplifyrange = true,    -- Simplify range loops
 				simplifycompositelit = true, -- Simplify composite literals
 
 				-- Performance-intensive analyzers (disabled for better performance)
 				shadow = false, -- Check for shadowed variables (can be slow)
-				printf = false, -- Check printf-style functions 
-				structtag = true, -- Check struct tags 
+				printf = false, -- Check printf-style functions
+				structtag = true, -- Check struct tags
 				-- fieldalignment = false,  -- Check struct field alignment (very slow)
 				-- unusedvariable = false,  -- Can be slow on large codebases
 
 				-- Less commonly needed analyzers (disabled)
 				modernize = true,
 				stylecheck = true,
-				gocritic = true,  -- Enable gocritic analyzer for more style suggestions
+				gocritic = true, -- Enable gocritic analyzer for more style suggestions
 				appends = false,
 				asmdecl = false,
 				assign = false,
