@@ -626,6 +626,10 @@ return {
 		-- Setup custom layouts immediately
 		require("utils.snacks_picker").setup_layouts()
 
+		Snacks.util.set_hl({ UgYank = "Cursor" })
+		-- Set specific colors directly
+		Snacks.util.set_hl({ UgYank = { bg = "#CBA6F7", fg = "#11111B" } })
+
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "VeryLazy",
 			callback = function()
