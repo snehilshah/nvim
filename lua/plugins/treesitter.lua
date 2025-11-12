@@ -112,7 +112,7 @@ return {
 					},
 				},
 			},
-		}
+		},
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
@@ -141,6 +141,6 @@ return {
 				local ok, stats = pcall(vim.loop.fs_stat, filename)
 				return not (ok and stats and stats.size > max_filesize)
 			end,
-		}
+		},
 	},
 }

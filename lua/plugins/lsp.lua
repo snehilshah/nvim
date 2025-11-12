@@ -74,8 +74,8 @@ return {
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					local highlight_group_created = false
 					if client and client.supports_method("textDocument/documentHighlight") then
-						local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight",
-						{ clear = false })
+						local highlight_augroup =
+								vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 						highlight_group_created = true
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = args.buf,
