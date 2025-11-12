@@ -52,7 +52,7 @@ return {
 		end,
 		keys = {
 			{ "<leader>y", "<cmd>Telescope neoclip<cr>", desc = "Open Neoclip (Clipboard History)" },
-			{ "<leader>q", "<cmd>Telescope macroscope<cr>", desc = "Open Macroscope (Macro History)" },
+			-- { "<leader>q", "<cmd>Telescope macroscope<cr>", desc = "Open Macroscope (Macro History)" },
 		},
 	},
 	{
