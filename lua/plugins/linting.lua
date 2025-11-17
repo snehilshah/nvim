@@ -4,15 +4,7 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local lint = require("lint")
-
-			-- Customize golangcilint to ignore exit codes
-			local golangcilint = require("lint").linters.golangcilint
-			golangcilint.ignore_exitcode = true
-
-			-- Note: Biome diagnostics come from the LSP server (biome lsp-proxy)
-			-- nvim-lint is not needed for biome since LSP provides real-time diagnostics
 			lint.linters_by_ft = {
-				-- Biome removed - using LSP for JS/TS diagnostics
 				json = { "jsonlint" },
 				jsonc = { "jsonlint" },
 				go = { "golangcilint" },
@@ -31,10 +23,7 @@ return {
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
-					local linters = lint.linters_by_ft[vim.bo.filetype]
-					if linters and #linters > 0 then
-						lint.try_lint()
-					end
+					lint.try_lint()
 				end,
 			})
 
@@ -43,7 +32,7 @@ return {
 				vim.notify("Linting...", vim.log.levels.INFO)
 			end, { desc = "Trigger linting for current file" })
 
-			vim.keymap.set("n", "<leader>li", function()
+			vim.keymap.set("n", "<leader>l?", function()
 				local linters = lint.linters_by_ft[vim.bo.filetype] or {}
 				if #linters == 0 then
 					print("No linters configured for filetype: " .. vim.bo.filetype)
