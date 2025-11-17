@@ -1,9 +1,11 @@
 vim.lsp.enable({
     "biome",
     "clangd",
-    -- "gopls", -- managed by go.nvim plugin
-    "html-ls",
-    "lua-ls",
+    -- managed by go.nvim and nvim-lint
+    -- "gopls",
+    -- "golangci_lint_ls",
+    "html",
+    "lua_ls",
     "tailwindcss",
     -- "ts-ls", -- managed by typescript-tools plugin
 })
