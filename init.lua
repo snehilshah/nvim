@@ -4,7 +4,6 @@ vim.g.maplocalleader = " "
 
 require("config.options")
 require("core.lazy")
-require("core.lsp")
 require("config.keymaps")
 
 vim.g.have_nerd_font = true
