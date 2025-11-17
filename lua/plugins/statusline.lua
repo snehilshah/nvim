@@ -1,9 +1,9 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
+	dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim", "catppuccin/nvim" },
 	opts = {
 		options = {
-			theme = "auto",
+			theme = "catppuccin",
 			section_separators = { left = "", right = "" },
 			component_separators = { left = "", right = "" },
 			icons_enabled = true,
