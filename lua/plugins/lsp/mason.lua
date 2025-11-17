@@ -4,19 +4,19 @@ return {
         opts = {
             -- list of servers for mason to install
             ensure_installed = {
-                -- "ts_ls",
                 "html",
                 "cssls",
                 "tailwindcss",
                 "biome",
                 "clangd",
-                -- "svelte",
                 "lua_ls",
+                "eslint",
+                -- "ts_ls", managed by typescript-tools.nvim plugin in lua/plugins/typescript.lua_set
+                -- "gopls",  managed by go.nvim plugin in lua/plugins/golang.lua
                 -- "graphql",
                 -- "emmet_ls",
                 -- "prismals",
                 -- "pyright",
-                "eslint",
             },
         },
         dependencies = {
@@ -45,6 +45,7 @@ return {
                 "black",    -- python formatter
                 "pylint",
                 "eslint_d",
+                "golangci-lint"
             },
         },
         dependencies = {
