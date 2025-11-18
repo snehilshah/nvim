@@ -38,8 +38,9 @@ return {
 	},
 	{
 		"AckslD/nvim-neoclip.lua",
+		event = "VeryLazy",
 		dependencies = {
-			{ "kkharji/sqlite.lua", module = "sqlite" },
+			{ "kkharji/sqlite.lua",           module = "sqlite" },
 			{ "nvim-telescope/telescope.nvim" },
 		},
 		config = function()
@@ -79,6 +80,7 @@ return {
 	},
 	{
 		"norcalli/nvim-colorizer.lua",
+		event = "VeryLazy",
 		config = function()
 			require("colorizer").setup({ "*" }, {
 				RGB = true, -- #RGB hex codes
