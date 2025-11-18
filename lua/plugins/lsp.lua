@@ -5,6 +5,8 @@ return {
 		opts = {
 			library = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				"LazyVim",
+				{ path = "LazyVim",            words = { "LazyVim" } },
 			},
 		},
 	},
@@ -44,7 +46,7 @@ return {
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
 					map("grd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-					-- WARN: This is not Goto Definition, this is Goto Declaration.
+					--ERROR: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
 					map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 					-- Jump to the type definition of the word under your cursor.
