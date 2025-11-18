@@ -5,8 +5,6 @@ return {
 	---@diagnostic disable-next-line: undefined-doc-name
 	---@type snacks.Config
 	keys = {
-		-- reviewed
-		-- git
 		{
 			"<leader>gb",
 			function()
@@ -542,7 +540,10 @@ return {
 	},
 	opts = {
 		dashboard = { enabled = true },
-		explorer = { enabled = true },
+		explorer = {
+			enabled = true,
+			show_hidden = true,
+		},
 		indent = { enabled = true },
 		input = { enabled = true },
 		notifier = {
@@ -600,10 +601,10 @@ return {
 				},
 				preview = {
 					wo = {
-						number = true,   -- Show line numbers
+						number = true, -- Show line numbers
 						relativenumber = true, -- Show relative line numbers (optional)
 						signcolumn = "yes", -- Show sign column
-						wrap = false,    -- Don't wrap lines
+						wrap = false, -- Don't wrap lines
 					},
 				},
 			},
@@ -642,12 +643,12 @@ return {
 				Snacks.toggle.diagnostics():map("<leader>ud")
 				Snacks.toggle.line_number():map("<leader>ul")
 				Snacks.toggle
-						.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-						:map("<leader>uc")
+					.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+					:map("<leader>uc")
 				Snacks.toggle.treesitter():map("<leader>uT")
 				Snacks.toggle
-						.option("background", { off = "light", on = "dark", name = "Dark Background" })
-						:map("<leader>ub")
+					.option("background", { off = "light", on = "dark", name = "Dark Background" })
+					:map("<leader>ub")
 				Snacks.toggle.inlay_hints():map("<leader>uh")
 				Snacks.toggle.indent():map("<leader>ug")
 				Snacks.toggle.dim():map("<leader>uD")
