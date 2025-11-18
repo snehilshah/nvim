@@ -193,7 +193,7 @@ return {
 				keymaps = {
 					file_panel = {
 						{ "n", "<tab>", actions.toggle_stage_entry, { desc = "Open the diff for the current file" } },
-						{ "n", "<cr>", actions.goto_file_edit, { desc = "go to edit the file" } },
+						{ "n", "<cr>",  actions.goto_file_edit,     { desc = "go to edit the file" } },
 					},
 				},
 			})
@@ -268,13 +268,8 @@ return {
 		},
 	},
 	{
-		"mbbill/undotree",
-		keys = {
-			{
-				"<leader>GU",
-				":UndotreeToggle<CR>",
-				desc = "Toggle UndoTree",
-			},
-		},
+		"XXiaoA/atone.nvim",
+		cmd = "Atone",
+		opts = {}, -- your configuration here
 	},
 }
