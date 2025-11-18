@@ -50,4 +50,19 @@ return {
 			},
 		},
 	},
+	{
+		"dmmulroy/ts-error-translator.nvim",
+		enabled = true,
+		opts = {
+			auto_attach = true,
+
+			-- LSP server names to translate diagnostics for (default shown below)
+			servers = {
+				"svelte",
+				"ts_ls",
+				"tsserver", -- deprecated, use ts_ls
+				"typescript-tools",
+			},
+		},
+	},
 }

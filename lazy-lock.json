@@ -47,6 +47,7 @@
   "timerly": { "branch": "main", "commit": "1c78999480af0e4f8201fe6bfa1e5e0b70a59acf" },
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "71f998696a4d63a1fa42a6c70d5931a2001e485b" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
+  "ts-error-translator.nvim": { "branch": "main", "commit": "17ec46d9827e39ee5fab23ad6346ac7ab0fff9e4" },
   "twilight.nvim": { "branch": "main", "commit": "664e752f4a219801265cc3fc18782b457b58c1e1" },
   "typescript-tools.nvim": { "branch": "master", "commit": "c2f5910074103705661e9651aa841e0d7eea9932" },
   "undo-glow.nvim": { "branch": "main", "commit": "8fb16896b62270774e9aad048aaae64b68639a60" },
