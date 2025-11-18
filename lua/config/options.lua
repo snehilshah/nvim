@@ -56,6 +56,7 @@ vim.opt.termguicolors = true
 vim.o.background = "dark"
 
 vim.o.cursorline = true
+vim.opt.cursorlineopt = "both" -- Options: "both", "line", "number", "screenline"
 
 vim.o.confirm = true
 vim.opt.laststatus = 3

@@ -115,4 +115,11 @@ return {
 			hide_in_insert_mode = true,
 		},
 	},
+	{
+		"nvzone/timerly",
+		lazy = true,
+		dependencies = "nvzone/volt",
+		cmd = "TimerlyToggle",
+		opts = {},
+	},
 }
