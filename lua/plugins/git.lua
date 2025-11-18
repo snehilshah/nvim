@@ -193,7 +193,7 @@ return {
 				keymaps = {
 					file_panel = {
 						{ "n", "<tab>", actions.toggle_stage_entry, { desc = "Open the diff for the current file" } },
-						{ "n", "<cr>",  actions.goto_file_edit,     { desc = "go to edit the file" } },
+						{ "n", "<cr>", actions.goto_file_edit, { desc = "go to edit the file" } },
 					},
 				},
 			})
@@ -251,7 +251,7 @@ return {
 		cmd = "Neogit",
 		keys = {
 			{
-				"<leader>gg",
+				"<leader>gn",
 				"<cmd>Neogit<cr>",
 				desc = "Neogit",
 			},
