@@ -22,7 +22,7 @@ return {
 				draw = {
 					columns = {
 						{ "kind_icon" },
-						{ "label", "label_description", "kind", gap = 1 },
+						{ "label",    "label_description", "kind", gap = 1 },
 					},
 					treesitter = {
 						"lsp",
@@ -53,7 +53,7 @@ return {
 		},
 
 		sources = {
-			default = { "lsp", "path", "copilot", "snippets", "buffer", "lazydev" },
+			default = { "lazydev", "lsp", "path", "copilot", "snippets", "buffer" },
 			providers = {
 				lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 				copilot = {
