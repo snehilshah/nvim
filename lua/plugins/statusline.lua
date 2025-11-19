@@ -11,7 +11,10 @@ return {
 		sections = {
 			lualine_a = { "mode" },
 			lualine_b = {
-				"branch",
+				{
+					"branch",
+					icon = "",
+				},
 				{
 					"diff",
 					colored = true,
@@ -22,11 +25,11 @@ return {
 							return {
 								added = gitsigns.added,
 								modified = gitsigns.changed,
-								removed = gitsigns.removed
+								removed = gitsigns.removed,
 							}
 						end
 					end,
-				}
+				},
 			},
 			-- path = 0 -> filename, 1 -> relative path, 2 -> absolute path
 			lualine_c = { { "filename", path = 1 } },
@@ -67,7 +70,7 @@ return {
 							return nil
 						end
 					end,
-				}
+				},
 			},
 			lualine_z = { "location" },
 		},
