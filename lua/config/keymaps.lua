@@ -87,6 +87,11 @@ vim.keymap.set({ "n", "x" }, "d", '"_d', { desc = "Delete without copying to cli
 vim.keymap.set("n", "dd", '"_dd', { desc = "Delete line without copying to clipboard" })
 vim.keymap.set({ "n", "x" }, "D", '"_D', { desc = "Delete to end of line without copying to clipboard" })
 
+-- Code actions with tiny-code-action
+vim.keymap.set({ "n", "x" }, "<leader>ca", function()
+	require("tiny-code-action").code_action()
+end, { noremap = true, silent = true, desc = "[C]ode [A]ction" })
+
 -- LSP Call Hierarchy - show incoming calls (call stack)
 vim.keymap.set("n", "<leader>ci", vim.lsp.buf.incoming_calls, { desc = "Show [C]all hierarchy [I]ncoming" })
 -- LSP Call Hierarchy - show outgoing calls

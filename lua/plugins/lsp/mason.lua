@@ -33,6 +33,7 @@ return {
                 },
             },
             "neovim/nvim-lspconfig",
+            "saghen/blink.cmp", -- Ensure blink.cmp is loaded before mason-lspconfig
         },
     },
     {
