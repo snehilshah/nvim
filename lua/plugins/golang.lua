@@ -43,6 +43,10 @@ return {
 		ft = "go",
 		opts = {
 			identifiers = { "err", "error" },
+			import_virtual_text = {
+				prefix = " ", -- or any icon you prefer
+				suffix = " imports ",
+			},
 		},
 	},
 }
