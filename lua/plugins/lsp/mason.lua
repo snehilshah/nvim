@@ -6,8 +6,8 @@ return {
             ensure_installed = {
                 "html",
                 "cssls",
-                "tailwindcss",
-                "biome",
+                -- "tailwindcss",
+                -- "biome",
                 "clangd",
                 "lua_ls",
                 "eslint",
