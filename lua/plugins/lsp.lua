@@ -1,12 +1,13 @@
 local servers = {
+	"clangd", -- C/C++ language server
+	"cssls", -- CSS language server
+	"html", -- HTML language server
 	"lua_ls", -- Lua language server
-	-- "gopls",      -- Go language server
+	-- "gopls",      -- Go language server managed by go.nvim
 	-- "zls",        -- Zig language server
-	"ts_ls", -- TypeScript/JavaScript language server
+	"ts_ls",    -- TypeScript/JavaScript language server
 	-- "rust-analyzer", -- Rust language server
 	-- "tailwindcss", -- Tailwind CSS language server
-	"html", -- HTML language server
-	"cssls", -- CSS language server
 }
 return {
 	{
