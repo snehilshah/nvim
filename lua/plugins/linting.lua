@@ -1,45 +1,47 @@
 return {
-	{
-		"mfussenegger/nvim-lint",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			local lint = require("lint")
-			lint.linters_by_ft = {
-				json = { "jsonlint" },
-				jsonc = { "jsonlint" },
-				go = { "golangcilint" },
-				sh = { "shellcheck" },
-				bash = { "shellcheck" },
-				zsh = { "shellcheck" },
-				dockerfile = { "hadolint" },
-				yaml = { "yamllint" },
-				yml = { "yamllint" },
-				c = { "cppcheck" },
-				cpp = { "cppcheck" },
-			}
+	"mfussenegger/nvim-lint",
+	event = { "BufReadPre", "BufNewFile" },
+	config = function()
+		local lint = require("lint")
+		lint.linters_by_ft = {
+			json = { "jsonlint" },
+			jsonc = { "jsonlint" },
+			go = { "golangcilint" },
+			sh = { "shellcheck" },
+			bash = { "shellcheck" },
+			zsh = { "shellcheck" },
+			dockerfile = { "hadolint" },
+			yaml = { "yamllint" },
+			yml = { "yamllint" },
+			c = { "cppcheck" },
+			cpp = { "cppcheck" },
+			javascript = { "eslint_d" },
+			javascriptreact = { "eslint_d" },
+			typescript = { "eslint_d" },
+			typescriptreact = { "eslint_d" },
+		}
 
-			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-				group = lint_augroup,
-				callback = function()
-					lint.try_lint()
-				end,
-			})
-
-			vim.keymap.set("n", "<leader>ll", function()
+		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+			group = lint_augroup,
+			callback = function()
 				lint.try_lint()
-				vim.notify("Linting...", vim.log.levels.INFO)
-			end, { desc = "Trigger linting for current file" })
+			end,
+		})
 
-			vim.keymap.set("n", "<leader>l?", function()
-				local linters = lint.linters_by_ft[vim.bo.filetype] or {}
-				if #linters == 0 then
-					print("No linters configured for filetype: " .. vim.bo.filetype)
-				else
-					print("Linters for " .. vim.bo.filetype .. ": " .. table.concat(linters, ", "))
-				end
-			end, { desc = "Show available linters for current filetype" })
-		end,
-	},
+		vim.keymap.set("n", "<leader>ll", function()
+			lint.try_lint()
+			vim.notify("Linting...", vim.log.levels.INFO)
+		end, { desc = "Trigger linting for current file" })
+
+		vim.keymap.set("n", "<leader>lk", function()
+			local linters = lint.linters_by_ft[vim.bo.filetype] or {}
+			if #linters == 0 then
+				print("No linters configured for filetype: " .. vim.bo.filetype)
+			else
+				print("Linters for " .. vim.bo.filetype .. ": " .. table.concat(linters, ", "))
+			end
+		end, { desc = "Show available linters for current filetype" })
+	end,
 }
