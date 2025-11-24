@@ -6,7 +6,7 @@ return {
 	config = function()
 		require("mini.ai").setup({ n_lines = 500 }) -- this is not a "AI" plugin
 		require("mini.cursorword").setup()
-		-- require("mini.icons").setup()
+		require("mini.icons").setup()
 		require("mini.operators").setup()
 		require("mini.surround").setup()
 	end,
