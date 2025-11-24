@@ -52,8 +52,13 @@ end)
 vim.opt.virtualedit = "block"
 vim.o.inccommand = "split"
 
+-- Enable full terminal color support
 vim.opt.termguicolors = true
 vim.o.background = "dark"
+
+-- Tell Neovim the terminal supports RGB colors (24-bit true color)
+vim.env.COLORTERM = "truecolor"
+vim.o.termguicolors = true
 
 vim.o.cursorline = true
 vim.opt.cursorlineopt = "both" -- Options: "both", "line", "number", "screenline"
