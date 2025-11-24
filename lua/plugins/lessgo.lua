@@ -23,16 +23,15 @@ return {
 					capabilities = capabilities,
 					settings = {
 						gopls = {
-							gofumpt = true,
 							codelenses = {
-								gc_details = true,
 								generate = true,
-								regenerate_cgo = false,
-								run_govulncheck = true,
+								gc_details = true,
 								test = true,
 								tidy = true,
-								upgrade_dependency = true,
 								vendor = true,
+								regenerate_cgo = false,
+								upgrade_dependency = true,
+								run_govulncheck = true,
 							},
 							hints = {
 								assignVariableTypes = true,
@@ -47,6 +46,10 @@ return {
 								nilness = true,
 								unusedparams = true,
 								unusedwrite = true,
+								ST1003 = true,
+								undeclaredname = true,
+								fillreturns = true,
+								nonewvars = true,
 								useany = true,
 								unreachable = true,
 								unusedresult = true,
@@ -64,6 +67,9 @@ return {
 							usePlaceholders = true,
 							completeUnimported = true,
 							staticcheck = true,
+							matcher = "Fuzzy",
+							diagnosticsDelay = '500ms',
+							symbolMatcher = 'fuzzy',
 							directoryFilters = {
 								"-.git",
 								"-.vscode",
@@ -73,11 +79,12 @@ return {
 								"-generated",
 							},
 							semanticTokens = true,
+							gofumpt = true,
 						},
 					},
 				},
 				golangci_lint = {
-					default = 'all', -- set to one of { 'standard', 'fast', 'all', 'none' }
+					default = 'none', -- disabled, using nvim-lint instead
 					-- disable = {'errcheck', 'staticcheck'}, -- linters to disable empty by default
 					-- enable = {'govet', 'ineffassign','revive', 'gosimple'}, -- linters to enable; empty by default
 					config = nil, -- set to a config file path
@@ -87,11 +94,11 @@ return {
 					-- enable_only = {}, -- linters to enable only; empty by default, set to e.g. {'govet', 'ineffassign','revive', 'gosimple'}
 					severity = vim.diagnostic.severity.INFO, -- severity level of the diagnostics
 				},
-				-- these are disabled to avoid conflicts with tiny-diagnostics
+				-- Disable go.nvim diagnostics, using tiny-diagnostics + nvim-lint instead
 				diagnostic = false,
-				lsp_diag_virtual_text = true,
-				lsp_diag_signs = true,
-				lsp_diag_update_in_insert = true,
+				lsp_diag_virtual_text = false,
+				lsp_diag_signs = false,
+				lsp_diag_update_in_insert = false,
 			})
 			local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 			vim.api.nvim_create_autocmd("BufWritePre", {
