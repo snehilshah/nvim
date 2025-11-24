@@ -1,4 +1,60 @@
+local servers = {
+	"lua_ls", -- Lua language server
+	-- "gopls",      -- Go language server
+	-- "zls",        -- Zig language server
+	"ts_ls", -- TypeScript/JavaScript language server
+	-- "rust-analyzer", -- Rust language server
+	-- "tailwindcss", -- Tailwind CSS language server
+	"html", -- HTML language server
+	"cssls", -- CSS language server
+}
 return {
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"saghen/blink.cmp"
+		},
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			local handlers = {
+				["textDocument/hover"] = vim.lsp.with(
+					vim.lsp.handlers.hover,
+					{ border = "rounded" }
+				),
+				["textDocument/signatureHelp"] = vim.lsp.with(
+					vim.lsp.handlers.signature_help,
+					{ border = "rounded" }
+				),
+			}
+			local capabilities = {
+				textDocument = {
+					foldingRange = {
+						dynamicRegistration = false,
+						lineFoldingOnly = true
+					}
+				}
+			}
+			capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+
+			for _, lsp_server in ipairs(servers) do
+				local config = {
+					capabilities = capabilities,
+					handlers = handlers,
+					completions = {
+						completeFunctionCalls = true,
+					},
+				}
+				-- NOTE: can do anything for special servers here
+				-- if lsp_server == "ts_ls" then
+				-- 	config.completions = {
+				-- 		completeFunctionCalls = true,
+				-- 	}
+				-- end
+				vim.lsp.config(lsp_server, config)
+				vim.lsp.enable(lsp_server)
+			end
+		end,
+	},
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",
@@ -13,6 +69,7 @@ return {
 	{
 		"j-hui/fidget.nvim",
 		opts = {},
+		enabled = false,
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
@@ -23,14 +80,6 @@ return {
 					end
 					local bufnr = args.buf
 					local opts = { buffer = bufnr, silent = true }
-
-					-- Auto-format on save for ALL language servers
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = bufnr,
-						callback = function()
-							vim.lsp.buf.format({ bufnr = bufnr })
-						end,
-					})
 
 					-- Rename the variable under your cursor.
 					map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -73,7 +122,7 @@ return {
 					local highlight_group_created = false
 					if client and client.supports_method("textDocument/documentHighlight") then
 						local highlight_augroup =
-								vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 						highlight_group_created = true
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = args.buf,
@@ -98,6 +147,11 @@ return {
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf }))
 					end, "[t]oggle inlay [h]ints")
+
+					-- Enable inlay hints by default if the client supports it
+					if client and client.supports_method("textDocument/inlayHint") then
+						vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+					end
 				end,
 			})
 			vim.diagnostic.config({
