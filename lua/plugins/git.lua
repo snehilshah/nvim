@@ -193,7 +193,7 @@ return {
 				keymaps = {
 					file_panel = {
 						{ "n", "<tab>", actions.toggle_stage_entry, { desc = "Open the diff for the current file" } },
-						{ "n", "<cr>",  actions.goto_file_edit,     { desc = "go to edit the file" } },
+						{ "n", "<cr>", actions.goto_file_edit, { desc = "go to edit the file" } },
 					},
 				},
 			})
@@ -246,7 +246,7 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
-			"nvim-telescope/telescope.nvim",
+			"folke/snacks.nvim",
 		},
 		cmd = "Neogit",
 		keys = {

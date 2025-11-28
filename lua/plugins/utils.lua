@@ -40,20 +40,17 @@ return {
 		"AckslD/nvim-neoclip.lua",
 		event = "VeryLazy",
 		dependencies = {
-			{ "kkharji/sqlite.lua",           module = "sqlite" },
-			{ "nvim-telescope/telescope.nvim" },
+			{ "kkharji/sqlite.lua", module = "sqlite" },
+			{ "ibhagwan/fzf-lua" },
 		},
 		config = function()
 			require("neoclip").setup({
 				enable_persistent_history = true,
 				db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
-				-- Load neoclip extension for telescope
 			})
-			require("telescope").load_extension("neoclip")
 		end,
 		keys = {
-			{ "<leader>y", "<cmd>Telescope neoclip<cr>", desc = "Open Neoclip (Clipboard History)" },
-			-- { "<leader>q", "<cmd>Telescope macroscope<cr>", desc = "Open Macroscope (Macro History)" },
+			{ "<leader>y", "<cmd>lua require('neoclip.fzf')()<cr>", desc = "Open Neoclip (Clipboard History)" },
 		},
 	},
 	{
