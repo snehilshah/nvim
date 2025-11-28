@@ -1,795 +1,970 @@
 return {
-	{
-		"sainnhe/gruvbox-material",
-		enabled = false,
-		priority = 1000,
-		config = function()
-			vim.g.gruvbox_material_transparent_background = 1
-			vim.g.gruvbox_material_foreground = "mix"
-			vim.g.gruvbox_material_background = "hard"
-			vim.g.gruvbox_material_ui_contrast = "high"
-			vim.g.gruvbox_material_float_style = "bright"
-			vim.g.gruvbox_material_statusline_style = "mix" -- Options: "original", "material", "mix", "afterglow"
-			vim.g.gruvbox_material_cursor = "auto"
+	"catppuccin/nvim",
+	name = "catppuccin",
+	priority = 1000,
+	enabled = true,
+	config = function()
+		vim.cmd.highlight("clear")
+		if vim.g.syntax_on then
+			vim.cmd.syntax("reset")
+		end
+		vim.g.colors_name = "gruvbox-material"
 
-			-- vim.g.gruvbox_material_colors_override = { bg0 = '#16181A' } -- #0e1010
-			-- vim.g.gruvbox_material_better_performance = 1
+		--------------------------------------------------------------------------------
+		-- Gruvbox Material Color Palette
+		--------------------------------------------------------------------------------
 
-			vim.cmd.colorscheme("gruvbox-material")
+		-- Background colors (dark to light)
+		local bg = "#1d2021" -- Main background
+		local bg_dark = "#191b1c" -- Darker background (statusline, floats)
+		local bg_soft = "#282828" -- Soft background
+		local bg_highlight = "#3c3836" -- Highlighted background
+		local bg_visual = "#504945" -- Visual selection
 
-			-- Custom statusline highlights
-			-- vim.api.nvim_set_hl(0, "StatusLine", {
-			--   bg = "#1C2021", -- Dark gray background
-			--   fg = "#ebdbb2", -- Light text
-			--   bold = false
-			-- })
-			--
-			-- vim.api.nvim_set_hl(0, "StatusLineNC", {
-			--   bg = "#1C2021", -- Darker background for inactive windows
-			--   fg = "#928374", -- Muted text
-			--   bold = false
-			-- })
-		end,
-	},
-	{
-		"RRethy/base16-nvim",
-		enabled = false,
-		config = function()
-			vim.cmd("colorscheme base16-ayu-mirage")
+		-- Foreground colors (light to dark)
+		local fg = "#ebdbb2" -- Main foreground
+		local fg_soft = "#ddc7a1" -- Soft foreground
+		local fg_dark = "#d5c4a1" -- Darker foreground
+		local fg_muted = "#a89984" -- Muted foreground
 
-			-- Get the base16 colors after setting the colorscheme
-			local colors = require("base16-colorscheme").colors
+		-- Gruvbox Material core colors
+		local red = "#ea6962"
+		local orange = "#e78a4e"
+		local yellow = "#d8a657"
+		local green = "#a9b665"
+		local aqua = "#89b482"
+		local blue = "#7daea3"
+		local purple = "#d3869b"
 
-			-- Map base16 colors to catppuccin-like names for easier reference
-			local ayu_colors = {
-				-- Background colors
-				base = colors.base00, -- main background
-				mantle = colors.base01, -- darker background for floating windows
-				surface0 = colors.base02, -- surface color
-				surface1 = colors.base03, -- lighter surface
-				surface2 = colors.base04, -- even lighter surface
+		-- UI colors
+		local comment = "#928374" -- Comments and muted text
+		local line_nr = "#3a4a3a" -- Line numbers
+		local line_nr_active = "#89b482" -- Active line number
+		local gutter = "#504945" -- Gutter/sign column neutral
 
-				-- Text colors
-				text = colors.base05, -- main text
-				subtext1 = colors.base04, -- dimmer text
-				subtext0 = colors.base03, -- even dimmer text
+		-- Semantic colors
+		local error = red
+		local warning = yellow
+		local info = aqua
+		local hint = green
 
-				-- Overlay colors
-				overlay0 = colors.base03,
-				overlay1 = colors.base04,
-				overlay2 = colors.base06,
+		-- Surface colors (layered backgrounds)
+		local surface0 = "#32302f" -- Subtle surface
+		local surface1 = "#3c3836" -- Normal surface
+		local surface2 = "#504945" -- Elevated surface
+		local overlay = "#7c6f64" -- Overlay elements
 
-				-- Accent colors
-				red = colors.base08, -- red accent
-				peach = colors.base09, -- orange/peach accent
-				yellow = colors.base0A, -- yellow accent
-				green = colors.base0B, -- green accent
-				teal = colors.base0C, -- teal/cyan accent
-				blue = colors.base0D, -- blue accent
-				mauve = colors.base0E, -- purple/mauve accent
-			}
+		-- Diff colors
+		local diff_add_bg = "#2a3320"
+		local diff_change_bg = "#1a2a30"
+		local diff_delete_bg = "#3a2020"
 
-			-- Apply all the custom highlight groups
-			local highlights = {
-				-- Completion menu styling
-				Pmenu = { bg = ayu_colors.mantle, fg = ayu_colors.text },
-				PmenuSel = { bg = ayu_colors.surface0, fg = ayu_colors.text },
-				PmenuSbar = { bg = ayu_colors.surface0 },
-				PmenuThumb = { bg = ayu_colors.surface2 },
-				PmenuExtra = { bg = ayu_colors.mantle, fg = ayu_colors.subtext1 },
+		-- Special colors
+		local current_word_bg = "#32302f"
+		local shadow = "#000000"
+		local debug_pc_bg = "#324232"
 
-				-- Floating windows
-				NormalFloat = { bg = ayu_colors.mantle },
-				FloatBorder = { bg = ayu_colors.mantle, fg = ayu_colors.surface2 },
-				FloatTitle = { bg = ayu_colors.mantle, fg = ayu_colors.text },
+		--------------------------------------------------------------------------------
+		-- Terminal Colors
+		--------------------------------------------------------------------------------
+		vim.g.terminal_color_0 = gutter
+		vim.g.terminal_color_1 = red
+		vim.g.terminal_color_2 = green
+		vim.g.terminal_color_3 = yellow
+		vim.g.terminal_color_4 = blue
+		vim.g.terminal_color_5 = purple
+		vim.g.terminal_color_6 = aqua
+		vim.g.terminal_color_7 = fg_dark
+		vim.g.terminal_color_8 = gutter
+		vim.g.terminal_color_9 = red
+		vim.g.terminal_color_10 = green
+		vim.g.terminal_color_11 = yellow
+		vim.g.terminal_color_12 = blue
+		vim.g.terminal_color_13 = purple
+		vim.g.terminal_color_14 = aqua
+		vim.g.terminal_color_15 = fg
 
-				-- Blink.cmp specific highlighting
-				BlinkCmpMenu = { bg = ayu_colors.mantle, fg = ayu_colors.text },
-				BlinkCmpMenuBorder = { bg = ayu_colors.mantle, fg = ayu_colors.surface2 },
-				BlinkCmpMenuSelection = { bg = ayu_colors.surface0, fg = ayu_colors.text },
-				BlinkCmpScrollBarThumb = { bg = ayu_colors.surface2 },
-				BlinkCmpScrollBarGutter = { bg = ayu_colors.surface0 },
-				BlinkCmpLabel = { bg = ayu_colors.mantle, fg = ayu_colors.text },
-				BlinkCmpLabelDeprecated = { bg = ayu_colors.mantle, fg = ayu_colors.overlay0, strikethrough = true },
-				BlinkCmpLabelDetail = { bg = ayu_colors.mantle, fg = ayu_colors.subtext1 },
-				BlinkCmpLabelDescription = { bg = ayu_colors.mantle, fg = ayu_colors.subtext1 },
-				BlinkCmpKind = { bg = ayu_colors.mantle, fg = ayu_colors.peach },
-				BlinkCmpSource = { bg = ayu_colors.mantle, fg = ayu_colors.overlay1 },
-				BlinkCmpGhostText = { fg = ayu_colors.overlay0, italic = true },
-				BlinkCmpDoc = { bg = ayu_colors.mantle, fg = ayu_colors.text },
-				BlinkCmpDocBorder = { bg = ayu_colors.mantle, fg = ayu_colors.surface2 },
-				BlinkCmpDocSeparator = { bg = ayu_colors.mantle, fg = ayu_colors.surface1 },
-				BlinkCmpDocCursorLine = { bg = ayu_colors.surface0 },
-				BlinkCmpSignatureHelp = { bg = ayu_colors.mantle, fg = ayu_colors.text },
-				BlinkCmpSignatureHelpBorder = { bg = ayu_colors.mantle, fg = ayu_colors.surface2 },
-				BlinkCmpSignatureHelpActiveParameter = { bg = ayu_colors.surface0, fg = ayu_colors.peach, bold = true },
+		--------------------------------------------------------------------------------
+		-- Highlight Groups
+		--------------------------------------------------------------------------------
+		local theme = {
+			-- Base UI
+			Normal = { fg = fg, bg = bg },
+			NormalNC = {},
+			NormalFloat = { fg = fg_soft, bg = bg_highlight },
+			FloatBorder = { fg = comment, bg = bg },
+			FloatTitle = { fg = yellow, bg = bg_highlight, bold = true },
+			FloatShadow = { bg = shadow, blend = 80 },
+			FloatShadowThrough = { bg = shadow, blend = 100 },
 
-				-- Snacks.nvim picker NvChad style
-				SnacksPicker = { bg = ayu_colors.base },
-				SnacksPickerBorder = { fg = ayu_colors.surface0, bg = ayu_colors.base },
-				SnacksPickerPreview = { bg = ayu_colors.base },
-				SnacksPickerPreviewBorder = { fg = ayu_colors.base, bg = ayu_colors.base },
-				SnacksPickerPreviewTitle = { fg = ayu_colors.base, bg = ayu_colors.green },
-				SnacksPickerBoxBorder = { fg = ayu_colors.base, bg = ayu_colors.base },
-				SnacksPickerInputBorder = { fg = ayu_colors.surface2, bg = ayu_colors.base },
-				SnacksPickerInputSearch = { fg = ayu_colors.text, bg = ayu_colors.base },
-				SnacksPickerList = { bg = ayu_colors.base },
-				SnacksPickerListBorder = { fg = ayu_colors.base, bg = ayu_colors.base },
-				SnacksPickerListTitle = { fg = ayu_colors.base, bg = ayu_colors.base },
+			-- Cursor
+			Cursor = { reverse = true },
+			lCursor = { fg = bg, bg = fg },
+			CursorIM = { link = "Cursor" },
+			vCursor = { link = "Cursor" },
+			iCursor = { link = "Cursor" },
+			CursorLine = { bg = bg_soft },
+			CursorColumn = { bg = bg_soft },
+			CursorLineNr = { fg = line_nr_active },
+			CursorLineSign = { link = "SignColumn" },
+			CursorLineFold = { link = "FoldColumn" },
+			TermCursor = { reverse = true },
+			TermCursorNC = {},
 
-				-- Additional picker elements
-				SnacksPickerDir = { fg = ayu_colors.blue },
-				SnacksPickerFile = { fg = ayu_colors.text },
-				SnacksPickerMatch = { fg = ayu_colors.peach, bold = true },
-				SnacksPickerCursor = { bg = ayu_colors.surface0, fg = ayu_colors.text },
-				SnacksPickerSelected = { bg = ayu_colors.surface0, fg = ayu_colors.text },
-				SnacksPickerIcon = { fg = ayu_colors.blue },
-				SnacksPickerSource = { fg = ayu_colors.overlay1 },
-				SnacksPickerCount = { fg = ayu_colors.overlay1 },
-				SnacksPickerFooter = { fg = ayu_colors.overlay1 },
-				SnacksPickerHeader = { fg = ayu_colors.text, bold = true },
-				SnacksPickerSpecial = { fg = ayu_colors.peach },
-				SnacksPickerIndent = { fg = ayu_colors.surface1 },
-				SnacksPickerMulti = { fg = ayu_colors.peach },
-				SnacksPickerTitle = { fg = ayu_colors.text, bold = true },
-				SnacksPickerPrompt = { fg = ayu_colors.text },
+			-- Line Numbers
+			LineNr = { fg = line_nr },
+			LineNrAbove = { link = "LineNr" },
+			LineNrBelow = { link = "LineNr" },
+			SignColumn = { fg = fg },
+			FoldColumn = { fg = gutter },
+			Folded = { fg = comment, bg = bg_soft },
 
-				-- Snacks core components
-				SnacksNotifierNormal = { bg = ayu_colors.mantle, fg = ayu_colors.text },
-				SnacksNotifierBorder = { bg = ayu_colors.mantle, fg = ayu_colors.surface2 },
-				SnacksNotifierTitle = { bg = ayu_colors.mantle, fg = ayu_colors.text, bold = true },
-				SnacksNotifierIcon = { bg = ayu_colors.mantle, fg = ayu_colors.blue },
-				SnacksNotifierIconInfo = { bg = ayu_colors.mantle, fg = ayu_colors.blue },
-				SnacksNotifierIconWarn = { bg = ayu_colors.mantle, fg = ayu_colors.yellow },
-				SnacksNotifierIconError = { bg = ayu_colors.mantle, fg = ayu_colors.red },
+			-- Search
+			Search = { fg = bg, bg = green },
+			CurSearch = { fg = bg, bg = orange },
+			IncSearch = { fg = bg, bg = red },
+			Substitute = { fg = bg, bg = yellow },
 
-				-- Snacks Dashboard
-				SnacksDashboardNormal = { bg = ayu_colors.base, fg = ayu_colors.text },
-				SnacksDashboardDesc = { bg = ayu_colors.base, fg = ayu_colors.subtext1 },
-				SnacksDashboardFile = { bg = ayu_colors.base, fg = ayu_colors.text },
-				SnacksDashboardDir = { bg = ayu_colors.base, fg = ayu_colors.blue },
-				SnacksDashboardFooter = { bg = ayu_colors.base, fg = ayu_colors.overlay1 },
-				SnacksDashboardHeader = { bg = ayu_colors.base, fg = ayu_colors.text, bold = true },
-				SnacksDashboardIcon = { bg = ayu_colors.base, fg = ayu_colors.blue },
-				SnacksDashboardKey = { bg = ayu_colors.base, fg = ayu_colors.peach },
-				SnacksDashboardTerminal = { bg = ayu_colors.base, fg = ayu_colors.text },
-				SnacksDashboardSpecial = { bg = ayu_colors.base, fg = ayu_colors.peach },
+			-- Selection
+			Visual = { bg = bg_visual },
+			VisualNC = {},
+			VisualNOS = { bg = bg_visual },
 
-				-- Snacks Terminal
-				SnacksTerminalNormal = { bg = ayu_colors.mantle, fg = ayu_colors.text },
-				SnacksTerminalBorder = { bg = ayu_colors.mantle, fg = ayu_colors.surface2 },
-				SnacksTerminalTitle = { bg = ayu_colors.mantle, fg = ayu_colors.text, bold = true },
+			-- Splits & Windows
+			VertSplit = { fg = gutter },
+			WinSeparator = { link = "VertSplit" },
+			WinBar = { bold = true },
+			WinBarNC = { link = "Grey" },
 
-				-- Other UI elements
-				CmpItemMenu = { fg = ayu_colors.surface2 },
-				CursorLineNr = { fg = ayu_colors.text },
-				GitSignsChange = { fg = ayu_colors.peach },
-				LineNr = { fg = ayu_colors.overlay0 },
-				LspInfoBorder = { link = "FloatBorder" },
-				VertSplit = { bg = ayu_colors.base, fg = ayu_colors.surface0 },
-				WhichKeyFloat = { bg = ayu_colors.mantle },
-				YankHighlight = { bg = ayu_colors.surface2 },
-				FidgetTask = { fg = ayu_colors.subtext1 },
-				FidgetTitle = { fg = ayu_colors.peach },
+			-- Status & Tab Lines
+			StatusLine = { fg = fg_soft, bg = bg_dark },
+			StatusLineNC = { fg = comment, bg = bg_dark },
+			StatusLineTerm = { fg = fg_soft, bg = bg_soft },
+			StatusLineTermNC = { fg = comment, bg = bg_soft },
+			TabLine = { fg = fg_soft, bg = gutter },
+			TabLineSel = { fg = bg, bg = fg_muted },
+			TabLineFill = { fg = fg_soft, bg = bg_dark },
 
-				-- Indent guides
-				IblIndent = { fg = ayu_colors.surface0 },
-				IblScope = { fg = ayu_colors.overlay0 },
+			-- Completions Menu
+			Pmenu = { fg = fg_soft, bg = bg_highlight },
+			PmenuSel = { fg = bg, bg = fg_muted },
+			PmenuSbar = { bg = bg_highlight },
+			PmenuThumb = { bg = overlay },
+			PmenuExtra = { fg = fg_dark, bg = bg_highlight },
+			WildMenu = { fg = bg, bg = yellow },
 
-				-- Syntax highlighting
-				Boolean = { fg = ayu_colors.mauve },
-				Number = { fg = ayu_colors.mauve },
-				Float = { fg = ayu_colors.mauve },
+			-- Messages
+			ModeMsg = { fg = fg, bold = true },
+			MoreMsg = { fg = yellow, bold = true },
+			WarningMsg = { fg = yellow, bold = true },
+			ErrorMsg = { fg = red, bold = true, underline = true },
+			Question = { fg = yellow },
+			MsgArea = {},
+			MsgSeparator = { link = "StatusLine" },
 
-				PreProc = { fg = ayu_colors.mauve },
-				PreCondit = { fg = ayu_colors.mauve },
-				Include = { fg = ayu_colors.mauve },
-				Define = { fg = ayu_colors.mauve },
-				Conditional = { fg = ayu_colors.red },
-				Repeat = { fg = ayu_colors.red },
-				Keyword = { fg = ayu_colors.red },
-				Typedef = { fg = ayu_colors.red },
-				Exception = { fg = ayu_colors.red },
-				Statement = { fg = ayu_colors.red },
+			-- Diffs
+			DiffAdd = { bg = diff_add_bg },
+			DiffChange = { bg = diff_change_bg },
+			DiffDelete = { bg = diff_delete_bg },
+			DiffText = { fg = bg, bg = blue },
+			diffAdded = { link = "Green" },
+			diffRemoved = { link = "Red" },
+			diffChanged = { link = "Blue" },
+			diffFile = { link = "Aqua" },
+			diffNewFile = { link = "Orange" },
+			diffOldFile = { link = "Yellow" },
+			diffLine = { link = "Grey" },
+			diffIndexLine = { link = "Purple" },
 
-				Error = { fg = ayu_colors.red },
-				StorageClass = { fg = ayu_colors.peach },
-				Tag = { fg = ayu_colors.peach },
-				Label = { fg = ayu_colors.peach },
-				Structure = { fg = ayu_colors.peach },
-				Operator = { fg = ayu_colors.peach },
-				Title = { fg = ayu_colors.peach },
-				Special = { fg = ayu_colors.yellow },
-				SpecialChar = { fg = ayu_colors.yellow },
-				Type = { fg = ayu_colors.yellow, bold = true },
-				Function = { fg = ayu_colors.green, bold = true },
-				Delimiter = { fg = ayu_colors.subtext1 },
-				Ignore = { fg = ayu_colors.subtext1 },
-				Macro = { fg = ayu_colors.teal },
+			-- Spelling
+			SpellBad = { undercurl = true, special = red },
+			SpellCap = { undercurl = true, special = blue },
+			SpellRare = { undercurl = true, special = purple },
+			SpellLocal = { undercurl = true, special = aqua },
 
-				-- Treesitter highlights
-				TSAnnotation = { fg = ayu_colors.mauve },
-				TSAttribute = { fg = ayu_colors.mauve },
-				TSBoolean = { fg = ayu_colors.mauve },
-				TSCharacter = { fg = ayu_colors.teal },
-				TSCharacterSpecial = { link = "SpecialChar" },
-				TSComment = { link = "Comment" },
-				TSConditional = { fg = ayu_colors.red },
-				TSConstBuiltin = { fg = ayu_colors.mauve },
-				TSConstMacro = { fg = ayu_colors.mauve },
-				TSConstant = { fg = ayu_colors.text },
-				TSConstructor = { fg = ayu_colors.green },
-				TSDebug = { link = "Debug" },
-				TSDefine = { link = "Define" },
-				TSEnvironment = { link = "Macro" },
-				TSEnvironmentName = { link = "Type" },
-				TSError = { link = "Error" },
-				TSException = { fg = ayu_colors.red },
-				TSField = { fg = ayu_colors.blue },
-				TSFloat = { fg = ayu_colors.mauve },
-				TSFuncBuiltin = { fg = ayu_colors.green },
-				TSFuncMacro = { fg = ayu_colors.green },
-				TSFunction = { fg = ayu_colors.green },
-				TSFunctionCall = { fg = ayu_colors.green },
-				TSInclude = { fg = ayu_colors.red },
-				TSKeyword = { fg = ayu_colors.red },
-				TSKeywordFunction = { fg = ayu_colors.red },
-				TSKeywordOperator = { fg = ayu_colors.peach },
-				TSKeywordReturn = { fg = ayu_colors.red },
-				TSLabel = { fg = ayu_colors.peach },
-				TSLiteral = { link = "String" },
-				TSMath = { fg = ayu_colors.blue },
-				TSMethod = { fg = ayu_colors.green },
-				TSMethodCall = { fg = ayu_colors.green },
-				TSNamespace = { fg = ayu_colors.yellow },
-				TSNone = { fg = ayu_colors.text },
-				TSNumber = { fg = ayu_colors.mauve },
-				TSOperator = { fg = ayu_colors.peach },
-				TSParameter = { fg = ayu_colors.text },
-				TSParameterReference = { fg = ayu_colors.text },
-				TSPreProc = { link = "PreProc" },
-				TSProperty = { fg = ayu_colors.blue },
-				TSPunctBracket = { fg = ayu_colors.text },
-				TSPunctDelimiter = { link = "Delimiter" },
-				TSPunctSpecial = { fg = ayu_colors.blue },
-				TSRepeat = { fg = ayu_colors.red },
-				TSStorageClass = { fg = ayu_colors.peach },
-				TSStorageClassLifetime = { fg = ayu_colors.peach },
-				TSStrike = { fg = ayu_colors.subtext1 },
-				TSString = { fg = ayu_colors.teal },
-				TSStringEscape = { fg = ayu_colors.green },
-				TSStringRegex = { fg = ayu_colors.green },
-				TSStringSpecial = { link = "SpecialChar" },
-				TSSymbol = { fg = ayu_colors.text },
-				TSTag = { fg = ayu_colors.peach },
-				TSTagAttribute = { fg = ayu_colors.green },
-				TSTagDelimiter = { fg = ayu_colors.green },
-				TSText = { fg = ayu_colors.green },
-				TSTextReference = { link = "Constant" },
-				TSTitle = { link = "Title" },
-				TSTodo = { link = "Todo" },
-				TSType = { fg = ayu_colors.yellow, bold = true },
-				TSTypeBuiltin = { fg = ayu_colors.yellow, bold = true },
-				TSTypeDefinition = { fg = ayu_colors.yellow, bold = true },
-				TSTypeQualifier = { fg = ayu_colors.peach, bold = true },
-				TSURI = { fg = ayu_colors.blue },
-				TSVariable = { fg = ayu_colors.text },
-				TSVariableBuiltin = { fg = ayu_colors.mauve },
-			}
+			-- Misc UI
+			ColorColumn = { bg = bg_soft },
+			Conceal = { fg = gutter },
+			Directory = { fg = green },
+			EndOfBuffer = { fg = gutter, bg = bg },
+			MatchParen = { fg = orange, bg = bg_highlight, bold = true },
+			MatchParenCur = { fg = orange, bold = true },
+			MatchWord = { bg = bg_highlight, underline = true },
+			MatchWordCur = { bg = bg_highlight, underline = true },
+			-- vim-matchup: highlight enclosing scope brackets
+			MatchBackground = { bg = bg_soft },
+			MatchParenOffscreen = { fg = orange, bg = bg_highlight, italic = true },
+			MatchupVirtualText = { fg = orange, italic = true },
+			NonText = { fg = gutter },
+			SpecialKey = { fg = gutter },
+			Title = { fg = orange, bold = true },
+			Whitespace = { fg = gutter },
+			QuickFixLine = { fg = purple, bold = true },
+			CurrentWord = { bg = current_word_bg },
+			CurrentWordTwins = { link = "CurrentWord" },
+			CursorWord0 = { link = "CurrentWord" },
+			CursorWord1 = { link = "CurrentWord" },
 
-			-- Apply all highlights
-			for group, opts in pairs(highlights) do
-				vim.api.nvim_set_hl(0, group, opts)
-			end
-		end,
-	},
-	{
-		"catppuccin/nvim",
-		priority = 150,
-		name = "catppuccin",
-		enabled = true,
-		config = function()
-			require("catppuccin").setup({
-				background = {
-					light = "latte",
-					dark = "mocha",
-				},
-				color_overrides = {
-					latte = {
-						rosewater = "#c14a4a",
-						flamingo = "#c14a4a",
-						red = "#c14a4a",
-						maroon = "#c14a4a",
-						pink = "#945e80",
-						mauve = "#945e80",
-						peach = "#c35e0a",
-						yellow = "#b47109",
-						green = "#6c782e",
-						teal = "#4c7a5d",
-						sky = "#4c7a5d",
-						sapphire = "#4c7a5d",
-						blue = "#45707a",
-						lavender = "#45707a",
-						text = "#654735",
-						subtext1 = "#73503c",
-						subtext0 = "#805942",
-						overlay2 = "#8c6249",
-						overlay1 = "#8c856d",
-						overlay0 = "#a69d81",
-						surface2 = "#bfb695",
-						surface1 = "#d1c7a3",
-						surface0 = "#e3dec3",
-						base = "#f9f5d7",
-						mantle = "#f0ebce",
-						crust = "#e8e3c8",
-					},
-					mocha = {
-						rosewater = "#ea6962",
-						flamingo = "#ea6962",
-						red = "#ea6962",
-						maroon = "#ea6962",
-						pink = "#d3869b",
-						mauve = "#d3869b",
-						peach = "#e78a4e",
-						yellow = "#d8a657",
-						green = "#a9b665",
-						teal = "#89b482",
-						sky = "#89b482",
-						sapphire = "#89b482",
-						blue = "#7daea3",
-						lavender = "#7daea3",
-						text = "#ebdbb2",
-						subtext1 = "#d5c4a1",
-						subtext0 = "#bdae93",
-						overlay2 = "#a89984",
-						overlay1 = "#928374",
-						overlay0 = "#595959",
-						surface2 = "#4d4d4d",
-						surface1 = "#404040",
-						surface0 = "#292929",
-						base = "#1d2021",
-						mantle = "#191b1c",
-						crust = "#141617",
-					},
-				},
-				transparent_background = false,
-				show_end_of_buffer = true,
-				integration_default = false,
-				no_bold = false,
-				no_italic = false,
-				no_underline = false,
-				integrations = {
-					blink_cmp = {
-						style = "bordered",
-					},
-					snacks = {
-						enabled = true,
-						-- indent_scope_color = "lavender", -- catppuccin color (eg. `lavender`) Default: text
-					},
-					-- barbecue = { dim_dirname = true, bold_basename = true, dim_context = false, alt_background = false },
-					-- cmp = true,
-					gitsigns = true,
-					-- hop = true,
-					-- illuminate = { enabled = true },
-					lualine = true,
-					native_lsp = { enabled = true, inlay_hints = { background = true } },
-					-- neogit = true,
-					-- neotree = true,
-					semantic_tokens = true,
-					treesitter = true,
-					treesitter_context = true,
-					-- vimwiki = true,
-					which_key = true,
-					-- aerial = true,
-					fidget = true,
-					mason = true,
-					neotest = true,
-					dap_ui = true,
-					-- telescope = {
-					--   enabled = true,
-					--   style = "nvchad",
-					-- },
-				},
-				highlight_overrides = {
-					all = function(colors)
-						return {
-							-- Completion menu styling
-							Pmenu = { bg = colors.mantle, fg = colors.text },
-							PmenuSel = { bg = colors.surface0, fg = colors.text },
-							PmenuSbar = { bg = colors.surface0 },
-							PmenuThumb = { bg = colors.surface2 },
-							PmenuExtra = { bg = colors.mantle, fg = colors.subtext1 },
+			-- Debug
+			debugPC = { bg = debug_pc_bg },
+			debugBreakpoint = { fg = bg, bg = red },
 
-							-- Floating windows
-							NormalFloat = { bg = colors.mantle },
-							FloatBorder = { bg = colors.mantle, fg = colors.surface2 },
-							FloatTitle = { bg = colors.mantle, fg = colors.text },
+			-- Terminal
+			Terminal = { fg = fg, bg = bg },
 
-							-- Blink.cmp specific highlighting
-							BlinkCmpMenu = { bg = colors.mantle, fg = colors.text },
-							BlinkCmpMenuBorder = { bg = colors.mantle, fg = colors.surface2 },
-							BlinkCmpMenuSelection = { bg = colors.surface0, fg = colors.text },
-							BlinkCmpScrollBarThumb = { bg = colors.surface2 },
-							BlinkCmpScrollBarGutter = { bg = colors.surface0 },
-							BlinkCmpLabel = { bg = colors.mantle, fg = colors.text },
-							BlinkCmpLabelDeprecated = { bg = colors.mantle, fg = colors.overlay0, strikethrough = true },
-							BlinkCmpLabelDetail = { bg = colors.mantle, fg = colors.subtext1 },
-							BlinkCmpLabelDescription = { bg = colors.mantle, fg = colors.subtext1 },
-							BlinkCmpKind = { bg = colors.mantle, fg = colors.peach },
-							BlinkCmpSource = { bg = colors.mantle, fg = colors.overlay1 },
-							BlinkCmpGhostText = { fg = colors.overlay0, italic = true },
-							BlinkCmpDoc = { bg = colors.mantle, fg = colors.text },
-							BlinkCmpDocBorder = { bg = colors.mantle, fg = colors.surface2 },
-							BlinkCmpDocSeparator = { bg = colors.mantle, fg = colors.surface1 },
-							BlinkCmpDocCursorLine = { bg = colors.surface0 },
-							BlinkCmpSignatureHelp = { bg = colors.mantle, fg = colors.text },
-							BlinkCmpSignatureHelpBorder = { bg = colors.mantle, fg = colors.surface2 },
-							BlinkCmpSignatureHelpActiveParameter = {
-								bg = colors.surface0,
-								fg = colors.peach,
-								bold = true,
-							},
+			--------------------------------------------------------------------------------
+			-- Syntax Highlighting
+			--------------------------------------------------------------------------------
+			Comment = { fg = comment, italic = true },
+			SpecialComment = { fg = comment, italic = true },
 
-							-- Snacks.nvim picker NvChad style
-							SnacksPicker = { bg = colors.base },
-							SnacksPickerBorder = { fg = colors.surface0, bg = colors.base },
-							SnacksPickerPreview = { bg = colors.base },
-							SnacksPickerPreviewBorder = { fg = colors.base, bg = colors.base },
-							SnacksPickerPreviewTitle = { fg = colors.base, bg = colors.green },
-							SnacksPickerBoxBorder = { fg = colors.base, bg = colors.base },
-							SnacksPickerInputBorder = { fg = colors.surface2, bg = colors.base },
-							SnacksPickerInputSearch = { fg = colors.text, bg = colors.base },
-							SnacksPickerList = { bg = colors.base },
-							SnacksPickerListBorder = { fg = colors.base, bg = colors.base },
-							SnacksPickerListTitle = { fg = colors.base, bg = colors.base },
+			Constant = { fg = aqua },
+			String = { fg = green },
+			Character = { fg = green },
+			Number = { fg = purple },
+			Boolean = { fg = purple },
+			Float = { fg = purple },
 
-							-- Additional picker elements
-							SnacksPickerDir = { fg = colors.blue },
-							SnacksPickerFile = { fg = colors.text },
-							SnacksPickerMatch = { fg = colors.peach, bold = true },
-							SnacksPickerCursor = { bg = colors.surface0, fg = colors.text },
-							SnacksPickerSelected = { bg = colors.surface0, fg = colors.text },
-							SnacksPickerIcon = { fg = colors.blue },
-							SnacksPickerSource = { fg = colors.overlay1 },
-							SnacksPickerCount = { fg = colors.overlay1 },
-							SnacksPickerFooter = { fg = colors.overlay1 },
-							SnacksPickerHeader = { fg = colors.text, bold = true },
-							SnacksPickerSpecial = { fg = colors.peach },
-							SnacksPickerIndent = { fg = colors.surface1 },
-							SnacksPickerMulti = { fg = colors.peach },
-							SnacksPickerTitle = { fg = colors.text, bold = true },
-							SnacksPickerPrompt = { fg = colors.text },
+			Identifier = { fg = fg },
+			Function = { fg = green },
 
-							-- Snacks core components
-							SnacksNotifierNormal = { bg = colors.mantle, fg = colors.text },
-							SnacksNotifierBorder = { bg = colors.mantle, fg = colors.surface2 },
-							SnacksNotifierTitle = { bg = colors.mantle, fg = colors.text, bold = true },
-							SnacksNotifierIcon = { bg = colors.mantle, fg = colors.blue },
-							SnacksNotifierIconInfo = { bg = colors.mantle, fg = colors.blue },
-							SnacksNotifierIconWarn = { bg = colors.mantle, fg = colors.yellow },
-							SnacksNotifierIconError = { bg = colors.mantle, fg = colors.red },
+			Statement = { fg = red },
+			Conditional = { fg = red },
+			Repeat = { fg = red },
+			Label = { fg = orange },
+			Operator = { fg = orange },
+			Keyword = { fg = red },
+			Exception = { fg = red },
 
-							-- Snacks Dashboard
-							SnacksDashboardNormal = { bg = colors.base, fg = colors.text },
-							SnacksDashboardDesc = { bg = colors.base, fg = colors.subtext1 },
-							SnacksDashboardFile = { bg = colors.base, fg = colors.text },
-							SnacksDashboardDir = { bg = colors.base, fg = colors.blue },
-							SnacksDashboardFooter = { bg = colors.base, fg = colors.overlay1 },
-							SnacksDashboardHeader = { bg = colors.base, fg = colors.text, bold = true },
-							SnacksDashboardIcon = { bg = colors.base, fg = colors.blue },
-							SnacksDashboardKey = { bg = colors.base, fg = colors.peach },
-							SnacksDashboardTerminal = { bg = colors.base, fg = colors.text },
-							SnacksDashboardSpecial = { bg = colors.base, fg = colors.peach },
+			PreProc = { fg = purple },
+			Include = { fg = purple },
+			Define = { fg = purple },
+			Macro = { fg = aqua },
+			PreCondit = { fg = purple },
 
-							-- Snacks Terminal
-							SnacksTerminalNormal = { bg = colors.mantle, fg = colors.text },
-							SnacksTerminalBorder = { bg = colors.mantle, fg = colors.surface2 },
-							SnacksTerminalTitle = { bg = colors.mantle, fg = colors.text, bold = true },
+			Type = { fg = yellow },
+			StorageClass = { fg = orange },
+			Structure = { fg = orange },
+			Typedef = { fg = red },
 
-							CmpItemMenu = { fg = colors.surface2 },
-							CursorLineNr = { fg = colors.text },
-							GitSignsChange = { fg = colors.peach },
-							LineNr = { fg = colors.overlay0 },
-							LspInfoBorder = { link = "FloatBorder" },
-							VertSplit = { bg = colors.base, fg = colors.surface0 },
-							WhichKeyFloat = { bg = colors.mantle },
-							YankHighlight = { bg = colors.surface2 },
-							FidgetTask = { fg = colors.subtext1 },
-							FidgetTitle = { fg = colors.peach },
+			Special = { fg = yellow },
+			SpecialChar = { fg = yellow },
+			Tag = { fg = orange },
+			Delimiter = { fg = fg },
+			Debug = { fg = orange },
 
-							IblIndent = { fg = colors.surface0 },
-							IblScope = { fg = colors.overlay0 },
+			Underlined = { underline = true },
+			Bold = { bold = true },
+			Italic = { italic = true },
+			Ignore = { fg = comment },
+			Error = { fg = red },
+			Warning = {},
+			Todo = { fg = purple, italic = true },
 
-							Boolean = { fg = colors.mauve },
-							Number = { fg = colors.mauve },
-							Float = { fg = colors.mauve },
+			--------------------------------------------------------------------------------
+			-- Diagnostics
+			--------------------------------------------------------------------------------
+			DiagnosticError = { fg = error },
+			DiagnosticWarn = { fg = warning },
+			DiagnosticInfo = { fg = info },
+			DiagnosticHint = { fg = hint },
+			DiagnosticInformation = { link = "DiagnosticInfo" },
+			DiagnosticWarning = { link = "DiagnosticWarn" },
 
-							PreProc = { fg = colors.mauve },
-							PreCondit = { fg = colors.mauve },
-							Include = { fg = colors.mauve },
-							Define = { fg = colors.mauve },
-							Conditional = { fg = colors.red },
-							Repeat = { fg = colors.red },
-							Keyword = { fg = colors.red },
-							Typedef = { fg = colors.red },
-							Exception = { fg = colors.red },
-							Statement = { fg = colors.red },
+			DiagnosticUnderlineError = { underline = true, special = error },
+			DiagnosticUnderlineWarn = { underline = true, special = warning },
+			DiagnosticUnderlineInfo = { underline = true, special = info },
+			DiagnosticUnderlineHint = { underline = true, special = hint },
 
-							Error = { fg = colors.red },
-							StorageClass = { fg = colors.peach },
-							Tag = { fg = colors.peach },
-							Label = { fg = colors.peach },
-							Structure = { fg = colors.peach },
-							Operator = { fg = colors.peach },
-							Title = { fg = colors.peach },
-							Special = { fg = colors.yellow },
-							SpecialChar = { fg = colors.yellow },
-							Type = { fg = colors.yellow, style = { "bold" } },
-							Function = { fg = colors.green, style = { "bold" } },
-							Delimiter = { fg = colors.subtext1 },
-							Ignore = { fg = colors.subtext1 },
-							Macro = { fg = colors.teal },
+			DiagnosticVirtualTextError = { link = "Grey" },
+			DiagnosticVirtualTextWarn = { link = "Grey" },
+			DiagnosticVirtualTextInfo = { link = "Grey" },
+			DiagnosticVirtualTextHint = { link = "Grey" },
 
-							TSAnnotation = { fg = colors.mauve },
-							TSAttribute = { fg = colors.mauve },
-							TSBoolean = { fg = colors.mauve },
-							TSCharacter = { fg = colors.teal },
-							TSCharacterSpecial = { link = "SpecialChar" },
-							TSComment = { link = "Comment" },
-							TSConditional = { fg = colors.red },
-							TSConstBuiltin = { fg = colors.mauve },
-							TSConstMacro = { fg = colors.mauve },
-							TSConstant = { fg = colors.text },
-							TSConstructor = { fg = colors.green },
-							TSDebug = { link = "Debug" },
-							TSDefine = { link = "Define" },
-							TSEnvironment = { link = "Macro" },
-							TSEnvironmentName = { link = "Type" },
-							TSError = { link = "Error" },
-							TSException = { fg = colors.red },
-							TSField = { fg = colors.blue },
-							TSFloat = { fg = colors.mauve },
-							TSFuncBuiltin = { fg = colors.green },
-							TSFuncMacro = { fg = colors.green },
-							TSFunction = { fg = colors.green },
-							TSFunctionCall = { fg = colors.green },
-							TSInclude = { fg = colors.red },
-							TSKeyword = { fg = colors.red },
-							TSKeywordFunction = { fg = colors.red },
-							TSKeywordOperator = { fg = colors.peach },
-							TSKeywordReturn = { fg = colors.red },
-							TSLabel = { fg = colors.peach },
-							TSLiteral = { link = "String" },
-							TSMath = { fg = colors.blue },
-							TSMethod = { fg = colors.green },
-							TSMethodCall = { fg = colors.green },
-							TSNamespace = { fg = colors.yellow },
-							TSNone = { fg = colors.text },
-							TSNumber = { fg = colors.mauve },
-							TSOperator = { fg = colors.peach },
-							TSParameter = { fg = colors.text },
-							TSParameterReference = { fg = colors.text },
-							TSPreProc = { link = "PreProc" },
-							TSProperty = { fg = colors.blue },
-							TSPunctBracket = { fg = colors.text },
-							TSPunctDelimiter = { link = "Delimiter" },
-							TSPunctSpecial = { fg = colors.blue },
-							TSRepeat = { fg = colors.red },
-							TSStorageClass = { fg = colors.peach },
-							TSStorageClassLifetime = { fg = colors.peach },
-							TSStrike = { fg = colors.subtext1 },
-							TSString = { fg = colors.teal },
-							TSStringEscape = { fg = colors.green },
-							TSStringRegex = { fg = colors.green },
-							TSStringSpecial = { link = "SpecialChar" },
-							TSSymbol = { fg = colors.text },
-							TSTag = { fg = colors.peach },
-							TSTagAttribute = { fg = colors.green },
-							TSTagDelimiter = { fg = colors.green },
-							TSText = { fg = colors.green },
-							TSTextReference = { link = "Constant" },
-							TSTitle = { link = "Title" },
-							TSTodo = { link = "Todo" },
-							TSType = { fg = colors.yellow, style = { "bold" } },
-							TSTypeBuiltin = { fg = colors.yellow, style = { "bold" } },
-							TSTypeDefinition = { fg = colors.yellow, style = { "bold" } },
-							TSTypeQualifier = { fg = colors.peach, style = { "bold" } },
-							TSURI = { fg = colors.blue },
-							TSVariable = { fg = colors.text },
-							TSVariableBuiltin = { fg = colors.mauve },
+			DiagnosticFloatingError = { link = "ErrorFloat" },
+			DiagnosticFloatingWarn = { link = "WarningFloat" },
+			DiagnosticFloatingInfo = { link = "InfoFloat" },
+			DiagnosticFloatingHint = { link = "HintFloat" },
 
-							["@annotation"] = { link = "TSAnnotation" },
-							["@attribute"] = { link = "TSAttribute" },
-							["@boolean"] = { link = "TSBoolean" },
-							["@character"] = { link = "TSCharacter" },
-							["@character.special"] = { link = "TSCharacterSpecial" },
-							["@comment"] = { link = "TSComment" },
-							["@conceal"] = { link = "Grey" },
-							["@conditional"] = { link = "TSConditional" },
-							["@constant"] = { link = "TSConstant" },
-							["@constant.builtin"] = { link = "TSConstBuiltin" },
-							["@constant.macro"] = { link = "TSConstMacro" },
-							["@constructor"] = { link = "TSConstructor" },
-							["@debug"] = { link = "TSDebug" },
-							["@define"] = { link = "TSDefine" },
-							["@error"] = { link = "TSError" },
-							["@exception"] = { link = "TSException" },
-							["@field"] = { link = "TSField" },
-							["@float"] = { link = "TSFloat" },
-							["@function"] = { link = "TSFunction" },
-							["@function.builtin"] = { link = "TSFuncBuiltin" },
-							["@function.call"] = { link = "TSFunctionCall" },
-							["@function.macro"] = { link = "TSFuncMacro" },
-							["@include"] = { link = "TSInclude" },
-							["@keyword"] = { link = "TSKeyword" },
-							["@keyword.function"] = { link = "TSKeywordFunction" },
-							["@keyword.operator"] = { link = "TSKeywordOperator" },
-							["@keyword.return"] = { link = "TSKeywordReturn" },
-							["@label"] = { link = "TSLabel" },
-							["@math"] = { link = "TSMath" },
-							["@method"] = { link = "TSMethod" },
-							["@method.call"] = { link = "TSMethodCall" },
-							["@namespace"] = { link = "TSNamespace" },
-							["@none"] = { link = "TSNone" },
-							["@number"] = { link = "TSNumber" },
-							["@operator"] = { link = "TSOperator" },
-							["@parameter"] = { link = "TSParameter" },
-							["@parameter.reference"] = { link = "TSParameterReference" },
-							["@preproc"] = { link = "TSPreProc" },
-							["@property"] = { link = "TSProperty" },
-							["@punctuation.bracket"] = { link = "TSPunctBracket" },
-							["@punctuation.delimiter"] = { link = "TSPunctDelimiter" },
-							["@punctuation.special"] = { link = "TSPunctSpecial" },
-							["@repeat"] = { link = "TSRepeat" },
-							["@storageclass"] = { link = "TSStorageClass" },
-							["@storageclass.lifetime"] = { link = "TSStorageClassLifetime" },
-							["@strike"] = { link = "TSStrike" },
-							["@string"] = { link = "TSString" },
-							["@string.escape"] = { link = "TSStringEscape" },
-							["@string.regex"] = { link = "TSStringRegex" },
-							["@string.special"] = { link = "TSStringSpecial" },
-							["@symbol"] = { link = "TSSymbol" },
-							["@tag"] = { link = "TSTag" },
-							["@tag.attribute"] = { link = "TSTagAttribute" },
-							["@tag.delimiter"] = { link = "TSTagDelimiter" },
-							["@text"] = { link = "TSText" },
-							["@text.danger"] = { link = "TSDanger" },
-							["@text.diff.add"] = { link = "diffAdded" },
-							["@text.diff.delete"] = { link = "diffRemoved" },
-							["@text.emphasis"] = { link = "TSEmphasis" },
-							["@text.environment"] = { link = "TSEnvironment" },
-							["@text.environment.name"] = { link = "TSEnvironmentName" },
-							["@text.literal"] = { link = "TSLiteral" },
-							["@text.math"] = { link = "TSMath" },
-							["@text.note"] = { link = "TSNote" },
-							["@text.reference"] = { link = "TSTextReference" },
-							["@text.strike"] = { link = "TSStrike" },
-							["@text.strong"] = { link = "TSStrong" },
-							["@text.title"] = { link = "TSTitle" },
-							["@text.todo"] = { link = "TSTodo" },
-							["@text.todo.checked"] = { link = "Green" },
-							["@text.todo.unchecked"] = { link = "Ignore" },
-							["@text.underline"] = { link = "TSUnderline" },
-							["@text.uri"] = { link = "TSURI" },
-							["@text.warning"] = { link = "TSWarning" },
-							["@todo"] = { link = "TSTodo" },
-							["@type"] = { link = "TSType" },
-							["@type.builtin"] = { link = "TSTypeBuiltin" },
-							["@type.definition"] = { link = "TSTypeDefinition" },
-							["@type.qualifier"] = { link = "TSTypeQualifier" },
-							["@uri"] = { link = "TSURI" },
-							["@variable"] = { link = "TSVariable" },
-							["@variable.builtin"] = { link = "TSVariableBuiltin" },
+			DiagnosticSignError = { link = "RedSign" },
+			DiagnosticSignWarn = { link = "YellowSign" },
+			DiagnosticSignInfo = { link = "BlueSign" },
+			DiagnosticSignHint = { link = "GreenSign" },
 
-							["@lsp.type.class"] = { link = "TSType" },
-							["@lsp.type.comment"] = { link = "TSComment" },
-							["@lsp.type.decorator"] = { link = "TSFunction" },
-							["@lsp.type.enum"] = { link = "TSType" },
-							["@lsp.type.enumMember"] = { link = "TSProperty" },
-							["@lsp.type.events"] = { link = "TSLabel" },
-							["@lsp.type.function"] = { link = "TSFunction" },
-							["@lsp.type.interface"] = { link = "TSType" },
-							["@lsp.type.keyword"] = { link = "TSKeyword" },
-							["@lsp.type.macro"] = { link = "TSConstMacro" },
-							["@lsp.type.method"] = { link = "TSMethod" },
-							["@lsp.type.modifier"] = { link = "TSTypeQualifier" },
-							["@lsp.type.namespace"] = { link = "TSNamespace" },
-							["@lsp.type.number"] = { link = "TSNumber" },
-							["@lsp.type.operator"] = { link = "TSOperator" },
-							["@lsp.type.parameter"] = { link = "TSParameter" },
-							["@lsp.type.property"] = { link = "TSProperty" },
-							["@lsp.type.regexp"] = { link = "TSStringRegex" },
-							["@lsp.type.string"] = { link = "TSString" },
-							["@lsp.type.struct"] = { link = "TSType" },
-							["@lsp.type.type"] = { link = "TSType" },
-							["@lsp.type.typeParameter"] = { link = "TSTypeDefinition" },
-							["@lsp.type.variable"] = { link = "TSVariable" },
-						}
-					end,
-					latte = function(colors)
-						return {
-							IblIndent = { fg = colors.mantle },
-							IblScope = { fg = colors.surface1 },
+			ErrorFloat = { fg = red, bg = bg_highlight },
+			WarningFloat = { fg = yellow, bg = bg_highlight },
+			InfoFloat = { fg = blue, bg = bg_highlight },
+			HintFloat = { fg = green, bg = bg_highlight },
 
-							LineNr = { fg = colors.surface1 },
-						}
-					end,
-				},
-			})
-			-- vim.api.nvim_set_hl(0, "NavicIconsOperator", { default = true, bg = "none", fg = "#eedaad" })
-			-- vim.api.nvim_set_hl(0, "NavicText", { default = true, bg = "none", fg = "#eedaad" })
-			-- vim.api.nvim_set_hl(0, "NavicSeparator", { default = true, bg = "none", fg = "#eedaad" })
+			ErrorText = { undercurl = true, special = red },
+			WarningText = { undercurl = true, special = yellow },
+			InfoText = { undercurl = true, special = blue },
+			HintText = { undercurl = true, special = green },
 
-			vim.api.nvim_command("colorscheme catppuccin")
-		end,
-	},
-	{
-		"rebelot/kanagawa.nvim",
-		enabled = false,
-		config = function()
-			require("kanagawa").setup({
-				compile = false, -- enable compiling the colorscheme
-				undercurl = true, -- enable undercurls
-				commentStyle = { italic = true },
-				functionStyle = {},
-				keywordStyle = { italic = true },
-				statementStyle = { bold = true },
-				typeStyle = {},
-				transparent = false, -- do not set background color
-				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-				terminalColors = true, -- define vim.g.terminal_color_{0,17}
-				colors = { -- add/modify theme and palette colors
-					palette = {},
-					theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-				},
-				overrides = function(colors) -- add/modify highlights
-					return {}
-				end,
-				theme = "dragon", -- Load "wave" theme
-				background = { -- map the value of 'background' option to a theme
-					dark = "dragon", -- try "dragon" !
-					light = "dragon",
-				},
-			})
-			vim.cmd("colorscheme kanagawa")
-		end,
-	},
-	{
-		"sainnhe/everforest",
-		lazy = false,
-		enabled = false,
-		priority = 1000,
-		config = function()
-			vim.o.background = "dark"
-			vim.g.everforest_background = "dark"
-			vim.g.everforest_enable_italic = true
-			vim.g.everforest_better_performance = 1
+			VirtualTextError = { link = "Grey" },
+			VirtualTextWarning = { link = "Grey" },
+			VirtualTextInfo = { link = "Grey" },
+			VirtualTextHint = { link = "Grey" },
 
-			vim.cmd.colorscheme("everforest")
-		end,
-	},
-	{
-		"ribru17/bamboo.nvim",
-		lazy = false,
-		enabled = false,
-		priority = 1000,
-		config = function()
-			require("bamboo").setup({
-				dim_inactive = true,
-				term_colors = true,
-				ending_tildes = true,
+			--------------------------------------------------------------------------------
+			-- LSP
+			--------------------------------------------------------------------------------
+			LspReferenceText = { link = "CurrentWord" },
+			LspReferenceRead = { link = "CurrentWord" },
+			LspReferenceWrite = { link = "CurrentWord" },
+			LspSignatureActiveParameter = { link = "Search" },
+			LspCodeLens = { link = "VirtualTextInfo" },
+			LspCodeLensSeparator = { link = "VirtualTextHint" },
+			LspErrorHighlight = { link = "ErrorText" },
+			LspWarningHighlight = { link = "WarningText" },
+			LspInformationHighlight = { link = "InfoText" },
+			LspHintHighlight = { link = "HintText" },
+			LspErrorVirtual = { link = "VirtualTextError" },
+			LspWarningVirtual = { link = "VirtualTextWarning" },
+			LspInformationVirtual = { link = "VirtualTextInfo" },
+			LspHintVirtual = { link = "VirtualTextHint" },
+			LspLinesDiagBorder = { link = "Yellow" },
+			LineDiagTuncateLine = { link = "Yellow" },
 
-				lualine = {
-					transparent = true,
-				},
+			lspInlayHintsParameter = { link = "LineNr" },
+			lspInlayHintsType = { link = "LineNr" },
+			lspReference = { link = "CurrentWord" },
 
-				diagnostics = {
-					darker = true,
-					undercurl = true,
-					background = true,
-				},
-			})
-			require("bamboo").load()
-		end,
-	},
+			["@lsp.type.class"] = { fg = yellow },
+			["@lsp.type.decorator"] = { fg = orange },
+			["@lsp.type.enum"] = { fg = yellow },
+			["@lsp.type.enumMember"] = { fg = purple },
+			["@lsp.type.function"] = { fg = green },
+			["@lsp.type.interface"] = { fg = yellow },
+			["@lsp.type.macro"] = { fg = aqua },
+			["@lsp.type.member"] = { fg = green },
+			["@lsp.type.method"] = { fg = green },
+			["@lsp.type.namespace"] = { fg = aqua },
+			["@lsp.type.parameter"] = { fg = orange },
+			["@lsp.type.property"] = { fg = fg },
+			["@lsp.type.struct"] = { fg = yellow },
+			["@lsp.type.type"] = { fg = yellow },
+			["@lsp.type.typeParameter"] = { fg = yellow },
+			["@lsp.type.variable"] = { fg = fg },
+
+			-- TypeScript LSP specific
+			["@lsp.type.member.typescript"] = { fg = green },
+			["@lsp.type.member.typescriptreact"] = { fg = green },
+
+			--------------------------------------------------------------------------------
+			-- Treesitter
+			--------------------------------------------------------------------------------
+			["@variable"] = { fg = fg },
+			["@variable.builtin"] = { fg = orange },
+			["@variable.parameter"] = { fg = orange },
+			["@variable.member"] = { fg = fg },
+			["@property"] = { fg = fg },
+			["@constant"] = { fg = aqua },
+			["@constant.builtin"] = { fg = purple },
+			["@module"] = { fg = aqua },
+			["@label"] = { fg = orange },
+			["@string"] = { fg = green },
+			["@string.regexp"] = { fg = orange },
+			["@string.escape"] = { fg = yellow },
+			["@character"] = { fg = green },
+			["@number"] = { fg = purple },
+			["@boolean"] = { fg = purple },
+			["@function"] = { fg = green },
+			["@function.builtin"] = { fg = green },
+			["@function.call"] = { fg = green },
+			["@function.macro"] = { fg = aqua },
+			["@method"] = { fg = green },
+			["@method.call"] = { fg = green },
+			["@constructor"] = { fg = yellow },
+			["@type"] = { fg = yellow },
+			["@type.builtin"] = { fg = orange },
+			["@type.definition"] = { fg = yellow },
+			["@attribute"] = { fg = orange },
+			["@keyword"] = { fg = red },
+			["@keyword.function"] = { fg = red },
+			["@keyword.operator"] = { fg = red },
+			["@keyword.return"] = { fg = red },
+			["@keyword.conditional"] = { fg = red },
+			["@keyword.repeat"] = { fg = red },
+			["@keyword.import"] = { fg = purple },
+			["@operator"] = { fg = orange },
+			["@punctuation.delimiter"] = { fg = fg },
+			-- ["@punctuation.bracket"] = { fg = fg },
+			["@punctuation.special"] = { fg = orange },
+			["@comment"] = { fg = comment, italic = true },
+			["@tag"] = { fg = orange },
+			["@tag.attribute"] = { fg = blue },
+			["@tag.delimiter"] = { fg = fg },
+			["@markup.strong"] = { bold = true },
+			["@markup.italic"] = { italic = true },
+			["@markup.underline"] = { underline = true },
+			["@markup.heading"] = { fg = yellow, bold = true },
+			["@markup.link"] = { fg = blue, underline = true },
+			["@markup.link.url"] = { fg = aqua, underline = true },
+			["@markup.list"] = { fg = orange },
+			["@markup.raw"] = { fg = green },
+			["@diff.plus"] = { fg = green },
+			["@diff.minus"] = { fg = red },
+			["@diff.delta"] = { fg = blue },
+
+			-- TypeScript specific
+			typescriptBlock = { fg = fg },
+			typescriptVariableDeclaration = { fg = red },
+			typescriptVariable = { fg = red },
+			typescriptIdentifierName = { fg = fg },
+			typescriptReserved = { fg = red },
+			typescriptOperator = { fg = orange },
+			typescriptCall = { fg = green },
+			typescriptMember = { fg = green },
+			typescriptMemberExpression = { fg = green },
+			typescriptFuncCallArg = { fg = fg },
+			typescriptPropertySignature = { fg = fg },
+			typescriptMethodSignature = { fg = green },
+			typescriptFuncName = { fg = green },
+			typescriptFuncKeyword = { fg = red },
+			typescriptArrowFunc = { fg = red },
+			typescriptArrowFuncArg = { fg = orange },
+			typescriptProp = { fg = fg },
+			typescriptConditional = { fg = red },
+			typescriptRepeat = { fg = red },
+			typescriptStatementKeyword = { fg = red },
+			typescriptImport = { fg = purple },
+			typescriptExport = { fg = purple },
+			typescriptTypeReference = { fg = yellow },
+			typescriptString = { fg = green },
+			typescriptNumber = { fg = purple },
+			typescriptBoolean = { fg = purple },
+			typescriptNull = { fg = purple },
+
+			-- JavaScript/TypeScript function calls
+			["@function.method"] = { fg = green },
+			["@function.method.call"] = { fg = green },
+			["@lsp.typemod.function.defaultLibrary"] = { fg = green },
+			["@lsp.typemod.method.defaultLibrary"] = { fg = green },
+			["@lsp.mod.defaultLibrary"] = {},
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Snacks Pickers
+			--------------------------------------------------------------------------------
+			SnacksPickerDir = { fg = blue, bold = true },
+			SnacksPickerFile = { fg = fg },
+			SnacksPickerMatch = { fg = orange, bold = true },
+			SnacksPickerIcon = { fg = aqua },
+			SnacksPickerTitle = { fg = yellow, bold = true },
+			SnacksPickerBorder = { fg = comment, bg = bg },
+			SnacksPickerCursor = { fg = fg, bg = bg_visual, bold = true },
+			SnacksPickerCursorLine = { bg = bg_visual },
+			SnacksPickerSelected = { fg = orange, bg = bg_highlight, bold = true },
+			SnacksPickerPreview = { fg = fg_dark, bg = bg_dark },
+			SnacksPickerPrompt = { fg = fg, bg = bg },
+			SnacksPickerNormal = { fg = fg, bg = bg },
+			SnacksPickerInput = { fg = fg, bg = bg_dark },
+			SnacksPickerInputBorder = { fg = line_nr_active, bg = bg_dark },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: GitSigns
+			--------------------------------------------------------------------------------
+			GitSignsAdd = { fg = green },
+			GitSignsChange = { fg = blue },
+			GitSignsDelete = { fg = red },
+			GitSignsAddNr = { fg = green },
+			GitSignsChangeNr = { fg = blue },
+			GitSignsDeleteNr = { fg = red },
+			GitSignsAddLn = { bg = diff_add_bg },
+			GitSignsChangeLn = { bg = diff_change_bg },
+			GitSignsDeleteLn = { bg = diff_delete_bg },
+			GitSignsAddInline = { bg = diff_add_bg },
+			GitSignsChangeInline = { bg = diff_change_bg },
+			GitSignsDeleteInline = { bg = diff_delete_bg },
+			GitSignsCurrentLineBlame = { fg = comment, italic = true },
+			GitSignsAddPreview = { link = "GitSignsAddLn" },
+			GitSignsDeletePreview = { link = "GitSignsDeleteLn" },
+			GitGutterChange = { link = "BlueSign" },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: DiffView
+			--------------------------------------------------------------------------------
+			DiffviewPrimary = { fg = purple },
+			DiffviewSecondary = { fg = blue },
+			DiffviewStatusAdded = { fg = green },
+			DiffviewStatusModified = { fg = blue },
+			DiffviewStatusRenamed = { fg = blue },
+			DiffviewStatusCopied = { fg = blue },
+			DiffviewStatusTypeChange = { fg = blue },
+			DiffviewStatusUnmerged = { fg = orange },
+			DiffviewStatusUnknown = { fg = red },
+			DiffviewStatusDeleted = { fg = red },
+			DiffviewStatusBroken = { fg = red },
+			DiffviewStatusIgnored = { fg = comment },
+			DiffviewStatusUntracked = { fg = comment },
+			DiffviewFilePanelTitle = { fg = yellow, bold = true },
+			DiffviewFilePanelCounter = { fg = purple, bold = true },
+			DiffviewFilePanelFileName = { fg = fg },
+			DiffviewFilePanelPath = { fg = comment },
+			DiffviewFilePanelInsertions = { fg = green },
+			DiffviewFilePanelDeletions = { fg = red },
+			DiffviewFilePanelSelected = { fg = yellow, bold = true },
+			DiffviewFilePanelConflicts = { fg = red, bold = true },
+			DiffviewFolderName = { fg = blue },
+			DiffviewFolderSign = { fg = comment },
+			DiffviewReference = { fg = purple, bold = true },
+			DiffviewHash = { fg = aqua },
+			DiffviewStatusLine = { fg = fg_dark, bg = bg_dark },
+			DiffviewStatusLineNC = { fg = comment, bg = bg_dark },
+			DiffviewNormal = { fg = fg, bg = bg },
+			DiffviewCursorLine = { bg = bg_soft },
+			DiffviewVertSplit = { fg = gutter },
+			DiffviewSignColumn = { fg = fg, bg = bg },
+			DiffviewDiffAdd = { bg = diff_add_bg },
+			DiffviewDiffChange = { bg = diff_change_bg },
+			DiffviewDiffDelete = { bg = diff_delete_bg, fg = comment },
+			DiffviewDiffText = { bg = diff_change_bg },
+			DiffviewDiffAddAsDelete = { bg = diff_delete_bg, fg = comment },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Blink.cmp (completion)
+			--------------------------------------------------------------------------------
+			BlinkCmpMenu = { fg = fg_dark, bg = bg_highlight },
+			BlinkCmpMenuBorder = { fg = comment, bg = bg_highlight },
+			BlinkCmpMenuSelection = { fg = bg, bg = line_nr_active },
+			BlinkCmpLabel = { fg = fg },
+			BlinkCmpLabelDeprecated = { fg = comment, strikethrough = true },
+			BlinkCmpLabelMatch = { fg = orange, bold = true },
+			BlinkCmpLabelDescription = { fg = comment },
+			BlinkCmpLabelDetail = { fg = blue },
+			BlinkCmpKind = { fg = purple },
+			BlinkCmpKindText = { fg = fg },
+			BlinkCmpKindMethod = { fg = blue },
+			BlinkCmpKindFunction = { fg = green },
+			BlinkCmpKindConstructor = { fg = yellow },
+			BlinkCmpKindField = { fg = fg },
+			BlinkCmpKindVariable = { fg = fg },
+			BlinkCmpKindClass = { fg = yellow },
+			BlinkCmpKindInterface = { fg = yellow },
+			BlinkCmpKindModule = { fg = aqua },
+			BlinkCmpKindProperty = { fg = fg },
+			BlinkCmpKindUnit = { fg = purple },
+			BlinkCmpKindValue = { fg = purple },
+			BlinkCmpKindEnum = { fg = yellow },
+			BlinkCmpKindKeyword = { fg = red },
+			BlinkCmpKindSnippet = { fg = green },
+			BlinkCmpKindColor = { fg = aqua },
+			BlinkCmpKindFile = { fg = blue },
+			BlinkCmpKindReference = { fg = orange },
+			BlinkCmpKindFolder = { fg = blue },
+			BlinkCmpKindEnumMember = { fg = purple },
+			BlinkCmpKindConstant = { fg = aqua },
+			BlinkCmpKindStruct = { fg = yellow },
+			BlinkCmpKindEvent = { fg = orange },
+			BlinkCmpKindOperator = { fg = orange },
+			BlinkCmpKindTypeParameter = { fg = yellow },
+			BlinkCmpDoc = { fg = fg_dark, bg = bg_highlight },
+			BlinkCmpDocBorder = { fg = comment, bg = bg_highlight },
+			BlinkCmpSignatureHelp = { fg = fg_dark, bg = bg_highlight },
+			BlinkCmpSignatureHelpBorder = { fg = comment, bg = bg_highlight },
+			BlinkCmpSignatureHelpActiveParameter = { fg = orange, bold = true },
+			BlinkCmpGhostText = { fg = comment },
+			BlinkCmpScrollBarThumb = { bg = surface2 },
+			BlinkCmpScrollBarGutter = { bg = surface0 },
+			BlinkCmpSource = { fg = overlay, bg = bg_dark },
+			BlinkCmpDocSeparator = { fg = surface1, bg = bg_dark },
+			BlinkCmpDocCursorLine = { bg = surface0 },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Mini.nvim
+			--------------------------------------------------------------------------------
+			MiniAnimateNormalFloat = { link = "NormalFloat" },
+			MiniCursorword = { bg = bg_highlight },
+			MiniCursorwordCurrent = { bg = bg_highlight },
+			MiniIndentscopeSymbol = { fg = line_nr_active },
+			MiniIndentscopePrefix = { nocombine = true },
+			MiniOperatorsExchangeFrom = { bg = bg_visual },
+			MiniSurround = { bg = bg_visual },
+			MiniIconsAzure = { fg = blue },
+			MiniIconsBlue = { fg = blue },
+			MiniIconsCyan = { fg = aqua },
+			MiniIconsGreen = { fg = green },
+			MiniIconsGrey = { fg = comment },
+			MiniIconsOrange = { fg = orange },
+			MiniIconsPurple = { fg = purple },
+			MiniIconsRed = { fg = red },
+			MiniIconsYellow = { fg = yellow },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Harpoon
+			--------------------------------------------------------------------------------
+			HarpoonWindow = { fg = fg, bg = bg },
+			HarpoonBorder = { fg = comment, bg = bg },
+			HarpoonTitle = { fg = yellow, bold = true },
+			HarpoonNumberActive = { fg = orange, bold = true },
+			HarpoonNumberInactive = { fg = comment },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Render Markdown
+			--------------------------------------------------------------------------------
+			RenderMarkdownH1Bg = { bg = bg_dark },
+			RenderMarkdownH2Bg = { bg = bg_dark },
+			RenderMarkdownH3Bg = { bg = bg_dark },
+			RenderMarkdownH4Bg = { bg = bg_dark },
+			RenderMarkdownH5Bg = { bg = bg_dark },
+			RenderMarkdownH6Bg = { bg = bg_dark },
+			RenderMarkdownCode = { bg = bg_dark },
+			RenderMarkdownCodeInline = { fg = green, bg = bg_dark },
+			RenderMarkdownBullet = { fg = orange },
+			RenderMarkdownTableHead = { fg = yellow },
+			RenderMarkdownTableRow = { fg = fg },
+			RenderMarkdownSuccess = { fg = green },
+			RenderMarkdownInfo = { fg = blue },
+			RenderMarkdownHint = { fg = aqua },
+			RenderMarkdownWarn = { fg = yellow },
+			RenderMarkdownError = { fg = red },
+			RenderMarkdownQuote = { fg = comment, italic = true },
+			RenderMarkdownLink = { fg = blue, underline = true },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Fyler (file explorer)
+			--------------------------------------------------------------------------------
+			FylerNormal = { fg = fg, bg = bg },
+			FylerBorder = { fg = comment, bg = bg },
+			FylerTitle = { fg = yellow, bold = true },
+			FylerDirectory = { fg = blue, bold = true },
+			FylerFile = { fg = fg },
+			FylerExecutable = { fg = green },
+			FylerLink = { fg = aqua },
+			FylerSelected = { fg = orange, bold = true },
+			FylerCursor = { bg = bg_highlight },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Incline
+			--------------------------------------------------------------------------------
+			InclineNormalNC = { fg = comment, bg = surface1 },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Hop
+			--------------------------------------------------------------------------------
+			HopNextKey = { fg = orange, bold = true },
+			HopNextKey1 = { fg = green, bold = true },
+			HopNextKey2 = { link = "Green" },
+			HopPreview = { fg = aqua, bold = true },
+			HopUnmatched = { link = "Grey" },
+			HopCursor = { link = "Cursor" },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Indent Blankline
+			--------------------------------------------------------------------------------
+			IndentBlanklineSpaceCharBlankline = { link = "LineNr" },
+			IndentBlanklineSpaceChar = { link = "LineNr" },
+			IndentBlanklineChar = { link = "LineNr" },
+			IndentBlanklineContextChar = { fg = orange },
+			IndentBlanklineContextStart = { underline = true, special = orange },
+			IblIndent = { fg = gutter },
+			IblWhitespace = { fg = gutter },
+			IblScope = { fg = orange },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Rainbow Delimiters (scope brackets)
+			--------------------------------------------------------------------------------
+			-- RainbowDelimiterRed = { fg = red },
+			-- RainbowDelimiterYellow = { fg = yellow },
+			-- RainbowDelimiterBlue = { fg = blue },
+			-- RainbowDelimiterOrange = { fg = orange },
+			-- RainbowDelimiterGreen = { fg = green },
+			-- RainbowDelimiterViolet = { fg = purple },
+			-- RainbowDelimiterCyan = { fg = aqua },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: nvim-ts-rainbow2 / rainbow-delimiters
+			--------------------------------------------------------------------------------
+			TSRainbowRed = { fg = red },
+			TSRainbowYellow = { fg = yellow },
+			TSRainbowBlue = { fg = blue },
+			TSRainbowOrange = { fg = orange },
+			TSRainbowGreen = { fg = green },
+			TSRainbowViolet = { fg = purple },
+			TSRainbowCyan = { fg = aqua },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Trouble
+			--------------------------------------------------------------------------------
+			TroubleCode = { link = "Grey" },
+			TroubleSource = { link = "Grey" },
+			TroubleText = { link = "Fg" },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Floaterm
+			--------------------------------------------------------------------------------
+			FloatermBorder = { link = "Grey" },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Blamer
+			--------------------------------------------------------------------------------
+			Blamer = { link = "Grey" },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Multiple Cursors
+			--------------------------------------------------------------------------------
+			multiple_cursors_cursor = { link = "Cursor" },
+
+			--------------------------------------------------------------------------------
+			-- Plugin: Highlighted Yank
+			--------------------------------------------------------------------------------
+			HighlightedyankRegion = { link = "Visual" },
+
+			--------------------------------------------------------------------------------
+			-- Health
+			--------------------------------------------------------------------------------
+			healthError = { link = "Red" },
+			healthSuccess = { link = "Green" },
+			healthWarning = { link = "Yellow" },
+
+			--------------------------------------------------------------------------------
+			-- Misc Plugin Highlights
+			--------------------------------------------------------------------------------
+			DefinitionIcon = { link = "Blue" },
+			DefinitionCount = { link = "Grey" },
+			DefinitionPreviewTitle = { fg = blue, bold = true },
+			ReferencesCount = { link = "Grey" },
+			TargetFileName = { link = "Grey" },
+			SignatureMarkerText = { link = "PurpleSign" },
+			SignatureMarkText = { link = "BlueSign" },
+
+			--------------------------------------------------------------------------------
+			-- GPG
+			--------------------------------------------------------------------------------
+			GPGHighlightUnknownRecipient = { link = "ErrorMsg" },
+			GPGError = { link = "ErrorMsg" },
+			GPGWarning = { link = "WarningMsg" },
+
+			--------------------------------------------------------------------------------
+			-- Toolbar
+			--------------------------------------------------------------------------------
+			ToolbarLine = { fg = fg_soft, bg = bg_highlight },
+			ToolbarButton = { fg = bg, bg = fg_muted },
+
+			--------------------------------------------------------------------------------
+			-- Markdown (legacy)
+			--------------------------------------------------------------------------------
+			MarkdownH1 = { fg = red, bold = true },
+			MarkdownH2 = { fg = orange, bold = true },
+			MarkdownH3 = { fg = yellow, bold = true },
+			MarkdownH4 = { fg = green, bold = true },
+			MarkdownH5 = { fg = blue, bold = true },
+			MarkdownH6 = { fg = purple, bold = true },
+			MarkdownHeading = {},
+			MarkdownHeadingDelimiter = {},
+			MarkdownHeadingRule = {},
+			MarkdownBold = { bold = true },
+			MarkdownBoldDelimiter = {},
+			MarkdownItalic = { italic = true },
+			MarkdownItalicDelimiter = {},
+			MarkdownCode = { fg = green },
+			MarkdownCodeBlock = { fg = green },
+			MarkdownCodeDelimiter = { fg = comment },
+			MarkdownUrl = { fg = aqua, underline = true },
+			MarkdownLinkText = { fg = blue },
+			MarkdownLinkDelimiter = { fg = comment },
+			MarkdownLinkTextDelimiter = { fg = comment },
+			MarkdownListMarker = { fg = orange },
+			MarkdownOrderedListMarker = { fg = orange },
+			MarkdownRule = { fg = comment },
+
+			--------------------------------------------------------------------------------
+			-- Nvim Internal Highlights
+			--------------------------------------------------------------------------------
+			NvimInternalError = { fg = red, bg = red },
+			NvimAssignment = { link = "Operator" },
+			NvimPlainAssignment = { link = "NvimAssignment" },
+			NvimAugmentedAssignment = { link = "NvimAssignment" },
+			NvimAssignmentWithAddition = { link = "NvimAugmentedAssignment" },
+			NvimAssignmentWithSubtraction = { link = "NvimAugmentedAssignment" },
+			NvimAssignmentWithConcatenation = { link = "NvimAugmentedAssignment" },
+			NvimOperator = { link = "Operator" },
+			NvimUnaryOperator = { link = "NvimOperator" },
+			NvimUnaryPlus = { link = "NvimUnaryOperator" },
+			NvimUnaryMinus = { link = "NvimUnaryOperator" },
+			NvimNot = { link = "NvimUnaryOperator" },
+			NvimBinaryOperator = { link = "NvimOperator" },
+			NvimComparison = { link = "NvimBinaryOperator" },
+			NvimComparisonModifier = { link = "NvimComparison" },
+			NvimBinaryPlus = { link = "NvimBinaryOperator" },
+			NvimBinaryMinus = { link = "NvimBinaryOperator" },
+			NvimConcat = { link = "NvimBinaryOperator" },
+			NvimConcatOrSubscript = { link = "NvimConcat" },
+			NvimOr = { link = "NvimBinaryOperator" },
+			NvimAnd = { link = "NvimBinaryOperator" },
+			NvimMultiplication = { link = "NvimBinaryOperator" },
+			NvimDivision = { link = "NvimBinaryOperator" },
+			NvimMod = { link = "NvimBinaryOperator" },
+			NvimTernary = { link = "NvimOperator" },
+			NvimTernaryColon = { link = "NvimTernary" },
+			NvimParenthesis = { link = "Delimiter" },
+			NvimLambda = { link = "NvimParenthesis" },
+			NvimNestingParenthesis = { link = "NvimParenthesis" },
+			NvimCallingParenthesis = { link = "NvimParenthesis" },
+			NvimSubscript = { link = "NvimParenthesis" },
+			-- NvimSubscriptBracket = { link = "NvimSubscript" },
+			NvimSubscriptColon = { link = "NvimSubscript" },
+			NvimCurly = { link = "NvimSubscript" },
+			NvimContainer = { link = "NvimParenthesis" },
+			NvimDict = { link = "NvimContainer" },
+			NvimList = { link = "NvimContainer" },
+			NvimIdentifier = { link = "Identifier" },
+			NvimIdentifierScope = { link = "NvimIdentifier" },
+			NvimIdentifierScopeDelimiter = { link = "NvimIdentifier" },
+			NvimIdentifierName = { link = "NvimIdentifier" },
+			NvimIdentifierKey = { link = "NvimIdentifier" },
+			NvimColon = { link = "Delimiter" },
+			NvimComma = { link = "Delimiter" },
+			NvimArrow = { link = "Delimiter" },
+			NvimRegister = { link = "SpecialChar" },
+			NvimNumber = { link = "Number" },
+			NvimFloat = { link = "NvimNumber" },
+			NvimNumberPrefix = { link = "Type" },
+			NvimOptionSigil = { link = "Type" },
+			NvimOptionName = { link = "NvimIdentifier" },
+			NvimOptionScope = { link = "NvimIdentifierScope" },
+			NvimOptionScopeDelimiter = { link = "NvimIdentifierScopeDelimiter" },
+			NvimEnvironmentSigil = { link = "NvimOptionSigil" },
+			NvimEnvironmentName = { link = "NvimIdentifier" },
+			NvimString = { link = "String" },
+			NvimStringBody = { link = "NvimString" },
+			NvimStringQuote = { link = "NvimString" },
+			NvimStringSpecial = { link = "SpecialChar" },
+			NvimSingleQuote = { link = "NvimStringQuote" },
+			NvimSingleQuotedBody = { link = "NvimStringBody" },
+			NvimSingleQuotedQuote = { link = "NvimStringSpecial" },
+			NvimDoubleQuote = { link = "NvimStringQuote" },
+			NvimDoubleQuotedBody = { link = "NvimStringBody" },
+			NvimDoubleQuotedEscape = { link = "NvimStringSpecial" },
+			NvimFigureBrace = { link = "NvimInternalError" },
+			NvimSingleQuotedUnknownEscape = { link = "NvimInternalError" },
+			NvimSpacing = { link = "Normal" },
+			NvimDoubleQuotedUnknownEscape = { link = "NvimInvalidValue" },
+			NvimInvalid = { link = "Error" },
+			NvimInvalidAssignment = { link = "NvimInvalid" },
+			NvimInvalidPlainAssignment = { link = "NvimInvalidAssignment" },
+			NvimInvalidAugmentedAssignment = { link = "NvimInvalidAssignment" },
+			NvimInvalidAssignmentWithAddition = { link = "NvimInvalidAugmentedAssignment" },
+			NvimInvalidAssignmentWithSubtraction = { link = "NvimInvalidAugmentedAssignment" },
+			NvimInvalidAssignmentWithConcatenation = { link = "NvimInvalidAugmentedAssignment" },
+			NvimInvalidOperator = { link = "NvimInvalid" },
+			NvimInvalidUnaryOperator = { link = "NvimInvalidOperator" },
+			NvimInvalidUnaryPlus = { link = "NvimInvalidUnaryOperator" },
+			NvimInvalidUnaryMinus = { link = "NvimInvalidUnaryOperator" },
+			NvimInvalidNot = { link = "NvimInvalidUnaryOperator" },
+			NvimInvalidBinaryOperator = { link = "NvimInvalidOperator" },
+			NvimInvalidComparison = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidComparisonModifier = { link = "NvimInvalidComparison" },
+			NvimInvalidBinaryPlus = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidBinaryMinus = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidConcat = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidConcatOrSubscript = { link = "NvimInvalidConcat" },
+			NvimInvalidOr = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidAnd = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidMultiplication = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidDivision = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidMod = { link = "NvimInvalidBinaryOperator" },
+			NvimInvalidTernary = { link = "NvimInvalidOperator" },
+			NvimInvalidTernaryColon = { link = "NvimInvalidTernary" },
+			NvimInvalidDelimiter = { link = "NvimInvalid" },
+			NvimInvalidParenthesis = { link = "NvimInvalidDelimiter" },
+			NvimInvalidLambda = { link = "NvimInvalidParenthesis" },
+			NvimInvalidNestingParenthesis = { link = "NvimInvalidParenthesis" },
+			NvimInvalidCallingParenthesis = { link = "NvimInvalidParenthesis" },
+			NvimInvalidSubscript = { link = "NvimInvalidParenthesis" },
+			-- NvimInvalidSubscriptBracket = { link = "NvimInvalidSubscript" },
+			NvimInvalidSubscriptColon = { link = "NvimInvalidSubscript" },
+			NvimInvalidCurly = { link = "NvimInvalidSubscript" },
+			NvimInvalidContainer = { link = "NvimInvalidParenthesis" },
+			NvimInvalidDict = { link = "NvimInvalidContainer" },
+			NvimInvalidList = { link = "NvimInvalidContainer" },
+			NvimInvalidValue = { link = "NvimInvalid" },
+			NvimInvalidIdentifier = { link = "NvimInvalidValue" },
+			NvimInvalidIdentifierScope = { link = "NvimInvalidIdentifier" },
+			NvimInvalidIdentifierScopeDelimiter = { link = "NvimInvalidIdentifier" },
+			NvimInvalidIdentifierName = { link = "NvimInvalidIdentifier" },
+			NvimInvalidIdentifierKey = { link = "NvimInvalidIdentifier" },
+			NvimInvalidColon = { link = "NvimInvalidDelimiter" },
+			NvimInvalidComma = { link = "NvimInvalidDelimiter" },
+			NvimInvalidArrow = { link = "NvimInvalidDelimiter" },
+			NvimInvalidRegister = { link = "NvimInvalidValue" },
+			NvimInvalidNumber = { link = "NvimInvalidValue" },
+			NvimInvalidFloat = { link = "NvimInvalidNumber" },
+			NvimInvalidNumberPrefix = { link = "NvimInvalidNumber" },
+			NvimInvalidOptionSigil = { link = "NvimInvalidIdentifier" },
+			NvimInvalidOptionName = { link = "NvimInvalidIdentifier" },
+			NvimInvalidOptionScope = { link = "NvimInvalidIdentifierScope" },
+			NvimInvalidOptionScopeDelimiter = { link = "NvimInvalidIdentifierScopeDelimiter" },
+			NvimInvalidEnvironmentSigil = { link = "NvimInvalidOptionSigil" },
+			NvimInvalidEnvironmentName = { link = "NvimInvalidIdentifier" },
+			NvimInvalidString = { link = "NvimInvalidValue" },
+			NvimInvalidStringBody = { link = "NvimStringBody" },
+			NvimInvalidStringQuote = { link = "NvimInvalidString" },
+			NvimInvalidStringSpecial = { link = "NvimStringSpecial" },
+			NvimInvalidSingleQuote = { link = "NvimInvalidStringQuote" },
+			NvimInvalidSingleQuotedBody = { link = "NvimInvalidStringBody" },
+			NvimInvalidSingleQuotedQuote = { link = "NvimInvalidStringSpecial" },
+			NvimInvalidDoubleQuote = { link = "NvimInvalidStringQuote" },
+			NvimInvalidDoubleQuotedBody = { link = "NvimInvalidStringBody" },
+			NvimInvalidDoubleQuotedEscape = { link = "NvimInvalidStringSpecial" },
+			NvimInvalidDoubleQuotedUnknownEscape = { link = "NvimInvalidValue" },
+			NvimInvalidFigureBrace = { link = "NvimInvalidDelimiter" },
+			NvimInvalidSingleQuotedUnknownEscape = { link = "NvimInternalError" },
+			NvimInvalidSpacing = { link = "ErrorMsg" },
+
+			--------------------------------------------------------------------------------
+			-- Color Groups (for linking)
+			--------------------------------------------------------------------------------
+			Grey = { fg = comment },
+			Fg = { fg = fg },
+			Red = { fg = red },
+			Orange = { fg = orange },
+			Yellow = { fg = yellow },
+			Green = { fg = green },
+			Aqua = { fg = aqua },
+			Blue = { fg = blue },
+			Purple = { fg = purple },
+
+			RedItalic = { fg = red, italic = true },
+			OrangeItalic = { fg = orange, italic = true },
+			YellowItalic = { fg = yellow, italic = true },
+			GreenItalic = { fg = green, italic = true },
+			AquaItalic = { fg = aqua, italic = true },
+			BlueItalic = { fg = blue, italic = true },
+			PurpleItalic = { fg = purple, italic = true },
+
+			RedBold = { fg = red, bold = true },
+			OrangeBold = { fg = orange, bold = true },
+			YellowBold = { fg = yellow, bold = true },
+			GreenBold = { fg = green, bold = true },
+			AquaBold = { fg = aqua, bold = true },
+			BlueBold = { fg = blue, bold = true },
+			PurpleBold = { fg = purple, bold = true },
+
+			RedSign = { fg = red },
+			OrangeSign = { fg = orange },
+			YellowSign = { fg = yellow },
+			GreenSign = { fg = green },
+			AquaSign = { fg = aqua },
+			BlueSign = { fg = blue },
+			PurpleSign = { fg = purple },
+
+			ErrorLine = {},
+			WarningLine = {},
+			InfoLine = {},
+			HintLine = {},
+
+			--------------------------------------------------------------------------------
+			-- Vim Groups (legacy)
+			--------------------------------------------------------------------------------
+			VimOption = {},
+			VimGroup = {},
+			Delimeter = {},
+		}
+
+		-- Apply all highlights
+		for k, v in pairs(theme) do
+			vim.api.nvim_set_hl(0, k, v)
+		end
+	end,
 }

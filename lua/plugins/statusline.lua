@@ -3,7 +3,6 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim", "catppuccin/nvim" },
 	opts = {
 		options = {
-			theme = "catppuccin",
 			section_separators = { left = "", right = "" },
 			component_separators = { left = "", right = "" },
 			icons_enabled = true,
