@@ -1,5 +1,6 @@
 return {
 	"folke/snacks.nvim",
+	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
 	priority = 1000,
 	lazy = false,
 	---@diagnostic disable-next-line: undefined-doc-name
