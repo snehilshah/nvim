@@ -50,7 +50,7 @@ return {
 		--                 :BufferCloseBuffersRight
 
 		-- Magic buffer-picking mode
-		map('n', '<C-p>',   '<Cmd>BufferPick<CR>', opts)
+		map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
 		map('n', '<C-s-p>', '<Cmd>BufferPickDelete<CR>', opts)
 
 		-- Sort automatically by...
@@ -72,15 +72,17 @@ return {
 		-- Valid options are 'left' (the default), 'previous', and 'right'
 		focus_on_close = "left",
 		-- Hide inactive buffers and file extensions. Other options are `alternate`, `current`, and `visible`.
-		hide = { extensions = false, inactive = false },
+		hide = { extensions = true, inactive = false },
 		icons = {
-			buffer_index = false,
-			buffer_number = false,
+			buffer_index = true,
+			-- buffer_number = true,
 			button = "",
 			diagnostics = {
 				[vim.diagnostic.severity.ERROR] = { enabled = true, icon = " " },
+				[vim.diagnostic.severity.WARN] = { enabled = true, icon = " " },
 			},
-			separator = { left = "▎", right = "" },
+			preset = "default",
+			-- separator = { left = "▎", right = "" },
 			-- If true, add an additional separator at the end of the buffer list
 			separator_at_end = true,
 			-- Configure the icons on the bufferline when modified or pinned.
@@ -93,19 +95,6 @@ return {
 			current = { buffer_index = true },
 			inactive = { buffer_index = true, button = "×" },
 			visible = { modified = { buffer_number = true } },
-		},
-		sidebar_filetypes = { -- Set the filetypes which barbar will offset itself for
-			-- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
-			NvimTree = true,
-			-- Or, specify the text used for the offset:
-			undotree = {
-				text = "undotree",
-				align = "left", -- *optionally* specify an alignment (either 'left', 'center', or 'right')
-			},
-			-- Or, specify the event which the sidebar executes when leaving:
-			["neo-tree"] = { event = "BufWipeout" },
-			-- Or, specify all three
-			Outline = { event = "BufWinLeave", text = "symbols-outline", align = "right" },
 		},
 		maximum_length = 25, -- Sets the maximum buffer name length.
 	},

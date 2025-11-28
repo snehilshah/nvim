@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim", "catppuccin/nvim" },
+	dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
 	opts = {
 		options = {
 			section_separators = { left = "", right = "" },
