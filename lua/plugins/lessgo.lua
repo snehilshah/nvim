@@ -11,7 +11,7 @@ return {
 		config = function(_, opts)
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			require("go").setup({
-				lsp_keymaps = true,
+				lsp_keymaps = false,
 				lsp_codelens = true,
 				lsp_on_attach = true,
 				lsp_gofumpt = true,
@@ -99,6 +99,7 @@ return {
 				lsp_diag_virtual_text = false,
 				lsp_diag_signs = false,
 				lsp_diag_update_in_insert = false,
+				luasnip = true, -- enable go.nvim luasnip snippets
 			})
 			local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 			vim.api.nvim_create_autocmd("BufWritePre", {
