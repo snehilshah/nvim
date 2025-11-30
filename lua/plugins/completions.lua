@@ -5,6 +5,16 @@ return {
 		"folke/lazydev.nvim",
 		"fang2hou/blink-copilot",
 		"echasnovski/mini.nvim",
+		{
+			"L3MON4D3/LuaSnip",
+			version = "v2.*",
+			build = "make install_jsregexp",
+			config = function()
+				require("luasnip.loaders.from_vscode").lazy_load({
+					exclude = { "go" }, -- go.nvim provides its own Go snippets
+				})
+			end,
+		},
 	},
 	version = "1.*",
 
@@ -51,6 +61,8 @@ return {
 				enabled = false,
 			},
 		},
+
+		snippets = { preset = "luasnip" },
 
 		sources = {
 			default = { "lazydev", "lsp", "path", "copilot", "snippets", "buffer" },
