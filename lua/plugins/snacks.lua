@@ -545,7 +545,19 @@ return {
 			enabled = true,
 			show_hidden = true,
 		},
-		indent = { enabled = true },
+		indent = {
+			enabled = true,
+			animate = {
+				style = "up_down",
+				duration = {
+					step = 25, -- ms per step
+					total = 1000, -- maximum duration
+				},
+			},
+			scope = {
+				underline = true, -- underline the start of the scope
+			},
+		},
 		input = { enabled = true },
 		notifier = {
 			enabled = true,
