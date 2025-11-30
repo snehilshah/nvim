@@ -1,4 +1,4 @@
--- vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
+vim.keymap.set("n", "<leader>rc", "<cmd>source %<CR>")
 vim.keymap.set("n", "<leader>x", ":.lua<CR>")
 vim.keymap.set("v", "<leader>x", ":lua<CR>")
 
@@ -34,8 +34,8 @@ end)
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
 vim.keymap.set("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 
 -- Yank diagnostic message under cursor
@@ -54,16 +54,6 @@ vim.keymap.set("n", "<leader>dy", function()
 		vim.notify("No diagnostic message on this line", vim.log.levels.WARN)
 	end
 end, { desc = "[D]iagnostic [Y]ank message" })
-
--- Make hover window interactive
-vim.keymap.set("n", "<C-k>", function()
-	local winid = vim.lsp.buf.hover()
-	if winid then
-		vim.defer_fn(function()
-			vim.api.nvim_set_current_win(winid)
-		end, 100)
-	end
-end, { desc = "Show hover and focus window" })
 
 -- Alternative: Enter any floating window
 vim.keymap.set("n", "<C-w>f", function()
