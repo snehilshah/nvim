@@ -51,7 +51,8 @@ end)
 
 vim.opt.virtualedit = "block"
 vim.o.inccommand = "split"
-
+-- searched terms get highlighted
+vim.opt.hlsearch = true
 -- Enable full terminal color support
 vim.opt.termguicolors = true
 vim.o.background = "dark"
