@@ -1,9 +1,11 @@
 return {
+	--  automatically inserts matching pairs of characters when you type the opening one.
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {},
 	},
+	-- displays a popup with possible keybindings of the command you started typing.
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -22,13 +24,16 @@ return {
 			},
 		},
 	},
+	-- automatically detects and sets the appropriate 'shiftwidth' and 'expandtab' options
 	{ "tpope/vim-sleuth" },
+	-- provides motions for navigating and operating on CamelCase and snake_case words
 	{
 		"bkad/CamelCaseMotion",
 		init = function()
 			vim.g.camelcasemotion_key = "<leader>"
 		end,
 	},
+	-- clipboard manager
 	{
 		"AckslD/nvim-neoclip.lua",
 		event = "VeryLazy",
@@ -46,28 +51,7 @@ return {
 			{ "<leader>y", "<cmd>lua require('neoclip.fzf')()<cr>", desc = "Open Neoclip (Clipboard History)" },
 		},
 	},
-	{
-		"wurli/visimatch.nvim",
-		enabled = false,
-		opts = {
-			hl_group = "Search",
-			chars_lower_limit = 3,
-			lines_upper_limit = 30,
-			strict_spacing = false,
-			-- Visible buffers which should be highlighted. Valid options:
-			-- * `"filetype"` (the default): highlight buffers with the same filetype
-			-- * `"current"`: highlight matches in the current buffer only
-			-- * `"all"`: highlight matches in all visible buffers
-			-- * A function. This will be passed a buffer number and should return
-			--   `true`/`false` to indicate whether the buffer should be highlighted.
-			buffers = "filetype",
-			-- Case-(in)nsitivity for matches. Valid options:
-			-- * `true`: matches will never be case-sensitive
-			-- * `false`/`{}`: matches will always be case-sensitive
-			-- * a table of filetypes to use use case-insensitive matching for.
-			case_insensitive = { "markdown", "text", "help" },
-		},
-	},
+	-- color highlighter for color codes
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "VeryLazy",
@@ -84,6 +68,7 @@ return {
 			})
 		end,
 	},
+	-- encourages best practices
 	{
 		"m4xshen/hardtime.nvim",
 		lazy = false,
@@ -94,6 +79,7 @@ return {
 			restriction_mode = "hint",
 		},
 	},
+	-- just comfy line numbers
 	{
 		"snehilshah/comfy-line-numbers.nvim",
 		opts = {
@@ -105,6 +91,7 @@ return {
 			hide_in_insert_mode = true,
 		},
 	},
+	-- a simple timer plugin for Neovim
 	{
 		"nvzone/timerly",
 		lazy = true,
