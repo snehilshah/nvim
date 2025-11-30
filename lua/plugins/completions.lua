@@ -53,7 +53,7 @@ return {
 			trigger = { prefetch_on_insert = true },
 			list = {
 				selection = {
-					preselect = false,
+					preselect = true,
 					auto_insert = true,
 				},
 			},
