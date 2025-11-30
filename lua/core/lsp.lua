@@ -1,3 +1,4 @@
+-- Custom LSP commands for enhanced information
 vim.api.nvim_create_user_command("LspCapabilities", function()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -10,6 +11,12 @@ vim.api.nvim_create_user_command("LspCapabilities", function()
 	for _, client in ipairs(clients) do
 		print("Capabilities for " .. client.name .. ":")
 		local caps = client.server_capabilities
+
+		if not caps then
+			print("  No capabilities available")
+			print("")
+			goto continue
+		end
 
 		local capability_list = {
 			{ "Completion", caps.completionProvider },
@@ -38,6 +45,7 @@ vim.api.nvim_create_user_command("LspCapabilities", function()
 			print(string.format("  %s %s", status, cap[1]))
 		end
 		print("")
+		::continue::
 	end
 end, { desc = "Show all LSP capabilities" })
 
@@ -145,65 +153,80 @@ vim.api.nvim_create_user_command("LspInfoCustom", function()
 	print("Use :LspCapabilities for full capability list")
 end, { desc = "Show comprehensive LSP information" })
 
+-- DIAGNOSTICS CONFIGURATION
+vim.diagnostic.config({
+	severity_sort = true,
+	float = { border = "rounded", source = true },
+	underline = true,
+	update_in_insert = false,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+		},
+		numhl = {
+			[vim.diagnostic.severity.ERROR] = "ErrorMsg",
+			[vim.diagnostic.severity.WARN] = "WarningMsg",
+		},
+	},
+	virtual_text = false, -- Disabled because using tiny-diagnostic plugin
+})
+
+-- ON LSP ATTACH CONFIGURE KEYMAPS, INLAY HINTS, DOC HIGHLIGHT
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		-- if client:supports_method('textDocument/completion') then
-		--     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-		-- end
-
-		if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-			vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-		end
-		if client and client.supports_method("textDocument/inlayHint") then
-			vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-		end
-
 		local bufnr = args.buf
-		local opts = { buffer = bufnr, silent = true }
-		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-		vim.keymap.set("n", "<leader>th", function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf }))
-		end, { buffer = bufnr, silent = true, desc = "[t]oggle inlay [h]ints" })
 
-		local highlight_group_created = false
+		-- Helper function for cleaner keymap definitions
+		local map = function(keys, func, desc, mode)
+			mode = mode or "n"
+			vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+		end
+
+		-- KEYMAPS
+		map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
+		map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
+		map("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+		map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+		map("grt", vim.lsp.buf.type_definition, "[G]oto [T]ype Definition")
+		map("K", vim.lsp.buf.hover, "Hover Documentation")
+		map("<leader>th", function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
+		end, "[T]oggle Inlay [H]ints")
+
+		-- INLAY HINTS
+		if client and client.supports_method("textDocument/inlayHint") then
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+		end
+
+		-- DOCUMENT HIGHLIGHT (highlight symbol under cursor)
 		if client and client.supports_method("textDocument/documentHighlight") then
-			local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
-			highlight_group_created = true
+			local highlight_group = vim.api.nvim_create_augroup("LspDocHighlight_" .. bufnr, { clear = true })
 			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-				buffer = args.buf,
-				group = highlight_augroup,
+				buffer = bufnr,
+				group = highlight_group,
 				callback = vim.lsp.buf.document_highlight,
 			})
 			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-				buffer = args.buf,
-				group = highlight_augroup,
+				buffer = bufnr,
+				group = highlight_group,
 				callback = vim.lsp.buf.clear_references,
 			})
 		end
-		vim.api.nvim_create_autocmd("LspDetach", {
-			group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-			callback = function(event2)
-				vim.lsp.buf.clear_references()
-				if highlight_group_created then
-					vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
-				end
-			end,
-		})
+	end,
+})
 
-		if client.server_capabilities.documentHighlightProvider then
-			local highlight_group = vim.api.nvim_create_augroup("LspDocumentHighlight_" .. args.buf, { clear = true })
-			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-				buffer = args.buf,
-				group = highlight_group,
-				callback = vim.lsp.buf.document_highlight,
-			})
-			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-				buffer = args.buf,
-				group = highlight_group,
-				callback = vim.lsp.buf.clear_references,
-			})
-		end
+-- LSP DETACH CLEANUP
+
+vim.api.nvim_create_autocmd("LspDetach", {
+	group = vim.api.nvim_create_augroup("UserLspDetach", { clear = true }),
+	callback = function(args)
+		vim.lsp.buf.clear_references()
+		pcall(vim.api.nvim_del_augroup_by_name, "LspDocHighlight_" .. args.buf)
 	end,
 })
