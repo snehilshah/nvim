@@ -5,7 +5,7 @@ local servers = {
 	"lua_ls", -- Lua language server
 	-- "gopls",      -- Go language server managed by go.nvim
 	-- "zls",        -- Zig language server
-	"ts_ls",    -- TypeScript/JavaScript language server
+	"ts_ls", -- TypeScript/JavaScript language server
 	-- "rust-analyzer", -- Rust language server
 	-- "tailwindcss", -- Tailwind CSS language server
 }
@@ -13,29 +13,23 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"saghen/blink.cmp"
+			"saghen/blink.cmp",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local handlers = {
-				["textDocument/hover"] = vim.lsp.with(
-					vim.lsp.handlers.hover,
-					{ border = "rounded" }
-				),
-				["textDocument/signatureHelp"] = vim.lsp.with(
-					vim.lsp.handlers.signature_help,
-					{ border = "rounded" }
-				),
+				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 			}
 			local capabilities = {
 				textDocument = {
 					foldingRange = {
 						dynamicRegistration = false,
-						lineFoldingOnly = true
-					}
-				}
+						lineFoldingOnly = true,
+					},
+				},
 			}
-			capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+			capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 			for _, lsp_server in ipairs(servers) do
 				local config = {
@@ -63,7 +57,7 @@ return {
 			library = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				"LazyVim",
-				{ path = "LazyVim",            words = { "LazyVim" } },
+				{ path = "LazyVim", words = { "LazyVim" } },
 			},
 		},
 	},
@@ -113,6 +107,6 @@ return {
 				["rename"] = { "󰑕", { link = "DiagnosticWarning" } },
 				["codeAction"] = { "", { link = "DiagnosticWarning" } },
 			},
-		}
-	}
+		},
+	},
 }
