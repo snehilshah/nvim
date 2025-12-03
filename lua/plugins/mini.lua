@@ -29,6 +29,7 @@ return {
 				md = { glyph = "", hl = "MiniIconsBlue" },
 			},
 		})
+		MiniIcons.mock_nvim_web_devicons()
 		require("mini.operators").setup()
 		require("mini.surround").setup()
 	end,
