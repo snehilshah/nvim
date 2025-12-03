@@ -99,4 +99,10 @@ return {
 		cmd = "TimerlyToggle",
 		opts = {},
 	},
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = { "kevinhwang91/promise-async" },
+		event = "BufReadPost", -- Load immediately when opening a file
+		config = true, -- Runs require('ufo').setup() with default settings
+	},
 }
