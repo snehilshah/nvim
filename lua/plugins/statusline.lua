@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim", "sainnhe/gruvbox-material" },
+	dependencies = { "nvim-mini/mini.nvim", "lewis6991/gitsigns.nvim", "sainnhe/gruvbox-material" },
 	opts = {
 		options = {
 			theme = "gruvbox-material",
