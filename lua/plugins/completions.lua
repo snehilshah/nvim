@@ -19,7 +19,19 @@ return {
 	version = "1.*",
 
 	opts = {
-		keymap = { preset = "super-tab" },
+		keymap = {
+			preset = "super-tab",
+			-- ["<Tab>"] = {
+			-- 	"snippet_forward",
+			-- 	function() -- sidekick next edit suggestion
+			-- 		return require("sidekick").nes_jump_or_apply()
+			-- 	end,
+			-- 	function() -- if you are using Neovim's native inline completions
+			-- 		return vim.lsp.inline_completion.get()
+			-- 	end,
+			-- 	"fallback",
+			-- },
+		},
 
 		appearance = {
 			nerd_font_variant = "mono",
@@ -32,7 +44,7 @@ return {
 				draw = {
 					columns = {
 						{ "kind_icon" },
-						{ "label",    "label_description", "kind", gap = 1 },
+						{ "label", "label_description", "kind", gap = 1 },
 					},
 					treesitter = {
 						"lsp",
