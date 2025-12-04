@@ -67,6 +67,14 @@ vim.opt.cursorlineopt = "both" -- Options: "both", "line", "number", "screenline
 vim.o.confirm = true
 vim.opt.laststatus = 3
 
+-- Treesitter-based code folding
+vim.opt.foldenable = true
+vim.opt.foldcolumn = "1"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99 -- Start with all folds open
+vim.opt.foldlevelstart = 99
+vim.opt.foldmethod = "expr"
+
 -- Configure diagnostic signs with icons
 local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 for type, icon in pairs(signs) do
