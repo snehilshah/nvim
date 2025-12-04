@@ -35,6 +35,9 @@ vim.opt.signcolumn = "yes"
 -- minimum number of screen lines to keep above and below the cursor, to have a context
 vim.opt.scrolloff = 5
 
+-- time in ms for CursorHold to trigger (affects document highlight, swap file writes)
+vim.opt.updatetime = 250
+
 -- disable the vim cmd line until required, this will overwrite the statusline when cmd is required
 vim.opt.cmdheight = 0
 

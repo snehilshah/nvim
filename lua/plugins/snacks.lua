@@ -324,7 +324,14 @@ return {
 		{
 			"gd",
 			function()
-				Snacks.picker.lsp_definitions()
+				Snacks.picker.lsp_definitions({
+					unique_lines = true, -- Filter duplicate results on same line (e.g., class + constructor)
+					auto_confirm = true, -- Jump directly if only one result
+					jump = { reuse_win = true },
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
+				})
 			end,
 			desc = "Goto Definition",
 		},
@@ -384,7 +391,7 @@ return {
 			desc = "Goto Implementation",
 		},
 		{
-			"gy",
+			"grt",
 			function()
 				local clients = vim.lsp.get_clients({ bufnr = 0 })
 				local has_type_definition_support = false
