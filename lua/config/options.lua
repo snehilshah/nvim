@@ -48,10 +48,6 @@ vim.schedule(function()
 	vim.o.clipboard = "unnamedplus"
 end)
 
--- vim.o.list = true
--- vim.opt.listchars = { tab = '',trail = '·', nbsp = '␣' }
--- vim.opt.listchars = { trail = '·', nbsp = '␣' }
-
 vim.opt.virtualedit = "block"
 vim.o.inccommand = "split"
 -- searched terms get highlighted
@@ -84,3 +80,26 @@ for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+-- Listchars - only show when lines are selected (like VS Code)
+vim.o.list = false -- disabled by default
+vim.opt.listchars = { tab = "▸ ", trail = "·", nbsp = "␣", extends = "…", space = "·", lead = "·" }
+
+-- Show listchars only in visual mode selection
+local listchars_group = vim.api.nvim_create_augroup("ListcharsOnSelect", { clear = true })
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+	group = listchars_group,
+	pattern = { "*:v", "*:V", "*:\22" }, -- entering visual, visual-line, or visual-block mode
+	callback = function()
+		vim.o.list = true
+	end,
+})
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+	group = listchars_group,
+	pattern = { "v:*", "V:*", "\22:*" }, -- leaving visual modes
+	callback = function()
+		vim.o.list = false
+	end,
+})
