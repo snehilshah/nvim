@@ -4,7 +4,7 @@ return {
 		"rafamadriz/friendly-snippets",
 		"folke/lazydev.nvim",
 		"fang2hou/blink-copilot",
-		"echasnovski/mini.nvim",
+		"nvim-mini/mini.nvim",
 		{
 			"L3MON4D3/LuaSnip",
 			version = "v2.*",
