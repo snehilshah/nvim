@@ -4,21 +4,21 @@
 
 ## General
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>rc` | n | Source current file |
 | `<leader>x` | n | Execute current line as Lua |
 | `<leader>x` | v | Execute selection as Lua |
 | `<Esc>` | n | Clear search highlights & close LSP hover |
-| `<Esc><Esc>` | t | Exit terminal mode |
-| `<leader>?` | n | Buffer Local Keymaps (which-key) |
+| `<Esc><Esc>` | t | Exit terminal M |
+| `<leader>?` | n | Buffer Local Keys (which-key) |
 | `<C-w>f` | n | Focus floating window |
 
 ---
 
 ## Movement & Editing
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>j` | n | Move line down |
 | `<leader>k` | n | Move line up |
@@ -28,43 +28,35 @@
 | `dd` | n | Delete line without copying to clipboard |
 | `D` | n, x | Delete to end of line without copying |
 
----
-
 ## Quickfix & Location List
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<M-j>` | n | Next quickfix item |
 | `<M-k>` | n | Previous quickfix item |
 | `<M-q>` | n | Open quickfix list |
 | `<leader>q` | n | Open diagnostic quickfix list |
 
----
-
 ## Diagnostics
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `[e` | n | Go to previous diagnostic message |
 | `]e` | n | Go to next diagnostic message |
 | `<leader>de` | n | Show diagnostic error messages (float) |
 | `<leader>dy` | n | Yank diagnostic message to clipboard |
 
----
-
 ## Terminal
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>to` | n | Open terminal in horizontal split |
 | `<c-/>` | n | Toggle Snacks Terminal |
 | `<c-_>` | n | Toggle Snacks Terminal (alias) |
 
----
-
 ## LSP
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `K` | n | Hover Documentation |
 | `gd` | n | Goto Definition (Snacks picker) |
@@ -80,13 +72,11 @@
 | `<leader>cR` | n | Rename File (Snacks) |
 | `<leader>th` | n | Toggle Inlay Hints |
 
----
-
 ## Snacks
 
 ### Pickers & Search
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader><leader>` | n | Smart Find Files |
 | `<leader>ff` | n | Find Files |
@@ -99,12 +89,12 @@
 | `<leader>jk` | n | Buffers picker |
 | `<leader>nc` | n | Nvim Config files |
 | `<leader>:` | n | Command History |
-| `<M-S-k>` | n | Keymaps picker |
+| `<M-S-k>` | n | Keys picker |
 | `<M-e>` | n | File Explorer |
 
 ## Snacks - Search Namespace (`<leader>s`)
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>s"` | n | Registers |
 | `<leader>s/` | n | Search History |
@@ -127,9 +117,9 @@
 
 ### UI & Utility
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
-| `<leader>z` | n | Toggle Zen Mode |
+| `<leader>z` | n | Toggle Zen M |
 | `<leader>Z` | n | Toggle Zoom |
 | `<leader>.` | n | Toggle Scratch Buffer |
 | `<leader>S` | n | Select Scratch Buffer |
@@ -142,7 +132,7 @@
 
 ### Snacks Toggle Mappings
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>us` | n | Toggle Spelling |
 | `<leader>uw` | n | Toggle Wrap |
@@ -159,7 +149,7 @@
 
 ### Snacks Picker Window Keys
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<Esc>` | n, i | Close picker |
 | `<M-p>` | n, i | Cycle layouts |
@@ -169,11 +159,9 @@
 | `L` | n, i | Preview scroll right |
 | `<a-a>` | n, i | Sidekick send (explorer) |
 
----
-
 ## Git (Gitsigns)
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `[g` | n | Previous hunk |
 | `]g` | n | Next hunk |
@@ -186,14 +174,14 @@
 | `<leader>gR` | n | Reset Buffer |
 | `<leader>ga` | n | Stage Hunk |
 | `<leader>gu` | n | Undo Stage Hunk |
-| `<leader>gtb` | n | Toggle blame mode |
+| `<leader>gtb` | n | Toggle blame M |
 | `<leader>gA` | n | Stage Buffer |
 
 ---
 
 ## Git (Snacks)
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>gl` | n | Git Log |
 | `<leader>gL` | n | Git Log Line |
@@ -208,7 +196,7 @@
 
 ## Diffview
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>dv` | n | Open Diffview |
 | `<leader>dc` | n | Close Diffview |
@@ -220,7 +208,7 @@
 
 ### Diffview File Panel Keys
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<tab>` | n | Toggle stage entry |
 | `<cr>` | n | Go to edit file |
@@ -229,7 +217,7 @@
 
 ## Neogit
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>gn` | n | Open Neogit |
 | `<leader>gc` | n | Neogit commit |
@@ -238,7 +226,7 @@
 
 ## Harpoon
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>H` | n | Add file to Harpoon |
 | `<leader>hh` | n | Harpoon Quick Menu |
@@ -248,7 +236,7 @@
 
 ## Formatting & Linting
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>fb` | all | Format Buffer (conform) |
 | `<leader>ll` | n | Trigger linting |
@@ -260,7 +248,7 @@
 
 ### Incremental Selection
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>ss` | n | Init selection |
 | `<leader>si` | n | Node incremental |
@@ -269,14 +257,14 @@
 
 ### Text Objects Swap
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>a` | n | Swap next parameter |
 | `<leader>A` | n | Swap previous parameter |
 
 ### Text Objects Movement
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `]m` | n | Next function start |
 | `]M` | n | Next function end |
@@ -294,7 +282,7 @@
 
 ### Text Objects Selection
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `af` | o, x | Around function |
 | `if` | o, x | Inside function |
@@ -306,7 +294,7 @@
 
 ## Clipboard (Neoclip)
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>y` | n | Open Neoclip (Clipboard History) |
 
@@ -316,7 +304,7 @@
 
 Uses `<leader>` as prefix for CamelCase/snake_case word motions:
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<leader>w` | n | Next camelCase/snake_case word |
 | `<leader>b` | n | Previous camelCase/snake_case word |
@@ -328,7 +316,7 @@ Uses `<leader>` as prefix for CamelCase/snake_case word motions:
 
 > Note: Sidekick plugin is currently disabled (`enabled = false`)
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<tab>` | n | Goto/Apply Next Edit Suggestion |
 | `<c-.>` | n, t, i, x | Sidekick Toggle |
@@ -345,7 +333,7 @@ Uses `<leader>` as prefix for CamelCase/snake_case word motions:
 
 ## Tabout
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<Tab>` | i | Tab out of brackets/quotes |
 | `<S-Tab>` | i | Tab backwards out of brackets/quotes |
@@ -355,7 +343,7 @@ Uses `<leader>` as prefix for CamelCase/snake_case word motions:
 ## Blink Completion
 
 Uses `super-tab` preset:
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `<Tab>` | i | Accept completion / Next snippet placeholder |
 | `<S-Tab>` | i | Previous snippet placeholder |
@@ -366,7 +354,7 @@ Uses `super-tab` preset:
 
 ### Mini.surround (Default Mappings)
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `sa` | n, x | Add surrounding |
 | `sd` | n | Delete surrounding |
@@ -378,7 +366,7 @@ Uses `super-tab` preset:
 
 ### Mini.operators (Default Mappings)
 
-| Keymap | Mode | Description |
+| Key | M | Desc |
 |--------|------|-------------|
 | `g=` | n, x | Evaluate |
 | `gx` | n, x | Exchange |
