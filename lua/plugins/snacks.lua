@@ -549,8 +549,10 @@ return {
 			sources = {
 				explorer = {
 					-- focus = "input",
-					auto_close = true,
+					replace_netrw = true, -- Replaces default file explorer
 					diagnostics = true,
+					auto_close = true,
+					diagnostics_open = true, -- auto-open folders with diagnostics
 					win = {
 						list = {
 							wo = {
