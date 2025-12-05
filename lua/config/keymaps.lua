@@ -69,9 +69,6 @@ end, { desc = "Focus floating [W]indow" })
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- Oil
-vim.keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Open parent directory in oil" })
-
 -- Delete without copying to clipboard
 vim.keymap.set({ "n", "x" }, "d", '"_d', { desc = "Delete without copying to clipboard" })
 vim.keymap.set("n", "dd", '"_dd', { desc = "Delete line without copying to clipboard" })

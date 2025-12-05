@@ -12,6 +12,7 @@
 | `<Esc>` | n | Clear search highlights & close LSP hover |
 | `<Esc><Esc>` | t | Exit terminal mode |
 | `<leader>?` | n | Buffer Local Keymaps (which-key) |
+| `<C-w>f` | n | Focus floating window |
 
 ---
 
@@ -37,15 +38,6 @@
 | `<M-k>` | n | Previous quickfix item |
 | `<M-q>` | n | Open quickfix list |
 | `<leader>q` | n | Open diagnostic quickfix list |
-
----
-
-## Windows & Navigation
-
-| Keymap | Mode | Description |
-|--------|------|-------------|
-| `<C-w>f` | n | Focus floating window |
-| `-` | n | Open parent directory in Oil (float) |
 
 ---
 
