@@ -1,6 +1,7 @@
 -- Fix flickering line numbers on windows terminal
+local ui_enhancements = vim.api.nvim_create_augroup("ui_enhancements", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-    group = "ui_enhancements",
+    group = ui_enhancements,
     callback = function()
         vim.o.cursorline = false
         vim.o.cursorline = true
