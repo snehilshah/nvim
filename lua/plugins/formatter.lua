@@ -28,19 +28,19 @@ return {
 			c = { "clang_format" },
 			cpp = { "clang_format" },
 
-			-- JavaScript/TypeScript (use Biome for formatting)
-			javascript = { "biome", stop_after_first = true },
-			javascriptreact = { "biome", stop_after_first = true },
-			typescript = { "biome", stop_after_first = true },
-			typescriptreact = { "biome", stop_after_first = true },
+			-- JavaScript/TypeScript (use Biome if biome.json exists, else prettier)
+			javascript = { "biome", "prettier", stop_after_first = true },
+			javascriptreact = { "biome", "prettier", stop_after_first = true },
+			typescript = { "biome", "prettier", stop_after_first = true },
+			typescriptreact = { "biome", "prettier", stop_after_first = true },
 
 			-- Web and config files (use Biome)
-			json = { "biome", stop_after_first = true },
-			jsonc = { "biome", stop_after_first = true },
-			css = { "biome", stop_after_first = true },
-			scss = { "biome", stop_after_first = true },
-			html = { "biome", stop_after_first = true },
-			markdown = { "biome", stop_after_first = true },
+			json = { "biome", "prettier", stop_after_first = true },
+			jsonc = { "biome", "prettier", stop_after_first = true },
+			css = { "biome", "prettier", stop_after_first = true },
+			scss = { "biome", "prettier", stop_after_first = true },
+			html = { "biome", "prettier", stop_after_first = true },
+			markdown = { "biome", "prettier", stop_after_first = true },
 			yaml = { "biome", stop_after_first = true },
 			yml = { "biome", stop_after_first = true },
 
