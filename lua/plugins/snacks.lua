@@ -6,18 +6,7 @@ return {
 	---@diagnostic disable-next-line: undefined-doc-name
 	---@type snacks.Config
 	keys = {
-		{
-			"<leader>gb",
-			function()
-				Snacks.picker.git_branches({
-					layout = "vertical",
-					on_show = function()
-						vim.cmd.stopinsert()
-					end,
-				})
-			end,
-			desc = "[G]it [B]ranches",
-		},
+		-- git
 		{
 			"<leader>gl",
 			function()
@@ -29,15 +18,6 @@ return {
 				})
 			end,
 			desc = "[G]it [L]og",
-		},
-		{
-			"<leader><leader>",
-			function()
-				Snacks.picker.smart({
-					layout = "ivy_taller",
-				})
-			end,
-			desc = "Smart Find Files",
 		},
 		{
 			"<leader>nc",
@@ -112,13 +92,6 @@ return {
 			desc = "Command History",
 		},
 		{
-			"<leader>n",
-			function()
-				Snacks.picker.notifications()
-			end,
-			desc = "Notification History",
-		},
-		{
 			"<M-e>",
 			function()
 				Snacks.explorer()
@@ -159,21 +132,6 @@ return {
 			end,
 			desc = "Git Log File",
 		},
-		-- Grep
-		{
-			"<leader>fl",
-			function()
-				Snacks.picker.lines()
-			end,
-			desc = "Buffer Lines",
-		},
-		-- {
-		-- 	"<leader>fb",
-		-- 	function()
-		-- 		Snacks.picker.grep_buffers()
-		-- 	end,
-		-- 	desc = "Grep Open Buffers",
-		-- },
 		{
 			"<leader>fv",
 			function()
@@ -203,13 +161,6 @@ return {
 				Snacks.picker.autocmds()
 			end,
 			desc = "Autocmds",
-		},
-		{
-			"<leader>sb",
-			function()
-				Snacks.picker.lines()
-			end,
-			desc = "Buffer Lines",
 		},
 		{
 			"<leader>sC",
@@ -455,7 +406,7 @@ return {
 			desc = "Select Scratch Buffer",
 		},
 		{
-			"<leader>n",
+			"<leader>nh",
 			function()
 				Snacks.notifier.show_history()
 			end,
@@ -476,7 +427,7 @@ return {
 			desc = "Rename File",
 		},
 		{
-			"<leader>gB",
+			"<leader>go",
 			function()
 				Snacks.gitbrowse()
 			end,
@@ -490,6 +441,7 @@ return {
 			end,
 			desc = "Lazygit",
 		},
+		-- other
 		{
 			"<leader>un",
 			function()
@@ -520,7 +472,7 @@ return {
 			mode = { "n", "t" },
 		},
 		{
-			"[[",
+			"<leader>fN",
 			function()
 				Snacks.words.jump(-vim.v.count1)
 			end,
@@ -545,6 +497,28 @@ return {
 				})
 			end,
 		},
+		-- file jumps
+		{
+			"<leader><leader>",
+			function()
+				Snacks.picker.smart({
+					layout = "ivy_taller",
+				})
+			end,
+			desc = "Smart Find Files",
+		},
+		-- {
+		-- 	"<leader>gb",
+		-- 	function()
+		-- 		Snacks.picker.git_branches({
+		-- 			layout = "vertical",
+		-- 			on_show = function()
+		-- 				vim.cmd.stopinsert()
+		-- 			end,
+		-- 		})
+		-- 	end,
+		-- 	desc = "[G]it [B]ranches",
+		-- },
 	},
 	opts = {
 		dashboard = { enabled = true },
@@ -574,11 +548,22 @@ return {
 		picker = {
 			sources = {
 				explorer = {
+					-- focus = "input",
+					auto_close = true,
+					diagnostics = true,
 					win = {
 						list = {
 							wo = {
 								number = true,
 								relativenumber = false,
+							},
+						},
+						input = {
+							keys = {
+								["<a-a>"] = {
+									"sidekick_send",
+									mode = { "n", "i" },
+								},
 							},
 						},
 					},
@@ -587,6 +572,9 @@ return {
 			actions = {
 				cycle_layouts = function(picker)
 					require("utils.snacks_picker").set_next_preferred_layout(picker)
+				end,
+				sidekick_send = function(...)
+					return require("sidekick.cli.picker.snacks").send(...)
 				end,
 			},
 			layout = {

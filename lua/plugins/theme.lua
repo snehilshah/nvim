@@ -30,5 +30,11 @@ return {
 			fg = "#928374", -- Muted text
 			bold = false,
 		})
+
+		-- Git blame inline text color
+		vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", {
+			fg = "#d3869b", -- Gruvbox purple
+			italic = true,
+		})
 	end,
 }

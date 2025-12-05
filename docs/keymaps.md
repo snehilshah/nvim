@@ -2,20 +2,6 @@
 
 > **Leader Key:** `<Space>`
 
-## ⚠️ Overlapping Keymaps
-
-The following keymaps are defined multiple times across your configuration:
-
-| Keymap | Conflict | Files |
-|--------|----------|-------|
-| `<leader>gb` | Git Blame Line (gitsigns) **vs** Git Branches (snacks) | `git.lua`, `snacks.lua` |
-| `<leader>gs` | Stage Hunk (gitsigns) **vs** Git Status (snacks) | `git.lua` (defined twice!) |
-| `<leader>n` | Notification History (defined twice in snacks) | `snacks.lua` |
-| `<leader>sb` | Buffer Lines (snacks - defined twice) | `snacks.lua` |
-| `<leader>fb` | Format Buffer (conform) **vs** Grep Buffers (commented, snacks) | `formatter.lua`, `snacks.lua` |
-
----
-
 ## General
 
 | Keymap | Mode | Description |
@@ -113,11 +99,11 @@ The following keymaps are defined multiple times across your configuration:
 | `<leader><leader>` | n | Smart Find Files |
 | `<leader>ff` | n | Find Files |
 | `<leader>fa` | n | Find All (Grep) |
-| `<leader>fl` | n | Buffer Lines |
 | `<leader>fv` | n, x | Visual selection or word grep |
 | `<leader>fp` | n | Projects |
 | `<leader>fr` | n | Recent files |
 | `<leader>fn` | n, t | Next Reference (words jump) |
+| `<leader>fN` | n, t | Previous Reference (words jump) |
 | `<leader>jk` | n | Buffers picker |
 | `<leader>nc` | n | Nvim Config files |
 | `<leader>:` | n | Command History |
@@ -131,7 +117,6 @@ The following keymaps are defined multiple times across your configuration:
 | `<leader>s"` | n | Registers |
 | `<leader>s/` | n | Search History |
 | `<leader>sa` | n | Autocmds |
-| `<leader>sb` | n | Buffer Lines |
 | `<leader>sC` | n | Commands |
 | `<leader>sD` | n | Diagnostics (all) |
 | `<leader>sd` | n | Buffer Diagnostics |
@@ -156,12 +141,12 @@ The following keymaps are defined multiple times across your configuration:
 | `<leader>Z` | n | Toggle Zoom |
 | `<leader>.` | n | Toggle Scratch Buffer |
 | `<leader>S` | n | Select Scratch Buffer |
-| `<leader>n` | n | Notification History |
+| `<leader>nh` | n | Notification History |
 | `<leader>N` | n | Neovim News |
 | `<leader>bd` | n | Delete Buffer |
 | `<leader>ii` | n | Icons picker |
 | `<leader>uC` | n | Colorschemes |
-| `[[` | n, t | Previous Reference (words jump) |
+
 
 ### Snacks Toggle Mappings
 
@@ -200,17 +185,17 @@ The following keymaps are defined multiple times across your configuration:
 |--------|------|-------------|
 | `[g` | n | Previous hunk |
 | `]g` | n | Next hunk |
-| `<leader>gb` | n | ⚠️ Git blame line |
+| `<leader>gb` | n | Git blame line |
 | `<leader>gB` | n | Git blame buffer |
-| `<leader>gt` | n | Toggle line blame |
+| `<leader>gtb` | n | Toggle line blame |
 | `<leader>gP` | n | Preview Hunk (popup) |
 | `<leader>gp` | n | Preview Hunk (inline) |
 | `<leader>gr` | n | Reset Hunk |
 | `<leader>gR` | n | Reset Buffer |
-| `<leader>gs` | n | ⚠️ Stage Hunk |
+| `<leader>ga` | n | Stage Hunk |
 | `<leader>gu` | n | Undo Stage Hunk |
-| `<leader>GB` | n | Toggle blame mode |
-| `<leader>GS` | n | Stage Buffer |
+| `<leader>gtb` | n | Toggle blame mode |
+| `<leader>gA` | n | Stage Buffer |
 
 ---
 
@@ -218,16 +203,14 @@ The following keymaps are defined multiple times across your configuration:
 
 | Keymap | Mode | Description |
 |--------|------|-------------|
-| `<leader>gb` | n | ⚠️ Git Branches |
 | `<leader>gl` | n | Git Log |
 | `<leader>gL` | n | Git Log Line |
 | `<leader>gf` | n | Git Log File |
-| `<leader>gs` | n | ⚠️ Git Status |
 | `<leader>gd` | n | Git Diff Hunks |
 | `<leader>gS` | n | Git Stash |
 | `<leader>go` | n, v | Git Browse (open in browser) |
 | `<leader>gg` | n | Lazygit |
-| `<leader>Gd` | n | Diff HEAD (gitsigns) |
+| `<leader>gD` | n | Diff HEAD (gitsigns) |
 
 ---
 
@@ -235,8 +218,8 @@ The following keymaps are defined multiple times across your configuration:
 
 | Keymap | Mode | Description |
 |--------|------|-------------|
-| `<leader>Dv` | n | Open Diffview |
-| `<leader>Dc` | n | Close Diffview |
+| `<leader>dv` | n | Open Diffview |
+| `<leader>dc` | n | Close Diffview |
 | `<leader>Df` | n | File History (all files) |
 | `<leader>D.` | n | Current File History |
 | `<leader>DF` | n | Toggle Files Panel |
@@ -307,10 +290,10 @@ The following keymaps are defined multiple times across your configuration:
 | `]M` | n | Next function end |
 | `[m` | n | Previous function start |
 | `[M` | n | Previous function end |
-| `]]` | n | Next class start |
-| `][` | n | Next class end |
-| `[[` | n | Previous class start |
-| `[]` | n | Previous class end |
+| `]c` | n | Next class start |
+| `]C` | n | Next class end |
+| `[c` | n | Previous class start |
+| `[C` | n | Previous class end |
 | `]o` | n | Next loop |
 | `]s` | n | Next scope |
 | `]z` | n | Next fold |
@@ -409,13 +392,3 @@ Uses `super-tab` preset:
 | `gx` | n, x | Exchange |
 | `gm` | n, x | Multiply |
 | `gs` | n, x | Sort |
-
----
-
-## Summary of Conflicts to Resolve
-
-1. **`<leader>gb`**: Choose between Git Blame (gitsigns) or Git Branches (snacks)
-2. **`<leader>gs`**: Defined twice in `git.lua` - Stage Hunk and Git Status
-3. **`<leader>n`**: Notification History defined twice in snacks
-4. **`<leader>sb`**: Buffer Lines defined twice in snacks
-5. **`[[`**: Conflict between Snacks words jump and Treesitter class navigation
