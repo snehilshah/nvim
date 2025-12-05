@@ -113,7 +113,10 @@ return {
 		},
 	},
 	init = function()
+		local undo_glow_group = vim.api.nvim_create_augroup("UndoGlowHighlights", { clear = true })
+
 		vim.api.nvim_create_autocmd("TextYankPost", {
+			group = undo_glow_group,
 			desc = "Highlight when yanking (copying) text",
 			callback = function()
 				require("undo-glow").yank()
@@ -122,6 +125,7 @@ return {
 
 		-- This only handles neovim instance and do not highlight when switching panes in tmux
 		vim.api.nvim_create_autocmd("CursorMoved", {
+			group = undo_glow_group,
 			desc = "Highlight when cursor moved significantly",
 			callback = function()
 				require("undo-glow").cursor_moved({
@@ -133,6 +137,7 @@ return {
 		})
 
 		vim.api.nvim_create_autocmd("CmdLineLeave", {
+			group = undo_glow_group,
 			pattern = { "/", "?" },
 			desc = "Highlight when search cmdline leave",
 			callback = function()

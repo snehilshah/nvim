@@ -68,8 +68,8 @@ return {
 							completeUnimported = true,
 							staticcheck = true,
 							matcher = "Fuzzy",
-							diagnosticsDelay = '500ms',
-							symbolMatcher = 'fuzzy',
+							diagnosticsDelay = "500ms",
+							symbolMatcher = "fuzzy",
 							directoryFilters = {
 								"-.git",
 								"-.vscode",
@@ -84,7 +84,7 @@ return {
 					},
 				},
 				golangci_lint = {
-					default = 'none', -- disabled, using nvim-lint instead
+					default = "none", -- disabled, using nvim-lint instead
 					-- disable = {'errcheck', 'staticcheck'}, -- linters to disable empty by default
 					-- enable = {'govet', 'ineffassign','revive', 'gosimple'}, -- linters to enable; empty by default
 					config = nil, -- set to a config file path
@@ -101,7 +101,7 @@ return {
 				lsp_diag_update_in_insert = false,
 				luasnip = true, -- enable go.nvim luasnip snippets
 			})
-			local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+			local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", { clear = true })
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				pattern = "*.go",
 				callback = function()

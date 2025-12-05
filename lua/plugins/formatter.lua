@@ -45,7 +45,7 @@ return {
 			yml = { "biome", stop_after_first = true },
 
 			-- Go
-			go = { "gofumpt", "goimports" },
+			-- go = { "gofumpt", "goimports" },
 
 			-- Shell scripts
 			sh = { "shfmt" },
