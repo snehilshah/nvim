@@ -15,10 +15,10 @@ return {
 			yml = { "yamllint" },
 			c = { "cppcheck" },
 			cpp = { "cppcheck" },
-			javascript = { "eslint_d" },
-			javascriptreact = { "eslint_d" },
-			typescript = { "eslint_d" },
-			typescriptreact = { "eslint_d" },
+			-- javascript = { "eslint_d" },
+			-- javascriptreact = { "eslint_d" },
+			-- typescript = { "eslint_d" },
+			-- typescriptreact = { "eslint_d" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -32,7 +32,7 @@ return {
 
 		vim.keymap.set("n", "<leader>ll", function()
 			lint.try_lint()
-			vim.notify("Linting...", vim.log.levels.INFO)
+			vim.notify("Linting... with", vim.log.levels.INFO)
 		end, { desc = "Trigger linting for current file" })
 
 		vim.keymap.set("n", "<leader>lk", function()
@@ -43,5 +43,13 @@ return {
 				print("Linters for " .. vim.bo.filetype .. ": " .. table.concat(linters, ", "))
 			end
 		end, { desc = "Show available linters for current filetype" })
+		--
+		-- 	-- Stop eslint_d daemon when exiting Neovim (only if running)
+		-- 	vim.api.nvim_create_autocmd("VimLeavePre", {
+		-- 		group = lint_augroup,
+		-- 		callback = function()
+		-- 			vim.fn.system("eslint_d stop")
+		-- 		end,
+		-- 	})
 	end,
 }

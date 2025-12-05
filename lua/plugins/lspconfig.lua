@@ -6,6 +6,7 @@ local servers = {
 	-- "gopls",      -- Go language server managed by go.nvim
 	-- "zls",        -- Zig language server
 	"ts_ls", -- TypeScript/JavaScript language server
+	"biome", -- dont know why couldnt work with nvim-lint
 	"copilot",
 	-- "rust-analyzer", -- Rust language server
 	-- "tailwindcss", -- Tailwind CSS language server
