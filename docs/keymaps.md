@@ -1,191 +1,98 @@
 # Neovim Keymaps — Leader: `<Space>`
 
-## General
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>rc` | n | Source file |
-| `<leader>x` | n/v | Exec as Lua |
-| `<Esc>` | n | Clear highlights |
-| `<Esc><Esc>` | t | Exit terminal |
-| `<leader>?` | n | Which-key |
-| `<C-w>f` | n | Focus float |
-| `<leader>j/k` | n/v | Move line ↓/↑ |
-| `d` `dd` `D` | n/x | Delete (no yank) |
+| **General** | M | | **Quickfix & Diagnostics** | M |
+|-------------|---|-|----------------------------|---|
+| `<leader>rc` Source file | n | | `<M-j/k>` Next/prev qf | n |
+| `<leader>x` Exec as Lua | n/v | | `<M-q>` Open qf list | n |
+| `<Esc>` Clear highlights | n | | `<leader>q` Diag qf list | n |
+| `<Esc><Esc>` Exit terminal | t | | `[e` `]e` Prev/next diag | n |
+| `<leader>?` Which-key | n | | `<leader>de` Show diag float | n |
+| `<C-w>f` Focus float | n | | `<leader>dy` Yank diag msg | n |
+| `<leader>j/k` Move line ↓/↑ | n/v | | | |
+| `d` `dd` `D` Delete (no yank) | n/x | | | |
 
-## Quickfix & Diagnostics
-| Key | M | Desc |
-|-----|---|------|
-| `<M-j/k>` | n | Next/prev qf |
-| `<M-q>` | n | Open qf list |
-| `<leader>q` | n | Diag qf list |
-| `[e` `]e` | n | Prev/next diag |
-| `<leader>de` | n | Show diag float |
-| `<leader>dy` | n | Yank diag msg |
+| **Terminal** | M | | **LSP** | M |
+|--------------|---|-|---------|---|
+| `<leader>to` Terminal split | n | | `K` Hover docs | n |
+| `<c-/>` Snacks terminal | n | | `gd` `gD` Def / Decl | n |
+| | | | `gi` `grt` Impl / TypeDef | n |
+| **Harpoon** | M | | `grn` Rename | n |
+| `<leader>H` Add to harpoon | n | | `gra` Code action | n/x |
+| `<leader>hh` Quick menu | n | | `grp` References | n |
+| `<leader>h1-9` Jump to file | n | | `<leader>ca` Code action (tiny) | n/x |
+| | | | `<leader>ci/co` In/out calls | n |
+| **Format & Lint** | M | | `<leader>cR` Rename file | n |
+| `<leader>fb` Format buffer | * | | `<leader>th` Toggle inlay hints | n |
+| `<leader>ll` Lint | n | | | |
+| `<leader>lk` Show linters | n | | | |
+| `<leader>y` Neoclip history | n | | | |
+| `<leader>w/b/e` CamelCase | n | | | |
 
-## Terminal
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>to` | n | Terminal split |
-| `<c-/>` | n | Snacks terminal |
+| **Snacks Pickers** | M | | **Snacks Search `<leader>s`** | |
+|--------------------|---|-|-------------------------------|---|
+| `<leader><leader>` Smart find | n | | `s"` `s/` Registers / Search hist | |
+| `<leader>ff` Files | n | | `sa` `sC` Autocmds / Commands | |
+| `<leader>fa` Grep all | n | | `sD` `sd` Diag all / buf | |
+| `<leader>fv` Grep word | n/x | | `sf` `sS` Symbols / WS sym | |
+| `<leader>fp` Projects | n | | `sh` `sH` Help / Highlights | |
+| `<leader>fr` Recent | n | | `sj` `sl` Jumps / Loclist | |
+| `<leader>fn/fN` Next/prev ref | n | | `sm` `sM` Marks / Man | |
+| `<leader>jk` Buffers | n | | `sp` `sq` Plugins / QF | |
+| `<leader>nc` Nvim config | n | | `sR` `su` Resume / Undo | |
+| `<leader>:` Cmd history | n | | | |
+| `<M-S-k>` Keymaps | n | | **Picker Window** | |
+| `<M-e>` Explorer | n | | `<Esc>` Close | |
+| | | | `<M-p>` Cycle layout | |
+| | | | `J/K/H/L` Scroll preview | |
 
-## LSP
-| Key | M | Desc |
-|-----|---|------|
-| `K` | n | Hover docs |
-| `gd` `gD` | n | Def / Decl |
-| `gi` `grt` | n | Impl / TypeDef |
-| `grn` | n | Rename |
-| `gra` | n/x | Code action |
-| `grp` | n | References |
-| `<leader>ca` | n/x | Code action (tiny) |
-| `<leader>ci/co` | n | In/out calls |
-| `<leader>cR` | n | Rename file |
-| `<leader>th` | n | Toggle inlay hints |
+| **Snacks UI** | M | | **Snacks Toggles `<leader>u`** | |
+|---------------|---|-|--------------------------------|---|
+| `<leader>z/Z` Zen / Zoom | n | | `us` `uw` Spell / Wrap | |
+| `<leader>.` Scratch buf | n | | `uL` `ul` RelNum / LineNum | |
+| `<leader>S` Select scratch | n | | `ud` `uD` Diag / Dim | |
+| `<leader>nh` Notif history | n | | `uc` `uT` Conceal / TS | |
+| `<leader>N` Nvim news | n | | `ub` `uh` Dark BG / Hints | |
+| `<leader>bd` Delete buf | n | | `ug` `un` Indent / Dismiss | |
+| `<leader>ii` Icons | n | | | |
+| `<leader>uC` Colorschemes | n | | | |
 
-## Harpoon
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>H` | n | Add to harpoon |
-| `<leader>hh` | n | Quick menu |
-| `<leader>h1-9` | n | Jump to file 1-9 |
+| **Git (Gitsigns)** | M | | **Git (Snacks) & Neogit** | M |
+|--------------------|---|-|---------------------------|---|
+| `[g` `]g` Prev/next hunk | n | | `<leader>gl/gL` Log / Log line | n |
+| `<leader>gb/gB` Blame line/buf | n | | `<leader>gf` Log file | n |
+| `<leader>gtb` Toggle blame | n | | `<leader>gd/gD` Diff / Diff HEAD | n |
+| `<leader>gP/gp` Preview popup/inline | n | | `<leader>gS` Stash | n |
+| `<leader>gr/gR` Reset hunk/buf | n | | `<leader>go` Browse | n/v |
+| `<leader>ga/gA` Stage hunk/buf | n | | `<leader>gg` Lazygit | n |
+| `<leader>gu` Undo stage | n | | `<leader>gn` Neogit | n |
+| | | | `<leader>gc` Commit | n |
 
-## Format & Lint
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>fb` | * | Format buffer |
-| `<leader>ll` | n | Lint |
-| `<leader>lk` | n | Show linters |
-| `<leader>y` | n | Neoclip history |
-| `<leader>w/b/e` | n | CamelCase motion |
+| **Diffview** | M | | **Treesitter** | M |
+|--------------|---|-|----------------|---|
+| `<leader>dv/dc` Open / Close | n | | `<leader>ss` Init selection | n |
+| `<leader>Df/D.` File hist all/curr | n | | `<leader>si/sd` Inc / Dec node | n |
+| `<leader>DF` Toggle files | n | | `<leader>sc` Inc scope | n |
+| `<leader>Gm/GM` Compare main/branch | n | | `<leader>a/A` Swap param →/← | n |
+| `<tab>` `<cr>` Stage / Edit | n | | `]m/[m` Func start →/← | n |
+| | | | `]M/[M` Func end →/← | n |
+| | | | `]c/[c` Class start →/← | n |
+| | | | `]C/[C` Class end →/← | n |
+| | | | `]o` `]s` `]z` Loop/Scope/Fold | n |
+| | | | `]d/[d` Conditional →/← | n |
+| | | | `af` `if` Around / in func | o/x |
+| | | | `ac` `ic` Around / in class | o/x |
+| | | | `as` Around scope | o/x |
 
-## Snacks Pickers
-| Key | M | Desc |
-|-----|---|------|
-| `<leader><leader>` | n | Smart find |
-| `<leader>ff` | n | Files |
-| `<leader>fa` | n | Grep all |
-| `<leader>fv` | n/x | Grep word |
-| `<leader>fp` | n | Projects |
-| `<leader>fr` | n | Recent |
-| `<leader>fn/fN` | n | Next/prev ref |
-| `<leader>jk` | n | Buffers |
-| `<leader>nc` | n | Nvim config |
-| `<leader>:` | n | Cmd history |
-| `<M-S-k>` | n | Keymaps |
-| `<M-e>` | n | Explorer |
+| **Mini.surround** | | | **Mini.operators** | |
+|-------------------|---|-|--------------------|-|
+| `sa` `sd` `sr` Add/Del/Replace | | | `g=` Evaluate | |
+| `sf` `sF` Find →/← | | | `gx` Exchange | |
+| `sh` Highlight | | | `gm` Multiply | |
+| | | | `gs` Sort | |
 
-## Snacks Search `<leader>s`
-| Key | Desc |
-|-----|------|
-| `s"` `s/` | Registers / Search hist |
-| `sa` `sC` | Autocmds / Commands |
-| `sD` `sd` | Diag all / buf |
-| `sf` `sS` | Symbols / WS sym |
-| `sh` `sH` | Help / Highlights |
-| `sj` `sl` | Jumps / Loclist |
-| `sm` `sM` | Marks / Man |
-| `sp` `sq` | Plugins / QF |
-| `sR` `su` | Resume / Undo |
-
-## Snacks UI
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>z/Z` | n | Zen / Zoom |
-| `<leader>.` | n | Scratch buf |
-| `<leader>S` | n | Select scratch |
-| `<leader>nh` | n | Notif history |
-| `<leader>N` | n | Nvim news |
-| `<leader>bd` | n | Delete buf |
-| `<leader>ii` | n | Icons |
-| `<leader>uC` | n | Colorschemes |
-
-## Snacks Toggles `<leader>u`
-| Key | Desc |
-|-----|------|
-| `us` `uw` | Spell / Wrap |
-| `uL` `ul` | RelNum / LineNum |
-| `ud` `uD` | Diag / Dim |
-| `uc` `uT` | Conceal / TS |
-| `ub` `uh` | Dark BG / Hints |
-| `ug` `un` | Indent / Dismiss |
-
-## Picker Window
-| Key | Desc |
-|-----|------|
-| `<Esc>` | Close |
-| `<M-p>` | Cycle layout |
-| `J/K/H/L` | Scroll preview |
-
-## Git (Gitsigns)
-| Key | M | Desc |
-|-----|---|------|
-| `[g` `]g` | n | Prev/next hunk |
-| `<leader>gb/gB` | n | Blame line/buf |
-| `<leader>gtb` | n | Toggle blame |
-| `<leader>gP/gp` | n | Preview popup/inline |
-| `<leader>gr/gR` | n | Reset hunk/buf |
-| `<leader>ga/gA` | n | Stage hunk/buf |
-| `<leader>gu` | n | Undo stage |
-
-## Git (Snacks)
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>gl/gL` | n | Log / Log line |
-| `<leader>gf` | n | Log file |
-| `<leader>gd/gD` | n | Diff / Diff HEAD |
-| `<leader>gS` | n | Stash |
-| `<leader>go` | n/v | Browse |
-| `<leader>gg` | n | Lazygit |
-| `<leader>gn` | n | Neogit |
-| `<leader>gc` | n | Commit |
-
-## Diffview
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>dv/dc` | n | Open / Close |
-| `<leader>Df/D.` | n | File hist all/curr |
-| `<leader>DF` | n | Toggle files |
-| `<leader>Gm/GM` | n | Compare main/branch |
-| `<tab>` `<cr>` | n | Stage / Edit (panel) |
-
-## Treesitter
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>ss` | n | Init selection |
-| `<leader>si/sd` | n | Inc / Dec node |
-| `<leader>sc` | n | Inc scope |
-| `<leader>a/A` | n | Swap param →/← |
-| `]m/[m` | n | Func start →/← |
-| `]M/[M` | n | Func end →/← |
-| `]c/[c` | n | Class start →/← |
-| `]C/[C` | n | Class end →/← |
-| `]o` `]s` `]z` | n | Loop / Scope / Fold |
-| `]d/[d` | n | Conditional →/← |
-| `af` `if` | o/x | Around / in func |
-| `ac` `ic` | o/x | Around / in class |
-| `as` | o/x | Around scope |
-
-## Mini.surround
-| Key | Desc |
-|-----|------|
-| `sa` `sd` `sr` | Add / Delete / Replace |
-| `sf` `sF` `sh` | Find →/← / Highlight |
-
-## Mini.operators
-| Key | Desc |
-|-----|------|
-| `g=` `gx` `gm` `gs` | Eval / Exchange / Mult / Sort |
-
-## Completion
-| Key | M | Desc |
-|-----|---|------|
-| `<Tab>` | i | Complete / Tabout |
-| `<S-Tab>` | i | Prev / Back |
-
-## AI/Sidekick *(disabled)*
-| Key | Desc |
-|-----|------|
-| `<c-.>` | Toggle |
-| `<leader>aa/as/ad` | CLI / Select / Detach |
-| `<leader>at/af/av` | Send this / file / sel |
-| `<leader>ap/ac` | Prompt / Claude |
+| **Completion** | M | | **AI/Sidekick** *(disabled)* | |
+|----------------|---|-|------------------------------|---|
+| `<Tab>` Complete / Tabout | i | | `<c-.>` Toggle | |
+| `<S-Tab>` Prev / Back | i | | `<leader>aa/as/ad` CLI/Sel/Detach | |
+| | | | `<leader>at/af/av` Send this/file/sel | |
+| | | | `<leader>ap/ac` Prompt / Claude | |
