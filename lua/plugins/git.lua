@@ -34,10 +34,23 @@ return {
 			current_line_blame_opts = {
 				virt_text = true,
 				virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-				delay = 1000,
+				delay = 400,
 				ignore_whitespace = false,
 			},
-			current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
+			current_line_blame_formatter = function(name, blame_info, opts)
+				if blame_info.author == "Not Committed Yet" then
+					return { { " Not committed yet", "GitSignsCurrentLineBlame" } }
+				end
+				-- Replace your name with "You"
+				local author = blame_info.author
+				local git_user = vim.fn.system("git config user.name"):gsub("\n", "")
+				if author == git_user then
+					author = "You"
+				end
+				local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
+				local text = string.format(" %s, %s - %s", author, blame_info.summary, date)
+				return { { text, "GitSignsCurrentLineBlame" } }
+			end,
 			sign_priority = 6,
 			status_formatter = nil,
 			update_debounce = 200,
@@ -53,75 +66,81 @@ return {
 		},
 		keys = {
 			{
-				"<leader>Gk",
+				"[g",
 				function()
-					require("gitsigns").prev_hunk({ navigation_message = false })
+					require("gitsigns").nav_hunk("prev", { wrap = true, target = "all" })
 				end,
-				desc = "[k] Prev Hunk",
+				desc = "<- hunk",
 			},
 			{
-				"<leader>Gj",
+				"]g",
 				function()
-					require("gitsigns").next_hunk({ navigation_message = false })
+					require("gitsigns").nav_hunk("next", { wrap = true, target = "all" })
 				end,
-				desc = "[j] Next Hunk",
+				desc = "-> Hunk",
 			},
 			{
-				"<leader>Gb",
+				"<leader>gb",
 				function()
 					require("gitsigns").blame_line()
 				end,
-				desc = "[b]lame",
+				desc = "[g]it [b]lame line",
 			},
 			{
-				"<leader>Gp",
+				"<leader>gB",
+				function()
+					require("gitsigns").blame()
+				end,
+				desc = "[g]it [B]lame buffer",
+			},
+			{
+				"<leader>GB",
+				function()
+					require("gitsigns").toggle_current_line_blame()
+				end,
+				desc = "[B]lame mode",
+			},
+			{
+				"<leader>gP",
 				function()
 					require("gitsigns").preview_hunk()
 				end,
-				desc = "[p]review Hunk",
+				desc = "[g]it [P]review Hunk",
 			},
 			{
-				"<leader>GP",
+				"<leader>gp",
 				function()
 					require("gitsigns").preview_hunk_inline()
 				end,
-				desc = "[P]review Hunk (Inline)",
+				desc = "[g]it [p]review Hunk (Inline)",
 			},
 			{
-				"<leader>Gr",
+				"<leader>gr",
 				function()
 					require("gitsigns").reset_hunk()
 				end,
-				desc = "[r]eset Hunk",
+				desc = "[g]it [r]eset Hunk",
 			},
 			{
-				"<leader>GR",
+				"<leader>gR",
 				function()
 					require("gitsigns").reset_buffer()
 				end,
-				desc = "[R]eset Buffer",
+				desc = "[g]it [R]eset Buffer",
 			},
-
 			{
-				"<leader>Gs",
+				"<leader>ga",
 				function()
 					require("gitsigns").stage_hunk()
 				end,
-				desc = "[s]tage Hunk",
+				desc = "[g]it [a]dd Hunk",
 			},
 			{
-				"<leader>Gu",
+				"<leader>gu",
 				function()
 					require("gitsigns").undo_stage_hunk()
 				end,
-				desc = "[u]ndo Stage Hunk",
-			},
-			{
-				"<leader>gs",
-				function()
-					Snacks.picker.git_status()
-				end,
-				desc = "[s]tatus (Snacks)",
+				desc = "[g]it [u]ndo Stage Hunk",
 			},
 			{
 				"<leader>gd",
@@ -138,21 +157,14 @@ return {
 				desc = "[S]tash (Snacks)",
 			},
 			{
-				"<leader>Gd",
+				"<leader>gD",
 				function()
 					vim.cmd("Gitsigns diffthis HEAD")
 				end,
 				desc = "[d]iff HEAD",
 			},
 			{
-				"<leader>GB",
-				function()
-					require("gitsigns").toggle_current_line_blame()
-				end,
-				desc = "[B]lame mode",
-			},
-			{
-				"<leader>GS",
+				"<leader>gA",
 				function()
 					require("gitsigns").stage_buffer()
 				end,
@@ -200,12 +212,12 @@ return {
 		end,
 		keys = {
 			{
-				"<leader>Dv",
+				"<leader>dv",
 				":DiffviewOpen<CR>",
 				desc = "[v]iew",
 			},
 			{
-				"<leader>Dc",
+				"<leader>dc",
 				":DiffviewClose<CR>",
 				desc = "[c]lose",
 			},
@@ -264,12 +276,15 @@ return {
 		opts = {
 			integrations = {
 				diffview = true,
+				snacks = true,
 			},
+			graph_style = "unicode",
+			process_spinner = true,
 		},
 	},
 	{
 		"XXiaoA/atone.nvim",
 		cmd = "Atone",
-		opts = {}, -- your configuration here
+		opts = {},
 	},
 }
