@@ -19,19 +19,6 @@ vim.keymap.set("n", "<leader>k", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("v", "<leader>j", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "<leader>k", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- Clear highlights on search when pressing <Esc> in normal mode and close LSP hover
---  See `:help hlsearch`
-vim.keymap.set("n", "<Esc>", function()
-	vim.cmd("nohlsearch")
-	-- Close LSP hover and diagnostic windows specifically
-	pcall(vim.lsp.buf.clear_references)
-	vim.diagnostic.hide()
-
-	if vim.fn.pumvisible() == 1 then
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-e>", true, false, true), "n", false)
-	end
-end)
-
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
