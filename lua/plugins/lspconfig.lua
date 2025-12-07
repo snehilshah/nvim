@@ -3,7 +3,7 @@ local servers = {
 	"cssls", -- CSS language server
 	"html", -- HTML language server
 	"lua_ls", -- Lua language server
-	-- "gopls",      -- Go language server managed by go.nvim
+	"gopls", -- Go language server
 	-- "zls",        -- Zig language server
 	"ts_ls", -- TypeScript/JavaScript language server
 	"biome", -- dont know why couldnt work with nvim-lint

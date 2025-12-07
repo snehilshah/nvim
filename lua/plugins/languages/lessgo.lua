@@ -9,79 +9,14 @@ return {
 			"saghen/blink.cmp",
 		},
 		config = function(_, opts)
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			require("go").setup({
 				lsp_keymaps = false,
-				lsp_codelens = true,
-				lsp_on_attach = true,
-				lsp_gofumpt = true,
+				lsp_codelens = false,
+				lsp_on_attach = false,
+				lsp_cfg = false, -- disable go.nvim LSP, using lspconfig instead
+				lsp_gofumpt = false,
 				lsp_inlay_hints = {
-					enable = true,
-				},
-				lsp_semantic_highlights = true,
-				lsp_cfg = {
-					capabilities = capabilities,
-					settings = {
-						gopls = {
-							codelenses = {
-								generate = true,
-								gc_details = true,
-								test = true,
-								tidy = true,
-								vendor = true,
-								regenerate_cgo = false,
-								upgrade_dependency = true,
-								run_govulncheck = true,
-							},
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
-							},
-							analyses = {
-								nilness = true,
-								unusedparams = true,
-								unusedwrite = true,
-								ST1003 = true,
-								undeclaredname = true,
-								fillreturns = true,
-								nonewvars = true,
-								useany = true,
-								unreachable = true,
-								unusedresult = true,
-								simplifyslice = true,
-								simplifyrange = true,
-								simplifycompositelit = true,
-								shadow = false,
-								printf = true,
-								structtag = true,
-								modernize = true,
-								stylecheck = true,
-								gocritic = true,
-								deprecated = true,
-							},
-							usePlaceholders = true,
-							completeUnimported = true,
-							staticcheck = true,
-							matcher = "Fuzzy",
-							diagnosticsDelay = "500ms",
-							symbolMatcher = "fuzzy",
-							directoryFilters = {
-								"-.git",
-								"-.vscode",
-								"-.idea",
-								"-.vscode-test",
-								"-node_modules",
-								"-generated",
-							},
-							semanticTokens = true,
-							gofumpt = true,
-						},
-					},
+					enable = false,
 				},
 				golangci_lint = {
 					default = "none", -- disabled, using nvim-lint instead
@@ -100,14 +35,6 @@ return {
 				lsp_diag_signs = false,
 				lsp_diag_update_in_insert = false,
 				luasnip = true, -- enable go.nvim luasnip snippets
-			})
-			local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", { clear = true })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = "*.go",
-				callback = function()
-					require("go.format").goimports()
-				end,
-				group = format_sync_grp,
 			})
 		end,
 		ft = { "go", "gomod" },
