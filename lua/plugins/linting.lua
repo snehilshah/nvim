@@ -3,6 +3,9 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local lint = require("lint")
+		-- Customize golangcilint to ignore exit codes (golangci-lint exits with code 1-3 when issues are found)
+		local golangcilint = require("lint").linters.golangcilint
+		golangcilint.ignore_exitcode = true
 		lint.linters_by_ft = {
 			json = { "jsonlint" },
 			jsonc = { "jsonlint" },
@@ -15,10 +18,8 @@ return {
 			yml = { "yamllint" },
 			c = { "cppcheck" },
 			cpp = { "cppcheck" },
-			-- javascript = { "eslint_d" },
-			-- javascriptreact = { "eslint_d" },
-			-- typescript = { "eslint_d" },
-			-- typescriptreact = { "eslint_d" },
+			-- javascript and typescript handled by eslint_d via esmuellert/nvim-eslint see esleent.lua
+			-- in case of biome setup biome server is started as a lsp see lspconfig
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
