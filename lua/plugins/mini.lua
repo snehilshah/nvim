@@ -5,6 +5,7 @@ return {
 	version = false,
 	config = function()
 		-- require("mini.ai").setup({ n_lines = 500 }) -- this is not a "AI" plugin
+		require("mini.cmdline").setup()
 		require("mini.cursorword").setup()
 		require("mini.icons").setup({
 			-- Override by exact filename (case-sensitive)
@@ -24,7 +25,7 @@ return {
 				json = { glyph = "", hl = "MiniIconsYellow" },
 				jsonc = { glyph = "", hl = "MiniIconsYellow" },
 			},
-		extension = {
+			extension = {
 				log = { glyph = "󰌱", hl = "MiniIconsGreen" },
 				md = { glyph = "", hl = "MiniIconsBlue" },
 			},
