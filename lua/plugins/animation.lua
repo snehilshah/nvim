@@ -5,7 +5,6 @@ return {
 		animation = {
 			enabled = true,
 			duration = 600,
-			animation_type = "zoom",
 			window_scoped = true,
 		},
 		highlights = {
@@ -16,7 +15,7 @@ return {
 				hl_color = { bg = "#2F4640" }, -- Dark muted green
 			},
 			yank = {
-				hl_color = { bg = "#7A683A" }, -- Dark muted yellow
+				hl_color = { bg = "#d8a657", fg = "#1d2021" }, -- Gruvbox Material yellow on dark bg
 			},
 			paste = {
 				hl_color = { bg = "#325B5B" }, -- Dark muted cyan
@@ -36,7 +35,7 @@ return {
 			function()
 				require("undo-glow").undo({
 					animation = {
-						animation_type = "fade",
+						animation_type = "desaturate",
 					},
 				})
 			end,
@@ -49,7 +48,7 @@ return {
 			function()
 				require("undo-glow").redo({
 					animation = {
-						animation_type = "fade",
+						animation_type = "desaturate",
 					},
 				})
 			end,
@@ -65,7 +64,9 @@ return {
 				vim.schedule(function()
 					vim.fn.setpos(".", pos)
 				end)
-				return require("undo-glow").comment()
+				return require("undo-glow").comment({
+					animation_type = "spring",
+				})
 			end,
 			mode = { "n", "x" },
 			desc = "Toggle comment with highlight",
@@ -75,7 +76,9 @@ return {
 		{
 			"gc",
 			function()
-				require("undo-glow").comment_textobject()
+				require("undo-glow").comment_textobject({
+					animation_type = "spring",
+				})
 			end,
 			mode = "o",
 			desc = "Comment textobject with highlight",
@@ -84,7 +87,9 @@ return {
 		{
 			"gcc",
 			function()
-				return require("undo-glow").comment_line()
+				return require("undo-glow").comment_line({
+					animation_type = "spring",
+				})
 			end,
 			mode = "n",
 			desc = "Toggle comment line with highlight",
@@ -94,7 +99,10 @@ return {
 		{
 			"p",
 			function()
-				require("undo-glow").highlight_changes({ hlgroup = "UgPaste" })
+				require("undo-glow").highlight_changes({
+					hlgroup = "UgPaste",
+					animation = { animation_type = "desaturate" },
+				})
 				vim.cmd("normal! p")
 			end,
 			mode = "n",
@@ -104,7 +112,10 @@ return {
 		{
 			"P",
 			function()
-				require("undo-glow").highlight_changes({ hlgroup = "UgPaste" })
+				require("undo-glow").highlight_changes({
+					hlgroup = "UgPaste",
+					animation = { animation_type = "desaturate" },
+				})
 				vim.cmd("normal! P")
 			end,
 			mode = "n",
@@ -119,7 +130,11 @@ return {
 			group = undo_glow_group,
 			desc = "Highlight when yanking (copying) text",
 			callback = function()
-				require("undo-glow").yank()
+				require("undo-glow").yank({
+					animation = {
+						animation_type = "pulse",
+					},
+				})
 			end,
 		})
 
@@ -143,7 +158,7 @@ return {
 			callback = function()
 				require("undo-glow").search_cmd({
 					animation = {
-						animation_type = "fade",
+						animation_type = "jitter",
 					},
 				})
 			end,
