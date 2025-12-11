@@ -197,6 +197,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("K", vim.lsp.buf.hover, "Hover Documentation")
 		map("<leader>th", function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
+			vim.notify("Inlay Hints " .. (vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }) and "Enabled" or "Disabled"))
 		end, "[T]oggle Inlay [H]ints")
 
 		-- INLAY HINTS
