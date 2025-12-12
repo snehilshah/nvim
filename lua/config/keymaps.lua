@@ -66,6 +66,9 @@ vim.keymap.set({ "n", "x" }, "<leader>ca", function()
 	require("tiny-code-action").code_action()
 end, { noremap = true, silent = true, desc = "[C]ode [A]ction" })
 
+-- Run codelens actions directly
+vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { desc = "Run [C]ode[L]ens actions" })
+
 -- LSP Call Hierarchy - show incoming calls (call stack)
 vim.keymap.set("n", "<leader>ci", vim.lsp.buf.incoming_calls, { desc = "Show [C]all hierarchy [I]ncoming" })
 -- LSP Call Hierarchy - show outgoing calls

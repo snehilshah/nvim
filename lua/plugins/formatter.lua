@@ -40,9 +40,10 @@ return {
 			css = { "biome", "prettier", stop_after_first = true },
 			scss = { "biome", "prettier", stop_after_first = true },
 			html = { "biome", "prettier", stop_after_first = true },
-			markdown = { "biome", "prettier", stop_after_first = true },
 			yaml = { "biome", stop_after_first = true },
 			yml = { "biome", stop_after_first = true },
+			toml = { "tombi", stop_after_first = true },
+			markdown = { "markdownlint-cli2", stop_after_first = true },
 
 			-- Go
 			go = { "goimports", "gofumpt" },
