@@ -8,6 +8,9 @@ local servers = {
 	"ts_ls", -- TypeScript/JavaScript language server
 	"biome", -- dont know why couldnt work with nvim-lint
 	"copilot",
+	"marksman",
+	"tombi",
+	"markdown_oxide",
 	-- "rust-analyzer", -- Rust language server
 	-- "tailwindcss", -- Tailwind CSS language server
 }
@@ -41,12 +44,6 @@ return {
 						completeFunctionCalls = true,
 					},
 				}
-				-- NOTE: can do anything for special servers here
-				-- if lsp_server == "ts_ls" then
-				-- 	config.completions = {
-				-- 		completeFunctionCalls = true,
-				-- 	}
-				-- end
 				vim.lsp.config(lsp_server, config)
 				vim.lsp.enable(lsp_server)
 			end

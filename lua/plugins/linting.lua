@@ -18,6 +18,8 @@ return {
 			yml = { "yamllint" },
 			c = { "cppcheck" },
 			cpp = { "cppcheck" },
+			md = { "markdownlint-cli2" },
+			toml = { "tombi" },
 			-- javascript and typescript handled by eslint_d via esmuellert/nvim-eslint see esleent.lua
 			-- in case of biome setup biome server is started as a lsp see lspconfig
 		}
