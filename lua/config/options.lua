@@ -103,3 +103,10 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 		vim.o.list = false
 	end,
 })
+
+-- Filetype detection
+vim.filetype.add({
+	extension = {
+		mdx = "mdx",
+	},
+})
