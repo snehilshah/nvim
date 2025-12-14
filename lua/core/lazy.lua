@@ -20,6 +20,7 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 		{ import = "plugins.languages" },
+		{ import = "plugins.ai" },
 	},
 	-- colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "gruvbox-material" } },
