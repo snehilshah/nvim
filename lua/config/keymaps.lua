@@ -21,6 +21,9 @@ vim.keymap.set("v", "<leader>k", ":m '<-2<CR>gv=gv", { desc = "Move selection up
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+-- use these when update comes
+-- vim.keymap.set("n", "[e", vim.diagnostic.jump, { count = -1, desc = "Go to previous [D]iagnostic message" })
+-- vim.keymap.set("n", "]e", vim.diagnostic.jump, { count = 1, desc = "Go to next [D]iagnostic message" })
 vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
 vim.keymap.set("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
