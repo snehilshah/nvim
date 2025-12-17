@@ -11,6 +11,7 @@ local servers = {
 	"marksman",
 	"tombi",
 	"markdown_oxide",
+	"docker_language_server",
 	-- "rust-analyzer", -- Rust language server
 	-- "tailwindcss", -- Tailwind CSS language server
 }
