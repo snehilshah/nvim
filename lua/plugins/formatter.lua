@@ -6,12 +6,19 @@ return {
 		{
 			"<leader>fb",
 			function()
-				require("conform").format({ async = true, lsp_format = "fallback" })
+				require("conform").format({ async = true }, function(err, did_edit)
+					if not err and did_edit then
+						vim.notify("Code formatted", vim.log.levels.INFO, { title = "Conform" })
+					end
+				end)
 			end,
-			mode = "",
+			mode = { "n", "v" },
 			desc = "[F]ormat [B]uffer",
 		},
 	},
+	init = function()
+		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+	end,
 	opts = {
 		notify_on_error = true,
 		format_on_save = {
@@ -20,6 +27,7 @@ return {
 			lsp_format = "fallback",
 		},
 		formatters_by_ft = {
+			-- lua
 			lua = { "stylua" },
 			-- Python formatters
 			-- python = { "isort", "black" },
@@ -40,8 +48,8 @@ return {
 			css = { "biome", "prettier", stop_after_first = true },
 			scss = { "biome", "prettier", stop_after_first = true },
 			html = { "biome", "prettier", stop_after_first = true },
-			yaml = { "biome", stop_after_first = true },
-			yml = { "biome", stop_after_first = true },
+			yaml = { "yamlfmt", stop_after_first = true },
+			yml = { "yamlfmt", stop_after_first = true },
 			toml = { "tombi", stop_after_first = true },
 			markdown = { "markdownlint-cli2", stop_after_first = true },
 
@@ -54,7 +62,7 @@ return {
 			zsh = { "shfmt" },
 
 			-- Dockerfile
-			dockerfile = { "hadolint" },
+			dockerfile = { "dockerfmt" },
 		},
 	},
 }
