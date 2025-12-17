@@ -105,4 +105,8 @@ return {
 		event = "BufReadPost", -- Load immediately when opening a file
 		config = true, -- Runs require('ufo').setup() with default settings
 	},
+	{
+		"numToStr/Comment.nvim",
+		opts = {},
+	},
 }
