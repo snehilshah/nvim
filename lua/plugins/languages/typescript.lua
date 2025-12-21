@@ -5,7 +5,8 @@ return {
 		opts = {
 			auto_attach = true,
 			servers = {
-				"ts_ls",
+				"tsgo",
+				-- "ts_ls",  -- Uncomment if switching back to ts_ls
 			},
 		},
 	},
