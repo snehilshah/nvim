@@ -1,6 +1,7 @@
 {
     "Lua.diagnostics.globals": [
         "vim",
-        "Snacks"
+        "Snacks",
+        "MiniIcons"
     ]
 }
