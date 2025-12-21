@@ -53,7 +53,7 @@
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },
   "tabout.nvim": { "branch": "master", "commit": "9a3499480a8e53dcaa665e2836f287e3b7764009" },
   "timerly": { "branch": "main", "commit": "1c78999480af0e4f8201fe6bfa1e5e0b70a59acf" },
-  "tiny-code-action.nvim": { "branch": "main", "commit": "0932b80d4de8d1c9c860536d21eff165aa0ced13" },
+  "tiny-code-action.nvim": { "branch": "main", "commit": "85b3ae30dedb08154d8ec6302820d4076b2e0eb1" },
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "d9d12d4bfb9a4c5b8b8bdf7f612551df6972946c" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
