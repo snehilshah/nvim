@@ -17,13 +17,45 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
+	change_detection = {
+		enabled = true,
+		notify = false,
+	},
 	spec = {
 		{ import = "plugins" },
 		{ import = "plugins.languages" },
 		{ import = "plugins.ai" },
+		{ import = "plugins.lsp" },
+	},
+	ui = {
+		border = "rounded",
+		backdrop = 80,
+		title = "$NH!L",
+		title_pos = "left",
 	},
 	-- colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "gruvbox-material" } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
+	-- disable these inbuilt plugins as not used
+	git = {
+		throttle = {
+			enabled = false,
+			-- max 2 ops every 5 seconds
+			rate = 2,
+			duration = 5 * 1000, -- in ms
+		},
+		cooldown = 300,
+	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 })
