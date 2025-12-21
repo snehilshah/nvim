@@ -1,6 +1,5 @@
 local M = {}
 
--- Track current layout index
 local idx = 1
 local preferred = {
 	"ivy_taller",
@@ -68,8 +67,6 @@ vim.keymap.set("n", "<leader>lc", function()
 			local buf = ctx.filter.current_buf
 			local bufmap = lsp.bufmap()
 
-			---@async
-			---@param cb async fun(item: snacks.picker.finder.Item)
 			return function(cb)
 				local async = Async.running()
 				local cancel = {} ---@type fun()[]
@@ -115,7 +112,6 @@ vim.keymap.set("n", "<leader>lc", function()
 											function(_, calls)
 												if calls then
 													for _, call in ipairs(calls) do
-														---@type snacks.picker.finder.Item
 														local item = {
 															text = call.from.name .. "    " .. call.from.detail,
 															kind = lsp.symbol_kind(call.from.kind),
@@ -184,8 +180,6 @@ vim.keymap.set("n", "<leader>lo", function()
 			local buf = ctx.filter.current_buf
 			local bufmap = lsp.bufmap()
 
-			---@async
-			---@param cb async fun(item: snacks.picker.finder.Item)
 			return function(cb)
 				local async = Async.running()
 				local cancel = {} ---@type fun()[]
@@ -231,7 +225,6 @@ vim.keymap.set("n", "<leader>lo", function()
 											function(_, calls)
 												if calls then
 													for _, call in ipairs(calls) do
-														---@type snacks.picker.finder.Item
 														local item = {
 															text = call.to.name .. "    " .. call.to.detail,
 															kind = lsp.symbol_kind(call.to.kind),
