@@ -16,7 +16,12 @@ return {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			"folke/lazydev.nvim",
-			"fang2hou/blink-copilot",
+			{
+				"fang2hou/blink-copilot",
+				opts = {
+					kind_icon = "  ",
+				},
+			},
 			"nvim-mini/mini.nvim",
 			"L3MON4D3/LuaSnip",
 		},
