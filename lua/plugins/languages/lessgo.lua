@@ -20,6 +20,7 @@ return {
 				},
 				golangci_lint = {
 					default = "none", -- disabled, using nvim-lint instead
+					flags = { "--output.json.path=stdout", "--issues-exit-code=0", "--show-stats=false", "--allow-parallel-runners" },
 					-- disable = {'errcheck', 'staticcheck'}, -- linters to disable empty by default
 					-- enable = {'govet', 'ineffassign','revive', 'gosimple'}, -- linters to enable; empty by default
 					config = nil, -- set to a config file path
