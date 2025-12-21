@@ -56,11 +56,20 @@ return {
 
 						-- Show LSP name when no search is active
 						local clients = vim.lsp.get_clients({ bufnr = 0 })
+						-- Filter out Copilot
+						clients = vim.tbl_filter(function(client)
+							return client.name ~= "copilot"
+						end, clients)
 						if #clients == 0 then
 							return ""
 						end
 
-						return " " .. clients[1].name
+						local lsp_count = #clients
+						if lsp_count == 1 then
+							return " " .. clients[1].name
+						else
+							return " " .. clients[1].name .. " (" .. lsp_count .. ")"
+						end
 					end,
 					color = function()
 						-- Orange for search, default for LSP
