@@ -15,8 +15,9 @@ return {
 				end
 
 				-- Navigation
-				map("n", "gd", vim.lsp.buf.definition, "Go to definition")
-				map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+				-- let snacks handle these events
+				-- map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+				-- map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
 				map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
 				map("n", "gr", vim.lsp.buf.references, "Go to references")
 				map("n", "gt", vim.lsp.buf.type_definition, "Go to type definition")
