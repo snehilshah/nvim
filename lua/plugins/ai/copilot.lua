@@ -23,11 +23,11 @@ return {
 			},
 		},
 		suggestion = {
-			enabled = false, -- MUST be false when using blink-copilot
-			auto_trigger = true,
+			enabled = false, -- disabled for blink-copilot
+			auto_trigger = false,
 			hide_during_completion = true,
 			debounce = 75,
-			trigger_on_accept = true,
+			trigger_on_accept = false,
 			keymap = {
 				accept = false,
 				accept_word = false,
@@ -38,11 +38,11 @@ return {
 			},
 		},
 		nes = {
-			enabled = true, -- requires copilot-lsp as a dependency
+			enabled = true,
 			auto_trigger = true,
 			keymap = {
-				accept_and_goto = "<Tab>",
-				accept = "<CR>",
+				accept_and_goto = "<S-Tab>",
+				accept = "<S-CR>",
 				dismiss = "<M-l>",
 			},
 		},
