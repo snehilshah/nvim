@@ -23,27 +23,27 @@ return {
 			},
 		},
 		suggestion = {
-			enabled = false, -- disabled for blink-copilot
-			auto_trigger = false,
+			enabled = true, -- enable native Copilot inline suggestions
+			auto_trigger = false, -- automatically show suggestions
 			hide_during_completion = true,
 			debounce = 75,
-			trigger_on_accept = false,
+			trigger_on_accept = true,
 			keymap = {
-				accept = false,
-				accept_word = false,
-				accept_line = false,
-				next = false,
-				prev = false,
-				dismiss = false,
+				accept = "<C-y>", -- Ctrl+y to accept (like traditional completion)
+				accept_word = "<C-Right>", -- Ctrl+Right to accept word
+				accept_line = "<C-e>", -- Ctrl+e to accept line
+				next = "<C-n>", -- Ctrl+n for next suggestion
+				prev = "<C-p>", -- Ctrl+p for previous suggestion
+				dismiss = "<C-l>", -- Ctrl+c to dismiss
 			},
 		},
 		nes = {
 			enabled = true,
 			auto_trigger = true,
 			keymap = {
-				accept_and_goto = "<S-Tab>",
-				accept = "<S-CR>",
-				dismiss = "<M-l>",
+				accept_and_goto = "<S-Tab>", -- Tab works reliably in normal mode for NES
+				accept = "<M-CR>", -- Enter to accept without jumping to end
+				dismiss = "<Esc>",
 			},
 		},
 		logger = {

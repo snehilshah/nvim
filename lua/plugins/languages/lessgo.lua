@@ -57,7 +57,7 @@ return {
 			keys = {
 				down = "j",
 				up = "k",
-				enter = "<M-CR>",
+				enter = "<M-l>",
 				-- when pressing the enter key, also look for the next concealed block below the cursor
 				-- set to false to only enter a block that starts at/above the current line
 				refold = "<M-->",
