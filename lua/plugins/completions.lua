@@ -88,7 +88,6 @@ return {
 				},
 			},
 
-			snippets = { preset = "luasnip" },
 
 			cmdline = {
 				enabled = false, -- mini.cmdline has better options, with previews
