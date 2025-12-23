@@ -16,12 +16,6 @@ return {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			"folke/lazydev.nvim",
-			{
-				"fang2hou/blink-copilot",
-				opts = {
-					kind_icon = "  ",
-				},
-			},
 			"nvim-mini/mini.nvim",
 			"L3MON4D3/LuaSnip",
 		},
@@ -69,6 +63,8 @@ return {
 				},
 				ghost_text = {
 					enabled = true,
+					show_with_menu = false, -- show ghost text even with menu open
+					show_without_selection = false, -- only show when item is selected
 				},
 				documentation = {
 					auto_show = true,
@@ -82,7 +78,7 @@ return {
 				list = {
 					selection = {
 						preselect = true,
-						auto_insert = true,
+						auto_insert = false, -- don't insert preview into editor when selecting
 					},
 				},
 			},
@@ -98,15 +94,9 @@ return {
 			},
 
 			sources = {
-				default = { "lazydev", "lsp", "path", "copilot", "snippets", "buffer" },
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				providers = {
 					lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
-					copilot = {
-						name = "copilot",
-						module = "blink-copilot",
-						score_offset = 100,
-						async = true,
-					},
 					cmdline = {
 						min_keyword_length = 2,
 					},
