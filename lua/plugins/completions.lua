@@ -56,9 +56,6 @@ return {
 							{ "kind" },
 							{ "source_name" },
 						},
-						treesitter = {
-							"lsp",
-						},
 					},
 				},
 				ghost_text = {
@@ -69,12 +66,20 @@ return {
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 200,
+					treesitter_highlighting = true,
 					window = {
 						border = "rounded",
 						scrollbar = true,
+						-- experimental check how does the highlight looks like
+						winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
 					},
 				},
-				trigger = { prefetch_on_insert = true },
+				trigger = {
+					prefetch_on_insert = true,
+					-- expermintal check how it works
+					show_in_snippet = false,
+					show_on_backspace_in_keyword = false,
+				},
 				list = {
 					selection = {
 						preselect = true,
@@ -116,6 +121,7 @@ return {
 
 			signature = {
 				enabled = true,
+				show_on_keyword = true,
 				window = {
 					show_documentation = true,
 					border = "rounded",
