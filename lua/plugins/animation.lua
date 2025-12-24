@@ -35,7 +35,7 @@ return {
 			function()
 				require("undo-glow").undo({
 					animation = {
-						animation_type = "desaturate",
+						animation_type = "zoom",
 					},
 				})
 			end,
@@ -48,7 +48,7 @@ return {
 			function()
 				require("undo-glow").redo({
 					animation = {
-						animation_type = "desaturate",
+						animation_type = "zoom",
 					},
 				})
 			end,
@@ -65,7 +65,7 @@ return {
 					vim.fn.setpos(".", pos)
 				end)
 				return require("undo-glow").comment({
-					animation_type = "spring",
+					animation_type = "zoom",
 				})
 			end,
 			mode = { "n", "x" },
@@ -77,7 +77,7 @@ return {
 			"gc",
 			function()
 				require("undo-glow").comment_textobject({
-					animation_type = "spring",
+					animation_type = "zoom",
 				})
 			end,
 			mode = "o",
@@ -88,7 +88,7 @@ return {
 			"gcc",
 			function()
 				return require("undo-glow").comment_line({
-					animation_type = "spring",
+					animation_type = "zoom",
 				})
 			end,
 			mode = "n",
@@ -101,7 +101,7 @@ return {
 			function()
 				require("undo-glow").highlight_changes({
 					hlgroup = "UgPaste",
-					animation = { animation_type = "desaturate" },
+					animation = { animation_type = "zoom" },
 				})
 				vim.cmd("normal! p")
 			end,
@@ -114,7 +114,7 @@ return {
 			function()
 				require("undo-glow").highlight_changes({
 					hlgroup = "UgPaste",
-					animation = { animation_type = "desaturate" },
+					animation = { animation_type = "zoom" },
 				})
 				vim.cmd("normal! P")
 			end,
@@ -132,7 +132,7 @@ return {
 			callback = function()
 				require("undo-glow").yank({
 					animation = {
-						animation_type = "pulse",
+						animation_type = "fade",
 					},
 				})
 			end,
@@ -158,7 +158,7 @@ return {
 			callback = function()
 				require("undo-glow").search_cmd({
 					animation = {
-						animation_type = "jitter",
+						animation_type = "zoom",
 					},
 				})
 			end,
