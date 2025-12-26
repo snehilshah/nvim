@@ -170,7 +170,7 @@ return {
 
 				-- Other UI elements
 				CmpItemMenu = { fg = ayu_colors.surface2 },
-				CursorLineNr = { fg = ayu_colors.text },
+				-- CursorLineNr = { fg = ayu_colors.text },
 				GitSignsChange = { fg = ayu_colors.peach },
 				LineNr = { fg = ayu_colors.overlay0 },
 				LspInfoBorder = { link = "FloatBorder" },
@@ -493,7 +493,7 @@ return {
 							SnacksTerminalTitle = { bg = colors.mantle, fg = colors.text, bold = true },
 
 							CmpItemMenu = { fg = colors.surface2 },
-							CursorLineNr = { fg = colors.text },
+							-- CursorLineNr = { fg = colors.text },
 							GitSignsChange = { fg = colors.peach },
 							LineNr = { fg = colors.overlay0 },
 							LspInfoBorder = { link = "FloatBorder" },
