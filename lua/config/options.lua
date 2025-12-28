@@ -1,72 +1,139 @@
+-- ============================================================================
+-- Editor Behavior
+-- ============================================================================
+-- enable mouse support in all modes
+vim.opt.mouse = "a"
+vim.opt.clipboard = "unnamedplus"
+-- save undos between sessions
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
+-- faster completion (default is 4000ms)
+vim.opt.updatetime = 400
+-- time to wait for a mapped sequence to complete (in milliseconds)
+vim.opt.timeoutlen = 1000
+-- confirm before exiting a modified buffer
+vim.opt.confirm = true
+-- automatically reload files changed outside of nvim
+vim.opt.autoread = true
+
+-- ============================================================================
+-- UI/Display
+-- ============================================================================
+-- Tell Neovim the terminal supports RGB colors (8-bit true color)
+-- note_to_self: your laptop and office laptop supports this
+vim.opt.termguicolors = true
+vim.env.COLORTERM = "truecolor"
+vim.o.background = "dark"
 -- relative line numbering
 vim.opt.number = true
 vim.opt.relativenumber = true
+-- the number column on the left with the allowed width of 4
+vim.opt.numberwidth = 3
+-- the 2 is required in case of 3 digist relative numbers caused by easy motions
+-- the sign column of the left with the width of 2
+vim.opt.signcolumn = "yes:2"
+-- the faded highlight line on the active line
+vim.o.cursorline = true
+-- here both signifies that highlight the text and the line number as well, number signifies only the number line
+vim.opt.cursorlineopt = "number" -- Options: "both", "line", "number", "screenline"
+vim.opt.wrap = false
+-- when a long line breaks it maintains the visual start position of the original line
+vim.opt.breakindent = true
+-- dont show the mode in the cmd since it is already there in the custom status line
+vim.o.showmode = false
+-- dont show the active command, and waiting for the motion like 3yj
+vim.opt.showcmd = false
+-- cant see it even if enabled, anyways configured in lualine so nvm
+vim.opt.ruler = false
+vim.opt.showtabline = 0
+-- disable the vim cmd line until required, this will overwrite the statusline when cmd is required
+vim.opt.cmdheight = 0
+vim.opt.laststatus = 3 -- there is only 1 statusline for all windows
+-- Limit the Autocomplete Menu to 10 items
+vim.opt.pumheight = 10
+-- fill the last lines with empty lines instead of ~
+vim.opt.fillchars = { eob = " " }
+-- rounded floating windows
+vim.o.winborder = "rounded"
+vim.o.list = false -- handled by plugin mcauley-penney/visual-whitespace.nvim
 
--- save undos between sessions
-vim.opt.undofile = true
+-- ============================================================================
+-- Search
+-- ============================================================================
+-- searched terms get highlighted
+vim.opt.hlsearch = true
+-- show the first search result while typing
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+-- case doesnt matter unless I type a capital letter in the search term
+vim.opt.smartcase = true
 
+-- ============================================================================
+-- Indentation
+-- ============================================================================
+-- replace tabs with spaces
+vim.opt.expandtab = true
+-- one Indentation level is 4 spaces
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+-- backspace also deletes 4 spaces
+vim.opt.softtabstop = 4
+vim.opt.smartindent = true
+vim.opt.smarttab = true
+vim.opt.autoindent = true
+
+-- ============================================================================
+-- Splits
+-- ============================================================================
 -- new splits will appear on the right/bottom for respective vertical/horizontal splits
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
-vim.opt.wrap = false
+-- ============================================================================
+-- Files
+-- ============================================================================
+vim.opt.fileencoding = "utf-8"
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
 
--- Case-incesitive searching, unless \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+-- ============================================================================
+-- Completion
+-- ============================================================================
+vim.opt.conceallevel = 0 -- Show all text (don't hide markdown syntax/quotes)
+vim.opt.completeopt = { "menu", "menuone", "noselect" } -- Standard autocomplete options
 
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-
-vim.opt.smarttab = true
-vim.opt.smartindent = true
-vim.opt.autoindent = true
-
-vim.opt.mouse = "a"
-
--- dont show the mode in the cmd since it is already there in the custom status line
-vim.o.showmode = false
-
--- show the gurret bar next to the number line
-vim.opt.signcolumn = "yes"
-
+-- ============================================================================
+-- Other
+-- ============================================================================
+vim.opt.title = true -- set the terminal title
+-- vim.opt.guifont = "monospace:h17" -- no need as we run in terminal, maybe useful in neovide
 -- minimum number of screen lines to keep above and below the cursor, to have a context
 vim.opt.scrolloff = 5
+vim.opt.virtualedit = "block" -- in v-block mode allow to move cursor anywhere
+vim.o.inccommand = "split" -- show a preview of replace commands with :%s/foo/bar/g
 
--- time in ms for CursorHold to trigger (affects document highlight, swap file writes)
-vim.opt.updatetime = 250
+-- ============================================================================
+-- Filetype Detection
+-- ============================================================================
+vim.filetype.add({
+	extension = {
+		env = "dotenv",
+		mdx = "mdx",
+	},
+	filename = {
+		[".env"] = "dotenv",
+		["env"] = "dotenv",
+	},
+	pattern = {
+		["[jt]sconfig.*.json"] = "jsonc",
+		["%.env%.[%w_.-]+"] = "dotenv",
+	},
+})
 
--- disable the vim cmd line until required, this will overwrite the statusline when cmd is required
-vim.opt.cmdheight = 0
-
--- set the default border for all floating windows rounded
-vim.opt.winborder = "rounded"
-
-vim.schedule(function()
-	vim.o.clipboard = "unnamedplus"
-end)
-
-vim.opt.virtualedit = "block"
-vim.o.inccommand = "split"
--- searched terms get highlighted
-vim.opt.hlsearch = true
--- Enable full terminal color support
-vim.opt.termguicolors = true
-vim.o.background = "dark"
-
--- Tell Neovim the terminal supports RGB colors (24-bit true color)
-vim.env.COLORTERM = "truecolor"
-vim.o.termguicolors = true
-
-vim.o.cursorline = true
-vim.opt.cursorlineopt = "both" -- Options: "both", "line", "number", "screenline"
-
-vim.o.confirm = true
-vim.opt.laststatus = 3
-
--- Treesitter-based code folding
+-- ============================================================================
+-- Treesitter Folds
+-- ============================================================================
 vim.opt.foldenable = true
 vim.opt.foldcolumn = "1"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -74,39 +141,11 @@ vim.opt.foldlevel = 99 -- Start with all folds open
 vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "expr"
 
--- Configure diagnostic signs with icons
-local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+-- ============================================================================
+-- Diagnostic Signs
+-- ============================================================================
+local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
--- Listchars - only show when lines are selected (like VS Code)
-vim.o.list = false -- disabled by default
-vim.opt.listchars = { tab = "▸ ", trail = "·", nbsp = "␣", extends = "…", space = "·", lead = "·" }
-
--- Show listchars only in visual mode selection
-local listchars_group = vim.api.nvim_create_augroup("ListcharsOnSelect", { clear = true })
-
-vim.api.nvim_create_autocmd("ModeChanged", {
-	group = listchars_group,
-	pattern = { "*:v", "*:V", "*:\22" }, -- entering visual, visual-line, or visual-block mode
-	callback = function()
-		vim.o.list = true
-	end,
-})
-
-vim.api.nvim_create_autocmd("ModeChanged", {
-	group = listchars_group,
-	pattern = { "v:*", "V:*", "\22:*" }, -- leaving visual modes
-	callback = function()
-		vim.o.list = false
-	end,
-})
-
--- Filetype detection
-vim.filetype.add({
-	extension = {
-		mdx = "mdx",
-	},
-})
