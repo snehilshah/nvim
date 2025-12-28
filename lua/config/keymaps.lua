@@ -6,18 +6,45 @@ vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
 vim.keymap.set("n", "<M-q>", "<cmd>copen<CR>")
 
-vim.keymap.set("n", "<leader>to", function()
-	vim.cmd.vnew()
-	vim.cmd.term()
-	vim.cmd.wincmd("J")
-	vim.api.nvim_win_set_height(0, 5)
-end)
-
 -- moving lines up or down
-vim.keymap.set("n", "<leader>j", ":m .+1<CR>==", { desc = "Move line down" })
-vim.keymap.set("n", "<leader>k", ":m .-2<CR>==", { desc = "Move line up" })
-vim.keymap.set("v", "<leader>j", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-vim.keymap.set("v", "<leader>k", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Lines Down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move Lines Up" })
+
+-- better indenting
+vim.keymap.set("v", "<", "<gv", { desc = "Indent Left" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent Right" })
+
+-- Move to start/end of line
+vim.keymap.set({ "n", "x", "o" }, "H", "^", { desc = "Start of Line" })
+vim.keymap.set({ "n", "x", "o" }, "L", "g_", { desc = "End of Line" })
+
+-- Navigate buffers, it even cycles!!!
+vim.keymap.set("n", "<Right>", ":bnext<CR>", { desc = "Next Buffer", silent = true })
+vim.keymap.set("n", "<Left>", ":bprevious<CR>", { desc = "Prev Buffer", silent = true })
+
+-- Keep search results centered
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next Match (centered)" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Prev Match (centered)" })
+vim.keymap.set("n", "*", "*zzzv", { desc = "Search Word (centered)" })
+vim.keymap.set("n", "#", "#zzzv", { desc = "Search Word Back (centered)" })
+vim.keymap.set("n", "g*", "g*zz", { desc = "Search Partial (centered)" })
+vim.keymap.set("n", "g#", "g#zz", { desc = "Search Partial Back (centered)" })
+
+-- Get highlighted line numbers in visual mode
+vim.keymap.set(
+	"v",
+	"<leader>ln",
+	':lua require("core.utils").get_highlighted_line_numbers()<CR>',
+	{ desc = "Copy Line Numbers", silent = true }
+)
+
+-- Split line with X
+vim.keymap.set(
+	"n",
+	"X",
+	":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>",
+	{ desc = "Split Line", silent = true }
+)
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
@@ -66,7 +93,7 @@ vim.keymap.set({ "n", "x" }, "D", '"_D', { desc = "Delete to end of line without
 
 -- Code actions with tiny-code-action
 vim.keymap.set({ "n", "x" }, "<leader>ca", function()
-	require("tiny-code-action").code_action()
+	require("tiny-code-action").code_action({})
 end, { noremap = true, silent = true, desc = "[C]ode [A]ction" })
 
 -- Run codelens actions directly
@@ -76,3 +103,7 @@ vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { desc = "Run [C]ode[L]e
 vim.keymap.set("n", "<leader>ci", vim.lsp.buf.incoming_calls, { desc = "Show [C]all hierarchy [I]ncoming" })
 -- LSP Call Hierarchy - show outgoing calls
 vim.keymap.set("n", "<leader>co", vim.lsp.buf.outgoing_calls, { desc = "Show [C]all hierarchy [O]utgoing" })
+
+vim.keymap.set("n", "<leader>cp", function()
+	require("core.utils").copyFilePathAndLineNumber()
+end, { desc = "Copy file path with line number" })
