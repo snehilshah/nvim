@@ -308,7 +308,7 @@ return {
 			desc = "Goto Declaration",
 		},
 		{
-			"grp",
+			"gr",
 			function()
 				Snacks.picker.lsp_references({
 					on_show = function()
@@ -342,7 +342,7 @@ return {
 			desc = "Goto Implementation",
 		},
 		{
-			"grt",
+			"gt",
 			function()
 				local clients = vim.lsp.get_clients({ bufnr = 0 })
 				local has_type_definition_support = false
