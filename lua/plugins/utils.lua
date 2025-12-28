@@ -105,10 +105,16 @@ return {
 		event = "BufReadPost", -- Load immediately when opening a file
 		config = true, -- Runs require('ufo').setup() with default settings
 	},
+	-- ════════════════════════════════════════════════════════════════════════════
+	-- Comments
+	-- ════════════════════════════════════════════════════════════════════════════
 	{
 		"numToStr/Comment.nvim",
 		opts = {},
+		lazy = false,
 	},
+	{ "joosepalviste/nvim-ts-context-commentstring", lazy = true },
+
 	{
 		"nvim-pack/nvim-spectre",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -135,5 +141,35 @@ return {
 				desc = "Replace in File",
 			},
 		},
+	},
+	{
+		"mcauley-penney/visual-whitespace.nvim",
+		init = function()
+			vim.keymap.set({ "n", "v" }, "<leader>tw", require("visual-whitespace").toggle, {})
+			vim.api.nvim_set_hl(0, "VisualNonText", { fg = "#5D5F71", bg = "#24282d" })
+		end,
+		event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
+		opts = {
+			list_chars = {
+				space = "·",
+				tab = " ",
+				nbsp = "󱁐 ",
+				lead = "‹",
+				trail = "›",
+			},
+			fileformat_chars = {
+				unix = " 󰌑 ",
+				mac = " 󰌑 ",
+				dos = " 󰌑 ",
+			},
+		},
+	},
+	-- ════════════════════════════════════════════════════════════════════════════
+	-- Autotags for HTML/JSX
+	-- ════════════════════════════════════════════════════════════════════════════
+	{
+		"windwp/nvim-ts-autotag",
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {},
 	},
 }
