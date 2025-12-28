@@ -13,8 +13,13 @@ return {
 	{
 		"j-hui/fidget.nvim",
 		event = "LspAttach",
-		enabled = true,
-		opts = {},
+		opts = {
+			notification = {
+				window = {
+					winblend = 0,
+				},
+			},
+		},
 	},
 	{
 		"rachartier/tiny-code-action.nvim",
