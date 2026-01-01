@@ -117,18 +117,18 @@ vim.o.inccommand = "split" -- show a preview of replace commands with :%s/foo/ba
 -- Filetype Detection
 -- ============================================================================
 vim.filetype.add({
-	extension = {
-		env = "dotenv",
-		mdx = "mdx",
-	},
-	filename = {
-		[".env"] = "dotenv",
-		["env"] = "dotenv",
-	},
-	pattern = {
-		["[jt]sconfig.*.json"] = "jsonc",
-		["%.env%.[%w_.-]+"] = "dotenv",
-	},
+  extension = {
+    env = "dotenv",
+    mdx = "mdx",
+  },
+  filename = {
+    [".env"] = "dotenv",
+    ["env"] = "dotenv",
+  },
+  pattern = {
+    ["[jt]sconfig.*.json"] = "jsonc",
+    ["%.env%.[%w_.-]+"] = "dotenv",
+  },
 })
 
 -- ============================================================================
@@ -146,6 +146,6 @@ vim.opt.foldmethod = "expr"
 -- ============================================================================
 local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
