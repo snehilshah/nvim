@@ -1,8 +1,7 @@
 return {
-  "snehilshah/cosmic-gleam.nvim",
+  "sainnhe/gruvbox-material",
   init = function()
-    vim.cmd.colorscheme("cosmic_gleam")
-    vim.g.colors_name = "cosmic-gleam.nvim"
-    vim.g.colors_name = "cosmic-gleam"
+    vim.cmd.colorscheme("gruvbox-material")
+    vim.g.colors_name = "gruvbox-material"
   end,
 }
