@@ -28,10 +28,10 @@ vim.o.background = "dark"
 vim.opt.number = true
 vim.opt.relativenumber = true
 -- the number column on the left with the allowed width of 4
-vim.opt.numberwidth = 3
+vim.opt.numberwidth = 1
 -- the 2 is required in case of 3 digist relative numbers caused by easy motions
 -- the sign column of the left with the width of 2
-vim.opt.signcolumn = "yes:2"
+vim.opt.signcolumn = "yes:1"
 -- the faded highlight line on the active line
 vim.o.cursorline = true
 -- here both signifies that highlight the text and the line number as well, number signifies only the number line
