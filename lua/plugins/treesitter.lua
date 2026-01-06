@@ -9,11 +9,113 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
-    opts = {},
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("nvim-treesitter-textobjects").setup({
+        select = {
+          -- Automatically jump forward to textobj, similar to targets.vim
+          lookahead = true,
+          -- You can choose the select mode (default is charwise 'v')
+          --
+          -- Can also be a function which gets passed a table with the keys
+          -- * query_string: eg '@function.inner'
+          -- * method: eg 'v' or 'o'
+          -- and should return the mode ('v', 'V', or '<c-v>') or a table
+          -- mapping query_strings to modes.
+          selection_modes = {
+            ["@parameter.outer"] = "v", -- charwise
+            ["@function.outer"] = "V", -- linewise
+            -- ['@class.outer'] = '<c-v>', -- blockwise
+          },
+          -- If you set this to `true` (default is `false`) then any textobject is
+          -- extended to include preceding or succeeding whitespace. Succeeding
+          -- whitespace has priority in order to act similarly to eg the built-in
+          -- `ap`.
+          --
+          -- Can also be a function which gets passed a table with the keys
+          -- * query_string: eg '@function.inner'
+          -- * selection_mode: eg 'v'
+          -- and should return true of false
+          include_surrounding_whitespace = false,
+        },
+      })
+      -- Selection keymaps (vaf, vif, vac, vic, etc.)
+      local select = require("nvim-treesitter-textobjects.select")
+      vim.keymap.set({ "x", "o" }, "af", function()
+        select.select_textobject("@function.outer", "textobjects")
+      end, { desc = "Select around function" })
+      vim.keymap.set({ "x", "o" }, "if", function()
+        select.select_textobject("@function.inner", "textobjects")
+      end, { desc = "Select inside function" })
+      vim.keymap.set({ "x", "o" }, "ac", function()
+        select.select_textobject("@class.outer", "textobjects")
+      end, { desc = "Select around class" })
+      vim.keymap.set({ "x", "o" }, "ic", function()
+        select.select_textobject("@class.inner", "textobjects")
+      end, { desc = "Select inside class" })
+      vim.keymap.set({ "x", "o" }, "aa", function()
+        select.select_textobject("@parameter.outer", "textobjects")
+      end, { desc = "Select around argument/parameter" })
+      vim.keymap.set({ "x", "o" }, "ia", function()
+        select.select_textobject("@parameter.inner", "textobjects")
+      end, { desc = "Select inside argument/parameter" })
+      vim.keymap.set({ "x", "o" }, "as", function()
+        select.select_textobject("@local.scope", "locals")
+      end, { desc = "Select language scope" })
+
+      -- Swap keymaps
+      local swap = require("nvim-treesitter-textobjects.swap")
+      vim.keymap.set("n", "<leader>a", function()
+        swap.swap_next("@parameter.inner")
+      end, { desc = "Swap with next parameter" })
+      vim.keymap.set("n", "<leader>A", function()
+        swap.swap_previous("@parameter.inner")
+      end, { desc = "Swap with previous parameter" })
+
+      -- Move keymaps
+      local move = require("nvim-treesitter-textobjects.move")
+      vim.keymap.set({ "n", "x", "o" }, "]m", function()
+        move.goto_next_start("@function.outer", "textobjects")
+      end, { desc = "Next function start" })
+      vim.keymap.set({ "n", "x", "o" }, "]M", function()
+        move.goto_next_end("@function.outer", "textobjects")
+      end, { desc = "Next function end" })
+      vim.keymap.set({ "n", "x", "o" }, "[m", function()
+        move.goto_previous_start("@function.outer", "textobjects")
+      end, { desc = "Previous function start" })
+      vim.keymap.set({ "n", "x", "o" }, "[M", function()
+        move.goto_previous_end("@function.outer", "textobjects")
+      end, { desc = "Previous function end" })
+      vim.keymap.set({ "n", "x", "o" }, "]c", function()
+        move.goto_next_start("@class.outer", "textobjects")
+      end, { desc = "Next class start" })
+      vim.keymap.set({ "n", "x", "o" }, "]C", function()
+        move.goto_next_end("@class.outer", "textobjects")
+      end, { desc = "Next class end" })
+      vim.keymap.set({ "n", "x", "o" }, "[c", function()
+        move.goto_previous_start("@class.outer", "textobjects")
+      end, { desc = "Previous class start" })
+      vim.keymap.set({ "n", "x", "o" }, "[C", function()
+        move.goto_previous_end("@class.outer", "textobjects")
+      end, { desc = "Previous class end" })
+      vim.keymap.set({ "n", "x", "o" }, "]o", function()
+        move.goto_next_start("@loop.outer", "textobjects")
+      end, { desc = "Next loop start" })
+      vim.keymap.set({ "n", "x", "o" }, "[o", function()
+        move.goto_previous_start("@loop.outer", "textobjects")
+      end, { desc = "Previous loop start" })
+      vim.keymap.set({ "n", "x", "o" }, "]d", function()
+        move.goto_next_start("@conditional.outer", "textobjects")
+      end, { desc = "Next conditional" })
+      vim.keymap.set({ "n", "x", "o" }, "[d", function()
+        move.goto_previous_start("@conditional.outer", "textobjects")
+      end, { desc = "Previous conditional" })
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    -- branch = "main",
+    branch = "master", -- this plugin uses 'master' branch no port to main branch yet
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
       multiwindow = false, -- Disable multiwindow support for better performance
@@ -33,13 +135,14 @@ return {
         if filename == "" then
           return true
         end
-        local ok, stats = pcall(vim.loop.fs_stat, filename)
+        local ok, stats = pcall(vim.uv.fs_stat, filename)
         return not (ok and stats and stats.size > max_filesize)
       end,
     },
   },
   {
     "MeanderingProgrammer/treesitter-modules.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
       ensure_installed = {
         "c",
@@ -68,7 +171,7 @@ return {
             return false
           end
           local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
           if ok and stats and stats.size > max_filesize then
             return true
           end
@@ -86,76 +189,6 @@ return {
           node_incremental = "<leader>si",
           scope_incremental = "<leader>sc",
           node_decremental = "<leader>sd",
-        },
-      },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-            ["as"] = {
-              query = "@local.scope",
-              query_group = "locals",
-              desc = "Select language scope",
-            },
-          },
-          selection_modes = {
-            ["@parameter.outer"] = "v",
-            ["@function.outer"] = "v",
-            ["@class.outer"] = "<c-v>",
-          },
-          include_surrounding_whitespace = true,
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>a"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>A"] = "@parameter.inner",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]c"] = { query = "@class.outer", desc = "Next class start" },
-            --
-            -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
-            ["]o"] = "@loop.*",
-            -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-            --
-            -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-            -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-            ["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-            ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]C"] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[c"] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[C"] = "@class.outer",
-          },
-          -- Below will go to either the start or the end, whichever is closer.
-          -- Use if you want more granular movements
-          -- Make it even more gradual by adding multiple queries and regex.
-          goto_next = {
-            ["]d"] = "@conditional.outer",
-          },
-          goto_previous = {
-            ["[d"] = "@conditional.outer",
-          },
         },
       },
     },
