@@ -10,6 +10,8 @@ return {
   opts = {
     keymap = {
       preset = "super-tab",
+      ["<C-j>"] = { "select_next" },
+      ["<C-k>"] = { "select_prev" },
       -- ["<Tab>"] = {
       -- 	"snippet_forward",
       -- 	function() -- sidekick next edit suggestion
