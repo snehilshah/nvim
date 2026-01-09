@@ -40,7 +40,7 @@ return {
         lsp_diag_virtual_text = false,
         lsp_diag_signs = false,
         lsp_diag_update_in_insert = false,
-        luasnip = true, -- enable go.nvim luasnip snippets
+        luasnip = false, -- enable go.nvim luasnip snippets
       })
     end,
     ft = { "go", "gomod" },
