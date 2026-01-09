@@ -19,6 +19,20 @@
 | `<leader>?` | n | Buffer Local Keymaps (which-key) | | `<C-w>f` | n | Focus floating window |
 | `q` | n | Close certain special buffers (help/qf/etc) | | `<leader>cp` | n | Copy file path + line number |
 
+## ToggleTerm
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `<C-\>` | n,t | Toggle terminal (float) | | `<leader>tf` | n | Terminal float |
+| `<leader>th` | n | Terminal horizontal | | `<leader>tv` | n | Terminal vertical |
+| `<leader>tt` | n | Terminal tab | | `<leader>ta` | n | Toggle all terminals |
+| `<leader>ts` | n | Terminal select | | `<leader>tl` | n,v | Send line(s) to terminal |
+| `<leader>t1` | n | Terminal 1 | | `<leader>t2` | n | Terminal 2 |
+| `<leader>t3` | n | Terminal 3 | | `<leader>t4` | n | Terminal 4 |
+| `<leader>tg` | n | Terminal lazygit | | `<leader>tp` | n | Terminal htop |
+| `<leader>tn` | n | Terminal node | | `<leader>ty` | n | Terminal python |
+| `<C-h/j/k/l>` | t | Navigate windows from terminal | | `<C-w>` | t | Window command prefix |
+
 ## Editing & Navigation
 
 | Key | M | Desc | | Key | M | Desc |
