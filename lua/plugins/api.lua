@@ -1,5 +1,6 @@
 return {
   "romek-codes/bruno.nvim",
+  enabled = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     {
