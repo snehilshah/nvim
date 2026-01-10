@@ -38,7 +38,7 @@ return {
       yml = { "yamllint" },
       c = { "cppcheck" },
       cpp = { "cppcheck" },
-      md = { "markdownlint-cli2" },
+      markdown = { "markdownlint-cli2" },
       toml = { "tombi" },
       proto = { "buf_lint" },
       -- JS/TS: eslint_d will use its own root marker detection
