@@ -199,30 +199,6 @@ return {
       -- Custom handlers for servers with specific config
       local handlers = {
         default_setup,
-        ["lua_ls"] = function()
-          lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", common_config, {
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { "vim" },
-                  disable = { "inject-field", "undefined-field", "missing-fields" },
-                },
-                runtime = {
-                  version = "LuaJIT",
-                },
-                workspace = {
-                  library = {
-                    vim.env.VIMRUNTIME,
-                  },
-                  checkThirdParty = false,
-                },
-                telemetry = {
-                  enable = false,
-                },
-              },
-            },
-          }))
-        end,
       }
       -- Setup mason-lspconfig with handlers
       mason_lspconfig.setup({
