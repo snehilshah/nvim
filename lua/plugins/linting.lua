@@ -1,6 +1,15 @@
 return {
   "mfussenegger/nvim-lint",
-  event = { "BufReadPre", "BufNewFile" },
+  keys = {
+    {
+      "<leader>ll",
+      function()
+        require("lint").try_lint()
+        vim.notify("Linting triggered", vim.log.levels.INFO)
+      end,
+      desc = "Trigger linting for current file",
+    },
+  },
   config = function()
     local lint = require("lint")
 
@@ -34,15 +43,11 @@ return {
       return #vim.fs.find(files, { upward = true }) > 0
     end
 
-    local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-      group = lint_augroup,
-      callback = function()
-        -- Run default linters
-        lint.try_lint()
-
-        -- Conditionally run JS/TS linters based on config files
+    -- JS/TS conditional linting (only when manually triggered via <leader>ll)
+    local original_try_lint = lint.try_lint
+    lint.try_lint = function(name, opts)
+      if not name then
+        -- Also check for JS/TS linters when no specific linter is requested
         local ft = vim.bo.filetype
         if
           ft == "javascript"
@@ -51,7 +56,7 @@ return {
           or ft == "typescriptreact"
         then
           if has_config({ "biome.json", "biome.jsonc" }) then
-            lint.try_lint("biomejs")
+            original_try_lint("biomejs", opts)
           elseif
             has_config({
               "eslint.config.js",
@@ -62,15 +67,11 @@ return {
               ".eslintrc.json",
             })
           then
-            lint.try_lint("eslint_d")
+            original_try_lint("eslint_d", opts)
           end
         end
-      end,
-    })
-
-    vim.keymap.set("n", "<leader>ll", function()
-      lint.try_lint()
-      vim.notify("Linting triggered", vim.log.levels.INFO)
-    end, { desc = "Trigger linting for current file" })
+      end
+      return original_try_lint(name, opts)
+    end
   end,
 }
