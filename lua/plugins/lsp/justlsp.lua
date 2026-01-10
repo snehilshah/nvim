@@ -226,6 +226,8 @@ return {
       }
       -- Setup mason-lspconfig with handlers
       mason_lspconfig.setup({
+        -- Only auto-setup these LSP servers (others installed by mason-tool-installer are just tools)
+        automatic_installation = false,
         handlers = handlers,
       })
     end,
@@ -239,12 +241,11 @@ return {
     config = function()
       require("mason-tool-installer").setup({
         ensure_installed = {
-          -- Language Servers
+          -- Language Servers (these will be auto-started by mason-lspconfig handlers)
           "lua_ls",
           "gopls",
           -- "ts_ls",  -- Uncomment and comment tsgo to switch back
           "tsgo",
-          "biome", -- JS/TS linting + formatting + code actions
           "bashls",
           "cssls",
           "html",
@@ -253,9 +254,8 @@ return {
           "markdown-oxide",
           "docker_language_server",
           "clangd",
-          "buf",
 
-          -- Linters
+          -- Linters (installed only, NOT auto-started - use <leader>ll to trigger)
           "eslint_d",
           "luacheck",
           "golangci-lint",
@@ -266,21 +266,20 @@ return {
           "htmlhint",
           "stylelint",
           "hadolint",
+          "buf", -- buf_lint for proto files
 
-          -- Formatters
+          -- Formatters (installed only, used by conform.nvim or formatter.nvim on-demand)
           "stylua",
           "goimports",
           "gofumpt",
           "prettier",
           "shfmt",
           "clang-format",
+          "biome", -- JS/TS linting + formatting + code actions
           -- "dockerfmt" -- Not in Mason, brew install dockerfmt
 
           -- All in one
           "tombi",
-          "biome",
-          -- ai
-          -- "copilot",
         },
       })
     end,
