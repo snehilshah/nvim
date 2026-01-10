@@ -30,6 +30,11 @@ return {
     },
 
     completion = {
+      accept = {
+        auto_brackets = {
+          enabled = true, -- Auto-insert brackets for functions/methods
+        },
+      },
       menu = {
         auto_show = true,
         border = "rounded",

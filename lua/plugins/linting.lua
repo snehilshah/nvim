@@ -1,3 +1,8 @@
+-- Linter Configuration (nvim-lint)
+-- All linters should be installed globally:
+--   jsonlint, golangci-lint, shellcheck, hadolint, yamllint,
+--   cppcheck, markdownlint-cli2, tombi, buf (buf_lint), eslint_d
+-- Note: biome is handled via LSP (see justlsp.lua)
 return {
   "mfussenegger/nvim-lint",
   keys = {
@@ -20,6 +25,7 @@ return {
       "--out-format=json",
       "--issues-exit-code=0",
     }
+
     lint.linters_by_ft = {
       json = { "jsonlint" },
       jsonc = { "jsonlint" },
@@ -35,43 +41,12 @@ return {
       md = { "markdownlint-cli2" },
       toml = { "tombi" },
       proto = { "buf_lint" },
-      -- JS/TS: no default, handled conditionally below
+      -- JS/TS: eslint_d will use its own root marker detection
+      -- biome linting is handled via LSP (only activates with biome.json)
+      javascript = { "eslint_d" },
+      javascriptreact = { "eslint_d" },
+      typescript = { "eslint_d" },
+      typescriptreact = { "eslint_d" },
     }
-
-    -- Helper to check if config exists
-    local function has_config(files)
-      return #vim.fs.find(files, { upward = true }) > 0
-    end
-
-    -- JS/TS conditional linting (only when manually triggered via <leader>ll)
-    local original_try_lint = lint.try_lint
-    lint.try_lint = function(name, opts)
-      if not name then
-        -- Also check for JS/TS linters when no specific linter is requested
-        local ft = vim.bo.filetype
-        if
-          ft == "javascript"
-          or ft == "typescript"
-          or ft == "javascriptreact"
-          or ft == "typescriptreact"
-        then
-          if has_config({ "biome.json", "biome.jsonc" }) then
-            original_try_lint("biomejs", opts)
-          elseif
-            has_config({
-              "eslint.config.js",
-              "eslint.config.mjs",
-              "eslint.config.cjs",
-              ".eslintrc",
-              ".eslintrc.js",
-              ".eslintrc.json",
-            })
-          then
-            original_try_lint("eslint_d", opts)
-          end
-        end
-      end
-      return original_try_lint(name, opts)
-    end
   end,
 }

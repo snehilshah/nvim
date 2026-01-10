@@ -1,3 +1,7 @@
+-- Formatter Configuration (conform.nvim)
+-- All formatters should be installed globally:
+--   stylua, clang-format, biome, prettier, yamlfmt, tombi,
+--   markdownlint-cli2, goimports, gofumpt, shfmt, dockerfmt
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -25,6 +29,16 @@ return {
       -- if formatting takes longer than this much time then abort
       timeout_ms = 1000,
       lsp_format = "fallback",
+    },
+    formatters = {
+      biome = {
+        condition = function(_, ctx)
+          return vim.fs.find(
+            { "biome.json", "biome.jsonc" },
+            { path = ctx.filename, upward = true }
+          )[1]
+        end,
+      },
     },
     formatters_by_ft = {
       -- lua
