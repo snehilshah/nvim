@@ -14,7 +14,7 @@ return {
     lint.linters_by_ft = {
       json = { "jsonlint" },
       jsonc = { "jsonlint" },
-      -- go: removed from auto-lint, use <leader>lg for on-demand golangci-lint
+      go = { "golangcilint" },
       sh = { "shellcheck" },
       bash = { "shellcheck" },
       zsh = { "shellcheck" },
@@ -72,15 +72,5 @@ return {
       lint.try_lint()
       vim.notify("Linting triggered", vim.log.levels.INFO)
     end, { desc = "Trigger linting for current file" })
-
-    -- On-demand golangci-lint for Go files (runs once, doesn't stay resident)
-    vim.keymap.set("n", "<leader>lg", function()
-      if vim.bo.filetype ~= "go" then
-        vim.notify("Not a Go file", vim.log.levels.WARN)
-        return
-      end
-      lint.try_lint("golangcilint")
-      vim.notify("golangci-lint triggered (one-shot)", vim.log.levels.INFO)
-    end, { desc = "Run golangci-lint (on-demand)" })
   end,
 }
