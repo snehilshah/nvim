@@ -7,8 +7,7 @@
 - `<leader>cl` is used by Trouble (`Trouble lsp ...`) and will shadow the `<leader>cl` codelens mapping in `lua/config/keymaps.lua`.
 - `<leader>sS` is used by both Snacks (LSP Workspace Symbols) and GrugFar (Search & Replace). With the current plugin import order, GrugFar is likely to win.
 - `[d`/`]d` are Treesitter “conditional” motions globally, but become **LSP buffer-local** diagnostic jumps when an LSP client attaches.
-- `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). If you see unexpected behavior, this is why.
-
+- `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). If you see unexpected behavior, this is why.- `<leader>nc` is used by both Snacks (Nvim Config) and package-info (hide versions). Snacks usually wins.
 ## General & Terminal
 
 | Key | M | Desc | | Key | M | Desc |
@@ -91,9 +90,25 @@
 | `<leader>ff` | n | Find Files | | `<leader>nc` | n | Nvim Config files |
 | `<leader>fa` | n | Find All (Grep) | | `<leader>:` | n | Command History |
 | `<leader>fv` | n,x | Visual selection or word | | `<M-S-k>` | n | Keymaps picker |
-| `<leader>fp` | n | Projects | | `<M-e>` | n | File Explorer |
-| `<leader>fr` | n | Recent files | | `<leader>fn` | n,t | Next reference |
-| `<leader>fN` | n,t | Prev reference | | | | |
+| `<leader>fp` | n | Projects | | `<leader>fr` | n | Recent files |
+| `<leader>fn` | n,t | Next reference | | `<leader>fN` | n,t | Prev reference |
+
+## File Explorer & Navigation
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `<M-e>` | n | Snacks File Explorer | | `<leader>fe` | n | Toggle Fyler (file manager) |
+
+### Fyler (inside file manager)
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `<CR>` | n | Open file/enter directory | | `-` | n | Go to parent directory |
+| `.` | n | Enter directory under cursor | | `^` | n | Go to parent directory |
+| `s` | n | Open in horizontal split | | `\|` | n | Open in vertical split |
+| `<C-t>` | n | Open in new tab | | `=` | n | Go to working directory |
+| `#` | n | Collapse all | | `<BS>` | n | Collapse node |
+| `q` | n | Close Fyler | | | | |
 
 ## Snacks Search (`<leader>s`)
 
@@ -107,6 +122,7 @@
 | `<leader>sd` | n | Buffer Diagnostics | | `<leader>sq` | n | Quickfix List |
 | `<leader>sf` | n | LSP Symbols | | `<leader>sr` | n | Resume picker |
 | `<leader>su` | n | Undo History | | `<leader>sH` | n | Highlights |
+| `<leader>sh` | n | Help Pages | | | | |
 | `<leader>sS` | n | LSP Workspace Symbols (Snacks; conflicts) | | | | |
 
 ## Search & Replace (GrugFar)
@@ -241,6 +257,17 @@
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
 | `<M-o>` | n | Toggle concealed import blocks (no-go.nvim) | | | | |
+
+## Web Development (package.json)
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `<leader>ns` | n | Show package versions | | `<leader>nu` | n | Update package |
+| `<leader>nd` | n | Delete package | | `<leader>ni` | n | Install new package |
+| `<leader>np` | n | Change package version | | | | |
+
+> **Note:** Emmet expansions work via `emmet_language_server` LSP - just type abbreviation and Tab to accept from blink.cmp.
+> Auto-import for React/TS: use `ga` (code action) on unresolved symbols.
 
 ## Undo / Paste / Comment (Undo-glow)
 

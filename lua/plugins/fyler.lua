@@ -2,6 +2,15 @@ return {
   "A7Lavinraj/fyler.nvim",
   dependencies = { "nvim-mini/mini.nvim", "folke/snacks.nvim" },
   branch = "stable",
+  keys = {
+    {
+      "<leader>fe",
+      function()
+        require("fyler").toggle()
+      end,
+      desc = "Toggle Fyler (file manager)",
+    },
+  },
   opts = {
     hooks = {
       on_rename = function(src_path, destination_path)
@@ -17,6 +26,13 @@ return {
     },
     views = {
       finder = {
+        -- Remap `-` from SelectSplit to GotoParent (like oil.nvim)
+        -- Use `s` for horizontal split instead
+        mappings = {
+          ["-"] = "GotoParent",
+          ["s"] = "SelectSplit",
+          ["^"] = "GotoParent", -- keep original as well
+        },
         win = {
           border = vim.o.winborder == "" and "single" or vim.o.winborder,
           buf_opts = {
