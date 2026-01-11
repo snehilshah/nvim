@@ -230,6 +230,8 @@ return {
           "markdown-oxide",
           "docker_language_server",
           "clangd",
+          "tailwindcss", -- Tailwind CSS IntelliSense
+          "emmet_language_server", -- Emmet LSP support
 
           -- Linters (installed only, NOT auto-started - use <leader>ll to trigger)
           "eslint_d",

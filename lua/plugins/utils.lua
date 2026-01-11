@@ -55,12 +55,21 @@ return {
       },
     },
   },
-  -- color highlighter for color codes
+  -- color highlighter for color codes (including Tailwind)
   {
     "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
     config = function()
-      require("colorizer").setup({ "*" }, {
+      require("colorizer").setup({
+        "*",
+        css = { css = true },
+        scss = { css = true },
+        html = { css = true },
+        javascript = { css = true },
+        javascriptreact = { css = true },
+        typescript = { css = true },
+        typescriptreact = { css = true },
+      }, {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes
         names = false, -- "Name" codes like Blue
@@ -69,6 +78,7 @@ return {
         hsl_fn = true, -- CSS hsl() and hsla() functions
         css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
         css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+        mode = "background", -- "foreground", "background", "virtualtext"
       })
     end,
   },
@@ -118,14 +128,25 @@ return {
     config = true, -- Runs require('ufo').setup() with default settings
   },
   -- ════════════════════════════════════════════════════════════════════════════
-  -- Comments
+  -- Comments (with JSX/TSX context-aware support)
   -- ════════════════════════════════════════════════════════════════════════════
   {
     "numToStr/Comment.nvim",
-    opts = {},
     lazy = false,
+    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+    config = function()
+      require("Comment").setup({
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      })
+    end,
   },
-  { "joosepalviste/nvim-ts-context-commentstring", lazy = true },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = {
+      enable_autocmd = false, -- Handled by Comment.nvim pre_hook
+    },
+  },
 
   {
     "MagicDuck/grug-far.nvim",
@@ -219,7 +240,13 @@ return {
   {
     "windwp/nvim-ts-autotag",
     event = { "BufReadPost", "BufNewFile" },
-    opts = {},
+    opts = {
+      opts = {
+        enable_close = true, -- Auto close tags
+        enable_rename = true, -- Auto rename pairs
+        enable_close_on_slash = true, -- Auto close on trailing </
+      },
+    },
   },
   {
     "rktjmp/lush.nvim",
