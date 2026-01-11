@@ -152,12 +152,27 @@ return {
     local map = vim.keymap.set
 
     -- Main toggle (float)
-    map({ "n", "t" }, "<C-\\>", "<cmd>ToggleTerm direction=float<CR>", { desc = "Toggle Terminal (float)" })
+    map(
+      { "n", "t" },
+      "<C-\\>",
+      "<cmd>ToggleTerm direction=float<CR>",
+      { desc = "Toggle Terminal (float)" }
+    )
 
     -- Direction-specific toggles
     map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "[T]erminal [F]loat" })
-    map("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<CR>", { desc = "[T]erminal [H]orizontal" })
-    map("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", { desc = "[T]erminal [V]ertical" })
+    map(
+      "n",
+      "<leader>th",
+      "<cmd>ToggleTerm direction=horizontal<CR>",
+      { desc = "[T]erminal [H]orizontal" }
+    )
+    map(
+      "n",
+      "<leader>tv",
+      "<cmd>ToggleTerm direction=vertical<CR>",
+      { desc = "[T]erminal [V]ertical" }
+    )
     map("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", { desc = "[T]erminal [T]ab" })
 
     -- Numbered terminals (1-4)
@@ -173,8 +188,18 @@ return {
     map("n", "<leader>ts", "<cmd>TermSelect<CR>", { desc = "[T]erminal [S]elect" })
 
     -- Send to terminal
-    map("n", "<leader>tl", "<cmd>ToggleTermSendCurrentLine<CR>", { desc = "[T]erminal Send [L]ine" })
-    map("v", "<leader>tl", "<cmd>ToggleTermSendVisualSelection<CR>", { desc = "[T]erminal Send [L]ines" })
+    map(
+      "n",
+      "<leader>tl",
+      "<cmd>ToggleTermSendCurrentLine<CR>",
+      { desc = "[T]erminal Send [L]ine" }
+    )
+    map(
+      "v",
+      "<leader>tl",
+      "<cmd>ToggleTermSendVisualSelection<CR>",
+      { desc = "[T]erminal Send [L]ines" }
+    )
 
     -- Custom terminals
     map("n", "<leader>tg", _G.toggle_lazygit, { desc = "[T]erminal Lazy[G]it" })
