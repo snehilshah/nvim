@@ -220,8 +220,8 @@ return {
           -- Language Servers (these will be auto-started by mason-lspconfig handlers)
           "lua_ls",
           "gopls",
-          -- "ts_ls",  -- Uncomment and comment tsgo to switch back
-          "tsgo",
+          "ts_ls", -- Uncomment and comment tsgo to switch back
+          -- "tsgo",
           "bashls",
           "cssls",
           "html",
