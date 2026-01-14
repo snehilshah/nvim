@@ -9,8 +9,15 @@ return {
     {
       "<leader>ll",
       function()
-        require("lint").try_lint()
-        vim.notify("Linting triggered", vim.log.levels.INFO)
+        local lint = require("lint")
+        lint.try_lint()
+        local ft = vim.bo.filetype
+        local linters = lint.linters_by_ft[ft] or {}
+        if #linters > 0 then
+          vim.notify("Linting triggered: " .. table.concat(linters, ", "), vim.log.levels.INFO)
+        else
+          vim.notify("No linters configured for filetype: " .. ft, vim.log.levels.WARN)
+        end
       end,
       desc = "Trigger linting for current file",
     },
