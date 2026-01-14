@@ -27,10 +27,30 @@ return {
 
     local golangcilint = lint.linters.golangcilint
     golangcilint.ignore_exitcode = true
+    -- golangci-lint v2 uses new output format flags
     golangcilint.args = {
       "run",
-      "--out-format=json",
-      "--issues-exit-code=0",
+      "--output.json.path=stdout",
+      "--output.text.path=",
+      "--show-stats=false",
+      function()
+        -- Find .golangci.yaml or .golangci.yml in project root
+        local config_patterns = { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
+        for _, pattern in ipairs(config_patterns) do
+          local config_file = vim.fs.find(pattern, {
+            upward = true,
+            path = vim.fn.expand("%:p:h"),
+            stop = vim.env.HOME,
+          })[1]
+          if config_file then
+            return "-c=" .. config_file
+          end
+        end
+        return nil
+      end,
+      function()
+        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+      end,
     }
 
     lint.linters_by_ft = {
