@@ -1,0 +1,321 @@
+" An attempt to make IdeaVim behave like my neovim config
+" =============================================================================
+" .ideavimrc - IdeaVim Configuration
+" =============================================================================
+
+" Leader key
+let mapleader = " "
+
+" =============================================================================
+" Plugins (IdeaVim supported plugins)
+" =============================================================================
+set surround                " vim-surround emulation
+set commentary              " gcc, gc<motion> for commenting
+set argtextobj              " argument text objects (aa, ia)
+set textobj-entire          " entire buffer text objects (ae, ie)
+set textobj-indent          " indent text objects (ai, ii, aI, iI)
+set highlightedyank         " briefly highlight yanked text
+set nerdtree                " NERDTree support with :NERDTree
+set easymotion              " <leader><leader>w, <leader><leader>b, etc.
+set sneak                   " s{char}{char} to jump to any location
+set exchange                " cx, cxx, cxc for exchange
+set matchit                 " % to jump between matching tags/keywords
+set ReplaceWithRegister     " gr to replace with register
+set which-key               " shows available keybindings in popup
+set notimeout               " which-key won't timeout
+
+" =============================================================================
+" Editor Behavior
+" =============================================================================
+set clipboard+=unnamedplus  " use system clipboard
+set clipboard+=ideaput      " enable IDE paste behavior in insert mode
+set undolevels=1000         " save undos
+set history=1000            " command history
+set ideajoin                " smart join with J (handles comments, strings)
+set idearefactormode=keep   " keep mode after refactor
+
+" =============================================================================
+" UI/Display
+" =============================================================================
+set number                  " show line numbers
+set relativenumber          " relative line numbering
+set cursorline              " highlight current line
+set showmode                " show current mode
+set showcmd                 " show partial command
+set scrolloff=5             " keep 5 lines above/below cursor
+set sidescrolloff=5         " keep 5 columns left/right of cursor
+set visualbell              " disable sound, use visual bell
+
+" =============================================================================
+" Search
+" =============================================================================
+set hlsearch                " highlight search results
+set incsearch               " incremental search
+set ignorecase              " case insensitive search
+set smartcase               " case sensitive if uppercase present
+
+" =============================================================================
+" Which-key descriptions
+" =============================================================================
+let g:WhichKey_ShowVimActions = "true"
+
+" =============================================================================
+" Basic Movement & Editing
+" =============================================================================
+" Q to format text (gq)
+map Q gq
+
+" Move to start/end of line (matching your nvim config)
+nnoremap H ^
+vnoremap H ^
+onoremap H ^
+nnoremap L g_
+vnoremap L g_
+onoremap L g_
+
+" Keep search results centered (matching your nvim config)
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap * *zzzv
+nnoremap # #zzzv
+
+" Better indenting - stay in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Moving lines up/down in visual mode (matching your nvim config)
+vnoremap J :action MoveLineDown<CR>gv
+vnoremap K :action MoveLineUp<CR>gv
+
+" Delete without copying to clipboard (matching your nvim config)
+nnoremap d "_d
+vnoremap d "_d
+nnoremap dd "_dd
+nnoremap D "_D
+vnoremap D "_D
+
+" Join lines without cursor movement
+nnoremap J mzJ`z
+
+" =============================================================================
+" Window Navigation
+" =============================================================================
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+
+" Split windows
+nnoremap <leader>sv :vsplit<CR>
+nnoremap <leader>sh :split<CR>
+
+" =============================================================================
+" Tab/Buffer Navigation
+" =============================================================================
+nnoremap <Right> :action NextTab<CR>
+nnoremap <Left> :action PreviousTab<CR>
+nnoremap ]b :action NextTab<CR>
+nnoremap [b :action PreviousTab<CR>
+nnoremap <A-n> :action NextTab<CR>
+nnoremap <A-p> :action PreviousTab<CR>
+
+" =============================================================================
+" File/Project Navigation (matching your Snacks picker mappings)
+" =============================================================================
+" Find files (<leader>ff)
+nnoremap <leader>ff :action GotoFile<CR>
+
+" Find all / grep (<leader>fa) - your main grep/search all
+nnoremap <leader>fa :action FindInPath<CR>
+
+" Smart find (<leader><leader>) - similar to smart picker
+nnoremap <leader><leader> :action SearchEverywhere<CR>
+
+" Recent files (<leader>fr)
+nnoremap <leader>fr :action RecentFiles<CR>
+
+" Buffers (<leader>jk)
+nnoremap <leader>jk :action Switcher<CR>
+
+" Projects (<leader>fp)
+nnoremap <leader>fp :action ManageRecentProjects<CR>
+
+" File structure (<leader>fs / <leader>sf for LSP symbols)
+nnoremap <leader>fs :action FileStructurePopup<CR>
+nnoremap <leader>sf :action FileStructurePopup<CR>
+
+" Workspace symbols (<leader>sS)
+nnoremap <leader>sS :action GotoSymbol<CR>
+
+" File explorer (<M-e>)
+nnoremap <M-e> :NERDTreeToggle<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>x :NERDTreeToggle<CR>
+nnoremap <leader>fe :action SelectInProjectView<CR>
+
+" Aliases from old config
+nnoremap <leader>fw :action FindInPath<CR>
+nnoremap <leader>fb :action Switcher<CR>
+
+" Command history (<leader>:)
+nnoremap <leader>: :action Vcs.ShowMessageHistory<CR>
+
+" Diagnostics (<leader>sd buffer, <leader>sD all)
+nnoremap <leader>sd :action ActivateProblemsViewToolWindow<CR>
+nnoremap <leader>sD :action ActivateProblemsViewToolWindow<CR>
+
+" Registers (<leader>s")
+nnoremap <leader>s" :action PasteMultiple<CR>
+
+" Jumps (<leader>sj)
+nnoremap <leader>sj :action RecentLocations<CR>
+
+" Marks (<leader>sm)
+nnoremap <leader>sm :action ShowBookmarks<CR>
+
+" Quickfix list (<leader>sq)
+nnoremap <leader>sq :action ActivateProblemsViewToolWindow<CR>
+
+" Resume last search - no direct equivalent, use recent files
+nnoremap <leader>sr :action RecentFiles<CR>
+
+" Find word under cursor (<leader>fv)
+nnoremap <leader>fv :action FindWordAtCaret<CR>
+vnoremap <leader>fv :action FindWordAtCaret<CR>
+
+" Next/prev reference (<leader>fn/<leader>fN)
+nnoremap <leader>fn :action GotoNextElementUnderCaretUsage<CR>
+nnoremap <leader>fN :action GotoPrevElementUnderCaretUsage<CR>
+
+" =============================================================================
+" Code Navigation (LSP-like)
+" =============================================================================
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gD :action GotoTypeDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gr :action FindUsages<CR>
+nnoremap gR :action ShowUsages<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap K :action QuickJavaDoc<CR>
+
+" Leader-prefixed navigation (from old config)
+nnoremap <leader>gd :action GotoDeclaration<CR>
+nnoremap <leader>gD :action GotoTypeDeclaration<CR>
+nnoremap <leader>gi :action GotoImplementation<CR>
+nnoremap <leader>gu :action ShowUsages<CR>
+nnoremap <leader>gt :action GotoTest<CR>
+nnoremap <leader>gf :action Back<CR>
+
+" Navigate back/forward
+nnoremap <C-o> :action Back<CR>
+nnoremap <C-i> :action Forward<CR>
+
+" =============================================================================
+" Code Actions & Refactoring
+" =============================================================================
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+vnoremap <leader>ca :action ShowIntentionActions<CR>
+nnoremap <leader>rn :action RenameElement<CR>
+nnoremap <leader>rf :action Refactorings.QuickListPopupAction<CR>
+nnoremap <leader>rm :action ExtractMethod<CR>
+vnoremap <leader>rm :action ExtractMethod<CR>
+nnoremap <leader>rv :action IntroduceVariable<CR>
+vnoremap <leader>rv :action IntroduceVariable<CR>
+nnoremap <leader>ri :action Inline<CR>
+nnoremap <leader>ro :action OptimizeImports<CR>
+
+" Format code
+nnoremap <leader>cf :action ReformatCode<CR>
+vnoremap <leader>cf :action ReformatCode<CR>
+
+" Comment toggle (from old config)
+nnoremap <leader>c :action CommentByLineComment<CR>
+vnoremap <leader>c :action CommentByLineComment<CR>
+
+" =============================================================================
+" Diagnostics/Errors
+" =============================================================================
+nnoremap ]e :action GotoNextError<CR>
+nnoremap [e :action GotoPreviousError<CR>
+nnoremap <leader>de :action ShowErrorDescription<CR>
+nnoremap <leader>q :action ActivateProblemsViewToolWindow<CR>
+
+" =============================================================================
+" Debugging
+" =============================================================================
+nnoremap <leader>db :action ToggleLineBreakpoint<CR>
+nnoremap <leader>dB :action ToggleBreakpointEnabled<CR>
+nnoremap <leader>dr :action Debug<CR>
+nnoremap <leader>dc :action Resume<CR>
+nnoremap <leader>ds :action StepOver<CR>
+nnoremap <leader>di :action StepInto<CR>
+nnoremap <leader>do :action StepOut<CR>
+nnoremap <leader>dv :action ActivateDebugToolWindow<CR>
+
+" =============================================================================
+" Run
+" =============================================================================
+nnoremap <leader>rr :action Run<CR>
+nnoremap <leader>rs :action Stop<CR>
+nnoremap <leader>rc :action ChooseRunConfiguration<CR>
+
+" =============================================================================
+" Git
+" =============================================================================
+nnoremap <leader>gb :action Git.Branches<CR>
+nnoremap <leader>gc :action Git.CompareWithBranch<CR>
+nnoremap <leader>gC :action ActivateCommitToolWindow<CR>
+nnoremap <leader>gh :action Vcs.ShowTabbedFileHistory<CR>
+nnoremap <leader>gl :action Git.Log<CR>
+nnoremap <leader>gp :action Git.Pull<CR>
+nnoremap <leader>gP :action Git.Push<CR>
+nnoremap ]h :action VcsShowNextChangeMarker<CR>
+nnoremap [h :action VcsShowPrevChangeMarker<CR>
+nnoremap <leader>hr :action Vcs.RollbackChangedLines<CR>
+nnoremap <leader>hp :action VcsShowCurrentChangeMarker<CR>
+
+" =============================================================================
+" Tool Windows
+" =============================================================================
+nnoremap <leader>tt :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>tp :action ActivateProjectToolWindow<CR>
+nnoremap <leader>ts :action ActivateStructureToolWindow<CR>
+nnoremap <leader>td :action ActivateDatabaseToolWindow<CR>
+nnoremap <leader>th :action HideAllWindows<CR>
+
+" =============================================================================
+" Misc
+" =============================================================================
+" Clear search highlight
+nnoremap <Esc> :nohlsearch<CR>
+
+" Close current tab/editor
+nnoremap <leader>bd :action CloseEditor<CR>
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
+nnoremap <leader>ba :action CloseAllEditors<CR>
+nnoremap <leader>qc :action CloseContent<CR>
+
+" Zen mode
+nnoremap <leader>z :action ToggleDistractionFreeMode<CR>
+
+" Fold controls
+nnoremap za :action ExpandCollapseToggleAction<CR>
+nnoremap zc :action CollapseRegion<CR>
+nnoremap zo :action ExpandRegion<CR>
+nnoremap zM :action CollapseAllRegions<CR>
+nnoremap zR :action ExpandAllRegions<CR>
+
+" Select all
+nnoremap <C-a> ggVG
+
+" Quick settings
+nnoremap <leader>, :action ShowSettings<CR>
+
+" =============================================================================
+" EasyMotion
+" =============================================================================
+map <leader>j <Plug>(easymotion-j)
+map <leader>k <Plug>(easymotion-k)
+map <leader>w <Plug>(easymotion-w)
+map <leader>b <Plug>(easymotion-b)
+map <leader>s <Plug>(easymotion-s)
