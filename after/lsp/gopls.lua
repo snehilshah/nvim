@@ -18,31 +18,29 @@ return {
         constantValues = true,
         functionTypeParameters = true,
         parameterNames = true,
-        rangeVariableTypes =true,
+        rangeVariableTypes = true,
       },
       analyses = {
-        -- Keep only lightweight, essential analyses
-        -- Heavy analyses disabled (use <leader>ll for golangci-lint)
         nilness = true, -- Disable: flow analysis, CPU intensive
-        unusedparams = true, -- Disable: use golangci-lint
-        unusedwrite = true, -- Disable: flow analysis, CPU intensive
+        unusedparams = true,
+        unusedwrite = true,
         ST1003 = false, -- Disable naming convention checks (Ts -> TS, url -> URL)
-        undeclaredname = true, -- Keep: lightweight, useful for quick fixes
-        fillreturns = true, -- Keep: lightweight, useful for code actions
-        nonewvars = true, -- Keep: lightweight
-        useany = false, -- Disable: use golangci-lint
-        unreachable = false, -- Disable: flow analysis, CPU intensive
-        unusedresult = false, -- Disable: call graph analysis, CPU intensive
-        simplifyslice = false, -- Disable: use golangci-lint
-        simplifyrange = false, -- Disable: use golangci-lint
-        simplifycompositelit = false, -- Disable: use golangci-lint
-        shadow = false,
-        printf = false, -- Disable: use golangci-lint
-        structtag = true, -- Keep: lightweight, catches real bugs
-        modernize = false, -- Disable: CPU intensive
-        stylecheck = false, -- Disable: use golangci-lint
-        gocritic = false, -- Disable: use golangci-lint
-        deprecated = false, -- Disable: use golangci-lint
+        undeclaredname = true,
+        fillreturns = true,
+        nonewvars = true,
+        useany = false,
+        unreachable = false,
+        unusedresult = false,
+        simplifyslice = false,
+        simplifyrange = false,
+        simplifycompositelit = false,
+        shadow = true,
+        printf = false,
+        structtag = true,
+        modernize = false,
+        stylecheck = false,
+        gocritic = false,
+        deprecated = false,
       },
       usePlaceholders = true,
       completeUnimported = true,
@@ -57,7 +55,7 @@ return {
         "-.vscode-test",
         "-node_modules",
       },
-      semanticTokens = false, -- Disable: CPU intensive for large files
+      semanticTokens = true,
       gofumpt = true,
     },
   },
