@@ -1,9 +1,52 @@
 return {
   --  automatically inserts matching pairs of characters when you type the opening one.
   {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {},
+    "saghen/blink.pairs",
+    version = "*", -- (recommended) only required with prebuilt binaries
+    dependencies = "saghen/blink.download",
+    init = function()
+      pcall(function()
+        vim._extui.enable({})
+      end)
+    end,
+    opts = {
+      mappings = {
+        enabled = true,
+        cmdline = true,
+        disabled_filetypes = {
+          "TelescopePrompt",
+          "lazy",
+          "mason",
+          "help",
+          "qf",
+          "notify",
+        },
+        pairs = {},
+      },
+      highlights = {
+        enabled = true,
+        -- requires require('vim._extui').enable({}), otherwise has no effect
+        cmdline = true,
+        groups = {
+          "BlinkPairsOrange",
+          "BlinkPairsPurple",
+          "BlinkPairsBlue",
+        },
+        unmatched_group = "BlinkPairsUnmatched",
+
+        -- highlights matching pairs under the cursor
+        matchparen = {
+          enabled = true,
+          -- known issue where typing won't update matchparen highlight, disabled by default
+          cmdline = false,
+          -- also include pairs not on top of the cursor, but surrounding the cursor
+          include_surrounding = true,
+          group = "BlinkPairsMatchParen",
+          priority = 250,
+        },
+      },
+      debug = false,
+    },
   },
   -- displays a popup with possible keybindings of the command you started typing.
   {
