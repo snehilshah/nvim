@@ -317,3 +317,29 @@
 |-----|---|------|-|-----|---|------|
 | `g=` | n,x | Evaluate | | `gm` | n,x | Multiply |
 | `gx` | n,x | Exchange | | `gs` | n,x | Sort |
+
+## TUIs (`<leader>T`)
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `<leader>Tu` | n | Choose UI (picker) | | `<leader>Tk` | n | Kubernetes |
+| `<leader>Td` | n | Docker | | `<leader>Tl` | n | LSP Manager |
+| `<leader>Tp` | n | Processes | | `<leader>Ts` | n | Systemd |
+| `<leader>Tg` | n | GitHub | | `<leader>Ta` | n | AWS |
+| `<leader>Tc` | n | GCloud | | `<leader>Th` | n | Hacker News |
+| `<leader>Tb` | n | Bitwarden | | `<leader>To` | n | lsof |
+
+### TUIs Internal Keybindings (inside TUI windows)
+
+| Key | Desc | | Key | Desc |
+|-----|------|-|-----|------|
+| `<Leader>r` | Refresh data | | `g?` | Toggle help panel |
+| `gi` | Inspect/view details | | `g1-g9` | Navigate tabs |
+| `gl` | View logs | | `gx` | Execute/shell into resource |
+| `gk` | Kill/terminate | | `gs` | Start/scale resource |
+| `gS` | Stop resource | | `gr` | Restart/rerun |
+| `go` | Open in browser | | `gd` | Delete/remove resource |
+| `gy` | Yank/copy value | | `gv` | View related resources |
+| `gp` | Push/pull/port-forward | | `<CR>` | Select/open/view |
+| `<C-o>` | Go back | | `[[ / ]]` | Prev/next page |
+| `<Leader>s` | System namespace (Systemd) | | `<Leader>u` | User namespace (Systemd) |
