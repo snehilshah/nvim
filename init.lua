@@ -11,5 +11,6 @@ require("core.lsp")
 require("core.autocmds")
 require("core.utils")
 require("config.keymaps")
+require('utils.cmdline')
 
 vim.g.have_nerd_font = true
