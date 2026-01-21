@@ -196,13 +196,34 @@
 | `<leader>cs` | n | Symbols (Trouble) | | `<leader>cl` | n | LSP list (Trouble) |
 | `<leader>xL` | n | Location List (Trouble) | | `<leader>xQ` | n | Quickfix List (Trouble) |
 
-## Neogit & Harpoon
+## Neogit
+
+| Key | M | Desc |
+|-----|---|------|
+| `<leader>gn` | n | Open Neogit |
+| `<leader>gc` | n | Neogit commit |
+
+## Spelunk (Stack-based Bookmarks)
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<leader>gn` | n | Open Neogit | | `<leader>H` | n | Harpoon file |
-| `<leader>gc` | n | Neogit commit | | `<leader>hh` | n | Harpoon menu |
-| `<leader>h1-9` | n | Harpoon jump to file 1-9 | | | | |
+| `<leader>mt` | n | Toggle bookmark UI | | `<leader>ma` | n | Add bookmark |
+| `<leader>md` | n | Delete bookmark on line | | `<leader>mn` | n | Next bookmark |
+| `<leader>mp` | n | Previous bookmark | | `<leader>mf` | n | Find all bookmarks |
+| `<leader>mc` | n | Find in current stack | | `<leader>ms` | n | Find stacks |
+| `<leader>ml` | n | Change bookmark line | | `<leader>m1-5` | n | Jump to bookmark 1-5 |
+
+### Spelunk Window (inside bookmark UI)
+
+| Key | Desc | | Key | Desc |
+|-----|------|-|-----|------|
+| `j/k` | Navigate up/down | | `<C-j>/<C-k>` | Move bookmark down/up |
+| `<CR>` | Jump to bookmark | | `s` | Open in horizontal split |
+| `v` | Open in vertical split | | `l` | Change bookmark line |
+| `d` | Delete bookmark | | `<Tab>/<S-Tab>` | Next/prev stack |
+| `n` | New stack | | `D` | Delete stack |
+| `E` | Edit/rename stack | | `q` | Close UI |
+| `?` | Show help | | | |
 
 ## Buffers / Tabline (Barbar)
 
