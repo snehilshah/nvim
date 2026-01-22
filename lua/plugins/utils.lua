@@ -78,25 +78,12 @@ return {
   },
   -- clipboard manager
   {
-    "AckslD/nvim-neoclip.lua",
-    event = "VeryLazy",
-    dependencies = {
-      { "kkharji/sqlite.lua", module = "sqlite" },
-      { "ibhagwan/fzf-lua" },
-    },
-    config = function()
-      require("neoclip").setup({
-        enable_persistent_history = true,
-        db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
-      })
-    end,
+    "atiladefreitas/lazyclip",
+    opts = {},
     keys = {
-      {
-        "<leader>y",
-        "<cmd>lua require('neoclip.fzf')()<cr>",
-        desc = "Open Neoclip (Clipboard History)",
-      },
+      { "Cw", desc = "Open Clipboard Manager" },
     },
+    event = { "TextYankPost" },
   },
   -- color highlighter for color codes (including Tailwind)
   {
