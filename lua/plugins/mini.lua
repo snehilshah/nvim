@@ -4,7 +4,7 @@ return {
   lazy = false, -- Load immediately, not lazily
   version = false,
   config = function()
-    -- require("mini.ai").setup({ n_lines = 500 }) -- this is not a "AI" plugin
+    require("mini.ai").setup({ n_lines = 500 }) -- this is not a "AI" plugin
     require("mini.cmdline").setup()
     require("mini.cursorword").setup()
     require("mini.icons").setup({
