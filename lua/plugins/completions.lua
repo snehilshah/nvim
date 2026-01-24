@@ -1,7 +1,6 @@
 return {
   "saghen/blink.cmp",
   dependencies = {
-    "rafamadriz/friendly-snippets",
     "folke/lazydev.nvim",
     "nvim-mini/mini.nvim",
   },
