@@ -177,7 +177,6 @@ return {
       enable_autocmd = false, -- Handled by Comment.nvim pre_hook
     },
   },
-
   {
     "MagicDuck/grug-far.nvim",
     opts = {
