@@ -35,7 +35,8 @@ return {
       "--show-stats=false",
       function()
         -- Find .golangci.yaml or .golangci.yml in project root
-        local config_patterns = { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
+        local config_patterns =
+          { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
         for _, pattern in ipairs(config_patterns) do
           local config_file = vim.fs.find(pattern, {
             upward = true,
