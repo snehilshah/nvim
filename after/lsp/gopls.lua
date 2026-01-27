@@ -34,7 +34,7 @@ return {
         simplifyslice = false,
         simplifyrange = false,
         simplifycompositelit = false,
-        shadow = true,
+        shadow = false,
         printf = false,
         structtag = true,
         modernize = false,
