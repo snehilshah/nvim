@@ -1,5 +1,21 @@
 local api = vim.api
 
+-- Prevent LSP from attaching to non-file buffers (diffview, fugitive, etc.)
+api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufname = api.nvim_buf_get_name(args.buf)
+    -- Allow file:// scheme or plain paths, block everything else
+    if bufname:match("^%w+://") and not bufname:match("^file://") then
+      vim.schedule(function()
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client then
+          vim.lsp.buf_detach_client(args.buf, args.data.client_id)
+        end
+      end)
+    end
+  end,
+})
+
 -- don't auto comment new line
 api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
 
