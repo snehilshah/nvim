@@ -321,6 +321,7 @@
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
 | `<Tab>` | i | Tabout / Super-tab preset (blink.cmp) | | `<S-Tab>` | i | Backwards tabout |
+| `<C-l>` | i | Insert literal tab | | | | |
 | `<C-j>` | i | Completion next (blink.cmp; menu only) | | `<C-k>` | i | Completion prev (blink.cmp; menu only) |
 
 ## Mini.surround
