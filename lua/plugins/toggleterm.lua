@@ -3,7 +3,6 @@ return {
   version = "*",
   event = "VeryLazy",
   opts = {
-    -- Size configuration
     size = function(term)
       if term.direction == "horizontal" then
         return 15
@@ -91,7 +90,7 @@ return {
       end,
     })
 
-    -- Htop/btop terminal
+    -- btop terminal
     local htop = Terminal:new({
       cmd = "btop",
       direction = "float",
@@ -107,8 +106,8 @@ return {
       },
     })
 
-    -- Node REPL
-    local node = Terminal:new({
+    -- BUN REPL
+    local bun = Terminal:new({
       cmd = "bun repl",
       direction = "float",
       hidden = true,
@@ -130,12 +129,48 @@ return {
       htop:toggle()
     end
 
-    _G.toggle_node = function()
-      node:toggle()
+    _G.toggle_bun = function()
+      bun:toggle()
     end
 
     _G.toggle_python = function()
       python:toggle()
+    end
+    -- Git diff for current file with delta
+    _G.toggle_git_diff_file = function()
+      local file = vim.fn.expand("%:p")
+      if file == "" then
+        vim.notify("No file open", vim.log.levels.WARN)
+        return
+      end
+      local git_diff = Terminal:new({
+        cmd = "git diff -- " .. vim.fn.shellescape(file),
+        dir = "git_dir",
+        direction = "float",
+        close_on_exit = true,
+        float_opts = {
+          border = "rounded",
+          width = function()
+            return math.floor(vim.o.columns * 0.9)
+          end,
+          height = function()
+            return math.floor(vim.o.lines * 0.9)
+          end,
+        },
+        on_open = function(term)
+          -- Close gracefully with q in normal mode
+          vim.api.nvim_buf_set_keymap(
+            term.bufnr,
+            "n",
+            "q",
+            "<cmd>close<CR>",
+            { noremap = true, silent = true }
+          )
+        end,
+        on_exit = function()
+        end,
+      })
+      git_diff:toggle()
     end
 
     -- Function to send current line or visual selection to terminal
@@ -160,7 +195,6 @@ return {
     )
 
     -- Direction-specific toggles
-    map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "[T]erminal [F]loat" })
     map(
       "n",
       "<leader>th",
@@ -183,29 +217,15 @@ return {
 
     -- Toggle all terminals
     map("n", "<leader>ta", "<cmd>ToggleTermToggleAll<CR>", { desc = "[T]erminal Toggle [A]ll" })
-
     -- Terminal select
     map("n", "<leader>ts", "<cmd>TermSelect<CR>", { desc = "[T]erminal [S]elect" })
 
-    -- Send to terminal
-    map(
-      "n",
-      "<leader>tl",
-      "<cmd>ToggleTermSendCurrentLine<CR>",
-      { desc = "[T]erminal Send [L]ine" }
-    )
-    map(
-      "v",
-      "<leader>tl",
-      "<cmd>ToggleTermSendVisualSelection<CR>",
-      { desc = "[T]erminal Send [L]ines" }
-    )
-
     -- Custom terminals
-    map("n", "<leader>tg", _G.toggle_lazygit, { desc = "[T]erminal Lazy[G]it" })
+    map("n", "<leader>gg", _G.toggle_lazygit, { desc = "Lazygit" })
     map("n", "<leader>tp", _G.toggle_htop, { desc = "[T]erminal Hto[P]" })
-    map("n", "<leader>tn", _G.toggle_node, { desc = "[T]erminal [N]ode" })
+    map("n", "<leader>tb", _G.toggle_bun, { desc = "[T]erminal [B]un" })
     map("n", "<leader>ty", _G.toggle_python, { desc = "[T]erminal P[Y]thon" })
+    map("n", "<leader>GD", _G.toggle_git_diff_file, { desc = "[G]it Diff (file) with Delta" })
 
     -- Terminal mode mappings
     map("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })

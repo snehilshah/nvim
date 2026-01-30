@@ -143,13 +143,6 @@ return {
         desc = "[g]it [u]ndo Stage Hunk",
       },
       {
-        "<leader>gd",
-        function()
-          Snacks.picker.git_diff()
-        end,
-        desc = "[d]iff Hunks (Snacks)",
-      },
-      {
         "<leader>gS",
         function()
           Snacks.picker.git_stash()
@@ -289,7 +282,7 @@ return {
         diffview = true,
         snacks = true,
       },
-      graph_style = vim.g.neovide and "ascii" or "kitty",
+      graph_style = vim.g.neovide and "unicode" or "kitty",
       process_spinner = true,
     },
   },
