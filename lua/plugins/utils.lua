@@ -1,52 +1,76 @@
 return {
-  --  automatically inserts matching pairs of characters when you type the opening one.
+  -- Autopairs with full language support (Go/Rust/C/JS/TS/React)
   {
-    "saghen/blink.pairs",
-    version = "*", -- (recommended) only required with prebuilt binaries
-    dependencies = "saghen/blink.download",
-    init = function()
-      pcall(function()
-        vim._extui.enable({})
-      end)
-    end,
-    opts = {
-      mappings = {
-        enabled = true,
-        cmdline = true,
-        disabled_filetypes = {
-          "TelescopePrompt",
-          "lazy",
-          "mason",
-          "help",
-          "qf",
-          "notify",
-        },
-        pairs = {},
-      },
-      highlights = {
-        enabled = true,
-        -- requires require('vim._extui').enable({}), otherwise has no effect
-        cmdline = true,
-        groups = {
-          "BlinkPairsOrange",
-          "BlinkPairsPurple",
-          "BlinkPairsBlue",
-        },
-        unmatched_group = "BlinkPairsUnmatched",
-
-        -- highlights matching pairs under the cursor
-        matchparen = {
-          enabled = true,
-          -- known issue where typing won't update matchparen highlight, disabled by default
-          cmdline = false,
-          -- also include pairs not on top of the cursor, but surrounding the cursor
-          include_surrounding = true,
-          group = "BlinkPairsMatchParen",
-          priority = 250,
-        },
-      },
-      debug = false,
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "saghen/blink.cmp",
     },
+    config = function()
+      local npairs = require("nvim-autopairs")
+      local Rule = require("nvim-autopairs.rule")
+      local cond = require("nvim-autopairs.conds")
+
+      npairs.setup({
+        check_ts = true, -- Use treesitter for smarter pairing
+        ts_config = {
+          lua = { "string", "source" }, -- Don't add pairs in lua string/source nodes
+          javascript = { "template_string" },
+          typescript = { "template_string" },
+          javascriptreact = { "template_string", "jsx_attribute" },
+          typescriptreact = { "template_string", "jsx_attribute" },
+        },
+        disable_filetype = { "TelescopePrompt", "vim", "lazy", "mason" },
+        enable_check_bracket_line = true, -- Don't add pair if close bracket is in same line
+        enable_bracket_in_quote = true,
+        enable_abbr = false,
+        break_undo = true, -- Make autopairs break undo sequence
+        map_cr = true, -- Map <CR> for pair completion (handles JSX Enter!)
+        map_bs = true, -- Map <BS> for pair deletion
+        map_c_h = false,
+        map_c_w = false,
+      })
+
+      -- JSX/HTML: Add space padding for braces in JSX expressions
+      local brackets = { { "(", ")" }, { "[", "]" }, { "{", "}" } }
+      npairs.add_rules({
+        -- Add spaces between brackets: ( | ) -> (  |  )
+        Rule(" ", " ")
+          :with_pair(function(opts)
+            local pair = opts.line:sub(opts.col - 1, opts.col)
+            return vim.tbl_contains({
+              brackets[1][1] .. brackets[1][2],
+              brackets[2][1] .. brackets[2][2],
+              brackets[3][1] .. brackets[3][2],
+            }, pair)
+          end)
+          :with_move(cond.none())
+          :with_cr(cond.none())
+          :with_del(function(opts)
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local context = opts.line:sub(col - 1, col + 2)
+            return vim.tbl_contains({
+              brackets[1][1] .. "  " .. brackets[1][2],
+              brackets[2][1] .. "  " .. brackets[2][2],
+              brackets[3][1] .. "  " .. brackets[3][2],
+            }, context)
+          end),
+      })
+
+      -- Rust: Add rules for lifetime annotations and turbofish
+      npairs.add_rule(Rule("<", ">", { "rust" }):with_pair(cond.before_regex("%a+:?:?$", 3)))
+
+      -- Go: Handle struct literals better
+      npairs.add_rule(Rule("{", "}", { "go" }):with_pair(cond.not_after_regex("%s")))
+
+      -- Integration with blink.cmp
+      local blink_ok, blink = pcall(require, "blink.cmp")
+      if blink_ok then
+        -- blink.cmp doesn't need explicit autopairs integration
+        -- autopairs' map_cr handles <CR> behavior automatically
+      end
+    end,
   },
   -- displays a popup with possible keybindings of the command you started typing.
   {
