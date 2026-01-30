@@ -289,7 +289,7 @@ return {
         diffview = true,
         snacks = true,
       },
-      graph_style = "unicode",
+      graph_style = vim.g.neovide and "ascii" or "kitty",
       process_spinner = true,
     },
   },
