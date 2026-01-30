@@ -504,6 +504,9 @@ return {
 
     picker = {
       sources = {
+        files = {
+          hidden = true, -- Show hidden files (dotfiles) by default
+        },
         explorer = {
           -- focus = "input",
           replace_netrw = true, -- Replaces default file explorer
