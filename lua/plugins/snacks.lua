@@ -6,19 +6,6 @@ return {
   ---@diagnostic disable-next-line: undefined-doc-name
   ---@type snacks.Config
   keys = {
-    -- git
-    {
-      "<leader>gl",
-      function()
-        Snacks.picker.git_log({
-          layout = "ivy_taller",
-          on_show = function()
-            vim.cmd.stopinsert()
-          end,
-        })
-      end,
-      desc = "[G]it [L]og",
-    },
     {
       "<leader>nc",
       function()
@@ -115,7 +102,7 @@ return {
     },
     -- git
     {
-      "<leader>gL",
+      "<leader>gl",
       function()
         Snacks.picker.git_log_line({
           on_show = function()
@@ -123,14 +110,26 @@ return {
           end,
         })
       end,
-      desc = "Git Log Line",
+      desc = "Git log for current line",
     },
     {
-      "<leader>gf",
+      "<leader>go",
       function()
-        Snacks.picker.git_log_file()
+        Snacks.gitbrowse({
+          open = function(url)
+            vim.fn.system({ "google-chrome", url })
+          end,
+        })
       end,
-      desc = "Git Log File",
+      desc = "Git Browse",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>gd",
+      function()
+        Snacks.picker.git_diff()
+      end,
+      desc = "[d]iff Hunks (Snacks)",
     },
     {
       "<leader>fv",
@@ -427,41 +426,11 @@ return {
       desc = "Rename File",
     },
     {
-      "<leader>go",
-      function()
-        Snacks.gitbrowse()
-      end,
-      desc = "Git Browse",
-      mode = { "n", "v" },
-    },
-    {
-      "<leader>gg",
-      function()
-        Snacks.lazygit()
-      end,
-      desc = "Lazygit",
-    },
-    -- other
-    {
       "<leader>un",
       function()
         Snacks.notifier.hide()
       end,
       desc = "Dismiss All Notifications",
-    },
-    {
-      "<c-/>",
-      function()
-        Snacks.terminal()
-      end,
-      desc = "Toggle Terminal",
-    },
-    {
-      "<c-_>",
-      function()
-        Snacks.terminal()
-      end,
-      desc = "which_key_ignore",
     },
     {
       "<leader>fn",
@@ -507,18 +476,6 @@ return {
       end,
       desc = "Smart Find Files",
     },
-    -- {
-    -- 	"<leader>gb",
-    -- 	function()
-    -- 		Snacks.picker.git_branches({
-    -- 			layout = "vertical",
-    -- 			on_show = function()
-    -- 				vim.cmd.stopinsert()
-    -- 			end,
-    -- 		})
-    -- 	end,
-    -- 	desc = "[G]it [B]ranches",
-    -- },
   },
   opts = {
     dashboard = { enabled = true },
@@ -531,7 +488,7 @@ return {
       animate = {
         style = "up_down",
         duration = {
-          step = 25, -- ms per step
+          step = 25,    -- ms per step
           total = 1000, -- maximum duration
         },
       },
@@ -607,14 +564,18 @@ return {
             ["K"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["H"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["L"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<Tab>"] = { "focus_preview", mode = { "i", "n" } },
           },
         },
         preview = {
+          keys = {
+            ["<Esc>"] = { "focus_input", mode = { "i", "n" } },
+          },
           wo = {
-            number = true, -- Show line numbers
+            number = true,         -- Show line numbers
             relativenumber = true, -- Show relative line numbers (optional)
-            signcolumn = "yes", -- Show sign column
-            wrap = false, -- Don't wrap lines
+            signcolumn = "yes",    -- Show sign column
+            wrap = false,          -- Don't wrap lines
           },
         },
       },
@@ -652,12 +613,12 @@ return {
         Snacks.toggle.diagnostics():map("<leader>ud")
         Snacks.toggle.line_number():map("<leader>ul")
         Snacks.toggle
-          .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-          :map("<leader>uc")
+            .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+            :map("<leader>uc")
         Snacks.toggle.treesitter():map("<leader>uT")
         Snacks.toggle
-          .option("background", { off = "light", on = "dark", name = "Dark Background" })
-          :map("<leader>ub")
+            .option("background", { off = "light", on = "dark", name = "Dark Background" })
+            :map("<leader>ub")
         Snacks.toggle.inlay_hints():map("<leader>uh")
         Snacks.toggle.indent():map("<leader>ug")
         Snacks.toggle.dim():map("<leader>uD")
@@ -665,3 +626,27 @@ return {
     })
   end,
 }
+
+-- Disabled keys
+-- {
+-- NOTE: not good use neogit with <leader>gn ll or lb
+--   "<leader>gl",
+--   function()
+--     Snacks.picker.git_log({
+--       all = true,
+--       layout = "ivy_taller",
+--       on_show = function()
+--         vim.cmd.stopinsert()
+--       end,
+--     })
+--   end,
+--   desc = "[G]it [L]og",
+-- },
+-- {
+-- NOTE: again can use neogit with <leader>gn -- filename log ll or lb
+--   "<leader>gf",
+--   function()
+--     Snacks.picker.git_log_file()
+--   end,
+--   desc = "Git Log File",
+-- },
