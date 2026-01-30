@@ -6,6 +6,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("config.options")
+require("config.neovide")
 require("core.lazy")
 require("core.lsp")
 require("core.autocmds")
