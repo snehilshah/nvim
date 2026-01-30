@@ -6,19 +6,6 @@ return {
   ---@diagnostic disable-next-line: undefined-doc-name
   ---@type snacks.Config
   keys = {
-    -- git
-    {
-      "<leader>gl",
-      function()
-        Snacks.picker.git_log({
-          layout = "ivy_taller",
-          on_show = function()
-            vim.cmd.stopinsert()
-          end,
-        })
-      end,
-      desc = "[G]it [L]og",
-    },
     {
       "<leader>nc",
       function()
@@ -115,7 +102,7 @@ return {
     },
     -- git
     {
-      "<leader>gL",
+      "<leader>gl",
       function()
         Snacks.picker.git_log_line({
           on_show = function()
@@ -123,14 +110,26 @@ return {
           end,
         })
       end,
-      desc = "Git Log Line",
+      desc = "Git log for current line",
     },
     {
-      "<leader>gf",
+      "<leader>go",
       function()
-        Snacks.picker.git_log_file()
+        Snacks.gitbrowse({
+          open = function(url)
+            vim.fn.system({ "google-chrome", url })
+          end,
+        })
       end,
-      desc = "Git Log File",
+      desc = "Git Browse",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>gd",
+      function()
+        Snacks.picker.git_diff()
+      end,
+      desc = "[d]iff Hunks (Snacks)",
     },
     {
       "<leader>fv",
@@ -427,22 +426,6 @@ return {
       desc = "Rename File",
     },
     {
-      "<leader>go",
-      function()
-        Snacks.gitbrowse()
-      end,
-      desc = "Git Browse",
-      mode = { "n", "v" },
-    },
-    -- {
-    --   "<leader>gg",
-    --   function()
-    --     Snacks.lazygit()
-    --   end,
-    --   desc = "Lazygit",
-    -- }, -- Moved to toggleterm.lua to use keymap <leader>gg
-    -- other
-    {
       "<leader>un",
       function()
         Snacks.notifier.hide()
@@ -669,3 +652,27 @@ return {
     })
   end,
 }
+
+-- Disabled keys
+-- {
+-- NOTE: not good use neogit with <leader>gn ll or lb
+--   "<leader>gl",
+--   function()
+--     Snacks.picker.git_log({
+--       all = true,
+--       layout = "ivy_taller",
+--       on_show = function()
+--         vim.cmd.stopinsert()
+--       end,
+--     })
+--   end,
+--   desc = "[G]it [L]og",
+-- },
+-- {
+-- NOTE: again can use neogit with <leader>gn -- filename log ll or lb
+--   "<leader>gf",
+--   function()
+--     Snacks.picker.git_log_file()
+--   end,
+--   desc = "Git Log File",
+-- },
