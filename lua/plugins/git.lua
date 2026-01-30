@@ -143,13 +143,6 @@ return {
         desc = "[g]it [u]ndo Stage Hunk",
       },
       {
-        "<leader>gd",
-        function()
-          Snacks.picker.git_diff()
-        end,
-        desc = "[d]iff Hunks (Snacks)",
-      },
-      {
         "<leader>gS",
         function()
           Snacks.picker.git_stash()
