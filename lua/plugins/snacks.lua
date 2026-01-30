@@ -607,9 +607,13 @@ return {
             ["K"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["H"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["L"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<Tab>"] = { "focus_preview", mode = { "i", "n" } },
           },
         },
         preview = {
+          keys = {
+            ["<Esc>"] = { "focus_input", mode = { "i", "n" } },
+          },
           wo = {
             number = true, -- Show line numbers
             relativenumber = true, -- Show relative line numbers (optional)
