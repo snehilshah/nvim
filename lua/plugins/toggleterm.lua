@@ -3,7 +3,6 @@ return {
   version = "*",
   event = "VeryLazy",
   opts = {
-    -- Size configuration
     size = function(term)
       if term.direction == "horizontal" then
         return 15
@@ -196,7 +195,6 @@ return {
     )
 
     -- Direction-specific toggles
-    map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "[T]erminal [F]loat" })
     map(
       "n",
       "<leader>th",
