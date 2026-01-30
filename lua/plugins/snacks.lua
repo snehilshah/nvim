@@ -434,13 +434,13 @@ return {
       desc = "Git Browse",
       mode = { "n", "v" },
     },
-    {
-      "<leader>gg",
-      function()
-        Snacks.lazygit()
-      end,
-      desc = "Lazygit",
-    },
+    -- {
+    --   "<leader>gg",
+    --   function()
+    --     Snacks.lazygit()
+    --   end,
+    --   desc = "Lazygit",
+    -- }, -- Moved to toggleterm.lua to use keymap <leader>gg
     -- other
     {
       "<leader>un",
