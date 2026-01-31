@@ -10,4 +10,10 @@ return {
       },
     },
   },
+  -- {
+  -- good plugin but requires additional cli and does not integrate with nvim diagnostics
+  -- also not compatible with ts-error-translator.nvim
+  --   "youyoumu/pretty-ts-errors.nvim",
+  --   opts = {},
+  -- },
 }
