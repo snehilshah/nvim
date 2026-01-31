@@ -10,9 +10,11 @@ return {
       },
     },
   },
+  -- ARCHIVED: pretty-ts-errors.nvim
+  -- Good plugin but requires additional CLI tool and does not integrate
+  -- with nvim diagnostics. Also not compatible with ts-error-translator.nvim.
+  -- Keeping for reference in case ts-error-translator doesn't fit needs.
   -- {
-  -- good plugin but requires additional cli and does not integrate with nvim diagnostics
-  -- also not compatible with ts-error-translator.nvim
   --   "youyoumu/pretty-ts-errors.nvim",
   --   opts = {},
   -- },
