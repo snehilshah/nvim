@@ -3,6 +3,10 @@
 This document tracks all external tools required for the Neovim configuration.
 Install these globally on your system.
 
+## Essentials
+
+- Treesitter cli
+
 ## Language Servers
 
 Language servers provide IntelliSense, diagnostics, go-to-definition, and other LSP features.
