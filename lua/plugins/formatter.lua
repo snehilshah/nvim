@@ -1,7 +1,6 @@
 -- Formatter Configuration (conform.nvim)
--- All formatters should be installed globally:
---   stylua, clang-format, biome, prettier, yamlfmt, tombi,
---   markdownlint-cli2, goimports, gofumpt, shfmt, dockerfmt
+-- All formatters should be installed globally.
+-- See docs/install.md for installation instructions.
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },

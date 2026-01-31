@@ -1,7 +1,7 @@
 -- Linter Configuration (nvim-lint)
--- All linters should be installed globally:
---   jsonlint, golangci-lint, shellcheck, hadolint, yamllint,
---   cppcheck, markdownlint-cli2, tombi, buf (buf_lint), eslint_d
+-- All linters should be installed globally.
+-- See docs/install.md for installation instructions.
+-- Note: Trigger linting manually with <leader>ll
 -- Note: biome is handled via LSP (see justlsp.lua)
 return {
   "mfussenegger/nvim-lint",
