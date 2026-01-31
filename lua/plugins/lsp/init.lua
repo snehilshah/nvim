@@ -66,7 +66,9 @@ return {
         end
 
         -- Navigation
-        -- let snacks handle these events
+        -- ARCHIVED: Navigation keymaps delegated to Snacks pickers for better UX
+        -- Snacks handles: gd (definition), gD (declaration), gi (implementation),
+        --                 gr (references), gt (type definition)
         -- map("n", "gd", vim.lsp.buf.definition, "Go to definition")
         -- map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
         -- map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")

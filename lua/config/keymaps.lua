@@ -53,12 +53,7 @@ vim.keymap.set(
   vim.diagnostic.setloclist,
   { desc = "Open diagnostic [Q]uickfix list" }
 )
-vim.keymap.set("n", "[e", function()
-  vim.diagnostic.jump({ count = -1 })
-end, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]e", function()
-  vim.diagnostic.jump({ count = 1 })
-end, { desc = "Go to next [D]iagnostic message" })
+-- NOTE: [d/]d diagnostic jumps are in plugins/lsp/init.lua (buffer-local on LspAttach)
 vim.keymap.set(
   "n",
   "<leader>de",

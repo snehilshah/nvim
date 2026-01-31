@@ -8,7 +8,6 @@ vim.g.loaded_netrwPlugin = 1
 require("config.options")
 require("config.neovide")
 require("core.lazy")
-require("core.lsp")
 require("core.autocmds")
 require("core.utils")
 require("config.keymaps")

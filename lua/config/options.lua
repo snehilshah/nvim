@@ -141,11 +141,4 @@ vim.opt.foldlevel = 99 -- Start with all folds open
 vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "expr"
 
--- ============================================================================
--- Diagnostic Signs
--- ============================================================================
-local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+-- NOTE: Diagnostic signs are configured in plugins/lsp/init.lua via vim.diagnostic.config()
