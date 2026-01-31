@@ -234,7 +234,7 @@ return {
     cmd = "GrugFar",
     keys = {
       {
-        "<leader>sS",
+        "<leader>sR",
         function()
           require("grug-far").open()
         end,

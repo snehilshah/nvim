@@ -622,7 +622,7 @@ return {
         Snacks.toggle
           .option("background", { off = "light", on = "dark", name = "Dark Background" })
           :map("<leader>ub")
-        Snacks.toggle.inlay_hints():map("<leader>uh")
+        -- NOTE: Inlay hints toggle is <leader>ih in plugins/lsp/init.lua (buffer-local)
         Snacks.toggle.indent():map("<leader>ug")
         Snacks.toggle.dim():map("<leader>uD")
       end,
