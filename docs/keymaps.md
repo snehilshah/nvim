@@ -4,8 +4,9 @@
 
 ## Notes / Known Conflicts
 
-- `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). If you see unexpected behavior, this is why.
+- `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). Snacks usually wins.
 - `<leader>nc` is used by both Snacks (Nvim Config) and package-info (hide versions). Snacks usually wins.
+- `<leader>gg` is mapped by both Snacks (Lazygit via toggleterm) and potentially other git plugins.
 ## General & Terminal
 
 | Key | M | Desc | | Key | M | Desc |
@@ -20,14 +21,13 @@
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<C-\>` | n,t | Toggle terminal (float) | | `<leader>tf` | n | Terminal float |
-| `<leader>th` | n | Terminal horizontal | | `<leader>tv` | n | Terminal vertical |
-| `<leader>tt` | n | Terminal tab | | `<leader>ta` | n | Toggle all terminals |
-| `<leader>ts` | n | Terminal select | | `<leader>tl` | n,v | Send line(s) to terminal |
+| `<C-\>` | n,t | Toggle terminal (float) | | `<leader>th` | n | Terminal horizontal |
+| `<leader>tv` | n | Terminal vertical | | `<leader>tt` | n | Terminal tab |
+| `<leader>ta` | n | Toggle all terminals | | `<leader>ts` | n | Terminal select |
 | `<leader>t1` | n | Terminal 1 | | `<leader>t2` | n | Terminal 2 |
 | `<leader>t3` | n | Terminal 3 | | `<leader>t4` | n | Terminal 4 |
-| `<leader>tg` | n | Terminal lazygit | | `<leader>tp` | n | Terminal htop |
-| `<leader>tn` | n | Terminal node | | `<leader>ty` | n | Terminal python |
+| `<leader>tp` | n | Terminal btop | | `<leader>tb` | n | Terminal Bun REPL |
+| `<leader>ty` | n | Terminal Python | | `<leader>GD` | n | Git Diff (file) with Delta |
 | `<C-h/j/k/l>` | t | Navigate windows from terminal | | `<C-w>` | t | Window command prefix |
 
 ## Editing & Navigation
@@ -53,7 +53,7 @@
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
 | `d` | n,x | Delete without yanking | | `dd` | n | Delete line without yanking |
-| `D` | n,x | Delete to EOL without yanking | | `<leader>y` | n | Neoclip (clipboard history) |
+| `D` | n,x | Delete to EOL without yanking | | `Cw` | n | Open Clipboard Manager (lazyclip) |
 
 ## Quickfix & Diagnostics
 
@@ -73,6 +73,7 @@
 | `gi` | n | Goto Implementation (Snacks) | | `gt` | n | Goto Type Definition (Snacks) |
 | `grp` | n | References (Snacks) | | `ga` | n,x | Code Action (native) |
 | `<leader>rn` | n | Rename symbol | | `<leader>ca` | n,x | Code Action (tiny-code-action) |
+| `<leader>cl` | n | Run codelens actions | | | | |
 | `[d` | n | Previous diagnostic (LSP buffer-local) | | `]d` | n | Next diagnostic (LSP buffer-local) |
 | `<leader>cd` | n | Show diagnostic (LSP buffer-local) | | `<leader>ih` | n | Toggle inlay hints (LSP buffer-local) |
 | `<leader>wa` | n | Add workspace folder | | `<leader>wr` | n | Remove workspace folder |
@@ -153,7 +154,8 @@
 | `<Esc>` | n,i | Close picker | | `J` | n,i | Preview scroll down |
 | `<M-p>` | n,i | Cycle layouts | | `K` | n,i | Preview scroll up |
 | `H` | n,i | Preview scroll left | | `L` | n,i | Preview scroll right |
-| `<a-a>` | n,i | Sidekick send (picker) | | `<c-t>` | n,i | Open in Trouble (picker) |
+| `<Tab>` | n,i | Focus preview | | `<c-t>` | n,i | Open in Trouble (picker) |
+| `<a-a>` | n,i | Sidekick send (explorer) | | | | |
 
 ## Git (Gitsigns)
 
@@ -171,10 +173,9 @@
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<leader>gl` | n | Git Log | | `<leader>gS` | n | Git Stash |
-| `<leader>gL` | n | Git Log Line | | `<leader>go` | n,v | Git Browse |
-| `<leader>gf` | n | Git Log File | | `<leader>gg` | n | Lazygit |
-| `<leader>gd` | n | Git Diff Hunks | | | | |
+| `<leader>gl` | n | Git Log (current line) | | `<leader>gS` | n | Git Stash |
+| `<leader>gd` | n | Git Diff Hunks | | `<leader>go` | n,v | Git Browse |
+| `<leader>gg` | n | Lazygit | | | | |
 
 ## Diffview
 
@@ -248,8 +249,7 @@
 |-----|---|------|-|-----|---|------|
 | `<leader>ss` | n | Init selection | | `<leader>a` | n | Swap next parameter |
 | `<leader>si` | n | Node incremental | | `<leader>A` | n | Swap prev parameter |
-| `<leader>sc` | n | Scope incremental | | | | |
-| `<leader>sd` | n | Node decremental | | | | |
+| `<leader>sc` | n | Scope incremental | | `<leader>sn` | n | Node decremental |
 
 ## Treesitter Movement
 
