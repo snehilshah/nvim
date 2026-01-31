@@ -173,16 +173,6 @@ return {
       git_diff:toggle()
     end
 
-    -- Function to send current line or visual selection to terminal
-    _G.send_to_terminal = function()
-      local mode = vim.fn.mode()
-      if mode == "v" or mode == "V" then
-        require("toggleterm").send_lines_to_terminal("visual_selection", true, { args = 1 })
-      else
-        require("toggleterm").send_lines_to_terminal("single_line", true, { args = 1 })
-      end
-    end
-
     -- Keymaps
     local map = vim.keymap.set
 
