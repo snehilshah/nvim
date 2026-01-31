@@ -167,8 +167,7 @@ return {
             { noremap = true, silent = true }
           )
         end,
-        on_exit = function()
-        end,
+        on_exit = function() end,
       })
       git_diff:toggle()
     end
