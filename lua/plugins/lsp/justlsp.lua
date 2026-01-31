@@ -54,6 +54,7 @@ return {
         "clangd", -- C/C++
         "tailwindcss", -- Tailwind CSS
         "emmet_language_server", -- Emmet
+        "harper_ls", -- Grammar/spell checking for markdown, gitcommit, etc.
       })
 
       -- ============================================================================
