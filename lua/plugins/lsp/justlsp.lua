@@ -1,11 +1,61 @@
+-- ============================================================================
+-- LSP Configuration (Neovim 0.11+ Native Approach)
+-- ============================================================================
+-- This config uses Neovim's native LSP support with nvim-lspconfig for configs.
+-- LSPs/formatters/linters should be installed globally (see docs/install.md).
+-- Config files in after/lsp/*.lua override/extend the base configs.
+-- ============================================================================
+
 return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "mason-org/mason-lspconfig.nvim",
+      "saghen/blink.cmp", -- For LSP capabilities
     },
     config = function()
+      -- ============================================================================
+      -- Common LSP Configuration (applies to ALL language servers)
+      -- ============================================================================
+      -- Capabilities: blink.cmp handles merging automatically
+      local capabilities = require("blink.cmp").get_lsp_capabilities({
+        textDocument = {
+          -- Folding capabilities for nvim-ufo
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      })
+
+      -- Set global defaults for all language servers
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+        root_markers = { ".git" },
+      })
+
+      -- ============================================================================
+      -- Enable Language Servers
+      -- ============================================================================
+      -- These will use configs from nvim-lspconfig's lsp/*.lua files,
+      -- merged with your after/lsp/*.lua overrides
+      vim.lsp.enable({
+        "lua_ls", -- Lua
+        "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls` 
+        "ts_ls", -- TypeScript/JavaScript (switch to "tsgo" if preferred)
+        "biome", -- Biome (linting/formatting for JS/TS/JSON - only activates with biome.json)
+        "bashls", -- Bash/Shell
+        "cssls", -- CSS/SCSS/Less
+        "html", -- HTML
+        "jsonls", -- JSON
+        "yamlls", -- YAML
+        "markdown_oxide", -- Markdown
+        "dockerls", -- Docker
+        "clangd", -- C/C++
+        "tailwindcss", -- Tailwind CSS
+        "emmet_language_server", -- Emmet
+      })
+
       -- ============================================================================
       -- LSP Keymaps Setup
       -- ============================================================================
@@ -134,115 +184,6 @@ return {
           vim.lsp.buf.clear_references()
           pcall(vim.api.nvim_del_augroup_by_name, "LspDocumentHighlight_" .. args.buf)
         end,
-      })
-    end,
-  },
-  {
-    "mason-org/mason.nvim",
-    lazy = false,
-    cmd = "Mason",
-    config = function()
-      require("mason").setup()
-    end,
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    lazy = false,
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "saghen/blink.cmp",
-    },
-    config = function()
-      local mason_lspconfig = require("mason-lspconfig")
-      local lspconfig = require("lspconfig")
-
-      -- Capabilities: blink.cmp handles merging automatically
-      local capabilities = require("blink.cmp").get_lsp_capabilities({
-        textDocument = {
-          -- Folding capabilities for nvim-ufo
-          foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
-          },
-        },
-      })
-
-      -- Common LSP config options
-      local common_config = {
-        capabilities = capabilities,
-        completion = {
-          completeFunctionCalls = true,
-        },
-      }
-
-      -- Default handler for servers without custom config
-      local function default_setup(server_name)
-        lspconfig[server_name].setup(common_config)
-      end
-
-      -- Custom handlers for servers with specific config
-      local handlers = {
-        default_setup,
-      }
-      -- Setup mason-lspconfig with handlers
-      mason_lspconfig.setup({
-        -- Only auto-setup these LSP servers (others installed by mason-tool-installer are just tools)
-        automatic_installation = false,
-        handlers = handlers,
-      })
-    end,
-  },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    lazy = false,
-    dependencies = {
-      "mason-org/mason-lspconfig.nvim",
-    },
-    config = function()
-      require("mason-tool-installer").setup({
-        ensure_installed = {
-          -- Language Servers (these will be auto-started by mason-lspconfig handlers)
-          "lua_ls",
-          "gopls",
-          "ts_ls", -- Uncomment and comment tsgo to switch back
-          -- "tsgo",
-          "bashls",
-          "cssls",
-          "html",
-          "jsonls",
-          "yamlls",
-          "markdown-oxide",
-          "docker_language_server",
-          "clangd",
-          "tailwindcss", -- Tailwind CSS IntelliSense
-          "emmet_language_server", -- Emmet LSP support
-
-          -- Linters (installed only, NOT auto-started - use <leader>ll to trigger)
-          "eslint_d",
-          "luacheck",
-          "golangci-lint",
-          -- "cppcheck", -- Not in Mason, used brew install cppcheck
-          "shellcheck",
-          "markdownlint-cli2",
-          "jsonlint",
-          "htmlhint",
-          "stylelint",
-          "hadolint",
-          "buf", -- buf_lint for proto files
-
-          -- Formatters (installed only, used by conform.nvim or formatter.nvim on-demand)
-          "stylua",
-          "goimports",
-          "gofumpt",
-          "prettier",
-          "shfmt",
-          "clang-format",
-          "biome", -- JS/TS linting + formatting + code actions
-          -- "dockerfmt" -- Not in Mason, brew install dockerfmt
-
-          -- All in one
-          "tombi",
-        },
       })
     end,
   },
