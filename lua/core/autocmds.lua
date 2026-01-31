@@ -40,6 +40,15 @@ api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+-- Stop eslint_d daemon on exit (prevents orphaned processes)
+api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    if vim.fn.executable("eslint_d") == 1 then
+      vim.fn.system("eslint_d stop")
+    end
+  end,
+})
+
 -- close some filetypes with <q>
 api.nvim_create_autocmd("FileType", {
   group = api.nvim_create_augroup("close_with_q", { clear = true }),
