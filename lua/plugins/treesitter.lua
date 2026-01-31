@@ -104,12 +104,12 @@ return {
       vim.keymap.set({ "n", "x", "o" }, "[o", function()
         move.goto_previous_start("@loop.outer", "textobjects")
       end, { desc = "Previous loop start" })
-      vim.keymap.set({ "n", "x", "o" }, "]d", function()
+      vim.keymap.set({ "n", "x", "o" }, "]i", function()
         move.goto_next_start("@conditional.outer", "textobjects")
-      end, { desc = "Next conditional" })
-      vim.keymap.set({ "n", "x", "o" }, "[d", function()
+      end, { desc = "Next conditional (if)" })
+      vim.keymap.set({ "n", "x", "o" }, "[i", function()
         move.goto_previous_start("@conditional.outer", "textobjects")
-      end, { desc = "Previous conditional" })
+      end, { desc = "Previous conditional (if)" })
     end,
   },
   {
