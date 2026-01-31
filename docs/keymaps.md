@@ -4,10 +4,8 @@
 
 ## Notes / Known Conflicts
 
-- `<leader>cl` is used by Trouble (`Trouble lsp ...`) and will shadow the `<leader>cl` codelens mapping in `lua/config/keymaps.lua`.
-- `<leader>sS` is used by both Snacks (LSP Workspace Symbols) and GrugFar (Search & Replace). With the current plugin import order, GrugFar is likely to win.
-- `[d`/`]d` are Treesitter “conditional” motions globally, but become **LSP buffer-local** diagnostic jumps when an LSP client attaches.
-- `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). If you see unexpected behavior, this is why.- `<leader>nc` is used by both Snacks (Nvim Config) and package-info (hide versions). Snacks usually wins.
+- `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). If you see unexpected behavior, this is why.
+- `<leader>nc` is used by both Snacks (Nvim Config) and package-info (hide versions). Snacks usually wins.
 ## General & Terminal
 
 | Key | M | Desc | | Key | M | Desc |
@@ -61,8 +59,8 @@
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<M-j>` | n | Next quickfix item | | `[e` | n | Previous diagnostic |
-| `<M-k>` | n | Previous quickfix item | | `]e` | n | Next diagnostic |
+| `<M-j>` | n | Next quickfix item | | `[d` | n | Previous diagnostic (LSP) |
+| `<M-k>` | n | Previous quickfix item | | `]d` | n | Next diagnostic (LSP) |
 | `<M-q>` | n | Open quickfix list | | `<leader>de` | n | Diagnostic float |
 | `<leader>q` | n | Populate location list with diagnostics | | `<leader>dy` | n | Yank diagnostic message(s) on line |
 
@@ -123,13 +121,13 @@
 | `<leader>sf` | n | LSP Symbols | | `<leader>sr` | n | Resume picker |
 | `<leader>su` | n | Undo History | | `<leader>sH` | n | Highlights |
 | `<leader>sh` | n | Help Pages | | | | |
-| `<leader>sS` | n | LSP Workspace Symbols (Snacks; conflicts) | | | | |
+| `<leader>sS` | n | LSP Workspace Symbols (Snacks) | | | | |
 
 ## Search & Replace (GrugFar)
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<leader>sS` | n,v | Search & Replace | | `<leader>sW` | n | Replace word under cursor |
+| `<leader>sR` | n,v | Search & Replace | | `<leader>sW` | n | Replace word under cursor |
 | `<leader>sF` | n | Replace in current file | | `<leader>sv` | v | Replace visual selection |
 
 ## Snacks UI & Toggles
@@ -144,9 +142,9 @@
 | `<leader>N` | n | Neovim News | | `<leader>uc` | n | Toggle Conceal |
 | `<leader>bd` | n | Delete Buffer (Snacks; conflicts) | | `<leader>uT` | n | Toggle Treesitter |
 | `<leader>ii` | n | Icons picker | | `<leader>ub` | n | Toggle Dark BG |
-| `<leader>uC` | n | Colorschemes | | `<leader>uh` | n | Toggle Inlay Hints |
-| `<leader>ug` | n | Toggle Indent | | `<leader>uD` | n | Toggle Dim |
-| `<leader>un` | n | Dismiss Notifications | | `<leader>tw` | n,v | Toggle visual whitespace |
+| `<leader>uC` | n | Colorschemes | | `<leader>ug` | n | Toggle Indent |
+| `<leader>uD` | n | Toggle Dim | | `<leader>un` | n | Dismiss Notifications |
+| `<leader>tw` | n,v | Toggle visual whitespace | | | | |
 
 ## Snacks Picker Window
 
@@ -193,7 +191,7 @@
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
 | `<leader>xx` | n | Diagnostics (Trouble) | | `<leader>xX` | n | Buffer Diagnostics (Trouble) |
-| `<leader>cs` | n | Symbols (Trouble) | | `<leader>cl` | n | LSP list (Trouble) |
+| `<leader>cs` | n | Symbols (Trouble) | | `<leader>cL` | n | LSP list (Trouble) |
 | `<leader>xL` | n | Location List (Trouble) | | `<leader>xQ` | n | Quickfix List (Trouble) |
 
 ## Neogit
@@ -262,7 +260,7 @@
 | `]c` | n,x,o | Next class start | | `[c` | n,x,o | Prev class start |
 | `]C` | n,x,o | Next class end | | `[C` | n,x,o | Prev class end |
 | `]o` | n,x,o | Next loop start | | `[o` | n,x,o | Prev loop start |
-| `]d` | n,x,o | Next conditional (global) | | `[d` | n,x,o | Prev conditional (global) |
+| `]i` | n,x,o | Next conditional (if) | | `[i` | n,x,o | Prev conditional (if) |
 
 ## Treesitter Text Objects
 
