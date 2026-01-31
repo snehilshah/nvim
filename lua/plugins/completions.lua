@@ -95,6 +95,11 @@ return {
         cmdline = {
           min_keyword_length = 2,
         },
+        snippets = {
+          opts = {
+            search_paths = { vim.fn.stdpath("config") .. "/after/snippets" },
+          },
+        },
         lsp = {
           name = "LSP",
           module = "blink.cmp.sources.lsp",
