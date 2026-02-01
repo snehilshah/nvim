@@ -11,6 +11,8 @@ return {
     "vue",
     "svelte",
     "astro",
+    "javascript",
+    "typescript",
   },
   root_markers = {
     "tailwind.config.js",
