@@ -202,7 +202,11 @@ return {
           },
         },
         keymaps = {
+          view = {
+            { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
+          },
           file_panel = {
+            { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
             {
               "n",
               "<tab>",
@@ -210,6 +214,9 @@ return {
               { desc = "Open the diff for the current file" },
             },
             { "n", "<cr>", actions.goto_file_edit, { desc = "go to edit the file" } },
+          },
+          file_history_panel = {
+            { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
           },
         },
       })
