@@ -21,6 +21,10 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   },
+  checker = {
+    enabled = true, -- Check for updates periodically
+    notify = false, -- Do not notify on update
+  },
   spec = {
     { import = "plugins" },
     { import = "plugins.languages" },
@@ -35,7 +39,12 @@ require("lazy").setup({
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "gruvbox-material" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = {
+    enabled = true, -- Check for updates periodically
+    notify = false, -- Do not notify on update
+    frequency = 36000, -- check for updates every 10 hours
+    check_pinned = true,
+  },
   -- disable these inbuilt plugins as not used
   git = {
     throttle = {
