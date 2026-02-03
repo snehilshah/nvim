@@ -185,7 +185,7 @@
 | `<leader>dc` | n | Close Diffview | | `<leader>D.` | n | Current File History |
 | `<leader>Gm` | n | Compare origin/main | | `<leader>DF` | n | Toggle Files Panel |
 | `<leader>GM` | n | Compare branch | | `<tab>` | n | Toggle stage (panel) |
-| `<cr>` | n | Go to file (panel) | | | | |
+| `<cr>` | n | Go to file (panel) | | `q` | n | Close diffview (all panels) |
 
 ## Trouble
 
