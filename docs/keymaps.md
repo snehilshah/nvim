@@ -331,6 +331,12 @@
 | `sr` | n | Replace surrounding | | `sh` | n | Highlight surrounding |
 | `sn` | n | Update n_lines | | | | |
 
+## Mini.splitjoin
+
+| Key | M | Desc |
+|-----|---|------|
+| `gS` | n | Toggle split/join arguments |
+
 ## Mini.operators
 
 | Key | M | Desc | | Key | M | Desc |
