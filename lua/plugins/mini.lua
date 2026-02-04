@@ -37,5 +37,15 @@ return {
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require("mini.surround").setup()
+
+    -- Split/join arguments, tables, arrays, etc.
+    -- - gS    - Toggle between split and join
+    require("mini.splitjoin").setup({
+      mappings = {
+        toggle = "gS",
+        split = "",
+        join = "",
+      },
+    })
   end,
 }
