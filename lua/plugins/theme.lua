@@ -26,10 +26,18 @@ return {
     },
   },
 
-  -- Lush: colorscheme creation helper
+  -- Local theme development
+  -- {
+  --   "cosmic-gleam.nvim",
+  --   dev = true,
+  --   enabled = false,
+  --   priority = 1000,
+  --   enabled = true,
+  --   config = function()
+  --     vim.cmd.colorscheme("cosmic_gleam")
+  --   end,
+  -- },
   {
     "rktjmp/lush.nvim",
-    -- if you wish to use your own colorscheme:
-    -- { dir = '/absolute/path/to/colorscheme', lazy = true },
   },
 }
