@@ -255,8 +255,8 @@
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `]m` | n,x,o | Next function start | | `[m` | n,x,o | Prev function start |
-| `]M` | n,x,o | Next function end | | `[M` | n,x,o | Prev function end |
+| `]f` | n,x,o | Next function start | | `[f` | n,x,o | Prev function start |
+| `]F` | n,x,o | Next function end | | `[F` | n,x,o | Prev function end |
 | `]c` | n,x,o | Next class start | | `[c` | n,x,o | Prev class start |
 | `]C` | n,x,o | Next class end | | `[C` | n,x,o | Prev class end |
 | `]o` | n,x,o | Next loop start | | `[o` | n,x,o | Prev loop start |
