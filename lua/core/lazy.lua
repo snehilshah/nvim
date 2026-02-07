@@ -21,6 +21,9 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   },
+  dev = {
+    path = "~/myCodes",
+  },
   spec = {
     { import = "plugins" },
     { import = "plugins.languages" },
