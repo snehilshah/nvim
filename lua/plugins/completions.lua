@@ -1,11 +1,10 @@
 return {
   "saghen/blink.cmp",
+  version = "1.*",
   dependencies = {
     "folke/lazydev.nvim",
     "nvim-mini/mini.nvim",
   },
-  version = "1.*",
-
   opts = {
     keymap = {
       preset = "super-tab",
