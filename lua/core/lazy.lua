@@ -21,10 +21,6 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   },
-  checker = {
-    enabled = true, -- Check for updates periodically
-    notify = false, -- Do not notify on update
-  },
   spec = {
     { import = "plugins" },
     { import = "plugins.languages" },
