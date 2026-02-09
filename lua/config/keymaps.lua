@@ -61,6 +61,15 @@ vim.keymap.set(
   { desc = "Show diagnostic [E]rror messages" }
 )
 
+vim.keymap.set("n", "gX", function()
+  local target = vim.fn.expand("<cfile>")
+  if target == nil or target == "" then
+    vim.notify("No link under cursor", vim.log.levels.WARN)
+    return
+  end
+  vim.ui.open(target)
+end, { desc = "Open link under cursor" })
+
 -- Yank diagnostic message under cursor
 vim.keymap.set("n", "<leader>dy", function()
   local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
