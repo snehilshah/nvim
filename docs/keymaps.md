@@ -16,6 +16,7 @@
 | `<leader>x` | v | Execute selection as Lua | | `<Esc><Esc>` | t | Exit terminal mode |
 | `<leader>?` | n | Buffer Local Keymaps (which-key) | | `<C-w>f` | n | Focus floating window |
 | `q` | n | Close certain special buffers (help/qf/etc) | | `<leader>cp` | n | Copy file path + line number |
+| `gX` | n | Open link under cursor | | | | |
 
 ## ToggleTerm
 
