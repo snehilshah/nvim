@@ -136,7 +136,7 @@ return {
     _G.toggle_python = function()
       python:toggle()
     end
-    -- Git diff for current file with delta
+    -- Git diff for current file with delta (syntax-highlighted terminal diff)
     _G.toggle_git_diff_file = function()
       local file = vim.fn.expand("%:p")
       if file == "" then
@@ -144,7 +144,7 @@ return {
         return
       end
       local git_diff = Terminal:new({
-        cmd = "git diff -- " .. vim.fn.shellescape(file),
+        cmd = "git diff -- " .. vim.fn.shellescape(file) .. " ; echo '\n[Press q to close]' ; read -n 1",
         dir = "git_dir",
         direction = "float",
         close_on_exit = true,
@@ -210,10 +210,14 @@ return {
     map("n", "<leader>ts", "<cmd>TermSelect<CR>", { desc = "[T]erminal [S]elect" })
 
     -- Custom terminals
+    -- Open lazygit TUI in a floating terminal (full interactive git UI: stage, commit, push, log, etc.)
+    -- Alternative to Neogit (<leader>gn) — lazygit is a terminal-based git UI
     map("n", "<leader>gg", _G.toggle_lazygit, { desc = "Lazygit" })
     map("n", "<leader>tp", _G.toggle_htop, { desc = "[T]erminal Hto[P]" })
     map("n", "<leader>tb", _G.toggle_bun, { desc = "[T]erminal [B]un" })
     map("n", "<leader>ty", _G.toggle_python, { desc = "[T]erminal P[Y]thon" })
+    -- Show `git diff` for current file in floating terminal with delta syntax highlighting
+    -- For vim-native diffs: <leader>gD (Gitsigns diff HEAD) or <leader>dv (Diffview)
     map("n", "<leader>GD", _G.toggle_git_diff_file, { desc = "[G]it Diff (file) with Delta" })
 
     -- Terminal mode mappings

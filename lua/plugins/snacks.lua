@@ -101,6 +101,8 @@ return {
       desc = "Recent",
     },
     -- git
+    -- Show git commits that specifically modified the current line (per-line history/blame)
+    -- Different from Neogit log which shows full repo history
     {
       "<leader>gl",
       function()
@@ -112,6 +114,7 @@ return {
       end,
       desc = "Git log for current line",
     },
+    -- Open the current file (or visual selection) on GitHub/GitLab in your browser
     {
       "<leader>go",
       function()
@@ -124,6 +127,8 @@ return {
       desc = "Git Browse",
       mode = { "n", "v" },
     },
+    -- Browse all unstaged changed hunks across the repo in a searchable picker
+    -- Quick overview of what changed — for full side-by-side diff use <leader>dv (Diffview)
     {
       "<leader>gd",
       function()

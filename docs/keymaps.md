@@ -6,7 +6,7 @@
 
 - `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). Snacks usually wins.
 - `<leader>nc` is used by both Snacks (Nvim Config) and package-info (hide versions). Snacks usually wins.
-- `<leader>gg` is mapped by both Snacks (Lazygit via toggleterm) and potentially other git plugins.
+- Git keymaps are spread across 5 plugins: Gitsigns (buffer hunk ops), Snacks (pickers/browser), Neogit (main UI), Diffview (side-by-side diffs), Toggleterm (lazygit/delta). See the Git sections below for details.
 ## General & Terminal
 
 | Key | M | Desc | | Key | M | Desc |
@@ -28,7 +28,7 @@
 | `<leader>t1` | n | Terminal 1 | | `<leader>t2` | n | Terminal 2 |
 | `<leader>t3` | n | Terminal 3 | | `<leader>t4` | n | Terminal 4 |
 | `<leader>tp` | n | Terminal btop | | `<leader>tb` | n | Terminal Bun REPL |
-| `<leader>ty` | n | Terminal Python | | `<leader>GD` | n | Git Diff (file) with Delta |
+| `<leader>ty` | n | Terminal Python | | | | |
 | `<C-h/j/k/l>` | t | Navigate windows from terminal | | `<C-w>` | t | Window command prefix |
 
 ## Editing & Navigation
@@ -158,35 +158,48 @@
 | `<Tab>` | n,i | Focus preview | | `<c-t>` | n,i | Open in Trouble (picker) |
 | `<a-a>` | n,i | Sidekick send (explorer) | | | | |
 
-## Git (Gitsigns)
+## Git (Gitsigns) — inline hunk operations on the current buffer
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `[g` | n | Previous hunk | | `<leader>gr` | n | Reset hunk |
-| `]g` | n | Next hunk | | `<leader>gR` | n | Reset buffer |
-| `<leader>gb` | n | Blame line | | `<leader>ga` | n | Stage hunk |
-| `<leader>gB` | n | Blame buffer | | `<leader>gu` | n | Undo stage hunk |
-| `<leader>GB` | n | Toggle current-line blame | | `<leader>gA` | n | Stage buffer |
-| `<leader>gP` | n | Preview hunk (popup) | | `<leader>gD` | n | Diff HEAD |
-| `<leader>gp` | n | Preview hunk (inline) | | | | |
+| `[g` | n | Previous hunk (changed block) | | `<leader>gr` | n | Reset (discard) hunk |
+| `]g` | n | Next hunk (changed block) | | `<leader>gR` | n | Reset (discard) entire buffer |
+| `<leader>gb` | n | Blame line (popup) | | `<leader>ga` | n | Stage hunk (git add) |
+| `<leader>gB` | n | Blame buffer (all lines) | | `<leader>gu` | n | Undo last staged hunk |
+| `<leader>GB` | n | Toggle inline blame (every line) | | `<leader>gA` | n | Stage entire buffer |
+| `<leader>gP` | n | Preview hunk (floating popup) | | `<leader>gD` | n | Diff buffer vs HEAD (vim split) |
+| `<leader>gp` | n | Preview hunk (inline overlay) | | | | |
 
-## Git (Snacks)
-
-| Key | M | Desc | | Key | M | Desc |
-|-----|---|------|-|-----|---|------|
-| `<leader>gl` | n | Git Log (current line) | | `<leader>gS` | n | Git Stash |
-| `<leader>gd` | n | Git Diff Hunks | | `<leader>go` | n,v | Git Browse |
-| `<leader>gg` | n | Lazygit | | | | |
-
-## Diffview
+## Git (Snacks) — pickers and browser integration
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<leader>dv` | n | Open Diffview | | `<leader>Df` | n | File History (all) |
-| `<leader>dc` | n | Close Diffview | | `<leader>D.` | n | Current File History |
-| `<leader>Gm` | n | Compare origin/main | | `<leader>DF` | n | Toggle Files Panel |
-| `<leader>GM` | n | Compare branch | | `<tab>` | n | Toggle stage (panel) |
-| `<cr>` | n | Go to file (panel) | | `q` | n | Close diffview (all panels) |
+| `<leader>gl` | n | Log for current line (commits that touched this line) | | `<leader>gS` | n | Browse stash entries (picker) |
+| `<leader>gd` | n | Changed hunks across repo (searchable picker) | | `<leader>go` | n,v | Open file/selection on GitHub in browser |
+
+## Git (Neogit) — main git command center
+
+| Key | M | Desc |
+|-----|---|------|
+| `<leader>gn` | n | Open Neogit status (stage, commit, push, pull, rebase, stash — press ? for help) |
+| `<leader>gc` | n | Neogit commit (skip status, go straight to commit message) |
+
+## Git (Lazygit / Toggleterm)
+
+| Key | M | Desc |
+|-----|---|------|
+| `<leader>gg` | n | Lazygit TUI in floating terminal (alternative interactive git UI) |
+| `<leader>GD` | n | `git diff` for current file in terminal (with delta syntax highlighting) |
+
+## Diffview — side-by-side diff UI and file history
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `<leader>dv` | n | Open Diffview (all uncommitted changes) | | `<leader>Df` | n | File history (all files, browse commits) |
+| `<leader>dc` | n | Close Diffview | | `<leader>D.` | n | Current file history |
+| `<leader>Gm` | n | Compare HEAD vs origin/main | | `<leader>DF` | n | Toggle files panel |
+| `<leader>GM` | n | Compare HEAD vs any branch (prompts) | | `<tab>` | n | Toggle stage (in file panel) |
+| `<cr>` | n | Go to file (in file panel) | | `q` | n | Close diffview (all panels) |
 
 ## Trouble
 
@@ -195,13 +208,6 @@
 | `<leader>xx` | n | Diagnostics (Trouble) | | `<leader>xX` | n | Buffer Diagnostics (Trouble) |
 | `<leader>cs` | n | Symbols (Trouble) | | `<leader>cL` | n | LSP list (Trouble) |
 | `<leader>xL` | n | Location List (Trouble) | | `<leader>xQ` | n | Quickfix List (Trouble) |
-
-## Neogit
-
-| Key | M | Desc |
-|-----|---|------|
-| `<leader>gn` | n | Open Neogit |
-| `<leader>gc` | n | Neogit commit |
 
 ## Spelunk (Stack-based Bookmarks)
 
