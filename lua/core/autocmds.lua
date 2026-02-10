@@ -35,8 +35,8 @@ api.nvim_create_autocmd("BufReadPost", {
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.txt", "*.md", "*.tex" },
   callback = function()
-    vim.opt.spell = true
-    vim.opt.spelllang = "en"
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = "en"
   end,
 })
 
