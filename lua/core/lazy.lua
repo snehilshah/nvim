@@ -41,7 +41,7 @@ require("lazy").setup({
   checker = {
     enabled = true, -- Check for updates periodically
     notify = false, -- Do not notify on update
-    frequency = 36000, -- check for updates every 10 hours
+    frequency = 360, -- check for updates every 10 hours
     check_pinned = true,
   },
   -- disable these inbuilt plugins as not used
