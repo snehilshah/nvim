@@ -30,7 +30,7 @@ return {
       lsp_format = "fallback",
     },
     formatters = {
-      biome = {
+      ["biome-check"] = {
         condition = function(_, ctx)
           return vim.fs.find(
             { "biome.json", "biome.jsonc" },
@@ -49,18 +49,19 @@ return {
       c = { "clang_format" },
       cpp = { "clang_format" },
 
-      -- JavaScript/TypeScript (use Biome if biome.json exists, else prettier)
-      javascript = { "biome", "prettier", stop_after_first = true },
-      javascriptreact = { "biome", "prettier", stop_after_first = true },
-      typescript = { "biome", "prettier", stop_after_first = true },
-      typescriptreact = { "biome", "prettier", stop_after_first = true },
+      -- JavaScript/TypeScript (use biome-check if biome.json exists, else prettier)
+      -- biome-check runs `biome check --write` which handles formatting + import sorting + safe lint fixes
+      javascript = { "biome-check", "prettier", stop_after_first = true },
+      javascriptreact = { "biome-check", "prettier", stop_after_first = true },
+      typescript = { "biome-check", "prettier", stop_after_first = true },
+      typescriptreact = { "biome-check", "prettier", stop_after_first = true },
 
-      -- Web and config files (use Biome)
-      json = { "biome", "prettier", stop_after_first = true },
-      jsonc = { "biome", "prettier", stop_after_first = true },
-      css = { "biome", "prettier", stop_after_first = true },
-      scss = { "biome", "prettier", stop_after_first = true },
-      html = { "biome", "prettier", stop_after_first = true },
+      -- Web and config files (use biome-check)
+      json = { "biome-check", "prettier", stop_after_first = true },
+      jsonc = { "biome-check", "prettier", stop_after_first = true },
+      css = { "biome-check", "prettier", stop_after_first = true },
+      scss = { "biome-check", "prettier", stop_after_first = true },
+      html = { "biome-check", "prettier", stop_after_first = true },
       yaml = { "yamlfmt", stop_after_first = true },
       yml = { "yamlfmt", stop_after_first = true },
       toml = { "tombi", stop_after_first = true },
