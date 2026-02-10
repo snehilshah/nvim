@@ -443,7 +443,6 @@ return {
         Snacks.words.jump(vim.v.count1)
       end,
       desc = "Next Reference",
-      mode = { "n", "t" },
     },
     {
       "<leader>fN",
@@ -451,7 +450,6 @@ return {
         Snacks.words.jump(-vim.v.count1)
       end,
       desc = "Prev Reference",
-      mode = { "n", "t" },
     },
     {
       "<leader>N",
