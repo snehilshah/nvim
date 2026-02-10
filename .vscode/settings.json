@@ -3,5 +3,8 @@
         "vim",
         "Snacks",
         "MiniIcons"
-    ]
+    ],
+    "chat.tools.terminal.autoApprove": {
+        "nvim": true
+    }
 }
