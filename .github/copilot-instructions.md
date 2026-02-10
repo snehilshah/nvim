@@ -1,6 +1,6 @@
 # Copilot Custom Instructions
 
-Neovim 0.11+ config. When changing keymaps, update `docs/keymaps.md`, if any external installation is required update `docs/install.md`.  whenver adding/modifying keymaps, make sure there are no conflicts.
+Neovim 0.11+ config. When changing keymaps, update `docs/keymaps.md`, if any external installation is required update `docs/install.md`. Whenever adding/modifying keymaps, make sure there are no conflicts.
 
 ## Quirks & Non-Obvious Patterns
 
