@@ -65,6 +65,7 @@ return {
       -- yadm = { enable = false },
     },
     keys = {
+      -- Navigate to the previous git hunk (changed block) in the buffer
       {
         "[g",
         function()
@@ -72,6 +73,7 @@ return {
         end,
         desc = "<- hunk",
       },
+      -- Navigate to the next git hunk (changed block) in the buffer
       {
         "]g",
         function()
@@ -79,6 +81,7 @@ return {
         end,
         desc = "-> Hunk",
       },
+      -- Show who last modified the current line (popup with commit info)
       {
         "<leader>gb",
         function()
@@ -86,6 +89,7 @@ return {
         end,
         desc = "[g]it [b]lame line",
       },
+      -- Show git blame annotations for every line in the buffer (full buffer blame view)
       {
         "<leader>gB",
         function()
@@ -93,6 +97,7 @@ return {
         end,
         desc = "[g]it [B]lame buffer",
       },
+      -- Toggle persistent inline blame on every line (virtual text at end of each line)
       {
         "<leader>GB",
         function()
@@ -100,6 +105,7 @@ return {
         end,
         desc = "[B]lame mode",
       },
+      -- Show hunk diff in a floating popup window
       {
         "<leader>gP",
         function()
@@ -107,6 +113,7 @@ return {
         end,
         desc = "[g]it [P]review Hunk",
       },
+      -- Show hunk diff inline directly in the buffer (overlaid on the code)
       {
         "<leader>gp",
         function()
@@ -114,6 +121,7 @@ return {
         end,
         desc = "[g]it [p]review Hunk (Inline)",
       },
+      -- Discard changes in the current hunk (revert to index/staged version)
       {
         "<leader>gr",
         function()
@@ -121,6 +129,7 @@ return {
         end,
         desc = "[g]it [r]eset Hunk",
       },
+      -- Discard ALL changes in the buffer (revert entire file to index/staged version)
       {
         "<leader>gR",
         function()
@@ -128,6 +137,7 @@ return {
         end,
         desc = "[g]it [R]eset Buffer",
       },
+      -- Stage the current hunk (git add just this hunk)
       {
         "<leader>ga",
         function()
@@ -135,6 +145,7 @@ return {
         end,
         desc = "[g]it [a]dd Hunk",
       },
+      -- Undo the last stage_hunk() call (unstage a just-staged hunk)
       {
         "<leader>gu",
         function()
@@ -142,6 +153,8 @@ return {
         end,
         desc = "[g]it [u]ndo Stage Hunk",
       },
+      -- Browse git stash entries in a Snacks picker (view/apply/drop stashes)
+      -- NOTE: This uses Snacks.picker, not Gitsigns. Neogit also has stash management (z menu).
       {
         "<leader>gS",
         function()
@@ -149,6 +162,7 @@ return {
         end,
         desc = "[S]tash (Snacks)",
       },
+      -- Open a vim split diff comparing the current buffer against HEAD (last commit)
       {
         "<leader>gD",
         function()
@@ -156,12 +170,13 @@ return {
         end,
         desc = "[d]iff HEAD",
       },
+      -- Stage all changes in the buffer (git add the entire file)
       {
         "<leader>gA",
         function()
           require("gitsigns").stage_buffer()
         end,
-        desc = "[S]tage Buffer",
+        desc = "[g]it Stage [A]ll (Buffer)",
       },
     },
   },
@@ -222,36 +237,43 @@ return {
       })
     end,
     keys = {
+      -- Open diff view showing all uncommitted changes (side-by-side diff UI with staging)
       {
         "<leader>dv",
         ":DiffviewOpen<CR>",
         desc = "[v]iew",
       },
+      -- Close the diffview panel
       {
         "<leader>dc",
         ":DiffviewClose<CR>",
         desc = "[c]lose",
       },
+      -- Show full git commit history for the entire repo (browse commits with diffs)
       {
         "<leader>Df",
         ":DiffviewFileHistory<CR>",
         desc = "[f]ile History (all files)",
       },
+      -- Show git commit history for the current file only (see how this file evolved)
       {
         "<leader>D.",
         ":DiffviewFileHistory %<CR>",
         desc = "[.] Current File History (current file)",
       },
+      -- Toggle the file panel sidebar in diffview
       {
         "<leader>DF",
         ":DiffviewToggleFiles<CR>",
         desc = "[F]iles Panel Toggle Diffview",
       },
+      -- Compare current branch (HEAD) against origin/main in a side-by-side diff
       {
         "<leader>Gm",
         ":DiffviewOpen origin/main...HEAD<CR>",
         desc = "Compare with origin/main",
       },
+      -- Compare current branch (HEAD) against any branch you type (prompts for branch name)
       {
         "<leader>GM",
         function()
@@ -273,11 +295,14 @@ return {
     },
     cmd = "Neogit",
     keys = {
+      -- Open Neogit status panel: full interactive git UI (stage, commit, push, pull, rebase, stash, etc.)
+      -- This is the main git command center — press ? inside for all available actions
       {
         "<leader>gn",
         "<cmd>Neogit<cr>",
         desc = "Neogit",
       },
+      -- Open Neogit commit popup directly (skip status panel, go straight to writing commit message)
       {
         "<leader>gc",
         "<cmd>Neogit commit<cr>",
