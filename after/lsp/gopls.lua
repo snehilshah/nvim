@@ -44,7 +44,7 @@ return {
         gocritic = false,
         deprecated = false,
       },
-      usePlaceholders = true,
+      usePlaceholders = false,
       completeUnimported = true,
       staticcheck = false, -- Disable staticcheck to save CPU/memory (use <leader>ll for linting)
       matcher = "Fuzzy",
