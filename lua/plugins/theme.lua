@@ -2,6 +2,8 @@ return {
   {
     "sainnhe/gruvbox-material",
     enabled = true,
+    lazy = false,
+    priority = 1000,
     init = function()
       vim.cmd.colorscheme("gruvbox-material")
       vim.g.colors_name = "gruvbox-material"
