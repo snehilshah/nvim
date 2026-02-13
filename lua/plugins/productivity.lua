@@ -38,7 +38,7 @@ return {
     keys = {
       { "Cw", desc = "Open Clipboard Manager" },
     },
-    event = { "TextYankPost" },
+    event = "VeryLazy",
   },
   -- Highlight and search TODO/FIXME/etc comments
   {
