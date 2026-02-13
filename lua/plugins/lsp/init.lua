@@ -41,21 +41,21 @@ return {
       -- merged with your after/lsp/*.lua overrides
       vim.lsp.enable({
         "lua_ls", -- Lua
-        "gopls",  -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
-        "ts_ls",  -- TypeScript/JavaScript (switch to "tsgo" if preferred)
-        "biome",  -- Biome (linting/formatting for JS/TS/JSON - only activates with biome.json)
+        "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
+        "ts_ls", -- TypeScript/JavaScript (switch to "tsgo" if preferred)
+        "biome", -- Biome (linting/formatting for JS/TS/JSON - only activates with biome.json)
         "bashls", -- Bash/Shell
-        "cssls",  -- CSS/SCSS/Less
-        "html",   -- HTML
+        "cssls", -- CSS/SCSS/Less
+        "html", -- HTML
         "jsonls", -- JSON
         "yamlls", -- YAML
         -- TODO: Re-enable markdown_oxide when needed
         -- "markdown_oxide", -- Markdown
-        "dockerls",              -- Docker
-        "clangd",                -- C/C++
-        "tailwindcss",           -- Tailwind CSS
+        "dockerls", -- Docker
+        "clangd", -- C/C++
+        "tailwindcss", -- Tailwind CSS
         "emmet_language_server", -- Emmet
-        "harper_ls",             -- Grammar/spell checking for markdown, gitcommit, etc.
+        "harper_ls", -- Grammar/spell checking for markdown, gitcommit, etc.
       })
 
       -- ============================================================================

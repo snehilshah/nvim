@@ -144,7 +144,9 @@ return {
         return
       end
       local git_diff = Terminal:new({
-        cmd = "git diff -- " .. vim.fn.shellescape(file) .. " ; echo '\n[Press q to close]' ; read -n 1",
+        cmd = "git diff -- "
+          .. vim.fn.shellescape(file)
+          .. " ; echo '\n[Press q to close]' ; read -n 1",
         dir = "git_dir",
         direction = "float",
         close_on_exit = true,
