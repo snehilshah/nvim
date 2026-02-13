@@ -1,7 +1,6 @@
 return {
   {
     "lewis6991/gitsigns.nvim",
-    lazy = true,
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       signs = {
@@ -314,7 +313,7 @@ return {
         diffview = true,
         snacks = true,
       },
-      graph_style = vim.g.neovide and "unicode" or "kitty",
+      graph_style = "kitty",
       process_spinner = true,
     },
   },
