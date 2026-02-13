@@ -14,7 +14,7 @@ return {
         run_govulncheck = false, -- Disable: very CPU intensive, run manually
       },
       hints = {
-        assignVariableTypes = true, -- Disable inlay hints to save CPU
+        assignVariableTypes = true,
         compositeLiteralFields = true,
         compositeLiteralTypes = true,
         constantValues = true,
@@ -23,7 +23,7 @@ return {
         rangeVariableTypes = true,
       },
       analyses = {
-        nilness = true, -- Disable: flow analysis, CPU intensive
+        nilness = true,
         unusedparams = true,
         unusedwrite = true,
         ST1003 = false, -- Disable naming convention checks (Ts -> TS, url -> URL)

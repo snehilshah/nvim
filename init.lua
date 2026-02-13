@@ -15,5 +15,5 @@ require("config.keymaps")
 -- require('utils.cmdline')
 
 if vim.fn.has("wsl") == 1 then
-    require("config.win")
+  require("config.win")
 end

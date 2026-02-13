@@ -63,9 +63,13 @@ return {
         local bufnr = vim.api.nvim_get_current_buf()
         local clients = vim.lsp.get_clients({ bufnr = bufnr })
 
-        print("═══════════════════════════════════")
+        print(
+          "═══════════════════════════════════"
+        )
         print("           LSP INFORMATION          ")
-        print("═══════════════════════════════════")
+        print(
+          "═══════════════════════════════════"
+        )
         print("")
 
         print("󰈙 Language client log: " .. vim.lsp.get_log_path())
@@ -86,7 +90,9 @@ return {
         end
 
         print("󰒋 LSP clients attached to buffer " .. bufnr .. ":")
-        print("─────────────────────────────────")
+        print(
+          "─────────────────────────────────"
+        )
 
         for i, client in ipairs(clients) do
           print(string.format("󰌘 Client %d: %s", i, client.name))
