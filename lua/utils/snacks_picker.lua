@@ -112,7 +112,7 @@ vim.keymap.set("n", "<leader>lc", function()
                       function(_, calls)
                         if calls then
                           for _, call in ipairs(calls) do
-                            local item = {
+                            local entry = {
                               text = call.from.name .. "    " .. call.from.detail,
                               kind = lsp.symbol_kind(call.from.kind),
                               line = "    " .. call.from.detail,
@@ -121,11 +121,11 @@ vim.keymap.set("n", "<leader>lc", function()
                               uri = call.from.uri,
                               range = call.from.range,
                             }
-                            lsp.add_loc(item, loc, client)
-                            item.buf = bufmap[item.file]
-                            item.text = item.file .. "    " .. call.from.detail
+                            lsp.add_loc(entry, loc, client)
+                            entry.buf = bufmap[entry.file]
+                            entry.text = entry.file .. "    " .. call.from.detail
                             ---@diagnostic disable-next-line: await-in-sync
-                            cb(item)
+                            cb(entry)
                           end
                         end
                         call_remaining = call_remaining - 1
@@ -225,7 +225,7 @@ vim.keymap.set("n", "<leader>lo", function()
                       function(_, calls)
                         if calls then
                           for _, call in ipairs(calls) do
-                            local item = {
+                            local entry = {
                               text = call.to.name .. "    " .. call.to.detail,
                               kind = lsp.symbol_kind(call.to.kind),
                               line = "    " .. call.to.detail,
@@ -234,11 +234,11 @@ vim.keymap.set("n", "<leader>lo", function()
                               uri = call.to.uri,
                               range = call.to.range,
                             }
-                            lsp.add_loc(item, loc, client)
-                            item.buf = bufmap[item.file]
-                            item.text = item.file .. "    " .. call.to.detail
+                            lsp.add_loc(entry, loc, client)
+                            entry.buf = bufmap[entry.file]
+                            entry.text = entry.file .. "    " .. call.to.detail
                             ---@diagnostic disable-next-line: await-in-sync
-                            cb(item)
+                            cb(entry)
                           end
                         end
                         call_remaining = call_remaining - 1
