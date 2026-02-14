@@ -37,6 +37,16 @@ return {
             { path = ctx.filename, upward = true }
           )[1]
         end,
+        -- Use "check --write" instead of "format" to include import organizing
+        args = {
+          "check",
+          "--write",
+          "--formatter-enabled=true",
+          "--organize-imports-enabled=true",
+          "--linter-enabled=false",
+          "--stdin-file-path",
+          "$FILENAME",
+        },
       },
     },
     formatters_by_ft = {
