@@ -209,27 +209,26 @@
 | `<leader>cs` | n | Symbols (Trouble) | | `<leader>cL` | n | LSP list (Trouble) |
 | `<leader>xL` | n | Location List (Trouble) | | `<leader>xQ` | n | Quickfix List (Trouble) |
 
-## Spelunk (Stack-based Bookmarks)
+## Haunt (Ghost Text Bookmarks)
+
+Annotate lines with virtual text notes (without modifying files). Per git-branch scoping.
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<leader>mt` | n | Toggle bookmark UI | | `<leader>ma` | n | Add bookmark |
-| `<leader>md` | n | Delete bookmark on line | | `<leader>mn` | n | Next bookmark |
-| `<leader>mp` | n | Previous bookmark | | `<leader>mf` | n | Find all bookmarks |
-| `<leader>mc` | n | Find in current stack | | `<leader>ms` | n | Find stacks |
-| `<leader>ml` | n | Change bookmark line | | `<leader>m1-5` | n | Jump to bookmark 1-5 |
+| `<leader>ma` | n | Annotate line (add/edit note) | | `<leader>md` | n | Delete bookmark |
+| `<leader>mt` | n | Toggle annotation visibility | | `<leader>mC` | n | Clear all bookmarks |
+| `<leader>mT` | n | Toggle all annotations | | `<leader>mn` | n | Next bookmark |
+| `<leader>mp` | n | Previous bookmark | | `<leader>mf` | n | Find bookmarks (picker) |
+| `<leader>mq` | n | Bookmarks → quickfix (buffer) | | `<leader>mQ` | n | Bookmarks → quickfix (all) |
+| `<leader>my` | n | Yank locations (buffer) | | `<leader>mY` | n | Yank locations (all) |
 
-### Spelunk Window (inside bookmark UI)
+### Haunt Picker (inside bookmark picker)
 
-| Key | Desc | | Key | Desc |
-|-----|------|-|-----|------|
-| `j/k` | Navigate up/down | | `<C-j>/<C-k>` | Move bookmark down/up |
-| `<CR>` | Jump to bookmark | | `s` | Open in horizontal split |
-| `v` | Open in vertical split | | `l` | Change bookmark line |
-| `d` | Delete bookmark | | `<Tab>/<S-Tab>` | Next/prev stack |
-| `n` | New stack | | `D` | Delete stack |
-| `E` | Edit/rename stack | | `q` | Close UI |
-| `?` | Show help | | | |
+| Key | M | Desc |
+|-----|---|------|
+| `<CR>` | n | Jump to bookmark |
+| `d` | n | Delete bookmark |
+| `a` | n | Edit annotation |
 
 ## Buffers / Tabline (Barbar)
 
