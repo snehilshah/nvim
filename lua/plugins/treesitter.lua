@@ -159,6 +159,8 @@ return {
         "javascript",
         "typescript",
         "tsx",
+        "angular",
+        "html",
       },
       auto_install = true,
 
