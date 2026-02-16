@@ -66,7 +66,7 @@ return {
         },
       },
       trigger = {
-        prefetch_on_insert = true,
+        prefetch_on_insert = false,
         -- expermintal check how it works
         show_in_snippet = false,
         show_on_backspace_in_keyword = false,
