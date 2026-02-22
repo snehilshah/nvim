@@ -14,3 +14,8 @@ vim.g.neovide_window_decorations = false
 
 -- Start in fullscreen mode
 vim.g.neovide_fullscreen = true
+
+-- Allow clipboard paste with Ctrl+Shift+V (Neovide doesn't have a terminal to handle this)
+vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<C-S-v>", function()
+  vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+end, { desc = "Paste from system clipboard" })
