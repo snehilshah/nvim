@@ -40,6 +40,27 @@ M.setup_layouts = function()
   layouts.ivy_wider_preview = vim.deepcopy(layouts.ivy)
   layouts.ivy_wider_preview.layout[2][2].width = 0.8
 
+  -- dashboard_ivy_split: looks exactly like ivy_split but uses floating windows
+  -- to avoid overriding the dashboard buffer or disappearing unexpectedly
+  layouts.dashboard_ivy_split = {
+    layout = {
+      box = "vertical",
+      backdrop = false,
+      row = 0,
+      width = 0,
+      height = 0,
+      border = "none",
+      { win = "preview", title = "{preview}", height = 0.6, border = "bottom" },
+      {
+        box = "vertical",
+        title = " {title} {live} {flags}",
+        title_pos = "left",
+        { win = "input", height = 1,     border = "bottom" },
+        { win = "list",  border = "none" },
+      },
+    },
+  }
+
   layouts_setup = true
 end
 
