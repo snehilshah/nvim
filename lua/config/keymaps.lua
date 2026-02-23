@@ -136,3 +136,8 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>cp", function()
   require("core.utils").copyFilePathAndLineNumber()
 end, { desc = "Copy file path with line number" })
+
+-- Disable the frustrating command-line window that pops up when pressing q: instead of :q
+vim.keymap.set({ "n", "v" }, "q:", function()
+  vim.notify("Command-line window (q:) is disabled. Use :q to quit.", vim.log.levels.INFO)
+end, { desc = "Disable command-line window (q:)" })
