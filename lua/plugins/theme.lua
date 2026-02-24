@@ -27,6 +27,29 @@ return {
       },
     },
   },
+  {
+    "comfysage/gruvboxed",
+    priority = 1000,
+    enabled = false,
+    opts = {
+      transparent_background = false,
+      contrast_dark = "medium",
+      override_terminal = true,
+      style = {
+        tabline = { reverse = true, color = "green" },
+        search = { reverse = false, inc_reverse = true },
+        types = { italic = true },
+        keyword = { italic = true },
+        comment = { italic = false },
+      },
+      overrides = {},
+    },
+
+    init = function()
+      vim.cmd.colorscheme("gruvboxed")
+      vim.g.colors_name = "gruvboxed"
+    end,
+  },
 
   -- Local theme development
   -- {
