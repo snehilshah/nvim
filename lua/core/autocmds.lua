@@ -1,6 +1,6 @@
 local api = vim.api
 
--- Prevent LSP from attaching to non-file buffers (diffview, fugitive, etc.)
+-- Prevent LSP from attaching to non-file buffers (codediff, fugitive, etc.)
 api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local bufname = api.nvim_buf_get_name(args.buf)

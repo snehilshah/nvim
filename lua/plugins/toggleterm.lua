@@ -219,7 +219,7 @@ return {
     map("n", "<leader>tb", _G.toggle_bun, { desc = "[T]erminal [B]un" })
     map("n", "<leader>ty", _G.toggle_python, { desc = "[T]erminal P[Y]thon" })
     -- Show `git diff` for current file in floating terminal with delta syntax highlighting
-    -- For vim-native diffs: <leader>gD (Gitsigns diff HEAD) or <leader>dv (Diffview)
+    -- For vim-native diffs: <leader>gD (Gitsigns diff HEAD) or <leader>dd (CodeDiff)
     map("n", "<leader>GD", _G.toggle_git_diff_file, { desc = "[G]it Diff (file) with Delta" })
 
     -- Terminal mode mappings
