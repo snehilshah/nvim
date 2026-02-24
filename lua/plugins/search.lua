@@ -40,7 +40,7 @@ return {
         require("grug-far").open()
       end,
       mode = { "n", "v" },
-      desc = "Search & Replace",
+      desc = "Open Grug Far",
     },
     {
       "<leader>sW",
