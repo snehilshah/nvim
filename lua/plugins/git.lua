@@ -180,108 +180,55 @@ return {
     },
   },
   {
-    "sindrets/diffview.nvim",
-    event = "VeryLazy",
-    cmd = {
-      "DiffviewOpen",
-      "DiffviewClose",
-      "DiffviewToggleFiles",
-      "DiffviewFocusFiles",
-      "DiffviewFileHistory",
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
+    opts = {
+      explorer = {
+        flatten_dirs = false,
+      },
     },
-    config = function()
-      local actions = require("diffview.actions")
-      require("diffview").setup({
-        enhanced_diff_hl = true,
-        file_panel = {
-          listing_style = "tree",
-          tree_options = {
-            flatten_dirs = false,
-          },
-        },
-        file_history_panel = {
-          log_options = {
-            git = {
-              single_file = {
-                diff_merges = "combined",
-              },
-              multi_file = {
-                diff_merges = "first-parent",
-              },
-            },
-          },
-          win_config = {
-            position = "bottom",
-            height = 16,
-          },
-        },
-        keymaps = {
-          view = {
-            { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
-          },
-          file_panel = {
-            { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
-            {
-              "n",
-              "<tab>",
-              actions.toggle_stage_entry,
-              { desc = "Open the diff for the current file" },
-            },
-            { "n", "<cr>", actions.goto_file_edit, { desc = "go to edit the file" } },
-          },
-          file_history_panel = {
-            { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
-          },
-        },
-      })
-    end,
     keys = {
-      -- Open diff view showing all uncommitted changes (side-by-side diff UI with staging)
+      -- Toggle CodeDiff explorer (uncommitted changes, side-by-side diff with staging)
+      -- Run again to close, or press `q` inside the view. `g?` for help.
       {
-        "<leader>dv",
-        ":DiffviewOpen<CR>",
-        desc = "[v]iew",
+        "<leader>dd",
+        "<cmd>CodeDiff<cr>",
+        desc = "[d]iff (toggle)",
       },
-      -- Close the diffview panel
+      -- File history for the entire repo (browse commits with diffs)
       {
-        "<leader>dc",
-        ":DiffviewClose<CR>",
-        desc = "[c]lose",
+        "<leader>dh",
+        "<cmd>CodeDiff history<cr>",
+        desc = "[h]istory (all files)",
       },
-      -- Show full git commit history for the entire repo (browse commits with diffs)
+      -- File history for the current file only
       {
-        "<leader>Df",
-        ":DiffviewFileHistory<CR>",
-        desc = "[f]ile History (all files)",
+        "<leader>d.",
+        "<cmd>CodeDiff history %<cr>",
+        desc = "[.] Current file history",
       },
-      -- Show git commit history for the current file only (see how this file evolved)
+      -- Diff current file against last commit
       {
-        "<leader>D.",
-        ":DiffviewFileHistory %<CR>",
-        desc = "[.] Current File History (current file)",
+        "<leader>df",
+        "<cmd>CodeDiff file HEAD<cr>",
+        desc = "[f]ile diff vs HEAD",
       },
-      -- Toggle the file panel sidebar in diffview
+      -- PR-like merge-base diff: only changes introduced since branching from origin/main
       {
-        "<leader>DF",
-        ":DiffviewToggleFiles<CR>",
-        desc = "[F]iles Panel Toggle Diffview",
+        "<leader>dm",
+        "<cmd>CodeDiff origin/main...HEAD<cr>",
+        desc = "[m]erge-base diff vs origin/main",
       },
-      -- Compare current branch (HEAD) against origin/main in a side-by-side diff
+      -- Compare HEAD against any branch you type (prompts for branch name)
       {
-        "<leader>Gm",
-        ":DiffviewOpen origin/main...HEAD<CR>",
-        desc = "Compare with origin/main",
-      },
-      -- Compare current branch (HEAD) against any branch you type (prompts for branch name)
-      {
-        "<leader>GM",
+        "<leader>dM",
         function()
           local branch = vim.fn.input("Compare with branch: ", "origin/")
           if branch ~= "" and branch ~= "origin/" then
-            vim.cmd("DiffviewOpen " .. branch .. "...HEAD")
+            vim.cmd("CodeDiff " .. branch .. "...HEAD")
           end
         end,
-        desc = "Compare with specific branch",
+        desc = "[M]erge-base diff vs specific branch",
       },
     },
   },
@@ -289,7 +236,7 @@ return {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
+      "esmuellert/codediff.nvim",
       "folke/snacks.nvim",
     },
     cmd = "Neogit",
@@ -310,9 +257,10 @@ return {
     },
     opts = {
       integrations = {
-        diffview = true,
+        codediff = true,
         snacks = true,
       },
+      diff_viewer = "codediff",
       graph_style = "kitty",
       process_spinner = true,
     },
@@ -324,9 +272,6 @@ return {
   },
   {
     "lionyxml/gitlineage.nvim",
-    dependencies = {
-      "sindrets/diffview.nvim", -- optional, for open_diff feature
-    },
     opts = {},
   },
 }

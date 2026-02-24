@@ -132,7 +132,7 @@ return {
       mode = { "n", "v" },
     },
     -- Browse all unstaged changed hunks across the repo in a searchable picker
-    -- Quick overview of what changed — for full side-by-side diff use <leader>dv (Diffview)
+    -- Quick overview of what changed — for full side-by-side diff use <leader>dd (CodeDiff)
     {
       "<leader>gd",
       function()
