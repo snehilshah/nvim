@@ -6,7 +6,7 @@
 
 - `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). Snacks usually wins.
 - `<leader>nc` is used by both Snacks (Nvim Config) and package-info (hide versions). Snacks usually wins.
-- Git keymaps are spread across 5 plugins: Gitsigns (buffer hunk ops), Snacks (pickers/browser), Neogit (main UI), Diffview (side-by-side diffs), Toggleterm (lazygit/delta). See the Git sections below for details.
+- Git keymaps are spread across 5 plugins: Gitsigns (buffer hunk ops), Snacks (pickers/browser), Neogit (main UI), CodeDiff (side-by-side diffs), Toggleterm (lazygit/delta). See the Git sections below for details.
 ## General & Terminal
 
 | Key | M | Desc | | Key | M | Desc |
@@ -191,15 +191,16 @@
 | `<leader>gg` | n | Lazygit TUI in floating terminal (alternative interactive git UI) |
 | `<leader>GD` | n | `git diff` for current file in terminal (with delta syntax highlighting) |
 
-## Diffview — side-by-side diff UI and file history
+## CodeDiff — side-by-side diff UI and file history
 
 | Key | M | Desc | | Key | M | Desc |
 |-----|---|------|-|-----|---|------|
-| `<leader>dv` | n | Open Diffview (all uncommitted changes) | | `<leader>Df` | n | File history (all files, browse commits) |
-| `<leader>dc` | n | Close Diffview | | `<leader>D.` | n | Current file history |
-| `<leader>Gm` | n | Compare HEAD vs origin/main | | `<leader>DF` | n | Toggle files panel |
-| `<leader>GM` | n | Compare HEAD vs any branch (prompts) | | `<tab>` | n | Toggle stage (in file panel) |
-| `<cr>` | n | Go to file (in file panel) | | `q` | n | Close diffview (all panels) |
+| `<leader>dd` | n | Toggle CodeDiff (uncommitted changes) | | `<leader>dh` | n | File history (all files, browse commits) |
+| `<leader>d.` | n | Current file history | | `<leader>df` | n | Current file diff vs HEAD |
+| `<leader>dm` | n | Merge-base diff vs origin/main (PR-like) | | `<leader>dM` | n | Merge-base diff vs any branch (prompts) |
+| `-` | n | Stage/unstage file | | `<leader>hs` | n | Stage hunk under cursor |
+| `<leader>hu` | n | Unstage hunk | | `<leader>hr` | n | Discard hunk |
+| `q` | n | Close diff tab | | `g?` | n | Show help (all keymaps) |
 
 ## Trouble
 
