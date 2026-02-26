@@ -36,27 +36,27 @@ return {
     "atiladefreitas/lazyclip",
     opts = {
       -- Core settings
-      max_history = 100,  -- Maximum number of items to keep in history
+      max_history = 100, -- Maximum number of items to keep in history
       items_per_page = 9, -- Number of items to show per page
-      min_chars = 5,      -- Minimum characters required to store item
+      min_chars = 5, -- Minimum characters required to store item
 
       -- Window appearance
       window = {
         relative = "editor",
-        width = 70,         -- Width of the floating window
-        height = 12,        -- Height of the floating window
+        width = 70, -- Width of the floating window
+        height = 12, -- Height of the floating window
         border = "rounded", -- Border style
       },
 
       -- Internal keymaps for the lazyclip window
       keymaps = {
-        close_window = "q",      -- Close the clipboard window
-        prev_page = "h",         -- Go to previous page
-        next_page = "l",         -- Go to next page
+        close_window = "q", -- Close the clipboard window
+        prev_page = "h", -- Go to previous page
+        next_page = "l", -- Go to next page
         paste_selected = "<CR>", -- Paste the selected item
-        move_up = "k",           -- Move selection up
-        move_down = "j",         -- Move selection down
-        delete_item = "d",       -- Delete selected item
+        move_up = "k", -- Move selection up
+        move_down = "j", -- Move selection down
+        delete_item = "d", -- Delete selected item
       },
     },
     event = "VeryLazy",
@@ -66,8 +66,20 @@ return {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next todo comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous todo comment",
+      },
     },
     event = "VeryLazy",
     opts = {
