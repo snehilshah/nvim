@@ -1,5 +1,16 @@
 -- Tailwind CSS Language Server
 -- Provides IntelliSense for Tailwind classes
+local tailwind_markers = {
+  "tailwind.config.js",
+  "tailwind.config.cjs",
+  "tailwind.config.mjs",
+  "tailwind.config.ts",
+  "postcss.config.js",
+  "postcss.config.cjs",
+  "postcss.config.mjs",
+  "postcss.config.ts",
+}
+
 return {
   cmd = { "tailwindcss-language-server", "--stdio" },
   filetypes = {
@@ -14,16 +25,18 @@ return {
     "javascript",
     "typescript",
   },
-  root_markers = {
-    "tailwind.config.js",
-    "tailwind.config.cjs",
-    "tailwind.config.mjs",
-    "tailwind.config.ts",
-    "postcss.config.js",
-    "postcss.config.cjs",
-    "postcss.config.mjs",
-    "postcss.config.ts",
-  },
+  root_markers = tailwind_markers,
+  root_dir = function(bufnr, on_dir)
+    local fname = vim.api.nvim_buf_get_name(bufnr)
+    local match = vim.fs.find(tailwind_markers, {
+      path = fname,
+      upward = true,
+      type = "file",
+    })[1]
+    if match then
+      on_dir(vim.fs.dirname(match))
+    end
+  end,
   settings = {
     tailwindCSS = {
       validate = true,
