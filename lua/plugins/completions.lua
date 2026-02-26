@@ -67,7 +67,7 @@ return {
       },
       trigger = {
         prefetch_on_insert = false,
-        show_in_snippet = true,  -- keep true to show completion in snippets
+        show_in_snippet = true, -- keep true to show completion in snippets
         show_on_backspace_in_keyword = false,
       },
       list = {
