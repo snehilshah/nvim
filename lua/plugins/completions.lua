@@ -10,16 +10,22 @@ return {
       preset = "super-tab",
       ["<C-j>"] = { "select_next" },
       ["<C-k>"] = { "select_prev" },
-      -- ["<Tab>"] = {
-      -- 	"snippet_forward",
-      -- 	function() -- sidekick next edit suggestion
-      -- 		return require("sidekick").nes_jump_or_apply()
-      -- 	end,
-      -- 	function() -- if you are using Neovim's native inline completions
-      -- 		return vim.lsp.inline_completion.get()
-      -- 	end,
-      -- 	"fallback",
-      -- },
+      ["<Tab>"] = {
+        "snippet_forward",
+        "select_and_accept",
+        function()
+          vim.cmd.Tabout()
+          return true
+        end,
+      },
+      ["<S-Tab>"] = {
+        "snippet_backward",
+        "select_prev",
+        function()
+          vim.cmd.TaboutBack()
+          return true
+        end,
+      },
     },
 
     appearance = {
