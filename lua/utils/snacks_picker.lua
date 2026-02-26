@@ -55,8 +55,8 @@ M.setup_layouts = function()
         box = "vertical",
         title = " {title} {live} {flags}",
         title_pos = "left",
-        { win = "input", height = 1,     border = "bottom" },
-        { win = "list",  border = "none" },
+        { win = "input", height = 1, border = "bottom" },
+        { win = "list", border = "none" },
       },
     },
   }

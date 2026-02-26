@@ -42,7 +42,7 @@ return {
       vim.lsp.enable({
         "lua_ls", -- Lua
         "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
-        "ts_ls", -- TypeScript/JavaScript (switch to "tsgo" if preferred)
+        "tsgo", -- TypeScript/JavaScript (switched from ts_ls)
         "angularls", -- Angular Language Service (template intelligence, requires @angular/language-server)
         "biome", -- Biome (linting/formatting for JS/TS/JSON - only activates with biome.json)
         "bashls", -- Bash/Shell

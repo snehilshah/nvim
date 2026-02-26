@@ -8,6 +8,9 @@ return {
       },
     },
   },
+  init_options = {
+    maxTsServerMemory = 8192,
+  },
   settings = {
     typescript = {
       -- Completions / Auto-imports
