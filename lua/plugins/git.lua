@@ -261,7 +261,7 @@ return {
         snacks = true,
       },
       diff_viewer = "codediff",
-      graph_style = "kitty",
+      graph_style = vim.g.neovide and "ascii" or "kitty",
       process_spinner = true,
     },
   },
