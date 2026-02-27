@@ -9,13 +9,13 @@ return {
     },
     highlights = {
       undo = {
-        hl_color = { bg = "#693232" }, -- Dark muted red
+        hl_color = { bg = "#EA6962" }, -- Dark muted red
       },
       redo = {
-        hl_color = { bg = "#2F4640" }, -- Dark muted green
+        hl_colour = { bg = "#EA6962" }, -- Dark muted green
       },
       yank = {
-        hl_color = { bg = "#d8a657", fg = "#1d2021" }, -- Gruvbox Material yellow on dark bg
+        hl_color = { bg = "#DDC7A1", fg = "#1D2021" }, -- Gruvbox Material yellow on dark bg
       },
       paste = {
         hl_color = { bg = "#325B5B" }, -- Dark muted cyan
@@ -24,7 +24,7 @@ return {
         hl_color = { bg = "#7A5A3D" }, -- Dark muted orange
       },
       cursor = {
-        hl_color = { bg = "#793D54" }, -- Dark muted pink
+        hl_color = { bg = "#7C6F64" }, -- Dark muted pink
       },
     },
     priority = 2048 * 3,
