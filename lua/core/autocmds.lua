@@ -31,6 +31,15 @@ api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+-- Enable spell checking for certain file types
+api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.txt", "*.md", "*.tex" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = "en"
+  end,
+})
+
 -- Stop eslint_d daemon on exit (prevents orphaned processes)
 api.nvim_create_autocmd("VimLeavePre", {
   callback = function()
