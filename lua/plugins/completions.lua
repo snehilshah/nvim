@@ -114,7 +114,6 @@ return {
 
     signature = {
       enabled = true,
-      show_on_keyword = true,
       window = {
         show_documentation = true,
         border = "rounded",
