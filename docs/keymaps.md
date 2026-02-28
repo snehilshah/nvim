@@ -276,7 +276,30 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 | `af` | o,x | Around function | | `if` | o,x | Inside function |
 | `ac` | o,x | Around class | | `ic` | o,x | Inside class |
 | `aa` | o,x | Around argument/parameter | | `ia` | o,x | Inside argument/parameter |
+| `ao` | o,x | Around loop | | `io` | o,x | Inside loop |
+| `ai` | o,x | Around conditional (if) | | `ii` | o,x | Inside conditional (if) |
+| `ar` | o,x | Around return | | `ir` | o,x | Inside return |
 | `as` | o,x | Around scope | | | | |
+
+## Mini Operators (`<leader>o`)
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `<leader>or{textobj}` | n | Replace textobj with register | | `<leader>orr` | n | Replace line with register |
+| `<leader>ox{textobj}` | n | Exchange (mark first, then second) | | `<leader>oxx` | n | Exchange line |
+| `<leader>os{textobj}` | n | Sort within textobj | | `<leader>oss` | n | Sort line |
+| `<leader>om{textobj}` | n | Multiply (duplicate) textobj | | `<leader>omm` | n | Multiply line |
+| `<leader>oe{textobj}` | n | Evaluate & replace | | `<leader>oee` | n | Evaluate line |
+
+> **Tip:** Combine operators with treesitter textobjects: `<leader>oriw` (replace word), `<leader>orif` (replace function body), `<leader>oria` (replace argument), `<leader>oxia` (exchange arguments).
+
+## Mini Surround
+
+| Key | M | Desc | | Key | M | Desc |
+|-----|---|------|-|-----|---|------|
+| `sa{textobj}{char}` | n | Add surrounding | | `sd{char}` | n | Delete surrounding |
+| `sr{old}{new}` | n | Replace surrounding | | `sf{char}` | n | Find surrounding (right) |
+| `sF{char}` | n | Find surrounding (left) | | `sh{char}` | n | Highlight surrounding |
 
 ## Go (no-go.nvim)
 
