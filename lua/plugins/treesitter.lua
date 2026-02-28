@@ -13,103 +13,73 @@ return {
     config = function()
       require("nvim-treesitter-textobjects").setup({
         select = {
-          -- Automatically jump forward to textobj, similar to targets.vim
           lookahead = true,
-          -- You can choose the select mode (default is charwise 'v')
-          --
-          -- Can also be a function which gets passed a table with the keys
-          -- * query_string: eg '@function.inner'
-          -- * method: eg 'v' or 'o'
-          -- and should return the mode ('v', 'V', or '<c-v>') or a table
-          -- mapping query_strings to modes.
           selection_modes = {
-            ["@parameter.outer"] = "v", -- charwise
-            ["@function.outer"] = "V", -- linewise
-            -- ['@class.outer'] = '<c-v>', -- blockwise
+            ["@parameter.outer"] = "v",
+            ["@function.outer"] = "V",
           },
-          -- If you set this to `true` (default is `false`) then any textobject is
-          -- extended to include preceding or succeeding whitespace. Succeeding
-          -- whitespace has priority in order to act similarly to eg the built-in
-          -- `ap`.
-          --
-          -- Can also be a function which gets passed a table with the keys
-          -- * query_string: eg '@function.inner'
-          -- * selection_mode: eg 'v'
-          -- and should return true of false
           include_surrounding_whitespace = false,
         },
       })
-      -- Selection keymaps (vaf, vif, vac, vic, etc.)
+
       local select = require("nvim-treesitter-textobjects.select")
-      vim.keymap.set({ "x", "o" }, "af", function()
-        select.select_textobject("@function.outer", "textobjects")
-      end, { desc = "Select around function" })
-      vim.keymap.set({ "x", "o" }, "if", function()
-        select.select_textobject("@function.inner", "textobjects")
-      end, { desc = "Select inside function" })
-      vim.keymap.set({ "x", "o" }, "ac", function()
-        select.select_textobject("@class.outer", "textobjects")
-      end, { desc = "Select around class" })
-      vim.keymap.set({ "x", "o" }, "ic", function()
-        select.select_textobject("@class.inner", "textobjects")
-      end, { desc = "Select inside class" })
-      vim.keymap.set({ "x", "o" }, "aa", function()
-        select.select_textobject("@parameter.outer", "textobjects")
-      end, { desc = "Select around argument/parameter" })
-      vim.keymap.set({ "x", "o" }, "ia", function()
-        select.select_textobject("@parameter.inner", "textobjects")
-      end, { desc = "Select inside argument/parameter" })
-      vim.keymap.set({ "x", "o" }, "as", function()
-        select.select_textobject("@local.scope", "locals")
-      end, { desc = "Select language scope" })
-
-      -- Swap keymaps
       local swap = require("nvim-treesitter-textobjects.swap")
-      vim.keymap.set("n", "<leader>a", function()
-        swap.swap_next("@parameter.inner")
-      end, { desc = "Swap with next parameter" })
-      vim.keymap.set("n", "<leader>A", function()
-        swap.swap_previous("@parameter.inner")
-      end, { desc = "Swap with previous parameter" })
-
-      -- Move keymaps
       local move = require("nvim-treesitter-textobjects.move")
-      vim.keymap.set({ "n", "x", "o" }, "]f", function()
-        move.goto_next_start("@function.outer", "textobjects")
-      end, { desc = "Next function start" })
-      vim.keymap.set({ "n", "x", "o" }, "]F", function()
-        move.goto_next_end("@function.outer", "textobjects")
-      end, { desc = "Next function end" })
-      vim.keymap.set({ "n", "x", "o" }, "[f", function()
-        move.goto_previous_start("@function.outer", "textobjects")
-      end, { desc = "Previous function start" })
-      vim.keymap.set({ "n", "x", "o" }, "[F", function()
-        move.goto_previous_end("@function.outer", "textobjects")
-      end, { desc = "Previous function end" })
-      vim.keymap.set({ "n", "x", "o" }, "]c", function()
-        move.goto_next_start("@class.outer", "textobjects")
-      end, { desc = "Next class start" })
-      vim.keymap.set({ "n", "x", "o" }, "]C", function()
-        move.goto_next_end("@class.outer", "textobjects")
-      end, { desc = "Next class end" })
-      vim.keymap.set({ "n", "x", "o" }, "[c", function()
-        move.goto_previous_start("@class.outer", "textobjects")
-      end, { desc = "Previous class start" })
-      vim.keymap.set({ "n", "x", "o" }, "[C", function()
-        move.goto_previous_end("@class.outer", "textobjects")
-      end, { desc = "Previous class end" })
-      vim.keymap.set({ "n", "x", "o" }, "]o", function()
-        move.goto_next_start("@loop.outer", "textobjects")
-      end, { desc = "Next loop start" })
-      vim.keymap.set({ "n", "x", "o" }, "[o", function()
-        move.goto_previous_start("@loop.outer", "textobjects")
-      end, { desc = "Previous loop start" })
-      vim.keymap.set({ "n", "x", "o" }, "]i", function()
-        move.goto_next_start("@conditional.outer", "textobjects")
-      end, { desc = "Next conditional (if)" })
-      vim.keymap.set({ "n", "x", "o" }, "[i", function()
-        move.goto_previous_start("@conditional.outer", "textobjects")
-      end, { desc = "Previous conditional (if)" })
+
+      local map = vim.keymap.set
+
+      local function textobj(key, query, group, desc)
+        map({ "x", "o" }, key, function()
+          select.select_textobject(query, group)
+        end, { desc = desc })
+      end
+
+      local function jump(key, fn, query, desc)
+        map({ "n", "x", "o" }, key, function()
+          fn(query, "textobjects")
+        end, { desc = desc })
+      end
+
+      -- ── Text Objects ────────────────────────────────────────────────────
+      -- stylua: ignore start
+      textobj("af", "@function.outer",    "textobjects", "Around function")
+      textobj("if", "@function.inner",    "textobjects", "Inside function")
+      textobj("ac", "@class.outer",       "textobjects", "Around class")
+      textobj("ic", "@class.inner",       "textobjects", "Inside class")
+      textobj("aa", "@parameter.outer",   "textobjects", "Around argument")
+      textobj("ia", "@parameter.inner",   "textobjects", "Inside argument")
+      textobj("ao", "@loop.outer",        "textobjects", "Around loop")
+      textobj("io", "@loop.inner",        "textobjects", "Inside loop")
+      textobj("ai", "@conditional.outer", "textobjects", "Around conditional")
+      textobj("ii", "@conditional.inner", "textobjects", "Inside conditional")
+      textobj("ar", "@return.outer",      "textobjects", "Around return")
+      textobj("ir", "@return.inner",      "textobjects", "Inside return")
+      textobj("as", "@local.scope",       "locals",      "Around scope")
+      -- stylua: ignore end
+
+      -- ── Swap ────────────────────────────────────────────────────────────
+      map("n", "<leader>a", function()
+        swap.swap_next("@parameter.inner")
+      end, { desc = "Swap next parameter" })
+      map("n", "<leader>A", function()
+        swap.swap_previous("@parameter.inner")
+      end, { desc = "Swap prev parameter" })
+
+      -- ── Movement ────────────────────────────────────────────────────────
+      -- stylua: ignore start
+      jump("]f", move.goto_next_start,     "@function.outer",    "Next function start")
+      jump("]F", move.goto_next_end,       "@function.outer",    "Next function end")
+      jump("[f", move.goto_previous_start, "@function.outer",    "Prev function start")
+      jump("[F", move.goto_previous_end,   "@function.outer",    "Prev function end")
+      jump("]c", move.goto_next_start,     "@class.outer",       "Next class start")
+      jump("]C", move.goto_next_end,       "@class.outer",       "Next class end")
+      jump("[c", move.goto_previous_start, "@class.outer",       "Prev class start")
+      jump("[C", move.goto_previous_end,   "@class.outer",       "Prev class end")
+      jump("]o", move.goto_next_start,     "@loop.outer",        "Next loop")
+      jump("[o", move.goto_previous_start, "@loop.outer",        "Prev loop")
+      jump("]i", move.goto_next_start,     "@conditional.outer", "Next conditional")
+      jump("[i", move.goto_previous_start, "@conditional.outer", "Prev conditional")
+      -- stylua: ignore end
     end,
   },
   {
