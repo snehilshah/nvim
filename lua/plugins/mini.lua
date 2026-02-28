@@ -30,7 +30,14 @@ return {
       },
     })
     MiniIcons.mock_nvim_web_devicons()
-    require("mini.operators").setup()
+    require("mini.operators").setup({
+      -- All operators under <leader>o ("operator") to keep g* free for LSP
+      replace = { prefix = "<leader>or" },
+      exchange = { prefix = "<leader>ox" },
+      sort = { prefix = "<leader>os" },
+      multiply = { prefix = "<leader>om" },
+      evaluate = { prefix = "<leader>oe" },
+    })
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
     -- - sd'   - [S]urround [D]elete [']quotes
