@@ -144,13 +144,14 @@ return {
         end,
         desc = "[g]it [a]dd Hunk",
       },
-      -- Undo the last stage_hunk() call (unstage a just-staged hunk)
+      -- Toggle stage state for the current hunk.
+      -- On staged signs this unstages (replacement for deprecated undo_stage_hunk()).
       {
         "<leader>gu",
         function()
-          require("gitsigns").undo_stage_hunk()
+          require("gitsigns").stage_hunk()
         end,
-        desc = "[g]it [u]ndo Stage Hunk",
+        desc = "[g]it [u]nstage Hunk",
       },
       -- Browse git stash entries in a Snacks picker (view/apply/drop stashes)
       -- NOTE: This uses Snacks.picker, not Gitsigns. Neogit also has stash management (z menu).
