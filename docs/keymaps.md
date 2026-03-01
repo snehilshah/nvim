@@ -198,6 +198,14 @@
 | `<leader>dd` | n | Toggle CodeDiff (uncommitted changes) | | `<leader>dh` | n | File history (all files, browse commits) |
 | `<leader>d.` | n | Current file history | | `<leader>df` | n | Current file diff vs HEAD |
 | `<leader>dm` | n | Merge-base diff vs origin/main (PR-like) | | `<leader>dM` | n | Merge-base diff vs any branch (prompts) |
+
+## Database (vim-dadbod)
+
+| Key | M | Desc |
+|-----|---|------|
+| `<leader>Du` | n | Toggle Database UI sidebar |
+| `<leader>Da` | n | Add database connection |
+| `<leader>Df` | n | Find saved query buffer |
 | `-` | n | Stage/unstage file | | `<leader>hs` | n | Stage hunk under cursor |
 | `<leader>hu` | n | Unstage hunk | | `<leader>hr` | n | Discard hunk |
 | `q` | n | Close diff tab | | `g?` | n | Show help (all keymaps) |

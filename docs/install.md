@@ -148,6 +148,26 @@ pip install yamllint
 
 ---
 
+## Database CLI Clients
+
+vim-dadbod shells out to CLI clients for each database. Install only the ones you need.
+
+| Client | Database | Installation |
+|--------|----------|-------------|
+| `psql` | PostgreSQL | `brew install postgresql` or `sudo apt install postgresql-client` |
+| `mysql` | MySQL/MariaDB | `brew install mysql-client` or `sudo apt install mysql-client` |
+| `sqlite3` | SQLite | Usually pre-installed, or `brew install sqlite` |
+| `mongosh` | MongoDB | `brew install mongosh` or see [docs](https://www.mongodb.com/docs/mongodb-shell/install/) |
+| `redis-cli` | Redis | `brew install redis` or `sudo apt install redis-tools` |
+
+### Quick Install (brew)
+
+```bash
+brew install postgresql mysql-client sqlite mongosh redis
+```
+
+---
+
 ## All-in-One Install Scripts
 
 ### macOS (Homebrew + npm + go + cargo)
