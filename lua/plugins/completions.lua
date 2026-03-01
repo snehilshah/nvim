@@ -88,8 +88,14 @@ return {
 
     sources = {
       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      per_filetype = {
+        sql = { "dadbod", "snippets", "buffer" },
+        mysql = { "dadbod", "snippets", "buffer" },
+        plpgsql = { "dadbod", "snippets", "buffer" },
+      },
       providers = {
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+        dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
         cmdline = {
           min_keyword_length = 2,
         },
