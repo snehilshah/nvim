@@ -52,17 +52,20 @@ return {
   },
 
   -- Local theme development
-  -- {
-  --   "cosmic-gleam.nvim",
-  --   dev = true,
-  --   enabled = false,
-  --   priority = 1000,
-  --   enabled = true,
-  --   config = function()
-  --     vim.cmd.colorscheme("cosmic_gleam")
-  --   end,
-  -- },
   {
-    "rktjmp/lush.nvim",
+    "snehilshah/cosmic-gleam.nvim", -- Keep github handle fallback for the plugin identifier
+    dir = vim.fn.expand("~/myCodes/cosmic-gleam.nvim"), -- Lazy will now strictly track this local path instead!
+    init = function()
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        pattern = "*/cosmic_gleam/palettes/*.lua",
+        callback = function()
+          vim.cmd("colorscheme cosmic_gleam")
+        end,
+      })
+    end,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("cosmic_gleam")
+    end,
   },
 }

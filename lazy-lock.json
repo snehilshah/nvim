@@ -21,7 +21,6 @@
   "lazyclip": { "branch": "main", "commit": "ca1f9b747a98d7ed6a02ad7a24d186b1d82300c5" },
   "lazydev.nvim": { "branch": "main", "commit": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d" },
   "lualine.nvim": { "branch": "master", "commit": "47f91c416daef12db467145e16bed5bbfe00add8" },
-  "lush.nvim": { "branch": "main", "commit": "9c60ec2279d62487d942ce095e49006af28eed6e" },
   "mdx.nvim": { "branch": "main", "commit": "30222997ed4c0c7cc7447c4fce360fce87101bbf" },
   "mini.nvim": { "branch": "main", "commit": "cad365c212fb1e332cb93fa8f72697125799d00a" },
   "neogit": { "branch": "master", "commit": "515e8cb9c3430a064ec3d9affd499b94f71b3120" },
