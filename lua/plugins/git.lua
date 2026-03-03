@@ -184,8 +184,16 @@ return {
     "esmuellert/codediff.nvim",
     cmd = "CodeDiff",
     opts = {
+      diff = {
+        compute_moves = true, -- show moved lines similar to vscode
+      },
       explorer = {
         flatten_dirs = false,
+      },
+      keymaps = {
+        view = {
+          align_move = "gm", -- default
+        },
       },
     },
     keys = {
