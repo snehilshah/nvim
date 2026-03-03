@@ -8,7 +8,6 @@
   "comfy-line-numbers.nvim": { "branch": "main", "commit": "6e99f6aa4a616048db24a9cd94b98ec456befdb5" },
   "conform.nvim": { "branch": "master", "commit": "40dcec5555f960b0a04340d76eabdf4efe78599d" },
   "fidget.nvim": { "branch": "main", "commit": "7fa433a83118a70fe24c1ce88d5f0bd3453c0970" },
-  "focus.nvim": { "branch": "master", "commit": "4135f976afe5d6e1fe66dff121db9d06643f439f" },
   "gitsigns.nvim": { "branch": "main", "commit": "9f3c6dd7868bcc116e9c1c1929ce063b978fa519" },
   "go.nvim": { "branch": "master", "commit": "659b105cf7f97049f6fe76a554917642f27ecd16" },
   "grug-far.nvim": { "branch": "main", "commit": "ac52ee2d87399dfd7b0d59d5b1d2bbaf2a4028f1" },
