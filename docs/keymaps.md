@@ -245,7 +245,7 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 |-----|---|------|-|-----|---|------|
 | `<A-,>` | n | Buffer previous | | `<A-.>` | n | Buffer next |
 | `<A-<>` | n | Move buffer left | | `<A->>` | n | Move buffer right |
-| `<leader>1-9` | n | Goto buffer 1-9 | | `<leader>0` | n | Goto last buffer |
+| `<A-1>-<A-9>` | n | Goto buffer 1-9 | | `<A-0>` | n | Goto last buffer |
 | `<A-p>` | n | Pin buffer | | `<A-c>` | n | Close buffer |
 | `<C-p>` | n | Pick buffer | | `<C-s-p>` | n | Pick buffer delete |
 | `<leader>bb` | n | Order by buffer number | | `<leader>bn` | n | Order by name |
