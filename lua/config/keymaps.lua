@@ -10,6 +10,12 @@ vim.keymap.set("n", "<M-q>", "<cmd>copen<CR>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Lines Down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move Lines Up" })
 
+-- Resize window using <ctrl> arrow keys
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
 -- better indenting
 vim.keymap.set("v", "<", "<gv", { desc = "Indent Left" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent Right" })
@@ -17,10 +23,6 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent Right" })
 -- Move to start/end of line
 vim.keymap.set({ "n", "x", "o" }, "H", "^", { desc = "Start of Line" })
 vim.keymap.set({ "n", "x", "o" }, "L", "g_", { desc = "End of Line" })
-
--- Navigate buffers, it even cycles!!!
-vim.keymap.set("n", "<Right>", ":bnext<CR>", { desc = "Next Buffer", silent = true })
-vim.keymap.set("n", "<Left>", ":bprevious<CR>", { desc = "Prev Buffer", silent = true })
 
 -- Keep search results centered
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next Match (centered)" })
