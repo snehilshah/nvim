@@ -1,7 +1,7 @@
 return {
   {
     "sainnhe/gruvbox-material",
-    enabled = true,
+    enabled = false,
     lazy = false,
     priority = 1000,
     init = function()
@@ -63,6 +63,7 @@ return {
         end,
       })
     end,
+    enabled = true,
     priority = 1000,
     config = function()
       vim.cmd.colorscheme("cosmic_gleam")
