@@ -1,10 +1,14 @@
+-- Neovide's GPU renderer anti-aliases powerline glyphs differently from background
+-- fills, causing visible color mismatches at separator boundaries when window
+-- transparency is enabled. Use flat separators in Neovide.
+local section_seps = vim.g.neovide and { left = "", right = "" } or { left = "", right = "" }
+
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-mini/mini.nvim", "lewis6991/gitsigns.nvim", "sainnhe/gruvbox-material" },
   opts = {
     options = {
-      theme = "gruvbox-material",
-      section_separators = { left = "", right = "" },
+      section_separators = section_seps,
       component_separators = { left = "", right = "" },
       icons_enabled = true,
     },
