@@ -71,7 +71,7 @@ return {
     opts = {
       list_chars = {
         space = "·",
-        tab = " ",
+        tab = " ",
         nbsp = "󱁐 ",
         lead = "‹",
         trail = "›",
