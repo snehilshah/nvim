@@ -21,33 +21,6 @@ return {
       },
     },
   },
-  -- Color highlighter for color codes (including Tailwind)
-  {
-    "norcalli/nvim-colorizer.lua",
-    event = "VeryLazy",
-    config = function()
-      require("colorizer").setup({
-        "*",
-        css = { css = true },
-        scss = { css = true },
-        html = { css = true },
-        javascript = { css = true },
-        javascriptreact = { css = true },
-        typescript = { css = true },
-        typescriptreact = { css = true },
-      }, {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
-        names = false, -- "Name" codes like Blue
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-        mode = "background", -- "foreground", "background", "virtualtext"
-      })
-    end,
-  },
   -- Comfy line numbers
   {
     "snehilshah/comfy-line-numbers.nvim",
@@ -89,5 +62,21 @@ return {
     dependencies = { "kevinhwang91/promise-async" },
     event = "BufReadPost", -- Load immediately when opening a file
     config = true, -- Runs require('ufo').setup() with default settings
+  },
+  {
+    "brenoprata10/nvim-highlight-colors",
+    event = "BufReadPre",
+    enabled = true,
+    opts = {
+      render = "background",
+      enable_hex = true,
+      enable_short_hex = true,
+      enable_rgb = true,
+      enable_hsl = true,
+      enable_hsl_without_function = true,
+      enable_ansi = true,
+      enable_var_usage = true,
+      enable_tailwind = true,
+    },
   },
 }
