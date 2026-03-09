@@ -131,6 +131,9 @@ return {
         "tsx",
         "angular",
         "html",
+        "json",
+        "yaml",
+        "toml",
       },
       auto_install = true,
 
