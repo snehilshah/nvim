@@ -568,7 +568,7 @@ return {
       win = {
         input = {
           keys = {
-            ["<Esc>"] = { "close", mode = { "n", "i" } },
+            ["<M-q>"] = { "close", mode = { "n", "i" } },
             ["<M-p>"] = { "cycle_layouts", mode = { "i", "n" } },
             ["J"] = { "preview_scroll_down", mode = { "n" } },
             ["K"] = { "preview_scroll_up", mode = { "n" } },
