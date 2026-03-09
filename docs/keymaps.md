@@ -170,8 +170,8 @@
 
 | Key          | M   | Desc                             |     | Key          | M   | Desc                            |
 | ------------ | --- | -------------------------------- | --- | ------------ | --- | ------------------------------- |
-| `[g`         | n   | Previous hunk (changed block)    |     | `<leader>gr` | n   | Reset (discard) hunk            |
-| `]g`         | n   | Next hunk (changed block)        |     | `<leader>gR` | n   | Reset (discard) entire buffer   |
+| `[[` / `[g` | n   | Previous hunk (changed block)    |     | `<leader>gr` | n   | Reset (discard) hunk            |
+| `]]` / `]g` | n   | Next hunk (changed block)        |     | `<leader>gR` | n   | Reset (discard) entire buffer   |
 | `<leader>gb` | n   | Blame line (popup)               |     | `<leader>ga` | n   | Stage hunk (git add)            |
 | `<leader>gB` | n   | Blame buffer (all lines)         |     | `<leader>gu` | n   | Undo last staged hunk           |
 | `<leader>GB` | n   | Toggle inline blame (every line) |     | `<leader>gA` | n   | Stage entire buffer             |
