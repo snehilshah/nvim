@@ -66,6 +66,13 @@ return {
     keys = {
       -- Navigate to the previous git hunk (changed block) in the buffer
       {
+        "[[",
+        function()
+          require("gitsigns").nav_hunk("prev", { wrap = true, target = "all" })
+        end,
+        desc = "<- hunk",
+      },
+      {
         "[g",
         function()
           require("gitsigns").nav_hunk("prev", { wrap = true, target = "all" })
@@ -73,6 +80,13 @@ return {
         desc = "<- hunk",
       },
       -- Navigate to the next git hunk (changed block) in the buffer
+      {
+        "]]",
+        function()
+          require("gitsigns").nav_hunk("next", { wrap = true, target = "all" })
+        end,
+        desc = "-> Hunk",
+      },
       {
         "]g",
         function()
