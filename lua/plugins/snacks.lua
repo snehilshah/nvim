@@ -26,7 +26,7 @@ return {
       "<leader>ff",
       function()
         Snacks.picker.files({
-          layout = "ivy_taller",
+          layout = "right",
           supports_live = true,
           format = "file",
           finder = "files",
