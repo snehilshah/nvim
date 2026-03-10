@@ -42,7 +42,7 @@ require("lazy").setup({
     enabled = true, -- Check for updates periodically
     notify = false, -- Do not notify on update
     frequency = 360, -- check for updates every 10 hours
-    check_pinned = true,
+    check_pinned = false,
   },
   -- disable these inbuilt plugins as not used
   git = {
