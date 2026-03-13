@@ -34,19 +34,23 @@ return {
       "--output.text.path=",
       "--show-stats=false",
       function()
+        local current_dir = vim.fn.expand("%:p:h")
+
         -- Find .golangci.yaml or .golangci.yml in project root
         local config_patterns =
           { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
-        for _, pattern in ipairs(config_patterns) do
-          local config_file = vim.fs.find(pattern, {
-            upward = true,
-            path = vim.fn.expand("%:p:h"),
-            stop = vim.env.HOME,
-          })[1]
-          if config_file then
-            return "-c=" .. config_file
-          end
+        -- Pass array of patterns directly to vim.fs.find for O(1) file system traversal
+        -- instead of O(n) loop traversing the file system repeatedly
+        local config_file = vim.fs.find(config_patterns, {
+          upward = true,
+          path = current_dir,
+          stop = vim.env.HOME,
+        })[1]
+
+        if config_file then
+          return "-c=" .. config_file
         end
+
         return nil
       end,
       function()
