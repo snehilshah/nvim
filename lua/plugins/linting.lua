@@ -37,15 +37,15 @@ return {
         -- Find .golangci.yaml or .golangci.yml in project root
         local config_patterns =
           { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
-        for _, pattern in ipairs(config_patterns) do
-          local config_file = vim.fs.find(pattern, {
-            upward = true,
-            path = vim.fn.expand("%:p:h"),
-            stop = vim.env.HOME,
-          })[1]
-          if config_file then
-            return "-c=" .. config_file
-          end
+        -- Pass array of patterns directly to vim.fs.find to efficiently utilize OS dentry caching
+        local config_file = vim.fs.find(config_patterns, {
+          upward = true,
+          path = vim.fn.expand("%:p:h"),
+          stop = vim.env.HOME,
+          type = "file",
+        })[1]
+        if config_file then
+          return "-c=" .. config_file
         end
         return nil
       end,
