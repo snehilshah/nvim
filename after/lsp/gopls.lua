@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
   -- Explicit cmd to avoid duplicate processes from PATH resolution
   cmd = { "gopls" },
