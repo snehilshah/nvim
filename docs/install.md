@@ -11,20 +11,21 @@ Install these globally on your system.
 
 Language servers provide IntelliSense, diagnostics, go-to-definition, and other LSP features.
 
-| Server | Language | Installation |
-|--------|----------|--------------|
-| `lua-language-server` | Lua | `brew install lua-language-server` |
-| `gopls` | Go | `go install golang.org/x/tools/gopls@latest` |
-| `typescript-language-server` | TypeScript/JavaScript | `npm install -g typescript-language-server typescript` |
-| `bash-language-server` | Bash/Shell | `npm install -g bash-language-server` |
-| `vscode-langservers-extracted` | CSS/HTML/JSON | `npm install -g vscode-langservers-extracted` |
-| `yaml-language-server` | YAML | `npm install -g yaml-language-server` |
-| `markdown-oxide` | Markdown | `cargo install --locked markdown-oxide` |
-| `docker-langserver` | Docker | `npm install -g dockerfile-language-server-nodejs` |
-| `clangd` | C/C++ | `brew install llvm` or via system package manager |
-| `tailwindcss-language-server` | Tailwind CSS | `npm install -g @tailwindcss/language-server` |
-| `emmet-language-server` | Emmet | `npm install -g @olrtg/emmet-language-server` |
-| `harper-ls` | Grammar/spelling | `cargo install --locked harper-ls` |
+| Server                         | Language              | Installation                                           |
+| ------------------------------ | --------------------- | ------------------------------------------------------ |
+| `lua-language-server`          | Lua                   | `brew install lua-language-server`                     |
+| `gopls`                        | Go                    | `go install golang.org/x/tools/gopls@latest`           |
+| `typescript-language-server`   | TypeScript/JavaScript | `npm install -g typescript-language-server typescript` |
+| `bash-language-server`         | Bash/Shell            | `npm install -g bash-language-server`                  |
+| `vscode-langservers-extracted` | CSS/HTML/JSON         | `npm install -g vscode-langservers-extracted`          |
+| `yaml-language-server`         | YAML                  | `npm install -g yaml-language-server`                  |
+| `markdown-oxide`               | Markdown              | `cargo install --locked markdown-oxide`                |
+| `docker-langserver`            | Docker                | `npm install -g dockerfile-language-server-nodejs`     |
+| `clangd`                       | C/C++                 | `brew install llvm` or via system package manager      |
+| `tailwindcss-language-server`  | Tailwind CSS          | `npm install -g @tailwindcss/language-server`          |
+| `emmet-language-server`        | Emmet                 | `npm install -g @olrtg/emmet-language-server`          |
+| `harper-ls`                    | Grammar/spelling      | `cargo install --locked harper-ls`                     |
+| `astro`                        | Astro                 | `npm install -g @astrojs/language-server`              |
 
 ### Quick Install (npm)
 
@@ -64,19 +65,19 @@ cargo install --locked harper-ls
 
 Formatters are used by conform.nvim for code formatting.
 
-| Formatter | Languages | Installation |
-|-----------|-----------|--------------|
-| `stylua` | Lua | `cargo install stylua` or `brew install stylua` |
-| `goimports` | Go | `go install golang.org/x/tools/cmd/goimports@latest` |
-| `gofumpt` | Go | `go install mvdan.cc/gofumpt@latest` |
-| `prettier` | JS/TS/HTML/CSS/JSON/YAML/MD | `npm install -g prettier` |
-| `biome` | JS/TS/JSON/CSS | `npm install -g @biomejs/biome` |
-| `shfmt` | Shell | `brew install shfmt` or `go install mvdan.cc/sh/v3/cmd/shfmt@latest` |
-| `clang-format` | C/C++ | `brew install clang-format` or via LLVM |
-| `yamlfmt` | YAML | `go install github.com/google/yamlfmt/cmd/yamlfmt@latest` |
-| `dockerfmt` | Dockerfile | `brew install dockerfmt` |
-| `markdownlint-cli2` | Markdown | `npm install -g markdownlint-cli2` |
-| `tombi` | TOML | `cargo install --locked tombi-cli` |
+| Formatter           | Languages                   | Installation                                                         |
+| ------------------- | --------------------------- | -------------------------------------------------------------------- |
+| `stylua`            | Lua                         | `cargo install stylua` or `brew install stylua`                      |
+| `goimports`         | Go                          | `go install golang.org/x/tools/cmd/goimports@latest`                 |
+| `gofumpt`           | Go                          | `go install mvdan.cc/gofumpt@latest`                                 |
+| `prettier`          | JS/TS/HTML/CSS/JSON/YAML/MD | `npm install -g prettier`                                            |
+| `biome`             | JS/TS/JSON/CSS              | `npm install -g @biomejs/biome`                                      |
+| `shfmt`             | Shell                       | `brew install shfmt` or `go install mvdan.cc/sh/v3/cmd/shfmt@latest` |
+| `clang-format`      | C/C++                       | `brew install clang-format` or via LLVM                              |
+| `yamlfmt`           | YAML                        | `go install github.com/google/yamlfmt/cmd/yamlfmt@latest`            |
+| `dockerfmt`         | Dockerfile                  | `brew install dockerfmt`                                             |
+| `markdownlint-cli2` | Markdown                    | `npm install -g markdownlint-cli2`                                   |
+| `tombi`             | TOML                        | `cargo install --locked tombi-cli`                                   |
 
 ### Quick Install (npm)
 
@@ -112,21 +113,21 @@ cargo install --locked tombi-cli
 
 Linters are used by nvim-lint for code analysis (triggered with `<leader>ll`).
 
-| Linter | Languages | Installation |
-|--------|-----------|--------------|
-| `eslint_d` | JavaScript/TypeScript | `npm install -g eslint_d` |
-| `luacheck` | Lua | `brew install luacheck` or `luarocks install luacheck` |
-| `golangci-lint` | Go | `brew install golangci-lint` or see [docs](https://golangci-lint.run/welcome/install/) |
-| `shellcheck` | Shell | `brew install shellcheck` |
-| `cppcheck` | C/C++ | `brew install cppcheck` |
-| `hadolint` | Dockerfile | `brew install hadolint` |
-| `yamllint` | YAML | `pip install yamllint` or `brew install yamllint` |
-| `jsonlint` | JSON | `npm install -g jsonlint` |
-| `htmlhint` | HTML | `npm install -g htmlhint` |
-| `stylelint` | CSS/SCSS | `npm install -g stylelint` |
-| `markdownlint-cli2` | Markdown | `npm install -g markdownlint-cli2` |
-| `buf` | Protobuf | `brew install bufbuild/buf/buf` |
-| `tombi` | TOML | `cargo install --locked tombi-cli` |
+| Linter              | Languages             | Installation                                                                           |
+| ------------------- | --------------------- | -------------------------------------------------------------------------------------- |
+| `eslint_d`          | JavaScript/TypeScript | `npm install -g eslint_d`                                                              |
+| `luacheck`          | Lua                   | `brew install luacheck` or `luarocks install luacheck`                                 |
+| `golangci-lint`     | Go                    | `brew install golangci-lint` or see [docs](https://golangci-lint.run/welcome/install/) |
+| `shellcheck`        | Shell                 | `brew install shellcheck`                                                              |
+| `cppcheck`          | C/C++                 | `brew install cppcheck`                                                                |
+| `hadolint`          | Dockerfile            | `brew install hadolint`                                                                |
+| `yamllint`          | YAML                  | `pip install yamllint` or `brew install yamllint`                                      |
+| `jsonlint`          | JSON                  | `npm install -g jsonlint`                                                              |
+| `htmlhint`          | HTML                  | `npm install -g htmlhint`                                                              |
+| `stylelint`         | CSS/SCSS              | `npm install -g stylelint`                                                             |
+| `markdownlint-cli2` | Markdown              | `npm install -g markdownlint-cli2`                                                     |
+| `buf`               | Protobuf              | `brew install bufbuild/buf/buf`                                                        |
+| `tombi`             | TOML                  | `cargo install --locked tombi-cli`                                                     |
 
 ### Quick Install (npm)
 
@@ -152,13 +153,13 @@ pip install yamllint
 
 vim-dadbod shells out to CLI clients for each database. Install only the ones you need.
 
-| Client | Database | Installation |
-|--------|----------|-------------|
-| `psql` | PostgreSQL | `brew install postgresql` or `sudo apt install postgresql-client` |
-| `mysql` | MySQL/MariaDB | `brew install mysql-client` or `sudo apt install mysql-client` |
-| `sqlite3` | SQLite | Usually pre-installed, or `brew install sqlite` |
-| `mongosh` | MongoDB | `brew install mongosh` or see [docs](https://www.mongodb.com/docs/mongodb-shell/install/) |
-| `redis-cli` | Redis | `brew install redis` or `sudo apt install redis-tools` |
+| Client      | Database      | Installation                                                                              |
+| ----------- | ------------- | ----------------------------------------------------------------------------------------- |
+| `psql`      | PostgreSQL    | `brew install postgresql` or `sudo apt install postgresql-client`                         |
+| `mysql`     | MySQL/MariaDB | `brew install mysql-client` or `sudo apt install mysql-client`                            |
+| `sqlite3`   | SQLite        | Usually pre-installed, or `brew install sqlite`                                           |
+| `mongosh`   | MongoDB       | `brew install mongosh` or see [docs](https://www.mongodb.com/docs/mongodb-shell/install/) |
+| `redis-cli` | Redis         | `brew install redis` or `sudo apt install redis-tools`                                    |
 
 ### Quick Install (brew)
 
@@ -324,7 +325,7 @@ buf --version
 
 - **Neovim 0.11+**: This config uses Neovim's native LSP support with `vim.lsp.config()` and `vim.lsp.enable()`.
 - **nvim-lspconfig**: Provides base LSP configurations in `lsp/*.lua` files.
-- **after/lsp/*.lua**: Your custom LSP overrides (merged with higher priority).
+- **after/lsp/\*.lua**: Your custom LSP overrides (merged with higher priority).
 - **Mason is NOT required**: All tools should be installed globally as documented above.
 - **Formatters**: Managed by `conform.nvim` - format on save is enabled.
 - **Linters**: Managed by `nvim-lint` - trigger manually with `<leader>ll`.
