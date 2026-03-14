@@ -55,6 +55,7 @@ return {
       javascriptreact = { "biome-check", "prettier", stop_after_first = true },
       typescript = { "biome-check", "prettier", stop_after_first = true },
       typescriptreact = { "biome-check", "prettier", stop_after_first = true },
+      astro = { "prettier", "biome-check", stop_after_first = true },
 
       -- Web and config files (use biome-check)
       json = { "biome-check", "prettier", stop_after_first = true },
