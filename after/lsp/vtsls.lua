@@ -1,5 +1,7 @@
 -- vtsls configuration (using native VS Code-style typescript settings)
+---@type vim.lsp.Config
 return {
+  ---@type lspconfig.settings.vtsls
   settings = {
     vtsls = {
       enableMoveToFileCodeAction = true,
