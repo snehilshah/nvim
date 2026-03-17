@@ -1,0 +1,3 @@
+## 2024-05-14 - Optimize vim.fs.find lookups with pattern arrays
+**Learning:** `vim.fs.find` calls within a loop over multiple file patterns are inefficient due to multiple upward directory traversals. In Neovim, caching `vim.fs.find` results in memory causes stale cache bugs when files change. Passing an array of patterns to `vim.fs.find` directly is much more efficient because it traverses the tree once per directory and delegates caching to the OS dentry cache effectively.
+**Action:** When finding multiple alternative files (like various config file names), pass the table of strings directly to `vim.fs.find(patterns, opts)` instead of using a `for` loop to check each pattern individually.
