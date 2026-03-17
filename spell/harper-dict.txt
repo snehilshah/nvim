@@ -46,6 +46,7 @@ stdin
 stdout
 struct
 structs
+tailwindcss
 util
 utils
 v2
