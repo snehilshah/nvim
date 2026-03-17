@@ -1,0 +1,3 @@
+## 2024-05-24 - [Optimize file search with vim.fs.find]
+**Learning:** `vim.fs.find` accepts an array of strings as the first argument, allowing it to search for multiple files simultaneously. Iterating through an array of file patterns and calling `vim.fs.find` individually for each one leads to an O(n) file system traversal overhead.
+**Action:** Always pass an array of file patterns directly to `vim.fs.find` instead of using a loop to find the first matching file. This relies on the efficient OS dentry cache without introducing severe regression bugs that custom in-memory caching causes in long-lived Neovim sessions when configuration files change.
