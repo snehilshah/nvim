@@ -35,17 +35,16 @@ return {
       "--show-stats=false",
       function()
         -- Find .golangci.yaml or .golangci.yml in project root
+        -- ⚡ Bolt: pass array directly to vim.fs.find to optimize disk I/O and avoid multiple upward traversals
         local config_patterns =
           { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
-        for _, pattern in ipairs(config_patterns) do
-          local config_file = vim.fs.find(pattern, {
-            upward = true,
-            path = vim.fn.expand("%:p:h"),
-            stop = vim.env.HOME,
-          })[1]
-          if config_file then
-            return "-c=" .. config_file
-          end
+        local config_file = vim.fs.find(config_patterns, {
+          upward = true,
+          path = vim.fn.expand("%:p:h"),
+          stop = vim.env.HOME,
+        })[1]
+        if config_file then
+          return "-c=" .. config_file
         end
         return nil
       end,

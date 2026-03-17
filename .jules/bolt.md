@@ -1,0 +1,3 @@
+## 2024-05-24 - Optimize directory traversals with `vim.fs.find`
+**Learning:** In Neovim configurations, calling `vim.fs.find` repeatedly in a loop over different file names for an upward traversal results in multiple redundant disk I/O operations and directory walks. `vim.fs.find` natively supports accepting an array of file names, which allows Neovim to search for all patterns in a single upward traversal.
+**Action:** When searching for any of multiple configuration files (e.g., linters, formatters, LSP root markers), always pass an array of file patterns to a single `vim.fs.find` call instead of iterating over the patterns and calling `vim.fs.find` multiple times.
