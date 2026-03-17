@@ -1,6 +1,11 @@
 -- Formatter Configuration (conform.nvim)
 -- All formatters should be installed globally.
 -- See docs/install.md for installation instructions.
+
+-- Cache for biome.json/biome.jsonc searches per directory
+-- This avoids redundant disk I/O on every format trigger
+local biome_cache = {}
+
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -32,10 +37,18 @@ return {
     formatters = {
       ["biome-check"] = {
         condition = function(_, ctx)
-          return vim.fs.find(
+          local dir = vim.fs.dirname(ctx.filename)
+          if biome_cache[dir] ~= nil then
+            return biome_cache[dir]
+          end
+
+          local found = vim.fs.find(
             { "biome.json", "biome.jsonc" },
             { path = ctx.filename, upward = true }
-          )[1]
+          )[1] ~= nil
+
+          biome_cache[dir] = found
+          return found
         end,
       },
     },
