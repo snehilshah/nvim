@@ -9,6 +9,7 @@ local tailwind_markers = {
   "postcss.config.cjs",
   "postcss.config.mjs",
   "postcss.config.ts",
+  "astro.config.mjs",
 }
 
 return {
