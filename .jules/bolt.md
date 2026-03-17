@@ -1,0 +1,3 @@
+## 2024-05-15 - Optimize Neovim Config File Lookups (vim.fs.find)
+**Learning:** Neovim's `vim.fs.find` natively accepts an array of patterns. Iterating over an array of patterns and calling `vim.fs.find` for each one bypasses Neovim's internal optimization. Passing the array directly to `vim.fs.find` allows it to search for all patterns efficiently per directory step, leveraging the OS dentry cache effectively. Avoid custom in-memory caching for file system lookups as Neovim caches become stale.
+**Action:** When searching for multiple files (e.g., config files or project root markers) using `vim.fs.find`, pass the array of patterns directly as the first argument rather than looping through the array and making multiple calls.
