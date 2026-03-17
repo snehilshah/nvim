@@ -25,4 +25,9 @@ return {
       vim.cmd.colorscheme("everforest")
     end,
   },
+  {
+    "webhooked/kanso.nvim",
+    lazy = false,
+    priority = 1000,
+  },
 }
