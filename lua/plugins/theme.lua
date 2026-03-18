@@ -1,6 +1,6 @@
 return {
   {
-    "snehilshah/cosmic-gleam.nvim",
+    -- "snehilshah/cosmic-gleam.nvim",
     dir = vim.fn.expand("~/myCodes/cosmic-gleam.nvim"),
     enabled = true,
     priority = 1000,
