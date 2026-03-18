@@ -34,18 +34,19 @@ return {
       "--output.text.path=",
       "--show-stats=false",
       function()
-        -- Find .golangci.yaml or .golangci.yml in project root
+        -- Find the nearest golangci-lint config for the current file while walking upward
+        -- Supports: .golangci.yaml, .golangci.yml, .golangci.toml, .golangci.json
         local config_patterns =
           { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
-        for _, pattern in ipairs(config_patterns) do
-          local config_file = vim.fs.find(pattern, {
-            upward = true,
-            path = vim.fn.expand("%:p:h"),
-            stop = vim.env.HOME,
-          })[1]
-          if config_file then
-            return "-c=" .. config_file
-          end
+        -- Bolt optimization: pass patterns table directly to vim.fs.find to avoid repeated upward traversals.
+        local config_file = vim.fs.find(config_patterns, {
+          upward = true,
+          path = vim.fn.expand("%:p:h"),
+          stop = vim.env.HOME,
+        })[1]
+
+        if config_file then
+          return "-c=" .. config_file
         end
         return nil
       end,
