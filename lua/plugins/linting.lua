@@ -38,9 +38,7 @@ return {
         -- Supports: .golangci.yaml, .golangci.yml, .golangci.toml, .golangci.json
         local config_patterns =
           { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
-        -- ⚡ Bolt optimization: Pass the array directly to vim.fs.find instead of using a for loop.
-        -- Impact: Changes file lookup from O(N * depth) to O(depth) by fully utilizing the OS dentry cache
-        -- during upward search, reducing redundant disk I/O when linting Go files.
+        -- Bolt optimization: pass patterns table directly to vim.fs.find to avoid repeated upward traversals.
         local config_file = vim.fs.find(config_patterns, {
           upward = true,
           path = vim.fn.expand("%:p:h"),
