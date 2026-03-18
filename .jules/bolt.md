@@ -1,0 +1,3 @@
+## 2024-05-14 - Optimize vim.fs.find with Arrays
+**Learning:** Avoid custom in-memory caching for file system lookups (like `vim.fs.find`) because Neovim is a long-lived process and caches become stale when files change, causing regression bugs. Instead, optimize disk I/O by passing an array of file patterns directly to `vim.fs.find` to leverage the OS dentry cache efficiently.
+**Action:** When searching for multiple files (e.g., config files for a linter), pass an array of filenames directly to `vim.fs.find` rather than wrapping the call in a `for` loop. This avoids redundant upward directory traversal and minimizes I/O overhead.
