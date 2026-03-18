@@ -94,4 +94,8 @@ return {
       },
     },
   },
+  {
+    "atiladefreitas/dooing",
+    opts = {},
+  },
 }
