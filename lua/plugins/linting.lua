@@ -34,7 +34,8 @@ return {
       "--output.text.path=",
       "--show-stats=false",
       function()
-        -- Find .golangci.yaml or .golangci.yml in project root
+        -- Find the nearest golangci-lint config for the current file while walking upward
+        -- Supports: .golangci.yaml, .golangci.yml, .golangci.toml, .golangci.json
         local config_patterns =
           { ".golangci.yaml", ".golangci.yml", ".golangci.toml", ".golangci.json" }
         -- ⚡ Bolt optimization: Pass the array directly to vim.fs.find instead of using a for loop.
