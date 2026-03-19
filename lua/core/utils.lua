@@ -36,10 +36,22 @@ M.get_highlighted_line_numbers = function()
   return line_numbers
 end
 
+-- Exported for testing purposes (Bolt guideline)
+M._repo_root_cache = {}
+
 M.copyFilePathAndLineNumber = function()
   local current_file = vim.fn.expand("%:p")
   local current_line = vim.fn.line(".")
-  local repo_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  local cwd = vim.fn.getcwd()
+
+  -- Optimization: Memoize synchronous systemlist call to avoid ~4ms process spawn overhead
+  local repo_root = M._repo_root_cache[cwd]
+  if repo_root == nil then
+    local result = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+    repo_root = result or false
+    M._repo_root_cache[cwd] = repo_root
+  end
+
   if repo_root then
     current_file = current_file:sub(#repo_root + 2)
   end
