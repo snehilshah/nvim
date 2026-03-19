@@ -1,3 +1,7 @@
 ## 2024-05-14 - Optimize vim.fs.find with Arrays
 **Learning:** Avoid custom in-memory caching for file system lookups (like `vim.fs.find`) because Neovim is a long-lived process and caches become stale when files change, causing regression bugs. Instead, optimize disk I/O by passing an array of file patterns directly to `vim.fs.find` to leverage the OS dentry cache efficiently.
 **Action:** When searching for multiple files (e.g., config files for a linter), pass an array of filenames directly to `vim.fs.find` rather than wrapping the call in a `for` loop. This avoids redundant upward directory traversal and minimizes I/O overhead.
+
+## 2024-06-25 - Memoize Synchronous Git Calls
+**Learning:** Synchronous `vim.fn.systemlist` or `vim.fn.system` calls incur a significant process spawn overhead (approximately 3-4ms per call) that can severely impact performance in frequently executed paths or interactive functions.
+**Action:** Memoize these results where applicable (e.g., caching `git rev-parse --show-toplevel` keyed by the current working directory). For testability and alignment with Bolt boundaries, export the cache table on the module prefixed with an underscore (e.g., `M._repo_root_cache`).
