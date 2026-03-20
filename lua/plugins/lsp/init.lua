@@ -41,6 +41,7 @@ return {
       -- merged with your after/lsp/*.lua overrides
       vim.lsp.enable({
         "lua_ls", -- Lua
+        "buf_ls", -- Protobuf via Buf workspaces/modules
         "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
         "vtsls", -- TypeScript/JavaScript (switched from tsgo)
         "angularls", -- Angular Language Service (template intelligence, requires @angular/language-server)

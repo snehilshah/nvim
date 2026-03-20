@@ -71,6 +71,9 @@ return {
       -- Go
       go = { "goimports", "gofumpt" },
 
+      -- Protobuf
+      proto = { "buf" },
+
       -- Shell scripts
       sh = { "shfmt" },
       bash = { "shfmt" },
