@@ -22,6 +22,7 @@ Language servers provide IntelliSense, diagnostics, go-to-definition, and other 
 | `markdown-oxide`               | Markdown              | `cargo install --locked markdown-oxide`                |
 | `docker-langserver`            | Docker                | `npm install -g dockerfile-language-server-nodejs`     |
 | `clangd`                       | C/C++                 | `brew install llvm` or via system package manager      |
+| `buf`                          | Protobuf              | `brew install bufbuild/buf/buf`                        |
 | `tailwindcss-language-server`  | Tailwind CSS          | `npm install -g @tailwindcss/language-server`          |
 | `emmet-language-server`        | Emmet                 | `npm install -g @olrtg/emmet-language-server`          |
 | `harper-ls`                    | Grammar/spelling      | `cargo install --locked harper-ls`                     |
@@ -43,7 +44,7 @@ npm install -g \
 ### Quick Install (brew)
 
 ```bash
-brew install lua-language-server llvm
+brew install lua-language-server llvm bufbuild/buf/buf
 ```
 
 ### Quick Install (go)
@@ -78,6 +79,7 @@ Formatters are used by conform.nvim for code formatting.
 | `dockerfmt`         | Dockerfile                  | `brew install dockerfmt`                                             |
 | `markdownlint-cli2` | Markdown                    | `npm install -g markdownlint-cli2`                                   |
 | `tombi`             | TOML                        | `cargo install --locked tombi-cli`                                   |
+| `buf`               | Protobuf                    | `brew install bufbuild/buf/buf`                                      |
 
 ### Quick Install (npm)
 
@@ -88,7 +90,7 @@ npm install -g prettier @biomejs/biome markdownlint-cli2
 ### Quick Install (brew)
 
 ```bash
-brew install stylua shfmt clang-format dockerfmt
+brew install stylua shfmt clang-format dockerfmt bufbuild/buf/buf
 ```
 
 ### Quick Install (go)
