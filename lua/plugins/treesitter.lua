@@ -135,6 +135,7 @@ return {
         "yaml",
         "toml",
         "astro",
+        "proto",
       },
       auto_install = true,
 
