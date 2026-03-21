@@ -35,7 +35,7 @@ return {
       desc = "[F]ind [F]iles",
     },
     {
-      "<leader>jk",
+      "<leader>kj",
       function()
         Snacks.picker.buffers({
           on_show = function()
