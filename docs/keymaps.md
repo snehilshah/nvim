@@ -42,6 +42,13 @@
 | `<Left>` | n     | Previous buffer          |     | `<Right>`    | n     | Next buffer                   |
 | `X`      | n     | Split line at cursor     |     | `<leader>ln` | v     | Copy highlighted line numbers |
 
+## Flash (Motion)
+
+| Key  | M     | Desc              |     | Key  | M     | Desc              |
+| ---- | ----- | ----------------- | --- | ---- | ----- | ----------------- |
+| `zj` | n,x,o | Flash jump        |     | `zp` | n,x,o | Flash Treesitter  |
+| `zk` | o     | Remote Flash      |     | `zo` | o,x   | Treesitter Search |
+
 ## Window Management
 
 | Key        | M   | Desc                   |     | Key         | M   | Desc                   |
@@ -94,7 +101,7 @@
 
 | Key                | M   | Desc                     |     | Key          | M   | Desc              |
 | ------------------ | --- | ------------------------ | --- | ------------ | --- | ----------------- |
-| `<leader><leader>` | n   | Smart Find Files         |     | `<leader>jk` | n   | Buffers           |
+| `<leader><leader>` | n   | Smart Find Files         |     | `<leader>kj` | n   | Buffers           |
 | `<leader>ff`       | n   | Find Files               |     | `<leader>nc` | n   | Nvim Config files |
 | `<leader>fa`       | n   | Find All (Grep)          |     | `<leader>:`  | n   | Command History   |
 | `<leader>fv`       | n,x | Visual selection or word |     | `<M-S-k>`    | n   | Keymaps picker    |
