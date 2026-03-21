@@ -9,7 +9,7 @@ vim.g.loaded_netrwPlugin = 1
 require("config.options")
 require("config.neovide")
 require("core.lazy")
-require("core.autocmds")
+require("lua.utils.autocmds")
 require("core.utils")
 require("config.keymaps")
 -- require("utils.cmdline")
