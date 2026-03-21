@@ -12,7 +12,8 @@ require("core.lazy")
 require("core.autocmds")
 require("core.utils")
 require("config.keymaps")
--- require('utils.cmdline')
+-- require("utils.cmdline")
+require("utils.commands")
 
 if vim.fn.has("wsl") == 1 then
   require("config.win")
