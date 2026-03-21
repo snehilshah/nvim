@@ -142,3 +142,8 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "expr"
 
 -- NOTE: Diagnostic signs are configured in plugins/lsp/init.lua via vim.diagnostic.config()
+
+vim.opt.path:append("**")
+vim.opt.wildoptions:append("fuzzy")
+-- (Optional) Make the completion menu look like a modern dropdown popup
+vim.opt.wildoptions:append("pum")
