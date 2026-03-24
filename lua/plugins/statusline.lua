@@ -2,7 +2,6 @@
 -- fills, causing visible color mismatches at separator boundaries when window
 -- transparency is enabled. Use flat separators in Neovide.
 local section_seps = vim.g.neovide and { left = "", right = "" } or { left = "", right = "" }
-local capsule_bg = "#f4decd"
 local default_branch_icon = ""
 local remote_provider_icons = {
   ["github.com"] = " ",
@@ -61,28 +60,36 @@ local function resolve_branch_icon(cache_key, root, branch)
 
   branch_icon_pending[cache_key] = true
 
-  vim.system({ "git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}" }, { cwd = root, text = true }, function(upstream_result)
-    if upstream_result.code ~= 0 then
-      cache_branch_icon(cache_key, default_branch_icon)
-      return
-    end
-
-    local upstream = vim.trim(upstream_result.stdout or "")
-    local remote_name, remote_branch = upstream:match("^([^/]+)/(.+)$")
-    if not remote_name or remote_branch ~= branch then
-      cache_branch_icon(cache_key, default_branch_icon)
-      return
-    end
-
-    vim.system({ "git", "config", "--get", "remote." .. remote_name .. ".url" }, { cwd = root, text = true }, function(remote_result)
-      local icon = default_branch_icon
-      if remote_result.code == 0 then
-        icon = remote_icon_from_url(vim.trim(remote_result.stdout or "")) or default_branch_icon
+  vim.system(
+    { "git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}" },
+    { cwd = root, text = true },
+    function(upstream_result)
+      if upstream_result.code ~= 0 then
+        cache_branch_icon(cache_key, default_branch_icon)
+        return
       end
 
-      cache_branch_icon(cache_key, icon)
-    end)
-  end)
+      local upstream = vim.trim(upstream_result.stdout or "")
+      local remote_name, remote_branch = upstream:match("^([^/]+)/(.+)$")
+      if not remote_name or remote_branch ~= branch then
+        cache_branch_icon(cache_key, default_branch_icon)
+        return
+      end
+
+      vim.system(
+        { "git", "config", "--get", "remote." .. remote_name .. ".url" },
+        { cwd = root, text = true },
+        function(remote_result)
+          local icon = default_branch_icon
+          if remote_result.code == 0 then
+            icon = remote_icon_from_url(vim.trim(remote_result.stdout or "")) or default_branch_icon
+          end
+
+          cache_branch_icon(cache_key, icon)
+        end
+      )
+    end
+  )
 end
 
 local function branch_icon()
@@ -190,30 +197,41 @@ local function hl_hex(name, attr)
   return string.format("#%06x", hl[attr])
 end
 
+local function capsule_fg()
+  return hl_hex("lualine_a_normal", "fg")
+    or hl_hex("StatusLine", "bg")
+    or hl_hex("Normal", "bg")
+    or "#1b1b1b"
+end
+
+local function capsule_bg()
+  return hl_hex("lualine_a_normal", "bg") or hl_hex("StatusLine", "fg") or "#a89a85"
+end
+
 local function path_segment_color()
   return {
-    fg = hl_hex("StatusLine", "bg") or hl_hex("Normal", "bg") or "#1f1f1f",
-    bg = capsule_bg,
+    fg = capsule_fg(),
+    bg = capsule_bg(),
   }
 end
 
 local function path_separator_color()
   return {
-    fg = capsule_bg,
+    fg = capsule_bg(),
     bg = hl_hex("StatusLine", "bg") or hl_hex("Normal", "bg"),
   }
 end
 
 local function search_segment_color()
   return {
-    fg = hl_hex("StatusLine", "bg") or hl_hex("Normal", "bg") or "#1f1f1f",
-    bg = capsule_bg,
+    fg = capsule_fg(),
+    bg = capsule_bg(),
   }
 end
 
 local function search_separator_color()
   return {
-    fg = capsule_bg,
+    fg = capsule_bg(),
     bg = hl_hex("StatusLine", "bg") or hl_hex("Normal", "bg"),
   }
 end
@@ -232,7 +250,7 @@ end
 
 local function total_file_stats()
   local counts = vim.fn.wordcount()
-  local total_chars = counts.words or counts.bytes or 0
+  local total_chars = counts.chars or counts.bytes or 0
   local total_lines = vim.api.nvim_buf_line_count(0)
   return string.format("%s:%d", format_character_count(total_chars), total_lines)
 end
