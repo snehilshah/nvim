@@ -5,4 +5,4 @@ vim.diagnostic.config({
     prefix = "●",
     source = "if_many",
   },
-}, vim.api.nvim_get_current_buf())
+})
