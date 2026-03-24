@@ -517,6 +517,7 @@ return {
         explorer = {
           -- focus = "input",
           replace_netrw = true, -- Replaces default file explorer
+          ignored = true, -- Show gitignored files
           diagnostics = true,
           auto_close = true,
           diagnostics_open = true, -- auto-open folders with diagnostics
