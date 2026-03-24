@@ -250,7 +250,7 @@ end
 
 local function total_file_stats()
   local counts = vim.fn.wordcount()
-  local total_chars = counts.chars or counts.bytes or 0
+  local total_chars = counts.words
   local total_lines = vim.api.nvim_buf_line_count(0)
   return string.format("%s:%d", format_character_count(total_chars), total_lines)
 end
