@@ -10,6 +10,7 @@ return {
       preset = "super-tab",
       ["<C-j>"] = { "select_next" },
       ["<C-k>"] = { "select_prev" },
+      ["<Esc>"] = { "hide", "fallback" }, -- hide the menu when open, else fallback to nvim
       -- ["<Tab>"] = {
       -- 	"snippet_forward",
       -- 	function() -- sidekick next edit suggestion
