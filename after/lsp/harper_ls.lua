@@ -34,5 +34,5 @@ return {
     },
   },
   -- Only attach to specific filetypes where grammar matters
-  filetypes = { "markdown", "text", "gitcommit", "html" },
+  filetypes = { "markdown", "text", "gitcommit" },
 }
