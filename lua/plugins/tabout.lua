@@ -23,11 +23,11 @@ return {
       ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
       exclude = {}, -- tabout will ignore these filetypes
     },
-
-    config = function()
-      -- Insert literal tab with <C-]>; this is terminal-friendly and avoids common conflicts.
-      vim.keymap.set("i", "<C-]>", "<C-v><Tab>", { desc = "Insert literal tab" })
-    end,
+    -- HACK: Try using <c-t> and <c-d> for tabs, otherwise this is not required
+    -- config = function()
+    --   -- Insert literal tab with <C-]>; this is terminal-friendly and avoids common conflicts.
+    --   vim.keymap.set("i", "<C-]>", "<C-v><Tab>", { desc = "Insert literal tab" })
+    -- end,
     opt = true, -- Set this to true if the plugin is optional
     event = "InsertCharPre", -- Set the event to 'InsertCharPre' for better compatibility
     priority = 1000,
