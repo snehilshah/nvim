@@ -330,6 +330,12 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 | ------- | --- | ------------------------------------------- | --- | --- | --- | ---- |
 | `<M-o>` | n   | Toggle concealed import blocks (no-go.nvim) |     |     |     |      |
 
+## CSV Files (csvview.nvim)
+
+| Key          | M   | Desc            |
+| ------------ | --- | --------------- |
+| `<leader>cv` | n   | Toggle CSV view |
+
 ## Web Development (package.json)
 
 | Key          | M   | Desc                   |     | Key          | M   | Desc                |
