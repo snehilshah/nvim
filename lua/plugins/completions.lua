@@ -90,6 +90,7 @@ return {
     sources = {
       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
       per_filetype = {
+        go = { "lsp", "path", "buffer" }, -- disable snippets for go to avoid gopls malformed snippet ranges
         sql = { "dadbod", "snippets", "buffer" },
         mysql = { "dadbod", "snippets", "buffer" },
         plpgsql = { "dadbod", "snippets", "buffer" },
