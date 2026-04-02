@@ -86,10 +86,10 @@
 | ------------ | --- | -------------------------------------- | --- | ------------ | --- | ------------------------------------- |
 | `K`          | n   | Hover (rounded)                        |     | `<C-k>`      | n,i | Signature help (rounded)              |
 | `gd`         | n   | Goto Definition (Snacks)               |     | `gD`         | n   | Goto Declaration (Snacks)             |
-| `gi`         | n   | Goto Implementation (Snacks)           |     | `gt`         | n   | Goto Type Definition (Snacks)         |
+| `gi`         | n   | Goto Implementation (Snacks)           |     | `grt`        | n   | Goto Type Definition (Snacks)         |
 | `grp`        | n   | References (Snacks)                    |     | `ga`         | n,x | Code Action (native)                  |
 | `<leader>rn` | n   | Rename symbol                          |     | `<leader>ca` | n,x | Code Action (tiny-code-action)        |
-| `<leader>cl` | n   | Run codelens actions                   |     |              |     |                                       |
+| `grx`        | n   | Run codelens actions                   |     |              |     |                                       |
 | `[d`         | n   | Previous diagnostic (LSP buffer-local) |     | `]d`         | n   | Next diagnostic (LSP buffer-local)    |
 | `<leader>cd` | n   | Show diagnostic (LSP buffer-local)     |     | `<leader>ih` | n   | Toggle inlay hints (LSP buffer-local) |
 | `<leader>wa` | n   | Add workspace folder                   |     | `<leader>wr` | n   | Remove workspace folder               |

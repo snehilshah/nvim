@@ -234,7 +234,9 @@ return {
     vim.api.nvim_create_autocmd("TermOpen", {
       pattern = "term://*toggleterm#*",
       callback = function()
-        local opts_local = { buffer = 0 }
+        local opts_local = {
+          buf = 0,
+        }
         vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts_local)
         vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts_local)
         vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts_local)

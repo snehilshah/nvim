@@ -1,11 +1,26 @@
 local api = vim.api
+local keymap_buf_opt = "buf"
+
+local function is_non_file_uri(bufname)
+  if bufname == "" or bufname:match("^file://") then
+    return false
+  end
+
+  -- Match RFC3986 schemes (`svn+ssh:`, `iris.xpc:`, etc.) while keeping
+  -- Windows drive-letter paths like `C:\foo` treated as local files.
+  if bufname:match("^%a:[/\\]") then
+    return false
+  end
+
+  return bufname:match("^[%a][%w+.-]*:") ~= nil
+end
 
 -- Prevent LSP from attaching to non-file buffers (codediff, fugitive, etc.)
 api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local bufname = api.nvim_buf_get_name(args.buf)
     -- Allow file:// scheme or plain paths, block everything else
-    if bufname:match("^%w+://") and not bufname:match("^file://") then
+    if is_non_file_uri(bufname) then
       vim.schedule(function()
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client then
@@ -61,6 +76,9 @@ api.nvim_create_autocmd("FileType", {
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "q", "<cmd>close<cr>", {
+      [keymap_buf_opt] = event.buf,
+      silent = true,
+    })
   end,
 })

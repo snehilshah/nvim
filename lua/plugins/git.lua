@@ -288,9 +288,4 @@ return {
       process_spinner = true,
     },
   },
-  {
-    "XXiaoA/atone.nvim",
-    cmd = "Atone",
-    opts = {},
-  },
 }
