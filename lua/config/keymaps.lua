@@ -118,7 +118,7 @@ vim.keymap.set({ "n", "x" }, "<leader>ca", function()
 end, { noremap = true, silent = true, desc = "[C]ode [A]ction" })
 
 -- Run codelens actions directly
-vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { desc = "Run [C]ode[L]ens actions" })
+vim.keymap.set("n", "grx", vim.lsp.codelens.run, { desc = "Run codelens actions" })
 
 -- LSP Call Hierarchy - show incoming calls (call stack)
 vim.keymap.set(

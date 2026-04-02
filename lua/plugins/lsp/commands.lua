@@ -62,6 +62,8 @@ return {
       vim.api.nvim_create_user_command("LspInfoCustom", function()
         local bufnr = vim.api.nvim_get_current_buf()
         local clients = vim.lsp.get_clients({ bufnr = bufnr })
+        local log_path = vim.lsp.log and vim.lsp.log.get_filename and vim.lsp.log.get_filename()
+          or vim.lsp.get_log_path()
 
         print(
           "═══════════════════════════════════"
@@ -72,7 +74,7 @@ return {
         )
         print("")
 
-        print("󰈙 Language client log: " .. vim.lsp.get_log_path())
+        print("󰈙 Language client log: " .. log_path)
         print("󰈔 Detected filetype: " .. vim.bo.filetype)
         print("󰈮 Buffer: " .. bufnr)
         print("󰈔 Root directory: " .. (vim.fn.getcwd() or "N/A"))
@@ -108,7 +110,7 @@ return {
           end
           print("  Filetypes: " .. table.concat(client.config.filetypes or {}, ", "))
 
-          if client.is_stopped() then
+          if client:is_stopped() then
             print("  Status: 󰅚 Stopped")
           else
             print("  Status: 󰄬 Running")

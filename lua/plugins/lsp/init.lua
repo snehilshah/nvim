@@ -14,6 +14,8 @@ return {
       "saghen/blink.cmp", -- For LSP capabilities
     },
     config = function()
+      local keymap_buf_opt = "buf"
+
       -- ============================================================================
       -- Common LSP Configuration (applies to ALL language servers)
       -- ============================================================================
@@ -66,7 +68,11 @@ return {
       -- ============================================================================
       local function setup_keymaps(bufnr)
         local function map(mode, lhs, rhs, desc)
-          vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = "LSP: " .. desc, silent = true })
+          vim.keymap.set(mode, lhs, rhs, {
+            [keymap_buf_opt] = bufnr,
+            desc = "LSP: " .. desc,
+            silent = true,
+          })
         end
 
         -- Navigation
@@ -89,16 +95,15 @@ return {
           })
         end, "Hover documentation")
 
-        map("n", "<C-k>", function()
-          vim.lsp.buf.signature_help({ border = "rounded" })
-        end, "Signature help")
-        map("i", "<C-k>", function()
-          vim.lsp.buf.signature_help({ border = "rounded" })
-        end, "Signature help")
+        -- ARCHIVED: Commented out to use the default <C-s>
+        -- map("n", "<C-k>", function()
+        --   vim.lsp.buf.signature_help({ border = "rounded" })
+        -- end, "Signature help")
 
         -- Code actions & Refactoring
-        map({ "n", "x" }, "ga", vim.lsp.buf.code_action, "Code action")
-        map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+        -- ARCHIVED: Commented out to use the inbuilt statndards
+        -- map({ "n", "x" }, "ga", vim.lsp.buf.code_action, "Code action")
+        -- map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
         -- Note: <leader>ca is mapped to tiny-code-action in keymaps.lua
         -- Note: <leader>cl is mapped to codelens.run in keymaps.lua
 

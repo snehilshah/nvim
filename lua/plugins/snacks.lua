@@ -350,7 +350,7 @@ return {
       desc = "Goto Implementation",
     },
     {
-      "gt",
+      "grt",
       function()
         local clients = vim.lsp.get_clients({ bufnr = 0 })
         local has_type_definition_support = false
@@ -368,7 +368,7 @@ return {
           vim.notify("Type definition not supported by LSP server", vim.log.levels.WARN)
         end
       end,
-      desc = "Goto T[y]pe Definition",
+      desc = "Goto Type Definition",
     },
     {
       "<leader>sf",
