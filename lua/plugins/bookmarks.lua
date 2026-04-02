@@ -15,7 +15,7 @@ return {
     annotation_prefix = " 󰆉 ",
     annotation_suffix = "",
     virt_text_pos = "eol",
-    per_branch_bookmarks = true,
+    per_branch_bookmarks = false,
     picker = "snacks",
     picker_keys = {
       delete = { key = "d", mode = { "n" } },
@@ -27,6 +27,13 @@ return {
     local haunt_picker = require("haunt.picker")
     local map = vim.keymap.set
     local prefix = "<leader>m"
+
+    vim.api.nvim_create_autocmd("DirChanged", {
+      callback = function()
+        local project_bookmarks = vim.fn.getcwd() .. "/.bookmarks/"
+        require("haunt.api").change_data_dir(project_bookmarks)
+      end,
+    })
 
     -- Annotations
     map("n", prefix .. "a", function()

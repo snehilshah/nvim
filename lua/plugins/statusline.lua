@@ -1,7 +1,4 @@
--- Neovide's GPU renderer anti-aliases powerline glyphs differently from background
--- fills, causing visible color mismatches at separator boundaries when window
--- transparency is enabled. Use flat separators in Neovide.
-local section_seps = vim.g.neovide and { left = "", right = "" } or { left = "", right = "" }
+local section_seps = { left = "", right = "" }
 local default_branch_icon = ""
 local remote_provider_icons = {
   ["github.com"] = " ",
@@ -249,10 +246,20 @@ local function current_position_stats()
 end
 
 local function total_file_stats()
+  local mode = vim.fn.mode()
   local counts = vim.fn.wordcount()
-  local total_chars = counts.words
+
+  if mode == "v" or mode == "V" or mode == "\22" then
+    local visual_words = counts.visual_words or 0
+    local start_line = vim.fn.line("v")
+    local end_line = vim.fn.line(".")
+    local selected_lines = math.abs(end_line - start_line) + 1
+    return string.format("%s:%d", format_character_count(visual_words), selected_lines)
+  end
+
+  local total_words = counts.words
   local total_lines = vim.api.nvim_buf_line_count(0)
-  return string.format("%s:%d", format_character_count(total_chars), total_lines)
+  return string.format("%s:%d", format_character_count(total_words), total_lines)
 end
 
 local function has_search_count()
@@ -299,7 +306,7 @@ return {
         },
         {
           function()
-            return vim.g.neovide and "" or ""
+            return ""
           end,
           color = path_separator_color,
           padding = { left = 0, right = 0 },
@@ -308,7 +315,7 @@ return {
       lualine_x = {
         {
           function()
-            return vim.g.neovide and "" or ""
+            return ""
           end,
           cond = has_search_count,
           color = search_separator_color,

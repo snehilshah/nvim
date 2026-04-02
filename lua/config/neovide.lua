@@ -2,9 +2,6 @@
 -- Neovide Settings (only applied when running in Neovide)
 -- https://neovide.dev/configuration.html
 -- ============================================================================
-if not vim.g.neovide then
-  return
-end
 
 -- Font size (adjust the number after 'h' to change size)
 vim.opt.guifont = "Maple Mono NF:h11"

@@ -28,4 +28,4 @@ space_after_function_names = "Never"
 # Sort requires
 # Enable to automatically sort require statements
 [sort_requires]
-enabled = false
+enabled = true
