@@ -26,7 +26,7 @@ return {
       "<leader>ff",
       function()
         Snacks.picker.files({
-          layout = "right",
+          layout = "left",
           supports_live = true,
           format = "file",
           finder = "files",
@@ -386,46 +386,11 @@ return {
     },
     -- Other
     {
-      "<leader>z",
-      function()
-        Snacks.zen()
-      end,
-      desc = "Toggle Zen Mode",
-    },
-    {
-      "<leader>Z",
-      function()
-        Snacks.zen.zoom()
-      end,
-      desc = "Toggle Zoom",
-    },
-    {
-      "<leader>.",
-      function()
-        Snacks.scratch()
-      end,
-      desc = "Toggle Scratch Buffer",
-    },
-    {
-      "<leader>S",
-      function()
-        Snacks.scratch.select()
-      end,
-      desc = "Select Scratch Buffer",
-    },
-    {
       "<leader>nh",
       function()
         Snacks.notifier.show_history()
       end,
       desc = "Notification History",
-    },
-    {
-      "<leader>bd",
-      function()
-        Snacks.bufdelete()
-      end,
-      desc = "Delete Buffer",
     },
     {
       "<leader>cR",
@@ -441,38 +406,6 @@ return {
       end,
       desc = "Dismiss All Notifications",
     },
-    {
-      "<leader>fn",
-      function()
-        Snacks.words.jump(vim.v.count1)
-      end,
-      desc = "Next Reference",
-    },
-    {
-      "<leader>fN",
-      function()
-        Snacks.words.jump(-vim.v.count1)
-      end,
-      desc = "Prev Reference",
-    },
-    {
-      "<leader>N",
-      desc = "Neovim News",
-      function()
-        Snacks.win({
-          file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-          width = 0.6,
-          height = 0.6,
-          wo = {
-            spell = false,
-            wrap = false,
-            signcolumn = "yes",
-            statuscolumn = " ",
-            conceallevel = 3,
-          },
-        })
-      end,
-    },
     -- file jumps
     {
       "<leader><leader>",
@@ -485,6 +418,9 @@ return {
     },
   },
   opts = {
+    gitbrowse = {
+      notify = true,
+    },
     dashboard = { enabled = true },
     explorer = {
       enabled = true,
