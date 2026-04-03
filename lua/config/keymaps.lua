@@ -113,9 +113,12 @@ vim.keymap.set(
 )
 
 -- Code actions with tiny-code-action
-vim.keymap.set({ "n", "x" }, "<leader>ca", function()
-  require("tiny-code-action").code_action({})
-end, { noremap = true, silent = true, desc = "[C]ode [A]ction" })
+vim.keymap.set(
+  { "n", "x" },
+  "<leader>ca",
+  vim.lsp.buf.code_action,
+  { noremap = true, silent = true, desc = "[C]ode [A]ction" }
+)
 
 -- Run codelens actions directly
 vim.keymap.set("n", "grx", vim.lsp.codelens.run, { desc = "Run codelens actions" })
