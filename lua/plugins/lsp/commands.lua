@@ -160,8 +160,17 @@ return {
           local counts = { ERROR = 0, WARN = 0, INFO = 0, HINT = 0 }
 
           for _, diagnostic in ipairs(diagnostics) do
-            local severity = vim.diagnostic.severity[diagnostic.severity]
-            counts[severity] = counts[severity] + 1
+            -- In newer Neovim versions, diagnostic.severity is just an integer, and the table maps values both ways
+            local severity_name = nil
+            for k, v in pairs(vim.diagnostic.severity) do
+              if v == diagnostic.severity and type(k) == "string" then
+                severity_name = k
+                break
+              end
+            end
+            if severity_name and counts[severity_name] then
+              counts[severity_name] = counts[severity_name] + 1
+            end
           end
 
           print("  󰅚 Errors: " .. counts.ERROR)
