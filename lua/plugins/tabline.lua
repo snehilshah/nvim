@@ -79,8 +79,9 @@ return {
       -- buffer_number = true,
       button = "",
       diagnostics = {
-        [vim.diagnostic.severity.ERROR] = { enabled = true, icon = " " },
-        [vim.diagnostic.severity.WARN] = { enabled = true, icon = " " },
+        -- Use standard Neovim diagnostic severity mapping
+        [vim.diagnostic.severity.ERROR or 1] = { enabled = true, icon = " " },
+        [vim.diagnostic.severity.WARN or 2] = { enabled = true, icon = " " },
       },
       preset = "default",
       -- separator = { left = "▎", right = "" },
