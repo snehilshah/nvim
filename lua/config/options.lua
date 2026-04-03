@@ -5,6 +5,7 @@ local arrows = require("icons").arrows
 -- enable mouse support in all modes
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
+
 -- save undos between sessions
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
