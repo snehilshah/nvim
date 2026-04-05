@@ -161,11 +161,21 @@ vim.opt.wildoptions:append("fuzzy")
 vim.o.completeopt = "menuone,noselect,noinsert"
 -- Limit the Autocomplete Menu to 10 items
 vim.opt.pumheight = 10
+vim.o.pumborder = "rounded"
 -- (Optional) Make the completion menu look like a modern dropdown popup
 vim.opt.wildoptions:append("pum")
 -- if nvim finds a local .nvim.lua file in the project directory it will run it on top
 vim.o.exrc = true
 
+-- Diff mode settings.
+-- Setting the context to a very large number disables folding.
+vim.opt.diffopt:append("vertical,context:99")
+
+-- shorten the write and search messages
+vim.opt.shortmess:append({
+  w = true,
+  s = true,
+})
 -- Show whitespace: disabled in favor of extension mcauley-penney/visual-whitespace.nvim
 -- vim.opt.list = true
 -- vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }

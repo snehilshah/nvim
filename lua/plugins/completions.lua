@@ -1,6 +1,6 @@
 return {
   "saghen/blink.cmp",
-  version = "1.*",
+  build = "cargo +nightly build --release",
   dependencies = {
     "folke/lazydev.nvim",
     "nvim-mini/mini.nvim",

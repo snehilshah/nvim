@@ -16,6 +16,10 @@ vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window 
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
+-- Keeping the cursor centered.
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll downwards" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll upwards" })
+
 -- better indenting
 vim.keymap.set("v", "<", "<gv", { desc = "Indent Left" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent Right" })
@@ -146,3 +150,28 @@ end, { desc = "Copy file path with line number" })
 vim.keymap.set({ "n", "v" }, "q:", function()
   vim.notify("Command-line window (q:) is disabled. Use :q to quit.", vim.log.levels.INFO)
 end, { desc = "Disable command-line window (q:)" })
+
+-- Indent while remaining in visual mode.
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+-- Poweful <esc>.
+vim.keymap.set({ "i", "s", "n" }, "<esc>", function()
+  vim.cmd("noh")
+  return "<esc>"
+end, { desc = "Escape, clear hlsearch, and stop snippet session", expr = true })
+
+-- Make U opposite to u.
+vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
+
+-- Escape and save changes.
+vim.keymap.set(
+  { "s", "i", "n", "v" },
+  "<C-s>",
+  "<esc>:w<cr>",
+  { desc = "Exit insert mode and save changes" }
+)
+vim.keymap.set({ "s", "i", "n", "v" }, "<C-S-s>", function()
+  vim.g.skip_formatting = true
+  return "<esc>:w<cr>"
+end, { desc = "Exit insert mode and save changes (without formatting)", expr = true })
