@@ -37,11 +37,12 @@ api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
 -- go to last loc when opening a buffer
 -- this mean that when you open a file, you will be at the last position
 api.nvim_create_autocmd("BufReadPost", {
-  callback = function()
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
-    local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+  desc = "Go to the last location when opening a buffer",
+  callback = function(args)
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= line_count then
+      vim.cmd('normal! g`"zz')
     end
   end,
 })
@@ -74,11 +75,27 @@ api.nvim_create_autocmd("FileType", {
     "neotest-output-panel",
     "codediff",
   },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", {
-      [keymap_buf_opt] = event.buf,
-      silent = true,
-    })
+  callback = function(args)
+    if args.match ~= "help" or not vim.bo[args.buf].modifiable then
+      vim.keymap.set("n", "q", "<cmd>quit<cr>", { buffer = args.buf })
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("mariasolos/treesitter_folding", { clear = true }),
+  desc = "Enable Treesitter folding",
+  callback = function(args)
+    local bufnr = args.buf
+
+    -- Enable Treesitter folding when not in huge files and when Treesitter
+    -- is working.
+    if vim.bo[bufnr].filetype ~= "bigfile" and pcall(vim.treesitter.start, bufnr) then
+      vim.api.nvim_buf_call(bufnr, function()
+        vim.wo[0][0].foldmethod = "expr"
+        vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.cmd.normal("zx")
+      end)
+    end
   end,
 })

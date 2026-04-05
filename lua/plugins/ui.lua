@@ -56,13 +56,6 @@ return {
       },
     },
   },
-  -- Better folding with LSP/treesitter support
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = { "kevinhwang91/promise-async" },
-    event = "BufReadPost", -- Load immediately when opening a file
-    config = true, -- Runs require('ufo').setup() with default settings
-  },
   {
     "brenoprata10/nvim-highlight-colors",
     event = "BufReadPre",
