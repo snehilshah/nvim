@@ -116,4 +116,5 @@ return {
       vim.g.camelcasemotion_key = "<leader>"
     end,
   },
+  { "b0o/SchemaStore.nvim", lazy = true },
 }

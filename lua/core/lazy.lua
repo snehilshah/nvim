@@ -24,6 +24,9 @@ require("lazy").setup({
   dev = {
     path = "~/myCodes",
   },
+  rocks = {
+    enabled = false,
+  },
   spec = {
     { import = "plugins" },
     { import = "plugins.languages" },
@@ -62,6 +65,8 @@ require("lazy").setup({
         "tohtml",
         "tutor",
         "zipPlugin",
+        "netrwPlugin",
+        "rplugin",
       },
     },
   },
