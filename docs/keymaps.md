@@ -173,6 +173,13 @@
 | `<Tab>` | n,i | Focus preview            |     | `<c-t>` | n,i | Open in Trouble (picker) |
 | `<a-a>` | n,i | Sidekick send (explorer) |     |         |     |                          |
 
+## Artio Picker
+
+| Key     | M | Desc         |     | Key     | M | Desc        |
+| ------- | - | ------------ | --- | ------- | - | ----------- |
+| `<C-j>` | i | Move down    |     | `<C-k>` | i | Move up     |
+| `<down>`| i | Move down    |     | `<up>`  | i | Move up     |
+
 ## Git (Gitsigns) — inline hunk operations on the current buffer
 
 | Key          | M   | Desc                             |     | Key          | M   | Desc                            |
