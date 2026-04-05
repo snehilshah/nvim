@@ -14,8 +14,10 @@ require("vim._core.ui2").enable({
 })
 
 -- disable netrw
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.cmd.colorscheme("cosmic-gleam")
 
 require("config.options")
 require("core.lazy")
