@@ -1,5 +1,4 @@
 local api = vim.api
-local keymap_buf_opt = "buf"
 
 local function is_non_file_uri(bufname)
   if bufname == "" or bufname:match("^file://") then

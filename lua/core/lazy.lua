@@ -21,9 +21,7 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   },
-  dev = {
-    path = "~/myCodes",
-  },
+  dev = true,
   rocks = {
     enabled = false,
   },
