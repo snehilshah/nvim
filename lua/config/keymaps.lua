@@ -175,3 +175,10 @@ vim.keymap.set({ "s", "i", "n", "v" }, "<C-S-s>", function()
   vim.g.skip_formatting = true
   return "<esc>:w<cr>"
 end, { desc = "Exit insert mode and save changes (without formatting)", expr = true })
+
+vim.keymap.set(
+  { "n", "v" },
+  "<leader>jj",
+  ":colorscheme cosmic-gleam<CR>",
+  { desc = "activate my theme" }
+)
