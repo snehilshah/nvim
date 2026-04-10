@@ -146,7 +146,7 @@ vim.filetype.add({
 -- Treesitter Folds
 -- ============================================================================
 vim.opt.foldenable = true
-vim.opt.foldcolumn = "1"
+vim.opt.foldcolumn = "auto"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99 -- Start with all folds open
 vim.opt.foldlevelstart = 99
