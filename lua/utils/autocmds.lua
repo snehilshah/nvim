@@ -1,34 +1,35 @@
 local api = vim.api
 
-local function is_non_file_uri(bufname)
-  if bufname == "" or bufname:match("^file://") then
-    return false
-  end
-
-  -- Match RFC3986 schemes (`svn+ssh:`, `iris.xpc:`, etc.) while keeping
-  -- Windows drive-letter paths like `C:\foo` treated as local files.
-  if bufname:match("^%a:[/\\]") then
-    return false
-  end
-
-  return bufname:match("^[%a][%w+.-]*:") ~= nil
-end
+-- EXPERIMENTAL: lets find out if we actually need this or not
+-- local function is_non_file_uri(bufname)
+--   if bufname == "" or bufname:match("^file://") then
+--     return false
+--   end
+--
+--   -- Match RFC3986 schemes (`svn+ssh:`, `iris.xpc:`, etc.) while keeping
+--   -- Windows drive-letter paths like `C:\foo` treated as local files.
+--   if bufname:match("^%a:[/\\]") then
+--     return false
+--   end
+--
+--   return bufname:match("^[%a][%w+.-]*:") ~= nil
+-- end
 
 -- Prevent LSP from attaching to non-file buffers (codediff, fugitive, etc.)
-api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local bufname = api.nvim_buf_get_name(args.buf)
-    -- Allow file:// scheme or plain paths, block everything else
-    if is_non_file_uri(bufname) then
-      vim.schedule(function()
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client then
-          vim.lsp.buf_detach_client(args.buf, args.data.client_id)
-        end
-      end)
-    end
-  end,
-})
+-- api.nvim_create_autocmd("LspAttach", {
+--   callback = function(args)
+--     local bufname = api.nvim_buf_get_name(args.buf)
+--     -- Allow file:// scheme or plain paths, block everything else
+--     if is_non_file_uri(bufname) then
+--       vim.schedule(function()
+--         local client = vim.lsp.get_client_by_id(args.data.client_id)
+--         if client then
+--           vim.lsp.buf_detach_client(args.buf, args.data.client_id)
+--         end
+--       end)
+--     end
+--   end,
+-- })
 
 -- don't auto comment new line
 api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
