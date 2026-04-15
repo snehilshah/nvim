@@ -124,7 +124,7 @@ return {
       function()
         Snacks.gitbrowse({
           open = function(url)
-            vim.fn.system({ "google-chrome", url })
+            vim.ui.open(url)
           end,
         })
       end,
@@ -297,15 +297,8 @@ return {
     {
       "gD",
       function()
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        local has_declaration_support = false
-
-        for _, client in pairs(clients) do
-          if client.server_capabilities.declarationProvider then
-            has_declaration_support = true
-            break
-          end
-        end
+        local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/declaration" })
+        local has_declaration_support = #clients > 0
 
         if has_declaration_support then
           Snacks.picker.lsp_declarations()
@@ -331,15 +324,8 @@ return {
     {
       "gi",
       function()
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        local has_implementation_support = false
-
-        for _, client in pairs(clients) do
-          if client.server_capabilities.implementationProvider then
-            has_implementation_support = true
-            break
-          end
-        end
+        local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/implementation" })
+        local has_implementation_support = #clients > 0
 
         if has_implementation_support then
           Snacks.picker.lsp_implementations()
@@ -352,15 +338,8 @@ return {
     {
       "grt",
       function()
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        local has_type_definition_support = false
-
-        for _, client in pairs(clients) do
-          if client.server_capabilities.typeDefinitionProvider then
-            has_type_definition_support = true
-            break
-          end
-        end
+        local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/typeDefinition" })
+        local has_type_definition_support = #clients > 0
 
         if has_type_definition_support then
           Snacks.picker.lsp_type_definitions()

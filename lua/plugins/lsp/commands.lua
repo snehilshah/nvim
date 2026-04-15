@@ -159,8 +159,15 @@ return {
           print("󰒡 Diagnostics Summary:")
           local counts = { ERROR = 0, WARN = 0, INFO = 0, HINT = 0 }
 
+          local severity_map = {
+            [vim.diagnostic.severity.ERROR] = "ERROR",
+            [vim.diagnostic.severity.WARN] = "WARN",
+            [vim.diagnostic.severity.INFO] = "INFO",
+            [vim.diagnostic.severity.HINT] = "HINT",
+          }
+
           for _, diagnostic in ipairs(diagnostics) do
-            local severity = vim.diagnostic.severity[diagnostic.severity]
+            local severity = severity_map[diagnostic.severity] or "ERROR"
             counts[severity] = counts[severity] + 1
           end
 
