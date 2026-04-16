@@ -35,7 +35,7 @@ return {
     config = function(_, opts)
       require("comfy-line-numbers").setup(opts)
       -- Add fold column (%C) to the statuscolumn set by comfy-line-numbers
-      vim.api.nvim_create_autocmd("ModeChanged", {
+      vim.api.nvim_create_autocmd({ "BufWinEnter", "ModeChanged" }, {
         pattern = "*",
         callback = function()
           vim.schedule(function()
@@ -46,13 +46,6 @@ return {
           end)
         end,
       })
-      -- Also set it initially
-      vim.schedule(function()
-        local sc = vim.opt.statuscolumn:get()
-        if sc ~= "" and not sc:match("%%C") then
-          vim.opt.statuscolumn = "%C" .. sc
-        end
-      end)
     end,
   },
   -- Visual whitespace display in visual mode
