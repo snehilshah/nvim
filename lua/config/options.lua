@@ -54,6 +54,7 @@ vim.opt.showtabline = 0
 -- disable the vim cmd line until required, this will overwrite the statusline when cmd is required
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 3 -- there is only 1 statusline for all windows
+vim.opt.colorcolumn = "120"
 -- fill the last lines with empty lines instead of ~
 vim.opt.fillchars = {
   eob = "~",
@@ -179,3 +180,10 @@ vim.opt.shortmess:append({
 -- Show whitespace: disabled in favor of extension mcauley-penney/visual-whitespace.nvim
 -- vim.opt.list = true
 -- vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
+-- auto read/write
+vim.opt.autoread = true
+vim.opt.autowrite = false -- never tested this
+
+-- Getting some weird command line completion behaviors
+-- vim.opt.wildmenu = true
+-- vim.opt.wildmode = "longest:full,full"
