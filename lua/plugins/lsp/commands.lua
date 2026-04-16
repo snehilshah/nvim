@@ -63,7 +63,6 @@ return {
         local bufnr = vim.api.nvim_get_current_buf()
         local clients = vim.lsp.get_clients({ bufnr = bufnr })
         local log_path = vim.lsp.log and vim.lsp.log.get_filename and vim.lsp.log.get_filename()
-          or "N/A"
 
         print(
           "═══════════════════════════════════"
@@ -74,7 +73,7 @@ return {
         )
         print("")
 
-        print("󰈙 Language client log: " .. log_path)
+        print("󰈙 Language client log: " .. (log_path or "N/A"))
         print("󰈔 Detected filetype: " .. vim.bo.filetype)
         print("󰈮 Buffer: " .. bufnr)
         print("󰈔 Root directory: " .. (vim.fn.getcwd() or "N/A"))
