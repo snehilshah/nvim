@@ -116,7 +116,7 @@ vim.keymap.set(
   { desc = "Delete to end of line without copying to clipboard" }
 )
 
--- Code actions
+-- Code actions with tiny-code-action
 vim.keymap.set(
   { "n", "x" },
   "<leader>ca",
