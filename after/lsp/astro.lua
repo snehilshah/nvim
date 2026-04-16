@@ -13,9 +13,6 @@ local function get_typescript_tsdk()
     "/opt/homebrew/opt/typescript/libexec/lib/node_modules/typescript/lib",
     -- Brew Linux
     "/home/linuxbrew/.linuxbrew/opt/typescript/libexec/lib/node_modules/typescript/lib",
-    -- Mason
-    vim.fn.stdpath("data")
-      .. "/mason/packages/typescript-language-server/node_modules/typescript/lib",
   }
   for _, path in ipairs(search_paths) do
     if vim.fn.isdirectory(path) == 1 then
@@ -58,7 +55,7 @@ return {
         quoteStyle = "auto",
       },
 
-      -- Inlay Hints (same configuration as vtsls)
+      -- Inlay Hints (same configuration as tsgo)
       inlayHints = {
         parameterNames = {
           enabled = "all",

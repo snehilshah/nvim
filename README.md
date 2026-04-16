@@ -21,7 +21,7 @@ local servers = {
  "html", -- HTML language server
  "lua_ls", -- Lua language server
  -- "gopls",      -- Go language server managed by go.nvim will be installed automatically on initial setup
- "ts_ls",    -- TypeScript/JavaScript language server
+ "tsgo",     -- TypeScript/JavaScript language server
  "tailwindcss", -- Tailwind CSS language server
 }
 ```

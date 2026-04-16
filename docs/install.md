@@ -15,7 +15,7 @@ Language servers provide IntelliSense, diagnostics, go-to-definition, and other 
 | ------------------------------ | --------------------- | ------------------------------------------------------ |
 | `lua-language-server`          | Lua                   | `brew install lua-language-server`                     |
 | `gopls`                        | Go                    | `go install golang.org/x/tools/gopls@latest`           |
-| `typescript-language-server`   | TypeScript/JavaScript | `npm install -g typescript-language-server typescript` |
+| `tsgo`                         | TypeScript/JavaScript | `npm install -g @typescript/native-preview typescript` |
 | `bash-language-server`         | Bash/Shell            | `npm install -g bash-language-server`                  |
 | `vscode-langservers-extracted` | CSS/HTML/JSON         | `npm install -g vscode-langservers-extracted`          |
 | `yaml-language-server`         | YAML                  | `npm install -g yaml-language-server`                  |
@@ -32,7 +32,7 @@ Language servers provide IntelliSense, diagnostics, go-to-definition, and other 
 
 ```bash
 npm install -g \
-  typescript-language-server typescript \
+  @typescript/native-preview typescript \
   bash-language-server \
   vscode-langservers-extracted \
   yaml-language-server \
@@ -194,7 +194,7 @@ brew install \
 
 # npm packages
 npm install -g \
-  typescript-language-server typescript \
+  @typescript/native-preview typescript \
   bash-language-server \
   vscode-langservers-extracted \
   yaml-language-server \
@@ -238,7 +238,7 @@ sudo apt update && sudo apt install -y \
 
 # npm packages (same as macOS)
 npm install -g \
-  typescript-language-server typescript \
+  @typescript/native-preview typescript \
   bash-language-server \
   vscode-langservers-extracted \
   yaml-language-server \
@@ -283,7 +283,7 @@ After installation, verify tools are available:
 # Language servers
 lua-language-server --version
 gopls version
-typescript-language-server --version
+tsgo --version
 bash-language-server --version
 vscode-css-language-server --version
 yaml-language-server --version

@@ -1,5 +1,4 @@
 -- tsgo configuration (native TypeScript server from Microsoft)
--- To switch to ts_ls: rename this file to tsgo.lua.bak and rename ts_ls.lua.bak to ts_ls.lua
 return {
   capabilities = {
     workspace = {
