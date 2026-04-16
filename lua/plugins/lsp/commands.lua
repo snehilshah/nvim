@@ -63,7 +63,6 @@ return {
         local bufnr = vim.api.nvim_get_current_buf()
         local clients = vim.lsp.get_clients({ bufnr = bufnr })
         local log_path = vim.lsp.log and vim.lsp.log.get_filename and vim.lsp.log.get_filename()
-          or vim.lsp.get_log_path()
 
         print(
           "═══════════════════════════════════"
@@ -74,7 +73,7 @@ return {
         )
         print("")
 
-        print("󰈙 Language client log: " .. log_path)
+        print("󰈙 Language client log: " .. (log_path or "N/A"))
         print("󰈔 Detected filetype: " .. vim.bo.filetype)
         print("󰈮 Buffer: " .. bufnr)
         print("󰈔 Root directory: " .. (vim.fn.getcwd() or "N/A"))
@@ -159,9 +158,18 @@ return {
           print("󰒡 Diagnostics Summary:")
           local counts = { ERROR = 0, WARN = 0, INFO = 0, HINT = 0 }
 
+          local severity_map = {
+            [vim.diagnostic.severity.ERROR] = "ERROR",
+            [vim.diagnostic.severity.WARN] = "WARN",
+            [vim.diagnostic.severity.INFO] = "INFO",
+            [vim.diagnostic.severity.HINT] = "HINT",
+          }
+
           for _, diagnostic in ipairs(diagnostics) do
-            local severity = vim.diagnostic.severity[diagnostic.severity]
-            counts[severity] = counts[severity] + 1
+            local severity = severity_map[diagnostic.severity]
+            if severity then
+              counts[severity] = counts[severity] + 1
+            end
           end
 
           print("  󰅚 Errors: " .. counts.ERROR)
