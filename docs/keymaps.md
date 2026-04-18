@@ -88,7 +88,7 @@
 | `gd`         | n   | Goto Definition (Snacks)               |     | `gD`         | n   | Goto Declaration (Snacks)             |
 | `gi`         | n   | Goto Implementation (Snacks)           |     | `grt`        | n   | Goto Type Definition (Snacks)         |
 | `grp`        | n   | References (Snacks)                    |     | `ga`         | n,x | Code Action (native)                  |
-| `<leader>rn` | n   | Rename symbol                          |     | `<leader>ca` | n,x | Code Action (tiny-code-action)        |
+| `<leader>rn` | n   | Rename symbol                          |     | `<leader>ca` | n,x | Code Action                           |
 | `grx`        | n   | Run codelens actions                   |     |              |     |                                       |
 | `[d`         | n   | Previous diagnostic (LSP buffer-local) |     | `]d`         | n   | Next diagnostic (LSP buffer-local)    |
 | `<leader>cd` | n   | Show diagnostic (LSP buffer-local)     |     | `<leader>ih` | n   | Toggle inlay hints (LSP buffer-local) |
