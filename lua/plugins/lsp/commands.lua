@@ -63,7 +63,6 @@ return {
         local bufnr = vim.api.nvim_get_current_buf()
         local clients = vim.lsp.get_clients({ bufnr = bufnr })
         local log_path = vim.lsp.log and vim.lsp.log.get_filename and vim.lsp.log.get_filename()
-          or vim.lsp.get_log_path()
 
         print(
           "═══════════════════════════════════"
@@ -158,10 +157,13 @@ return {
         if #diagnostics > 0 then
           print("󰒡 Diagnostics Summary:")
           local counts = { ERROR = 0, WARN = 0, INFO = 0, HINT = 0 }
+          local severity_map = { [1] = "ERROR", [2] = "WARN", [3] = "INFO", [4] = "HINT" }
 
           for _, diagnostic in ipairs(diagnostics) do
-            local severity = vim.diagnostic.severity[diagnostic.severity]
-            counts[severity] = counts[severity] + 1
+            local severity = severity_map[diagnostic.severity]
+            if severity then
+              counts[severity] = counts[severity] + 1
+            end
           end
 
           print("  󰅚 Errors: " .. counts.ERROR)

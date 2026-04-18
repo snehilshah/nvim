@@ -297,17 +297,9 @@ return {
     {
       "gD",
       function()
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        local has_declaration_support = false
+        local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/declaration" })
 
-        for _, client in pairs(clients) do
-          if client.server_capabilities.declarationProvider then
-            has_declaration_support = true
-            break
-          end
-        end
-
-        if has_declaration_support then
+        if #clients > 0 then
           Snacks.picker.lsp_declarations()
         else
           Snacks.picker.lsp_definitions()
@@ -331,17 +323,9 @@ return {
     {
       "gi",
       function()
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        local has_implementation_support = false
+        local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/implementation" })
 
-        for _, client in pairs(clients) do
-          if client.server_capabilities.implementationProvider then
-            has_implementation_support = true
-            break
-          end
-        end
-
-        if has_implementation_support then
+        if #clients > 0 then
           Snacks.picker.lsp_implementations()
         else
           vim.notify("Implementation not supported by LSP server", vim.log.levels.WARN)
@@ -352,17 +336,9 @@ return {
     {
       "grt",
       function()
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        local has_type_definition_support = false
+        local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/typeDefinition" })
 
-        for _, client in pairs(clients) do
-          if client.server_capabilities.typeDefinitionProvider then
-            has_type_definition_support = true
-            break
-          end
-        end
-
-        if has_type_definition_support then
+        if #clients > 0 then
           Snacks.picker.lsp_type_definitions()
         else
           vim.notify("Type definition not supported by LSP server", vim.log.levels.WARN)

@@ -103,7 +103,7 @@ return {
       -- ARCHIVED: Commented out to use the inbuilt statndards
       -- map({ "n", "x" }, "ga", vim.lsp.buf.code_action, "Code action")
       -- map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-      -- Note: <leader>ca is mapped to tiny-code-action in keymaps.lua
+      -- Note: <leader>ca is mapped to vim.lsp.buf.code_action in keymaps.lua
 
       -- Note: <leader>cl is mapped to codelens.run in keymaps.lua
 
@@ -184,7 +184,10 @@ return {
           [vim.diagnostic.severity.WARN] = "WarningMsg",
         },
       },
-      virtual_text = false, -- Disabled because using tiny-diagnostic plugin
+      virtual_text = {
+        prefix = "●",
+        source = "if_many",
+      },
     })
 
     -- ============================================================================
