@@ -184,7 +184,7 @@ return {
           [vim.diagnostic.severity.WARN] = "WarningMsg",
         },
       },
-      virtual_text = false, -- Disabled because using tiny-diagnostic plugin
+      virtual_text = true,
     })
 
     -- ============================================================================
