@@ -51,7 +51,7 @@ api.nvim_create_autocmd("BufReadPost", {
 api.nvim_create_autocmd("VimLeavePre", {
   callback = function()
     if vim.fn.executable("eslint_d") == 1 then
-      vim.fn.system("eslint_d stop")
+      vim.fn.system({ "eslint_d", "stop" })
     end
   end,
 })

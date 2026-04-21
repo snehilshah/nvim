@@ -2,7 +2,9 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    opts = {
+    opts = function()
+      local cached_git_user = nil
+      return {
       signs = {
         add = { text = "┃" },
         change = { text = "┃" },
@@ -42,8 +44,10 @@ return {
         end
         -- Replace your name with "You"
         local author = blame_info.author
-        local git_user = vim.fn.system("git config user.name"):gsub("\n", "")
-        if author == git_user then
+        if cached_git_user == nil then
+          cached_git_user = vim.fn.system({ "git", "config", "user.name" }):gsub("\n", "")
+        end
+        if author == cached_git_user then
           author = "You"
         end
         local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
@@ -62,7 +66,8 @@ return {
         col = 1,
       },
       -- yadm = { enable = false },
-    },
+      }
+    end,
     keys = {
       -- Navigate to the previous git hunk (changed block) in the buffer
       {
