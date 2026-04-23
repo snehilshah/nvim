@@ -31,14 +31,8 @@ return {
         lsp_format = "fallback",
       },
       formatters = {
-        ["biome-check"] = {
-          condition = function(_, ctx)
-            return vim.fs.find(
-              { "biome.json", "biome.jsonc" },
-              { path = ctx.filename, upward = true }
-            )[1]
-          end,
-        },
+        prettier = { require_cwd = true },
+        ["biome-check"] = { require_cwd = true },
       },
       formatters_by_ft = {
         -- lua
