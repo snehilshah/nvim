@@ -1,6 +1,7 @@
 return {
   "saghen/blink.cmp",
-  build = "cargo +nightly build --release",
+  -- build = "cargo +nightly build --release",
+  branch = "v1",
   dependencies = {
     "folke/lazydev.nvim",
     "nvim-mini/mini.nvim",
@@ -10,22 +11,9 @@ return {
       preset = "super-tab",
       ["<C-j>"] = { "select_next" },
       ["<C-k>"] = { "select_prev" },
-      -- ["<Esc>"] = { "hide", "fallback" }, -- hide the menu when open, else fallback to nvim
-      -- ["<Tab>"] = {
-      -- 	"snippet_forward",
-      -- 	function() -- sidekick next edit suggestion
-      -- 		return require("sidekick").nes_jump_or_apply()
-      -- 	end,
-      -- 	function() -- if you are using Neovim's native inline completions
-      -- 		return vim.lsp.inline_completion.get()
-      -- 	end,
-      -- 	"fallback",
-      -- },
-    },
-
-    appearance = {
-      use_nvim_cmp_as_default = false,
-      nerd_font_variant = "mono",
+      ["<C-\\>"] = { "hide", "fallback" },
+      ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+      ["<C-f>"] = { "scroll_documentation_down", "fallback" },
     },
     completion = {
       accept = {
