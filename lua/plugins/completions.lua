@@ -39,18 +39,15 @@ return {
       },
       ghost_text = {
         enabled = true,
-        show_with_menu = false, -- show ghost text even with menu open
-        show_without_selection = false, -- only show when item is selected
+        show_with_menu = true, -- show ghost text even with menu open
+        show_without_selection = true, -- only show when item is selected
       },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 200,
         treesitter_highlighting = true,
         window = {
           border = "rounded",
           scrollbar = true,
-          -- experimental check how does the highlight looks like
-          winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
         },
       },
       trigger = {
@@ -60,8 +57,8 @@ return {
       },
       list = {
         selection = {
-          preselect = true,
-          auto_insert = false, -- don't insert preview into editor when selecting
+          preselect = false, -- dont select the first item by default, but tab completes it still
+          auto_insert = false, --insert preview into editor only when selecting
         },
       },
     },
