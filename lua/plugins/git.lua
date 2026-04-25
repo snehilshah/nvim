@@ -2,8 +2,10 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      signs = {
+    opts = function()
+      local git_user_cache = nil
+      return {
+        signs = {
         add = { text = "┃" },
         change = { text = "┃" },
         delete = { text = "_" },
@@ -30,39 +32,42 @@ return {
       },
       attach_to_untracked = true,
       current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-      current_line_blame_opts = {
-        virt_text = true,
-        virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-        delay = 400,
-        ignore_whitespace = false,
-      },
-      current_line_blame_formatter = function(name, blame_info, opts)
-        if blame_info.author == "Not Committed Yet" then
-          return { { " Not committed yet", "GitSignsCurrentLineBlame" } }
-        end
-        -- Replace your name with "You"
-        local author = blame_info.author
-        local git_user = vim.fn.system("git config user.name"):gsub("\n", "")
-        if author == git_user then
-          author = "You"
-        end
-        local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
-        local text = string.format(" %s, %s - %s", author, blame_info.summary, date)
-        return { { text, "GitSignsCurrentLineBlame" } }
-      end,
-      sign_priority = 6,
-      status_formatter = nil,
-      update_debounce = 200,
-      max_file_length = 40000,
-      preview_config = {
-        border = "rounded",
-        style = "minimal",
-        relative = "cursor",
-        row = 0,
-        col = 1,
-      },
-      -- yadm = { enable = false },
-    },
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+          delay = 400,
+          ignore_whitespace = false,
+        },
+        current_line_blame_formatter = function(name, blame_info, opts)
+          if blame_info.author == "Not Committed Yet" then
+            return { { " Not committed yet", "GitSignsCurrentLineBlame" } }
+          end
+          -- Replace your name with "You"
+          local author = blame_info.author
+          if not git_user_cache then
+            git_user_cache = vim.fn.system({ "git", "config", "user.name" }):gsub("\n", "")
+          end
+          if author == git_user_cache then
+            author = "You"
+          end
+          local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
+          local text = string.format(" %s, %s - %s", author, blame_info.summary, date)
+          return { { text, "GitSignsCurrentLineBlame" } }
+        end,
+        sign_priority = 6,
+        status_formatter = nil,
+        update_debounce = 200,
+        max_file_length = 40000,
+        preview_config = {
+          border = "rounded",
+          style = "minimal",
+          relative = "cursor",
+          row = 0,
+          col = 1,
+        },
+        -- yadm = { enable = false },
+      }
+    end,
     keys = {
       -- Navigate to the previous git hunk (changed block) in the buffer
       {
