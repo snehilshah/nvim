@@ -42,7 +42,7 @@ return {
         end
         -- Replace your name with "You"
         local author = blame_info.author
-        local git_user = vim.fn.system("git config user.name"):gsub("\n", "")
+        local git_user = vim.fn.system({ "git", "config", "user.name" }):gsub("\n", "")
         if author == git_user then
           author = "You"
         end
