@@ -62,6 +62,12 @@ return {
             -- python = { "isort", "black" },
         },
         format_on_save = function()
+            -- Skip formatting if triggered from my special save command.
+            if vim.g.skip_formatting then
+                vim.g.skip_formatting = false
+                return nil
+            end
+
             if not vim.g.autoformat then
                 return nil
             end
