@@ -63,11 +63,4 @@ M.misc = {
     change_gutter = " ",
 }
 
-M.arrows = {
-    right = "",
-    left = "",
-    up = "",
-    down = "",
-}
-
 return M
