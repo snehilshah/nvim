@@ -14,7 +14,7 @@ vim.g.neovide_window_decorations = false
 
 -- Allow clipboard paste with Ctrl+Shift+V (Neovide doesn't have a terminal to handle this)
 vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<C-S-v>", function()
-  vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
 end, { desc = "Paste from system clipboard" })
 
 vim.g.neovide_floating_blur_amount_x = 6.0

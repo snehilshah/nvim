@@ -21,9 +21,9 @@ require("utils")
 require("lazyplug")
 
 if vim.g.neovide then
-  require("config.neovide")
+    require("config.neovide")
 end
 
 if vim.fn.has("wsl") == 1 then
-  require("config.win")
+    require("config.win")
 end

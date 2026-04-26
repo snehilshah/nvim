@@ -57,13 +57,13 @@ vim.opt.laststatus = 3 -- there is only 1 statusline for all windows
 vim.opt.colorcolumn = "120"
 -- fill the last lines with empty lines instead of ~
 vim.opt.fillchars = {
-  eob = "~",
-  fold = " ",
-  foldclose = arrows.right,
-  foldopen = arrows.down,
-  foldsep = " ",
-  foldinner = " ",
-  msgsep = "─",
+    eob = "~",
+    fold = " ",
+    foldclose = arrows.right,
+    foldopen = arrows.down,
+    foldsep = " ",
+    foldinner = " ",
+    msgsep = "─",
 }
 -- rounded floating windows
 vim.o.winborder = "rounded"
@@ -129,18 +129,18 @@ vim.o.inccommand = "split" -- show a preview of replace commands with :%s/foo/ba
 -- Filetype Detection
 -- ============================================================================
 vim.filetype.add({
-  extension = {
-    env = "dotenv",
-    mdx = "mdx",
-  },
-  filename = {
-    [".env"] = "dotenv",
-    ["env"] = "dotenv",
-  },
-  pattern = {
-    ["[jt]sconfig.*.json"] = "jsonc",
-    ["%.env%.[%w_.-]+"] = "dotenv",
-  },
+    extension = {
+        env = "dotenv",
+        mdx = "mdx",
+    },
+    filename = {
+        [".env"] = "dotenv",
+        ["env"] = "dotenv",
+    },
+    pattern = {
+        ["[jt]sconfig.*.json"] = "jsonc",
+        ["%.env%.[%w_.-]+"] = "dotenv",
+    },
 })
 
 -- ============================================================================
@@ -174,8 +174,8 @@ vim.opt.diffopt:append("vertical,context:99")
 
 -- shorten the write and search messages
 vim.opt.shortmess:append({
-  w = true,
-  s = true,
+    w = true,
+    s = true,
 })
 -- Show whitespace: disabled in favor of extension mcauley-penney/visual-whitespace.nvim
 -- vim.opt.list = true

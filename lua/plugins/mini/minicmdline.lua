@@ -1,5 +1,5 @@
 return {
-    'nvim-mini/mini.cmdline',
-    event = 'VeryLazy',
-    opts = {}
+    "nvim-mini/mini.cmdline",
+    event = "VeryLazy",
+    opts = {},
 }

@@ -1,18 +1,18 @@
-vim.filetype.add {
+vim.filetype.add({
     filename = {
-        ['.eslintrc.json'] = 'jsonc',
+        [".eslintrc.json"] = "jsonc",
     },
     pattern = {
-        ['tsconfig*.json'] = 'jsonc',
-        ['.*/%.vscode/.*%.json'] = 'jsonc',
+        ["tsconfig*.json"] = "jsonc",
+        [".*/%.vscode/.*%.json"] = "jsonc",
         -- Borrowed from LazyVim. Mark huge files to disable features later.
-        ['.*'] = function(path, bufnr)
+        [".*"] = function(path, bufnr)
             return vim.bo[bufnr]
-                and vim.bo[bufnr].filetype ~= 'bigfile'
-                and path
-                and vim.fn.getfsize(path) > (1024 * 500)     -- 500 KB
-                and 'bigfile'
+                    and vim.bo[bufnr].filetype ~= "bigfile"
+                    and path
+                    and vim.fn.getfsize(path) > (1024 * 500) -- 500 KB
+                    and "bigfile"
                 or nil
         end,
     },
-}
+})
