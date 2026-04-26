@@ -22,9 +22,6 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to the bottom window", rem
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to the top window", remap = true })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to the right window", remap = true })
 
--- Make U opposite to u.
-vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
-
 -- Escape and save changes.
 vim.keymap.set(
     { "s", "i", "n", "v" },
@@ -149,10 +146,6 @@ vim.keymap.set(
     "<esc>:w<cr>",
     { desc = "Exit insert mode and save changes" }
 )
-vim.keymap.set({ "s", "i", "n", "v" }, "<C-S-s>", function()
-    vim.g.skip_formatting = true
-    return "<esc>:w<cr>"
-end, { desc = "Exit insert mode and save changes (without formatting)", expr = true })
 
 -- Mark management.
 vim.keymap.set("c", "dm", "delmarks", { desc = "Delete marks" })
