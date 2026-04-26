@@ -1,9 +1,3 @@
--- ============================================================================
--- Bookmarks (Ghost Text Annotations)
--- ============================================================================
--- Annotate lines with virtual text notes without modifying the actual files.
--- Bookmarks are scoped per git branch and searchable via Snacks picker.
-
 return {
   "TheNoeTrevino/haunt.nvim",
   event = "VeryLazy",
@@ -16,7 +10,7 @@ return {
     annotation_suffix = "",
     virt_text_pos = "eol",
     per_branch_bookmarks = false,
-    picker = "snacks",
+    picker = "fzf",
     picker_keys = {
       delete = { key = "d", mode = { "n" } },
       edit_annotation = { key = "a", mode = { "n" } },

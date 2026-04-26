@@ -4,14 +4,6 @@
 -- Habits, timers, clipboard management, and TODO tracking
 
 return {
-  -- Simple timer plugin for Neovim
-  {
-    "nvzone/timerly",
-    lazy = true,
-    cmd = "TimerlyToggle",
-    dependencies = "nvzone/volt",
-    opts = {},
-  },
   -- Clipboard manager
   {
     "atiladefreitas/lazyclip",
@@ -61,20 +53,6 @@ return {
         end,
         desc = "Previous todo comment",
       },
-      {
-        "<leader>st",
-        function()
-          Snacks.picker.todo_comments()
-        end,
-        desc = "Todo",
-      },
-      {
-        "<leader>sT",
-        function()
-          Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
-        end,
-        desc = "Todo/Fix/Fixme",
-      },
     },
     event = "VeryLazy",
     opts = {
@@ -93,9 +71,5 @@ return {
         TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
       },
     },
-  },
-  {
-    "atiladefreitas/dooing",
-    opts = {},
   },
 }

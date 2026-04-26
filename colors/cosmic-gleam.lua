@@ -1,3 +1,4 @@
+-- hl_color = { bg = "#DDC7A1", fg = "#1D2021" }, -- Gruvbox Material yellow on dark bg
 -- My own version of Dracula.
 
 -- Reset highlighting.

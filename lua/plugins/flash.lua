@@ -1,20 +1,19 @@
 return {
-  "folke/flash.nvim",
-  event = "VeryLazy",
-  ---@type Flash.Config
+  'folke/flash.nvim',
+  event = 'VeryLazy',
   opts = {
     jump = { nohlsearch = true },
     prompt = {
       win_config = {
-        border = "none",
+        border = 'none',
         -- Place the prompt above the statusline.
         row = -3,
       },
     },
     search = {
       exclude = {
-        "flash_prompt",
-        "qf",
+        'flash_prompt',
+        'qf',
         function(win)
           -- Non-focusable windows.
           return not vim.api.nvim_win_get_config(win).focusable
@@ -28,36 +27,28 @@ return {
   },
   keys = {
     {
-      "zj",
-      mode = { "n", "x", "o" },
+      's',
+      mode = { 'n', 'x', 'o' },
       function()
-        require("flash").jump()
+        require('flash').jump()
       end,
-      desc = "Flash",
+      desc = 'Flash',
     },
     {
-      "zp",
-      mode = { "n", "x", "o" },
+      'r',
+      mode = 'o',
       function()
-        require("flash").treesitter()
+        require('flash').treesitter_search()
       end,
-      desc = "Flash Treesitter",
+      desc = 'Treesitter Search',
     },
     {
-      "zk",
-      mode = "o",
+      'R',
+      mode = 'o',
       function()
-        require("flash").remote()
+        require('flash').remote()
       end,
-      desc = "Remote Flash",
-    },
-    {
-      "zo",
-      mode = { "o", "x" },
-      function()
-        require("flash").treesitter_search()
-      end,
-      desc = "Treesitter Search",
+      desc = 'Remote Flash',
     },
   },
 }

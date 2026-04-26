@@ -4,7 +4,6 @@
 -- Visual helpers: keymaps popup, color highlighting, line numbers, etc.
 
 return {
-  -- Displays a popup with possible keybindings of the command you started typing
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -21,7 +20,6 @@ return {
       },
     },
   },
-  -- Comfy line numbers
   {
     "snehilshah/comfy-line-numbers.nvim",
     opts = {
@@ -48,7 +46,6 @@ return {
       })
     end,
   },
-  -- Visual whitespace display in visual mode
   {
     "mcauley-penney/visual-whitespace.nvim",
     init = function()
@@ -85,6 +82,36 @@ return {
       enable_ansi = true,
       enable_var_usage = true,
       enable_tailwind = true,
+    },
+  },
+  {
+    'itchyny/vim-highlighturl',
+    event = 'VeryLazy',
+    config = function()
+      -- Disable the plugin in some places where the default highlighting
+      -- is preferred.
+      vim.api.nvim_create_autocmd('FileType', {
+        desc = 'Disable URL highlights',
+        pattern = {
+          'fzf',
+          'lazyterm',
+        },
+        command = 'call highlighturl#disable_local()',
+      })
+    end,
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    event = 'VeryLazy',
+    opts = {
+      indent = {
+        char = require('icons').misc.vertical_bar,
+      },
+      scope = {
+        show_start = false,
+        show_end = false,
+      },
     },
   },
 }

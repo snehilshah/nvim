@@ -7,16 +7,18 @@ vim.g.have_nerd_font = true
 -- disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.auto_format = true
 
-vim.cmd.colorscheme("cosmic-gleam")
+vim.cmd.colorscheme("miss-dracula")
 
 require("config.options")
-require("core.lazy")
-require("utils.autocmds")
-require("core.utils")
 require("config.keymaps")
--- require("utils.cmdline")
-require("utils.commands")
+require("statusline")
+require("autocmds")
+require("commands")
+require("filetype")
+require("utils")
+require("lazyplug")
 
 if vim.g.neovide then
   require("config.neovide")
@@ -25,5 +27,3 @@ end
 if vim.fn.has("wsl") == 1 then
   require("config.win")
 end
-
-vim.cmd.packadd("nvim.undotree")

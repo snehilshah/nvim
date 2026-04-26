@@ -50,9 +50,9 @@ vim.o.showmode = false
 vim.opt.showcmd = false
 -- cant see it even if enabled, anyways configured in lualine so nvm
 vim.opt.ruler = false
-vim.opt.showtabline = 0
+vim.opt.showtabline = 1
 -- disable the vim cmd line until required, this will overwrite the statusline when cmd is required
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.laststatus = 3 -- there is only 1 statusline for all windows
 vim.opt.colorcolumn = "120"
 -- fill the last lines with empty lines instead of ~

@@ -7,6 +7,7 @@ column_width = 100
 line_endings = "Unix"
 # Indentation settings
 indent_type = "Spaces"
+# TODO: make this 4
 indent_width = 2
 # Quote style
 # AutoPreferDouble: Automatically determines quote style, preferring double quotes

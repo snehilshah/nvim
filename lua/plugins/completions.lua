@@ -39,7 +39,7 @@ return {
       },
       ghost_text = {
         enabled = true,
-        show_with_menu = true, -- show ghost text even with menu open
+        show_with_menu = false, -- show ghost text even with menu open
         show_without_selection = true, -- only show when item is selected
       },
       documentation = {
@@ -58,7 +58,7 @@ return {
       list = {
         selection = {
           preselect = false, -- dont select the first item by default, but tab completes it still
-          auto_insert = false, --insert preview into editor only when selecting
+          auto_insert = true, --insert preview into editor only when selecting
         },
       },
     },
@@ -80,7 +80,11 @@ return {
         plpgsql = { "dadbod", "snippets", "buffer" },
       },
       providers = {
-        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          score_offset = 100,
+        },
         dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
         cmdline = {
           min_keyword_length = 2,
@@ -93,11 +97,6 @@ return {
         lsp = {
           name = "LSP",
           module = "blink.cmp.sources.lsp",
-          opts = {
-            markdown_oxide = {
-              keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
-            },
-          },
         },
       },
     },

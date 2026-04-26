@@ -5,32 +5,10 @@
 return {
   "MagicDuck/grug-far.nvim",
   opts = {
-    -- engines, default is "ripgrep", but "astgrep" can be specified
-    engine = "ripgrep",
-    -- whether to start in insert mode
-    startInInsertMode = true,
-    -- debounce time for search (in ms)
-    debounceMs = 500,
-    -- minimum number of characters to start search
-    minSearchChars = 2,
-    -- max number of parallel replacements tasks
-    maxWorkers = 4,
-    -- specifies the command to run for the rg search
-    rgOptions = { "--smart-case", "--hidden", "--glob=!.git/" },
-    -- folding related options
-    folding = {
-      enabled = true,
-      foldcolumn = "1",
-    },
-    -- history settings
-    history = {
-      autoSave = { enabled = true },
-    },
-    -- result location settings (with context)
-    resultLocation = {
-      showNumberLabel = true,
-      numberLabelFormat = " [%d] ",
-    },
+    -- Disable folding.
+    folding = { enabled = false },
+    -- Don't numerate the result list.
+    resultLocation = { showNumberLabel = false },
   },
   cmd = "GrugFar",
   keys = {
@@ -41,6 +19,7 @@ return {
       end,
       mode = { "n", "v" },
       desc = "Open Grug Far",
+      transient = true,
     },
     {
       "<leader>sW",
@@ -48,13 +27,7 @@ return {
         require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
       end,
       desc = "Replace Word Under Cursor",
-    },
-    {
-      "<leader>sF",
-      function()
-        require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } })
-      end,
-      desc = "Replace in Current File",
+      transient = true,
     },
     {
       "<leader>sv",
@@ -63,6 +36,7 @@ return {
       end,
       mode = "v",
       desc = "Replace Visual Selection",
+      transient = true,
     },
   },
 }
