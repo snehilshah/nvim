@@ -62,7 +62,6 @@ return {
     -- Create custom terminal instances
     local Terminal = require("toggleterm.terminal").Terminal
 
-    -- Lazygit terminal (if not using snacks lazygit)
     local lazygit = Terminal:new({
       cmd = "lazygit",
       dir = "git_dir",

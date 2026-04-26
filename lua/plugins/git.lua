@@ -1,25 +1,37 @@
+local icons         = require('icons')
+local solid_bar     = icons.misc.vertical_bar
+local dashed_bar    = icons.misc.dashed_bar
+local delete_up     = icons.misc.top_score
+local delete_down   = icons.misc.under_score
+local change_gutter = icons.misc.change_gutter
+
 return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       signs = {
-        add = { text = "┃" },
-        change = { text = "┃" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "┆" },
+        add = { text = solid_bar },
+        change = { text = solid_bar },
+        delete = { text = delete_down },
+        topdelete = { text = delete_up },
+        changedelete = { text = change_gutter },
+        untracked = { text = dashed_bar },
       },
       signs_staged = {
-        add = { text = "┃" },
-        change = { text = "┃" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "┆" },
+        add = { text = solid_bar },
+        change = { text = solid_bar },
+        delete = { text = delete_down },
+        topdelete = { text = delete_up },
+        changedelete = { text = change_gutter },
+        untracked = { text = dashed_bar },
       },
-      signs_staged_enable = true,
+      preview_config = {
+        border = "rounded",
+      },
+      current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      signs_staged_enable = true, -- show the signs mentioned in signs_staged at the top of the config
+      gh = true,
       signcolumn = true,
       numhl = true,
       linehl = false,
@@ -29,14 +41,13 @@ return {
         follow_files = true,
       },
       attach_to_untracked = true,
-      current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
       current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+        virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
         delay = 400,
         ignore_whitespace = false,
       },
-      current_line_blame_formatter = function(name, blame_info, opts)
+      current_line_blame_formatter = function(_, blame_info)
         if blame_info.author == "Not Committed Yet" then
           return { { " Not committed yet", "GitSignsCurrentLineBlame" } }
         end
@@ -54,38 +65,14 @@ return {
       status_formatter = nil,
       update_debounce = 200,
       max_file_length = 40000,
-      preview_config = {
-        border = "rounded",
-        style = "minimal",
-        relative = "cursor",
-        row = 0,
-        col = 1,
-      },
-      -- yadm = { enable = false },
     },
     keys = {
-      -- Navigate to the previous git hunk (changed block) in the buffer
-      {
-        "[[",
-        function()
-          require("gitsigns").nav_hunk("prev", { wrap = true, target = "all" })
-        end,
-        desc = "<- hunk",
-      },
       {
         "[g",
         function()
           require("gitsigns").nav_hunk("prev", { wrap = true, target = "all" })
         end,
         desc = "<- hunk",
-      },
-      -- Navigate to the next git hunk (changed block) in the buffer
-      {
-        "]]",
-        function()
-          require("gitsigns").nav_hunk("next", { wrap = true, target = "all" })
-        end,
-        desc = "-> Hunk",
       },
       {
         "]g",
@@ -167,15 +154,6 @@ return {
         end,
         desc = "[g]it [u]nstage Hunk",
       },
-      -- Browse git stash entries in a Snacks picker (view/apply/drop stashes)
-      -- NOTE: This uses Snacks.picker, not Gitsigns. Neogit also has stash management (z menu).
-      {
-        "<leader>gS",
-        function()
-          Snacks.picker.git_stash()
-        end,
-        desc = "[S]tash (Snacks)",
-      },
       -- Open a vim split diff comparing the current buffer against HEAD (last commit)
       {
         "<leader>gD",
@@ -211,30 +189,25 @@ return {
       },
     },
     keys = {
-      -- Toggle CodeDiff explorer (uncommitted changes, side-by-side diff with staging)
-      -- Run again to close, or press `q` inside the view. `g?` for help.
       {
         "<leader>dd",
         "<cmd>CodeDiff<cr>",
         desc = "[d]iff (toggle)",
       },
-      -- File history for the entire repo (browse commits with diffs)
       {
         "<leader>dh",
         "<cmd>CodeDiff history<cr>",
         desc = "[h]istory (all files)",
       },
-      -- File history for the current file only
       {
         "<leader>d.",
         "<cmd>CodeDiff history %<cr>",
         desc = "[.] Current file history",
       },
-      -- Diff current file against last commit
       {
         "<leader>df",
         "<cmd>CodeDiff file HEAD<cr>",
-        desc = "[f]ile diff vs HEAD",
+        desc = "[f]ile diff vs last commit",
       },
       -- PR-like merge-base diff: only changes introduced since branching from origin/main
       {
@@ -260,18 +233,14 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "esmuellert/codediff.nvim",
-      "folke/snacks.nvim",
     },
     cmd = "Neogit",
     keys = {
-      -- Open Neogit status panel: full interactive git UI (stage, commit, push, pull, rebase, stash, etc.)
-      -- This is the main git command center — press ? inside for all available actions
       {
         "<leader>gn",
         "<cmd>Neogit<cr>",
-        desc = "Neogit",
+        desc = "Open Neogit",
       },
-      -- Open Neogit commit popup directly (skip status panel, go straight to writing commit message)
       {
         "<leader>gc",
         "<cmd>Neogit commit<cr>",
@@ -281,7 +250,7 @@ return {
     opts = {
       integrations = {
         codediff = true,
-        snacks = true,
+        fzf_lua = true
       },
       diff_viewer = "codediff",
       graph_style = vim.g.neovide and "ascii" or "kitty",
@@ -293,7 +262,12 @@ return {
     opts = {},
     keys = {
       { "<leader>gy", "<cmd>GitLink<cr>", mode = { "n", "v" }, desc = "Yank git link" },
-      { "<leader>gY", "<cmd>GitLink! blame<cr>", mode = { "n", "v" }, desc = "Open git link" },
+      {
+        "<leader>gY",
+        "<cmd>GitLink! blame<cr>",
+        mode = { "n", "v" },
+        desc = "Open git link",
+      },
     },
   },
 }

@@ -2,7 +2,7 @@ return {
   {
     -- "snehilshah/cosmic-gleam.nvim",
     dir = vim.fn.expand("~/myCodes/cosmic-gleam.nvim"),
-    enabled = true,
+    enabled = false,
     priority = 1000,
     config = function()
       vim.cmd.colorscheme("cosmic_gleam")

@@ -25,7 +25,6 @@ Language servers provide IntelliSense, diagnostics, go-to-definition, and other 
 | `buf`                          | Protobuf              | `brew install bufbuild/buf/buf`                        |
 | `tailwindcss-language-server`  | Tailwind CSS          | `npm install -g @tailwindcss/language-server`          |
 | `emmet-language-server`        | Emmet                 | `npm install -g @olrtg/emmet-language-server`          |
-| `harper-ls`                    | Grammar/spelling      | `cargo install --locked harper-ls`                     |
 | `astro`                        | Astro                 | `npm install -g @astrojs/language-server`              |
 
 ### Quick Install (npm)
@@ -57,7 +56,6 @@ go install golang.org/x/tools/gopls@latest
 
 ```bash
 cargo install --locked markdown-oxide
-cargo install --locked harper-ls
 ```
 
 ---
@@ -219,7 +217,6 @@ go install github.com/google/yamlfmt/cmd/yamlfmt@latest
 # Cargo packages
 cargo install --locked markdown-oxide
 cargo install --locked tombi-cli
-cargo install --locked harper-ls
 ```
 
 ### Linux (apt-based + npm + go + cargo)
@@ -264,7 +261,6 @@ go install github.com/google/yamlfmt/cmd/yamlfmt@latest
 cargo install stylua
 cargo install --locked markdown-oxide
 cargo install --locked tombi-cli
-cargo install --locked harper-ls
 
 # pip packages
 pip install --user yamllint
@@ -292,7 +288,6 @@ docker-langserver --version
 clangd --version
 tailwindcss-language-server --version
 emmet-language-server --version
-harper-ls --version
 
 # Formatters
 stylua --version

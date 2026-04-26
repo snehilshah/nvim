@@ -165,13 +165,18 @@
 
 ## Snacks Picker Window
 
-| Key     | M   | Desc                     |     | Key     | M   | Desc                     |
-| ------- | --- | ------------------------ | --- | ------- | --- | ------------------------ |
-| `<Esc>` | n,i | Close picker             |     | `J`     | n,i | Preview scroll down      |
-| `<M-p>` | n,i | Cycle layouts            |     | `K`     | n,i | Preview scroll up        |
-| `H`     | n,i | Preview scroll left      |     | `L`     | n,i | Preview scroll right     |
-| `<Tab>` | n,i | Focus preview            |     | `<c-t>` | n,i | Open in Trouble (picker) |
-| `<a-a>` | n,i | Sidekick send (explorer) |     |         |     |                          |
+| Key     | M   | Desc                     |     | Key     | M   | Desc                |
+| ------- | --- | ------------------------ | --- | ------- | --- | ------------------- |
+| `<Esc>` | n,i | Close picker             |     | `J`     | n,i | Preview scroll down |
+| `<M-p>` | n,i | Cycle layouts            |     | `K`     | n,i | Preview scroll up   |
+| `H`     | n,i | Preview scroll left      |     | `L`     | n,i | Preview scroll right |
+| `<Tab>` | n,i | Focus preview            |     | `<a-a>` | n,i | Sidekick send (explorer) |
+
+## Fzf-lua Picker Window
+
+| Key     | M   | Desc                          |
+| ------- | --- | ----------------------------- |
+| `<C-t>` | n,i | Open current results in Trouble |
 
 ## Artio Picker
 

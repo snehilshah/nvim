@@ -1,7 +1,5 @@
-local proto_set = vim.opt_local
-
-proto_set.expandtab = true
-proto_set.shiftwidth = 2
-proto_set.softtabstop = 2
-proto_set.tabstop = 2
-proto_set.commentstring = "// %s"
+vim.opt_local.expandtab = true
+vim.opt_local.shiftwidth = 2
+vim.opt_local.softtabstop = 2
+vim.opt_local.tabstop = 2
+vim.opt_local.commentstring = "// %s"

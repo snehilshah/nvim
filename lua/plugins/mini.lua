@@ -1,13 +1,13 @@
 return {
   "nvim-mini/mini.nvim",
-  priority = 1000, -- Load early to ensure icons are available
-  lazy = false, -- Load immediately, not lazily
+  priority = 1000,
+  lazy = false,
   version = false,
+  dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
   config = function()
     require("mini.cmdline").setup()
     require("mini.cursorword").setup()
     require("mini.icons").setup({
-      -- Override by exact filename (case-sensitive)
       file = {
         ["Dockerfile"] = { glyph = "󰡨", hl = "MiniIconsBlue" },
         ["Makefile"] = { glyph = "", hl = "MiniIconsRed" },
@@ -15,7 +15,6 @@ return {
         [".gitignore"] = { glyph = "", hl = "MiniIconsOrange" },
         ["README.md"] = { glyph = "", hl = "MiniIconsRed" },
       },
-      -- Override by filetype
       filetype = {
         dockerfile = { glyph = "󰡨", hl = "MiniIconsBlue" },
         make = { glyph = "", hl = "MiniIconsRed" },
@@ -53,5 +52,33 @@ return {
         join = "",
       },
     })
+    local miniai = require("mini.ai")
+    miniai.setup({
+      n_lines = 300,
+      custom_textobjects = {
+        f = miniai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
+        -- Whole buffer.
+        g = function()
+          local from = { line = 1, col = 1 }
+          local to = {
+            line = vim.fn.line("$"),
+            col = math.max(vim.fn.getline("$"):len(), 1),
+          }
+          return { from = from, to = to }
+        end,
+      },
+      -- Disable error feedback.
+      silent = true,
+      -- Don't use the previous or next text object.
+      search_method = "cover",
+      mappings = {
+        -- Disable next/last variants.
+        around_next = "",
+        inside_next = "",
+        around_last = "",
+        inside_last = "",
+      },
+    })
+    require("mini.move").setup({})
   end,
 }
