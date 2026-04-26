@@ -18,7 +18,6 @@ Neovim 0.12+ config. When changing keymaps, update `docs/keymaps.md`, if any ext
 ### Plugin Patterns
 - Plugin specs return tables (lazy.nvim format)
 - Use `vim.keymap.set()` with `desc` for keymaps to support which-key integration
-- Use `vim.notify()` for notifications (snacks.nvim handles display)
 - Filetype settings in `after/ftplugin/<filetype>.lua`
 - Prefer to use the `opts` table for plugin configuration when possible for lazy.nvim
 

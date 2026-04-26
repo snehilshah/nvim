@@ -120,7 +120,7 @@ nnoremap <A-n> :action NextTab<CR>
 nnoremap <A-p> :action PreviousTab<CR>
 
 " =============================================================================
-" File/Project Navigation (matching your Snacks picker mappings)
+" File/Project Navigation
 " =============================================================================
 " Find files (<leader>ff)
 nnoremap <leader>ff :action GotoFile<CR>

@@ -4,20 +4,15 @@
 
 ## Notes / Known Conflicts
 
-- `<leader>bd` is used by both Snacks (delete buffer) and Barbar (order-by-directory). Snacks usually wins.
-- `<leader>nc` is used by both Snacks (Nvim Config) and package-info (hide versions). Snacks usually wins.
-- Git keymaps are spread across 5 plugins: Gitsigns (buffer hunk ops), Snacks (pickers/browser), Neogit (main UI), CodeDiff (side-by-side diffs), Toggleterm (lazygit/delta). See the Git sections below for details.
-
 ## General & Terminal
 
-| Key          | M   | Desc                                        |     | Key          | M   | Desc                         |
-| ------------ | --- | ------------------------------------------- | --- | ------------ | --- | ---------------------------- |
-| `<leader>rc` | n   | Source current file                         |     | `<c-/>`      | n   | Toggle Snacks Terminal       |
-| `<leader>x`  | n   | Execute line as Lua                         |     | `<c-_>`      | n   | Toggle Terminal (alias)      |
-| `<leader>x`  | v   | Execute selection as Lua                    |     | `<Esc><Esc>` | t   | Exit terminal mode           |
-| `<leader>?`  | n   | Buffer Local Keymaps (which-key)            |     | `<C-w>f`     | n   | Focus floating window        |
-| `q`          | n   | Close certain special buffers (help/qf/etc) |     | `<leader>cp` | n   | Copy file path + line number |
-| `gX`         | n   | Open link under cursor                      |     |              |     |                              |
+| Key         | M   | Desc                                        |     | Key          | M   | Desc                         |
+| ----------- | --- | ------------------------------------------- | --- | ------------ | --- | ---------------------------- |
+| `<leader>x` | n   | Execute line as Lua                         |     | `<c-_>`      | n   | Toggle Terminal (alias)      |
+| `<leader>x` | v   | Execute selection as Lua                    |     | `<Esc><Esc>` | t   | Exit terminal mode           |
+| `<leader>?` | n   | Buffer Local Keymaps (which-key)            |     | `<C-w>f`     | n   | Focus floating window        |
+| `q`         | n   | Close certain special buffers (help/qf/etc) |     | `<leader>cp` | n   | Copy file path + line number |
+| `gX`        | n   | Open link under cursor                      |     |              |     |                              |
 
 ## ToggleTerm
 
@@ -44,10 +39,10 @@
 
 ## Flash (Motion)
 
-| Key  | M     | Desc              |     | Key  | M     | Desc              |
-| ---- | ----- | ----------------- | --- | ---- | ----- | ----------------- |
-| `zj` | n,x,o | Flash jump        |     | `zp` | n,x,o | Flash Treesitter  |
-| `zk` | o     | Remote Flash      |     | `zo` | o,x   | Treesitter Search |
+| Key  | M     | Desc         |     | Key  | M     | Desc              |
+| ---- | ----- | ------------ | --- | ---- | ----- | ----------------- |
+| `zj` | n,x,o | Flash jump   |     | `zp` | n,x,o | Flash Treesitter  |
+| `zk` | o     | Remote Flash |     | `zo` | o,x   | Treesitter Search |
 
 ## Window Management
 
@@ -85,60 +80,17 @@
 | Key          | M   | Desc                                   |     | Key          | M   | Desc                                  |
 | ------------ | --- | -------------------------------------- | --- | ------------ | --- | ------------------------------------- |
 | `K`          | n   | Hover (rounded)                        |     | `<C-k>`      | n,i | Signature help (rounded)              |
-| `gd`         | n   | Goto Definition (Snacks)               |     | `gD`         | n   | Goto Declaration (Snacks)             |
-| `gi`         | n   | Goto Implementation (Snacks)           |     | `grt`        | n   | Goto Type Definition (Snacks)         |
-| `grp`        | n   | References (Snacks)                    |     | `ga`         | n,x | Code Action (native)                  |
+| `gd`         | n   | Goto Definition                        |     | `gD`         | n   | Goto Declaration                      |
+| `gi`         | n   | Goto Implementation                    |     | `grt`        | n   | Goto Type Definition                  |
+| `grp`        | n   | References                             |     | `ga`         | n,x | Code Action (native)                  |
 | `<leader>rn` | n   | Rename symbol                          |     | `<leader>ca` | n,x | Code Action (tiny-code-action)        |
 | `grx`        | n   | Run codelens actions                   |     |              |     |                                       |
 | `[d`         | n   | Previous diagnostic (LSP buffer-local) |     | `]d`         | n   | Next diagnostic (LSP buffer-local)    |
 | `<leader>cd` | n   | Show diagnostic (LSP buffer-local)     |     | `<leader>ih` | n   | Toggle inlay hints (LSP buffer-local) |
 | `<leader>wa` | n   | Add workspace folder                   |     | `<leader>wr` | n   | Remove workspace folder               |
-| `<leader>wl` | n   | List workspace folders                 |     | `<leader>cR` | n   | Rename file (Snacks)                  |
+| `<leader>wl` | n   | List workspace folders                 |     | `<leader>cR` | n   | Rename file                           |
 | `<leader>ci` | n   | Incoming calls (vim.lsp)               |     | `<leader>co` | n   | Outgoing calls (vim.lsp)              |
-| `<leader>lc` | n   | Incoming calls picker (Snacks)         |     | `<leader>lo` | n   | Outgoing calls picker (Snacks)        |
-
-## Snacks Pickers
-
-| Key                | M   | Desc                     |     | Key          | M   | Desc              |
-| ------------------ | --- | ------------------------ | --- | ------------ | --- | ----------------- |
-| `<leader><leader>` | n   | Smart Find Files         |     | `<leader>kj` | n   | Buffers           |
-| `<leader>ff`       | n   | Find Files               |     | `<leader>nc` | n   | Nvim Config files |
-| `<leader>fa`       | n   | Find All (Grep)          |     | `<leader>:`  | n   | Command History   |
-| `<leader>fv`       | n,x | Visual selection or word |     | `<M-S-k>`    | n   | Keymaps picker    |
-| `<leader>fp`       | n   | Projects                 |     | `<leader>fr` | n   | Recent files      |
-| `<leader>fn`       | n,t | Next reference           |     | `<leader>fN` | n,t | Prev reference    |
-
-## File Explorer & Navigation
-
-| Key     | M   | Desc                 |     | Key          | M   | Desc                        |
-| ------- | --- | -------------------- | --- | ------------ | --- | --------------------------- |
-| `<M-e>` | n   | Snacks File Explorer |     | `<leader>fe` | n   | Toggle Fyler (file manager) |
-
-### Fyler (inside file manager)
-
-| Key     | M   | Desc                         |     | Key    | M   | Desc                    |
-| ------- | --- | ---------------------------- | --- | ------ | --- | ----------------------- |
-| `<CR>`  | n   | Open file/enter directory    |     | `-`    | n   | Go to parent directory  |
-| `.`     | n   | Enter directory under cursor |     | `^`    | n   | Go to parent directory  |
-| `s`     | n   | Open in horizontal split     |     | `\|`   | n   | Open in vertical split  |
-| `<C-t>` | n   | Open in new tab              |     | `=`    | n   | Go to working directory |
-| `#`     | n   | Collapse all                 |     | `<BS>` | n   | Collapse node           |
-| `q`     | n   | Close Fyler                  |     |        |     |                         |
-
-## Snacks Search (`<leader>s`)
-
-| Key          | M   | Desc                           |     | Key          | M   | Desc          |
-| ------------ | --- | ------------------------------ | --- | ------------ | --- | ------------- |
-| `<leader>s"` | n   | Registers                      |     | `<leader>sj` | n   | Jumps         |
-| `<leader>s/` | n   | Search History                 |     | `<leader>sl` | n   | Location List |
-| `<leader>sa` | n   | Autocmds                       |     | `<leader>sm` | n   | Marks         |
-| `<leader>sC` | n   | Commands                       |     | `<leader>sM` | n   | Man Pages     |
-| `<leader>sD` | n   | Diagnostics                    |     | `<leader>sp` | n   | Plugin Spec   |
-| `<leader>sd` | n   | Buffer Diagnostics             |     | `<leader>sq` | n   | Quickfix List |
-| `<leader>sf` | n   | LSP Symbols                    |     | `<leader>sr` | n   | Resume picker |
-| `<leader>su` | n   | Undo History                   |     | `<leader>sH` | n   | Highlights    |
-| `<leader>sh` | n   | Help Pages                     |     |              |     |               |
-| `<leader>sS` | n   | LSP Workspace Symbols (Snacks) |     |              |     |               |
+| `<leader>lc` | n   | Incoming calls picker                  |     | `<leader>lo` | n   | Outgoing calls picker                 |
 
 ## Search & Replace (GrugFar)
 
@@ -147,62 +99,31 @@
 | `<leader>sR` | n,v | Search & Replace        |     | `<leader>sW` | n   | Replace word under cursor |
 | `<leader>sF` | n   | Replace in current file |     | `<leader>sv` | v   | Replace visual selection  |
 
-## Snacks UI & Toggles
-
-| Key          | M   | Desc                              |     | Key          | M   | Desc                   |
-| ------------ | --- | --------------------------------- | --- | ------------ | --- | ---------------------- |
-| `<leader>z`  | n   | Toggle Zen                        |     | `<leader>us` | n   | Toggle Spelling        |
-| `<leader>Z`  | n   | Toggle Zoom                       |     | `<leader>uw` | n   | Toggle Wrap            |
-| `<leader>.`  | n   | Toggle Scratch                    |     | `<leader>uL` | n   | Toggle Relative Number |
-| `<leader>S`  | n   | Select Scratch                    |     | `<leader>ud` | n   | Toggle Diagnostics     |
-| `<leader>nh` | n   | Notification History              |     | `<leader>ul` | n   | Toggle Line Number     |
-| `<leader>N`  | n   | Neovim News                       |     | `<leader>uc` | n   | Toggle Conceal         |
-| `<leader>bd` | n   | Delete Buffer (Snacks; conflicts) |     | `<leader>uT` | n   | Toggle Treesitter      |
-| `<leader>ii` | n   | Icons picker                      |     | `<leader>ub` | n   | Toggle Dark BG         |
-| `<leader>uC` | n   | Colorschemes                      |     | `<leader>ug` | n   | Toggle Indent          |
-| `<leader>uD` | n   | Toggle Dim                        |     | `<leader>un` | n   | Dismiss Notifications  |
-| `<leader>tw` | n,v | Toggle visual whitespace          |     |              |     |                        |
-
-## Snacks Picker Window
-
-| Key     | M   | Desc                     |     | Key     | M   | Desc                |
-| ------- | --- | ------------------------ | --- | ------- | --- | ------------------- |
-| `<Esc>` | n,i | Close picker             |     | `J`     | n,i | Preview scroll down |
-| `<M-p>` | n,i | Cycle layouts            |     | `K`     | n,i | Preview scroll up   |
-| `H`     | n,i | Preview scroll left      |     | `L`     | n,i | Preview scroll right |
-| `<Tab>` | n,i | Focus preview            |     | `<a-a>` | n,i | Sidekick send (explorer) |
 
 ## Fzf-lua Picker Window
 
-| Key     | M   | Desc                          |
-| ------- | --- | ----------------------------- |
+| Key     | M   | Desc                            |
+| ------- | --- | ------------------------------- |
 | `<C-t>` | n,i | Open current results in Trouble |
 
 ## Artio Picker
 
-| Key     | M | Desc         |     | Key     | M | Desc        |
-| ------- | - | ------------ | --- | ------- | - | ----------- |
-| `<C-j>` | i | Move down    |     | `<C-k>` | i | Move up     |
-| `<down>`| i | Move down    |     | `<up>`  | i | Move up     |
+| Key      | M   | Desc      |     | Key     | M   | Desc    |
+| -------- | --- | --------- | --- | ------- | --- | ------- |
+| `<C-j>`  | i   | Move down |     | `<C-k>` | i   | Move up |
+| `<down>` | i   | Move down |     | `<up>`  | i   | Move up |
 
 ## Git (Gitsigns) — inline hunk operations on the current buffer
 
 | Key          | M   | Desc                             |     | Key          | M   | Desc                            |
 | ------------ | --- | -------------------------------- | --- | ------------ | --- | ------------------------------- |
-| `[[` / `[g` | n   | Previous hunk (changed block)    |     | `<leader>gr` | n   | Reset (discard) hunk            |
-| `]]` / `]g` | n   | Next hunk (changed block)        |     | `<leader>gR` | n   | Reset (discard) entire buffer   |
+| `[[` / `[g`  | n   | Previous hunk (changed block)    |     | `<leader>gr` | n   | Reset (discard) hunk            |
+| `]]` / `]g`  | n   | Next hunk (changed block)        |     | `<leader>gR` | n   | Reset (discard) entire buffer   |
 | `<leader>gb` | n   | Blame line (popup)               |     | `<leader>ga` | n   | Stage hunk (git add)            |
 | `<leader>gB` | n   | Blame buffer (all lines)         |     | `<leader>gu` | n   | Undo last staged hunk           |
 | `<leader>GB` | n   | Toggle inline blame (every line) |     | `<leader>gA` | n   | Stage entire buffer             |
 | `<leader>gP` | n   | Preview hunk (floating popup)    |     | `<leader>gD` | n   | Diff buffer vs HEAD (vim split) |
 | `<leader>gp` | n   | Preview hunk (inline overlay)    |     |              |     |                                 |
-
-## Git (Snacks) — pickers and browser integration
-
-| Key          | M   | Desc                                                  |     | Key          | M   | Desc                                     |
-| ------------ | --- | ----------------------------------------------------- | --- | ------------ | --- | ---------------------------------------- |
-| `<leader>gl` | n   | Log for current line (commits that touched this line) |     | `<leader>gS` | n   | Browse stash entries (picker)            |
-| `<leader>gd` | n   | Changed hunks across repo (searchable picker)         |     | `<leader>go` | n,v | Open file/selection on GitHub in browser |
 
 ## Git (Neogit) — main git command center
 
