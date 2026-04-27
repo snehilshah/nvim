@@ -1,5 +1,6 @@
 return {
     "rachartier/tiny-inline-diagnostic.nvim",
+    enabled = true,
     opts = {
         preset = "modern",
         options = {

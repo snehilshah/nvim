@@ -167,31 +167,7 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
         },
     },
-    virtual_text = {
-        prefix = "",
-        spacing = 2,
-        format = function(diagnostic)
-            -- Use shorter, nicer names for some sources:
-            local special_sources = {
-                ["Lua Diagnostics."] = "lua",
-                ["Lua Syntax Check."] = "lua",
-            }
-
-            local message = diagnostic_icons[vim.diagnostic.severity[diagnostic.severity]]
-            if diagnostic.source then
-                message = string.format(
-                    "%s %s",
-                    message,
-                    special_sources[diagnostic.source] or diagnostic.source
-                )
-            end
-            if diagnostic.code then
-                message = string.format("%s[%s]", message, diagnostic.code)
-            end
-
-            return message .. " "
-        end,
-    },
+    virtual_text = false,
     float = {
         source = "if_many",
         -- Show severity icons as prefixes.
@@ -205,18 +181,7 @@ vim.diagnostic.config({
     signs = false,
 })
 
--- Override the virtual text diagnostic handler so that the most severe diagnostic is shown first.
-local show_handler = assert(vim.diagnostic.handlers.virtual_text.show)
-local hide_handler = vim.diagnostic.handlers.virtual_text.hide
-vim.diagnostic.handlers.virtual_text = {
-    show = function(ns, bufnr, diagnostics, opts)
-        table.sort(diagnostics, function(diag1, diag2)
-            return diag1.severity > diag2.severity
-        end)
-        return show_handler(ns, bufnr, diagnostics, opts)
-    end,
-    hide = hide_handler,
-}
+
 
 local hover = vim.lsp.buf.hover
 ---@diagnostic disable-next-line: duplicate-set-field
