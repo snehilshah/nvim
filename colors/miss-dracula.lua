@@ -381,6 +381,28 @@ local groups = vim.tbl_extend("error", statusline_groups, {
 
     -- AI completions.
     NeoCodeiumSuggestion = { link = "Comment" },
+
+    -- Barbar (tabline)
+    BufferCurrent = { fg = colors.fg, bg = colors.bg },
+    BufferCurrentIndex = { fg = colors.comment, bg = colors.bg },
+    BufferCurrentMod = { fg = colors.yellow, bg = colors.bg },
+    BufferCurrentSign = { fg = colors.cyan, bg = colors.bg },
+    BufferCurrentTarget = { fg = colors.red, bg = colors.bg, bold = true },
+    BufferVisible = { fg = colors.fg, bg = colors.transparent_black },
+    BufferVisibleIndex = { fg = colors.fg, bg = colors.transparent_black },
+    BufferVisibleMod = { fg = colors.yellow, bg = colors.transparent_black },
+    BufferVisibleSign = { fg = colors.nontext, bg = colors.transparent_black },
+    BufferVisibleTarget = { fg = colors.red, bg = colors.transparent_black, bold = true },
+    BufferInactive = { fg = colors.comment, bg = colors.transparent_black },
+    BufferInactiveIndex = { fg = colors.comment, bg = colors.transparent_black },
+    BufferInactiveMod = { fg = colors.yellow, bg = colors.transparent_black },
+    BufferInactiveSign = { fg = colors.nontext, bg = colors.transparent_black },
+    BufferInactiveTarget = { fg = colors.red, bg = colors.transparent_black, bold = true },
+    BufferTabpages = { fg = colors.cyan, bg = colors.transparent_black, bold = true },
+    BufferTabpageFill = { fg = colors.nontext, bg = colors.transparent_black, bold = true },
+    BufferOffset = { fg = colors.comment, bg = colors.bg, bold = true },
+    BufferScrollArrow = { fg = colors.fg, bg = colors.transparent_black, bold = true },
+    BufferPart = { fg = colors.cyan, bg = colors.transparent_blue, bold = true },
 })
 
 for group, opts in pairs(groups) do
