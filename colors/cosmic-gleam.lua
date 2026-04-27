@@ -10,7 +10,7 @@ vim.g.colors_name = "cosmic-gleam"
 
 local colors = {
     -- Colors from cosmic-gleam-staging
-    bright_white   = "#f8f9e8",
+    bright_white   = "#ebdbb2",
     cherry         = "#f9c8e5",
     honeydew       = "#E5F4E3",
     almost_black   = "#090E13",
@@ -52,7 +52,7 @@ local colors = {
 
     -- Mapped standard keys needed by the theme groups
     black              = "#090E13", -- almost_black
-    white              = "#f8f9e8", -- bright_white
+    white              = "#ebdbb2", -- bright_white
     yellow             = "#d8a657", -- gruvbox_yellow
     bright_yellow      = "#dbe6af", -- lime
     bright_magenta     = "#f9c8e5", -- cherry
@@ -409,21 +409,213 @@ local groups = vim.tbl_extend("error", statusline_groups, {
     BufferCurrentMod = { fg = colors.yellow, bg = colors.bg },
     BufferCurrentSign = { fg = colors.cyan, bg = colors.bg },
     BufferCurrentTarget = { fg = colors.red, bg = colors.bg, bold = true },
+    BufferCurrentERROR = { fg = colors.red, bg = colors.bg },
+    BufferCurrentWARN = { fg = colors.orange, bg = colors.bg },
+    BufferCurrentINFO = { fg = colors.blue, bg = colors.bg },
+    BufferCurrentHINT = { fg = colors.cyan, bg = colors.bg },
+
     BufferVisible = { fg = colors.fg, bg = colors.transparent_black },
     BufferVisibleIndex = { fg = colors.fg, bg = colors.transparent_black },
     BufferVisibleMod = { fg = colors.yellow, bg = colors.transparent_black },
     BufferVisibleSign = { fg = colors.nontext, bg = colors.transparent_black },
     BufferVisibleTarget = { fg = colors.red, bg = colors.transparent_black, bold = true },
+    BufferVisibleERROR = { fg = colors.red, bg = colors.transparent_black },
+    BufferVisibleWARN = { fg = colors.orange, bg = colors.transparent_black },
+    BufferVisibleINFO = { fg = colors.blue, bg = colors.transparent_black },
+    BufferVisibleHINT = { fg = colors.cyan, bg = colors.transparent_black },
+
     BufferInactive = { fg = colors.comment, bg = colors.transparent_black },
     BufferInactiveIndex = { fg = colors.comment, bg = colors.transparent_black },
     BufferInactiveMod = { fg = colors.yellow, bg = colors.transparent_black },
     BufferInactiveSign = { fg = colors.nontext, bg = colors.transparent_black },
     BufferInactiveTarget = { fg = colors.red, bg = colors.transparent_black, bold = true },
+    BufferInactiveERROR = { fg = colors.red, bg = colors.transparent_black },
+    BufferInactiveWARN = { fg = colors.orange, bg = colors.transparent_black },
+    BufferInactiveINFO = { fg = colors.blue, bg = colors.transparent_black },
+    BufferInactiveHINT = { fg = colors.cyan, bg = colors.transparent_black },
+
     BufferTabpages = { fg = colors.cyan, bg = colors.transparent_black, bold = true },
     BufferTabpageFill = { fg = colors.nontext, bg = colors.transparent_black, bold = true },
     BufferOffset = { fg = colors.comment, bg = colors.bg, bold = true },
     BufferScrollArrow = { fg = colors.fg, bg = colors.transparent_black, bold = true },
     BufferPart = { fg = colors.cyan, bg = colors.transparent_blue, bold = true },
+
+    -- Standard nvim additions
+    FloatBorder  = { fg = colors.comment, bg = colors.bg },
+    FloatTitle   = { fg = colors.cyan, bg = colors.bg, bold = true },
+    StatusLineNC = { fg = colors.comment, bg = colors.transparent_black },
+    WinSeparator = { fg = colors.lilac, bg = colors.bg },
+    Whitespace   = { fg = colors.selection },
+
+    -- Treesitter additions
+    ["@comment.error"]   = { fg = colors.bright_red, bold = true },
+    ["@comment.warning"] = { fg = colors.yellow, bold = true },
+    ["@comment.todo"]    = { fg = colors.purple, bold = true },
+    ["@comment.note"]    = { fg = colors.cyan, bold = true },
+    ["@markup.quote"]    = { fg = colors.lavender, italic = true },
+    ["@diff.plus"]       = { fg = colors.bright_green },
+    ["@diff.minus"]      = { fg = colors.bright_red },
+    ["@diff.delta"]      = { fg = colors.bright_yellow },
+
+    -- Flash extras
+    FlashLabel   = { fg = colors.transparent_black, bg = colors.fuchsia, bold = true },
+    FlashMatch   = { fg = colors.transparent_black, bg = colors.cyan },
+    FlashCurrent = { fg = colors.transparent_black, bg = colors.orange, bold = true },
+
+    -- Mini.files
+    MiniFilesBorder         = { fg = colors.comment, bg = colors.bg },
+    MiniFilesBorderModified = { fg = colors.yellow, bg = colors.bg },
+    MiniFilesNormal         = { fg = colors.fg, bg = colors.bg },
+    MiniFilesTitle          = { fg = colors.lavender, bg = colors.bg },
+    MiniFilesCursorLine     = { bg = colors.selection },
+    MiniFilesDirectory      = { fg = colors.cyan, bold = true },
+    MiniFilesFile           = { fg = colors.fg },
+
+    -- Mini.icons
+    MiniIconsAzure  = { fg = colors.bright_blue },
+    MiniIconsBlue   = { fg = colors.blue },
+    MiniIconsCyan   = { fg = colors.cyan },
+    MiniIconsGreen  = { fg = colors.green },
+    MiniIconsGrey   = { fg = colors.grey },
+    MiniIconsOrange = { fg = colors.orange },
+    MiniIconsPurple = { fg = colors.purple },
+    MiniIconsRed    = { fg = colors.bright_red },
+    MiniIconsYellow = { fg = colors.yellow },
+
+    -- Trouble.nvim
+    TroubleNormal    = { fg = colors.fg, bg = colors.bg },
+    TroubleNormalNC  = { fg = colors.fg, bg = colors.bg },
+    TroubleText      = { fg = colors.fg },
+    TroubleCount     = { fg = colors.purple, bg = colors.transparent_blue },
+    TroubleSource    = { fg = colors.lavender },
+    TroubleFilename  = { fg = colors.cyan, bold = true },
+    TroubleIcon      = { fg = colors.purple },
+    TroubleIndent    = { fg = colors.lilac },
+    TroubleFoldIcon  = { fg = colors.purple },
+    TroubleLocation  = { fg = colors.comment },
+    TroublePos       = { fg = colors.comment },
+    TroubleDirectory = { fg = colors.bright_magenta, italic = true },
+
+    -- Tiny-inline-diagnostic
+    TinyInlineDiagnosticVirtualTextError = { link = "DiagnosticVirtualTextError" },
+    TinyInlineDiagnosticVirtualTextWarn  = { link = "DiagnosticVirtualTextWarn" },
+    TinyInlineDiagnosticVirtualTextInfo  = { link = "DiagnosticVirtualTextInfo" },
+    TinyInlineDiagnosticVirtualTextHint  = { link = "DiagnosticVirtualTextHint" },
+    TinyInlineDiagnosticVirtualTextArrow = { fg = colors.red },
+    TinyInlineDiagnosticVirtualTextBg    = { bg = colors.transparent_red },
+
+    -- Todo-comments
+    TodoBgFix    = { fg = colors.transparent_black, bg = colors.bright_red, bold = true },
+    TodoBgHack   = { fg = colors.transparent_black, bg = colors.orange, bold = true },
+    TodoBgPerf   = { fg = colors.transparent_black, bg = colors.purple, bold = true },
+    TodoBgNote   = { fg = colors.transparent_black, bg = colors.cyan, bold = true },
+    TodoBgTodo   = { fg = colors.transparent_black, bg = colors.green, bold = true },
+    TodoBgWarn   = { fg = colors.transparent_black, bg = colors.yellow, bold = true },
+    TodoBgTest   = { fg = colors.transparent_black, bg = colors.bright_magenta, bold = true },
+    TodoFgFix    = { fg = colors.bright_red },
+    TodoFgHack   = { fg = colors.orange },
+    TodoFgPerf   = { fg = colors.purple },
+    TodoFgNote   = { fg = colors.cyan },
+    TodoFgTodo   = { fg = colors.green },
+    TodoFgWarn   = { fg = colors.yellow },
+    TodoFgTest   = { fg = colors.bright_magenta },
+    TodoSignFix  = { link = "TodoFgFix" },
+    TodoSignHack = { link = "TodoFgHack" },
+    TodoSignPerf = { link = "TodoFgPerf" },
+    TodoSignNote = { link = "TodoFgNote" },
+    TodoSignTodo = { link = "TodoFgTodo" },
+    TodoSignWarn = { link = "TodoFgWarn" },
+    TodoSignTest = { link = "TodoFgTest" },
+
+    -- Indent-blankline
+    IblIndent     = { fg = colors.gutter_fg },
+    IblWhitespace = { fg = colors.gutter_fg },
+    IblScope      = { fg = colors.lilac },
+
+    -- Which-key
+    WhichKey          = { fg = colors.cyan },
+    WhichKeyDesc      = { fg = colors.fg },
+    WhichKeyGroup     = { fg = colors.purple, italic = true },
+    WhichKeySeparator = { fg = colors.comment },
+    WhichKeyValue     = { fg = colors.lavender },
+    WhichKeyFloat     = { bg = colors.bg },
+    WhichKeyTitle     = { fg = colors.cyan, bold = true },
+    WhichKeyBorder    = { fg = colors.comment, bg = colors.bg },
+    WhichKeyNormal    = { bg = colors.bg },
+
+    -- Neogit
+    NeogitDiffAdd              = { fg = colors.green, bg = colors.transparent_green },
+    NeogitDiffAddHighlight     = { fg = colors.bright_green, bg = colors.transparent_green, bold = true },
+    NeogitDiffDelete           = { fg = colors.red, bg = colors.transparent_red },
+    NeogitDiffDeleteHighlight  = { fg = colors.bright_red, bg = colors.transparent_red, bold = true },
+    NeogitDiffContext          = { fg = colors.fg },
+    NeogitDiffContextHighlight = { fg = colors.fg, bg = colors.transparent_black },
+    NeogitHunkHeader           = { fg = colors.cyan, bg = colors.transparent_blue },
+    NeogitHunkHeaderHighlight  = { fg = colors.cyan, bg = colors.transparent_blue, bold = true },
+    NeogitFilePath             = { fg = colors.bright_magenta, italic = true },
+    NeogitCommitViewHeader     = { fg = colors.purple, bold = true },
+    NeogitBranch               = { fg = colors.orange, bold = true },
+    NeogitRemote               = { fg = colors.green, bold = true },
+    NeogitTagName              = { fg = colors.yellow, bold = true },
+    NeogitNotificationInfo     = { fg = colors.cyan },
+    NeogitNotificationWarning  = { fg = colors.yellow },
+    NeogitNotificationError    = { fg = colors.bright_red },
+
+    -- Render-markdown
+    RenderMarkdownH1         = { fg = colors.bright_red, bold = true },
+    RenderMarkdownH2         = { fg = colors.orange, bold = true },
+    RenderMarkdownH3         = { fg = colors.yellow, bold = true },
+    RenderMarkdownH4         = { fg = colors.green, bold = true },
+    RenderMarkdownH5         = { fg = colors.cyan, bold = true },
+    RenderMarkdownH6         = { fg = colors.purple, bold = true },
+    RenderMarkdownH1Bg       = { fg = colors.bright_red, bg = colors.transparent_red, bold = true },
+    RenderMarkdownH2Bg       = { fg = colors.orange, bg = colors.transparent_yellow, bold = true },
+    RenderMarkdownH3Bg       = { fg = colors.yellow, bg = colors.transparent_yellow, bold = true },
+    RenderMarkdownH4Bg       = { fg = colors.green, bg = colors.transparent_green, bold = true },
+    RenderMarkdownH5Bg       = { fg = colors.cyan, bg = colors.transparent_blue, bold = true },
+    RenderMarkdownH6Bg       = { fg = colors.purple, bg = colors.transparent_blue, bold = true },
+    RenderMarkdownCode       = { bg = colors.transparent_black },
+    RenderMarkdownCodeInline = { fg = colors.yellow, bg = colors.transparent_black },
+    RenderMarkdownQuote      = { fg = colors.lavender, italic = true },
+    RenderMarkdownTableHead  = { fg = colors.cyan, bold = true },
+    RenderMarkdownTableRow   = { fg = colors.fg },
+    RenderMarkdownBullet     = { fg = colors.orange },
+    RenderMarkdownDash       = { fg = colors.comment },
+    RenderMarkdownTodo       = { fg = colors.purple, bold = true },
+    RenderMarkdownLink       = { fg = colors.bright_magenta, underline = true },
+
+    -- Visual-whitespace
+    VisualNonText = { fg = colors.lilac, bg = colors.visual },
+
+    -- Haunt
+    HauntAnnotation = { fg = colors.lavender, italic = true },
+
+    -- Copilot
+    CopilotSuggestion = { link = "Comment" },
+    CopilotAnnotation = { fg = colors.lavender, italic = true },
+
+    -- Csvview
+    CsvViewDelimiter = { fg = colors.comment },
+    CsvViewCol0 = { fg = colors.cyan },
+    CsvViewCol1 = { fg = colors.green },
+    CsvViewCol2 = { fg = colors.yellow },
+    CsvViewCol3 = { fg = colors.orange },
+    CsvViewCol4 = { fg = colors.purple },
+    CsvViewCol5 = { fg = colors.bright_magenta },
+    CsvViewCol6 = { fg = colors.bright_blue },
+    CsvViewCol7 = { fg = colors.fuchsia },
+
+    -- vim-dadbod-ui
+    dbui_tables           = { fg = colors.cyan },
+    dbui_connection_ok    = { fg = colors.green },
+    dbui_connection_error = { fg = colors.bright_red },
+    dbui_saved_query      = { fg = colors.purple },
+    dbui_databases        = { fg = colors.orange },
+    dbui_schemas          = { fg = colors.yellow },
+    dbui_buffers          = { fg = colors.bright_magenta },
+    dbout_header          = { fg = colors.cyan, bold = true },
+    dbout_separator       = { fg = colors.lilac },
+    dbout_null            = { fg = colors.lavender, italic = true },
 })
 
 for group, opts in pairs(groups) do
