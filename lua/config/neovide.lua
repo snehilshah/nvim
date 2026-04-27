@@ -4,7 +4,7 @@
 -- ============================================================================
 
 -- Font size (adjust the number after 'h' to change size)
-vim.opt.guifont = "Maple Mono NF:h11"
+vim.opt.guifont = "Maple Mono NF:h12"
 
 -- Hide window decorations (title bar, borders)
 vim.g.neovide_window_decorations = false
@@ -27,7 +27,7 @@ vim.g.neovide_light_radius = 5
 
 vim.g.neovide_floating_corner_radius = 2.0
 
-vim.g.neovide_opacity = 0.85
+vim.g.neovide_opacity = 1
 vim.g.neovide_normal_opacity = 0.85
 vim.g.neovide_window_blurred = true
 
