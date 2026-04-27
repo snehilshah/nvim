@@ -23,11 +23,11 @@ local function on_attach(client, bufnr)
     end
 
     keymap("[e", function()
-        vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
-    end, "Previous error")
+        vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN } })
+    end, "Previous error/warning")
     keymap("]e", function()
-        vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
-    end, "Next error")
+        vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } })
+    end, "Next error/warning")
 
     if client:supports_method("textDocument/codeAction") then
         require("lightbulb").attach_lightbulb(bufnr, client)
