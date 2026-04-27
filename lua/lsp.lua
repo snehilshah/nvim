@@ -151,14 +151,17 @@ local function on_attach(client, bufnr)
     end
 end
 
--- Define the diagnostic signs.
-for severity, icon in pairs(diagnostic_icons) do
-    local hl = "DiagnosticSign" .. severity:sub(1, 1) .. severity:sub(2):lower()
-    vim.fn.sign_define(hl, { text = icon, texthl = hl })
-end
-
 -- Diagnostic configuration.
 vim.diagnostic.config({
+    severity_sort = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
+            [vim.diagnostic.severity.WARN]  = diagnostic_icons.WARN,
+            [vim.diagnostic.severity.INFO]  = diagnostic_icons.INFO,
+            [vim.diagnostic.severity.HINT]  = diagnostic_icons.HINT,
+        },
+    },
     status = {
         format = {
             [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
@@ -197,44 +200,14 @@ vim.diagnostic.config({
         -- Show severity icons as prefixes.
         prefix = function(diag)
             local level = vim.diagnostic.severity[diag.severity]
-            local prefix = string.format(" %s ", diagnostic_icons[level])
-            return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
+            if level then
+                local prefix = string.format(" %s ", diagnostic_icons[level])
+                return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
+            end
+            return "", "DiagnosticInfo"
         end,
     },
-    -- Disable signs in the gutter.
-    signs = false,
 })
-
--- Override the virtual text diagnostic handler so that the most severe diagnostic is shown first.
-local show_handler = assert(vim.diagnostic.handlers.virtual_text.show)
-local hide_handler = vim.diagnostic.handlers.virtual_text.hide
-vim.diagnostic.handlers.virtual_text = {
-    show = function(ns, bufnr, diagnostics, opts)
-        table.sort(diagnostics, function(diag1, diag2)
-            return diag1.severity > diag2.severity
-        end)
-        return show_handler(ns, bufnr, diagnostics, opts)
-    end,
-    hide = hide_handler,
-}
-
-local hover = vim.lsp.buf.hover
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.hover = function()
-    return hover({
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    })
-end
-
-local signature_help = vim.lsp.buf.signature_help
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.signature_help = function()
-    return signature_help({
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    })
-end
 
 -- Update mappings when registering dynamic capabilities.
 local register_capability = vim.lsp.handlers["client/registerCapability"]
