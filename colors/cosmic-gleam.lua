@@ -1,5 +1,4 @@
--- hl_color = { bg = "#DDC7A1", fg = "#1D2021" }, -- Gruvbox Material yellow on dark bg
--- My own version of Dracula.
+-- My own version of Gruvbox.
 
 -- Reset highlighting.
 vim.cmd.highlight("clear")
@@ -9,142 +8,108 @@ end
 vim.o.termguicolors = true
 vim.g.colors_name = "cosmic-gleam"
 
--- stylua: ignore start
 local colors = {
-  bright_white   = "#f8f9e8",
-  cherry         = "#f9c8e5",
-  honeydew       = "#E5F4E3",
-  almost_black   = "#090E13",
-  cyan           = "#75E6E0",
-  dark_cyan      = "#198A84",
-  ocean          = "#167974",
-  sea_green      = "#20ACA5",
-  blue_green     = "#07A0C3",
-  turquoise      = "#3CDBD3",
-  french_blue    = "#003F91",
-  sky            = "#b3e6db",
-  bright_blue    = "#afd9e6",
-  blue           = "#b2caed",
-  bright_green   = "#cbe3b3",
-  green          = "#a4daa4",
-  olive          = "#7E9178",
-  aqua           = "#83c092",
-  mint_leaf      = "#57B27C",
-  -- sea_green      = "#3E885B",
-  bright_red     = "#EA2D1F",
-  red            = "#A81A10",
-  orange         = "#f7a182",
-  pink           = "#db7670",
-  purple         = "#BAA0E8",
-  lavender       = "#6272A4",
-  lilac          = "#6D5978",
-  lime           = "#dbe6af", -- just lime from evergarden
-  gruvbox_yellow = "#d8a657",
-  grey           = "#A9ABAC",
-  gutter_fg      = "#1d2021",
-  selection      = "#3C4148",
-  menu           = "#171c1f",
-  visual         = "#58686d",
-  fg             = "#DFCBB9", --  miss-dracula #f6f6f5 to dacctal #f4decd to cosmic-gleam #d4be98
-  nontext        = "#d4be98",
-  camel          = "#C19875",
-  comment        = "#585f5b", -- miss-dracula #B08BBB to dacctal #888e7b to cosmic-gleam #d5c4a1 now subtext0 from evergarden
-  bg             = "#1d2020", -- miss-dracula #282a36 to dacctal #1e2528 to cosmic-gleam #0f0f0f
-  darker_bg      = "#131515"
-}
--- stylua: ignore end
+    -- Colors from cosmic-gleam-staging
+    bright_white   = "#f8f9e8",
+    cherry         = "#f9c8e5",
+    honeydew       = "#E5F4E3",
+    almost_black   = "#090E13",
+    cyan           = "#75E6E0",
+    dark_cyan      = "#198A84",
+    ocean          = "#167974",
+    sea_green      = "#20ACA5",
+    blue_green     = "#07A0C3",
+    turquoise      = "#3CDBD3",
+    french_blue    = "#003F91",
+    sky            = "#b3e6db",
+    bright_blue    = "#afd9e6",
+    blue           = "#b2caed",
+    bright_green   = "#cbe3b3",
+    green          = "#a4daa4",
+    olive          = "#7E9178",
+    aqua           = "#83c092",
+    mint_leaf      = "#57B27C",
+    bright_red     = "#EA2D1F",
+    red            = "#A81A10",
+    orange         = "#f7a182",
+    pink           = "#db7670",
+    purple         = "#BAA0E8",
+    lavender       = "#6272A4",
+    lilac          = "#6D5978",
+    lime           = "#dbe6af",
+    gruvbox_yellow = "#d8a657",
+    grey           = "#A9ABAC",
+    gutter_fg      = "#1d2021",
+    selection      = "#3C4148",
+    menu           = "#171c1f",
+    visual         = "#58686d",
+    fg             = "#DFCBB9",
+    nontext        = "#d4be98",
+    camel          = "#C19875",
+    comment        = "#585f5b",
+    bg             = "#1d2020",
+    darker_bg      = "#131515",
 
-local test = {
-    "#d9ed92",
-    "#b5e48c",
-    "#99d98c",
-    "#76c893",
-    "#52b69a",
-    "#34a0a4",
-    "#168aad",
-    "#1a759f",
-    "#1e6091",
-    "#184e77",
-}
-
-local colors2 = {
-    bg = "#0f0f0f",
-    gray0 = "#141514",
-    gray1 = "#1e1f1e",
-    gray2 = "#272a28",
-    gray3 = "#3b403c",
-    gray4 = "#585f5b",
-    gray5 = "#6c756f",
-    gray6 = "#888e7b",
-    gray7 = "#9a9c8b",
-    gray8 = "#b6b69a",
-    gray9 = "#d9cdb5",
-    gray10 = "#e3d6c9",
-    fg = "#f4decd",
-    red = "#f16e65",
-    lred = "#ef968f",
-    orange = "#ef934d",
-    yellow = "#efbf71",
-    green = "#7ec97e",
-    lgreen = "#a4daa4",
-    cyan = "#7ec9a3",
-    lcyan = "#abd4bf",
-    lblue = "#b0d4e8",
-    blue = "#71b4d6",
-    magenta = "#e28dc6",
-    lmagenta = "#ebadd6",
-    purple = "#E7A1D7",
-}
-
-local color3 = {
-    red = "#f57f82",
-    orange = "#f7a182",
-    yellow = "#f5d098",
-    lime = "#dbe6af",
-    green = "#cbe3b3",
-    skye = "#b3e6db",
-    aqua = "#b3e3ca",
-    snow = "#afd9e6",
-    blue = "#b2caed",
-    purple = "#d2bdf3",
-    pink = "#f3c0e5",
-    cherry = "#fae6ef",
-    text = "#f8f9e8",
-    subtext1 = "#adc9bc",
-    subtext0 = "#96b4aa",
-    overlay2 = "#839e9a",
-    overlay1 = "#6f8788",
-    overlay0 = "#58686d",
-    surface2 = "#4a585c",
-    surface1 = "#374145",
-    surface0 = "#262f33",
-    base = "#1e2528",
-    mantle = "#191e21",
-    crust = "#171c1f",
+    -- Mapped standard keys needed by the theme groups
+    black              = "#090E13", -- almost_black
+    white              = "#f8f9e8", -- bright_white
+    yellow             = "#d8a657", -- gruvbox_yellow
+    bright_yellow      = "#dbe6af", -- lime
+    bright_magenta     = "#f9c8e5", -- cherry
+    bright_cyan        = "#b3e6db", -- sky
+    fuchsia            = "#db7670", -- pink
+    neon_cyan          = "#3CDBD3", -- turquoise
+    transparent_black  = "#131515", -- darker_bg
+    transparent_blue   = "#19272C",
+    transparent_green  = "#22372c",
+    transparent_red    = "#342231",
+    transparent_yellow = "#202624",
 }
 
 -- Terminal colors.
-vim.g.terminal_color_0 = colors.almost_black
+vim.g.terminal_color_0 = colors.transparent_black
 vim.g.terminal_color_1 = colors.red
 vim.g.terminal_color_2 = colors.green
 vim.g.terminal_color_3 = colors.yellow
 vim.g.terminal_color_4 = colors.purple
 vim.g.terminal_color_5 = colors.pink
 vim.g.terminal_color_6 = colors.cyan
-vim.g.terminal_color_7 = colors.cherry
+vim.g.terminal_color_7 = colors.white
 vim.g.terminal_color_8 = colors.selection
 vim.g.terminal_color_9 = colors.bright_red
 vim.g.terminal_color_10 = colors.bright_green
-vim.g.terminal_color_11 = colors.lime
+vim.g.terminal_color_11 = colors.bright_yellow
 vim.g.terminal_color_12 = colors.bright_blue
-vim.g.terminal_color_13 = colors.purple
-vim.g.terminal_color_14 = colors.sky
+vim.g.terminal_color_13 = colors.bright_magenta
+vim.g.terminal_color_14 = colors.bright_cyan
 vim.g.terminal_color_15 = colors.bright_white
 vim.g.terminal_color_background = colors.bg
 vim.g.terminal_color_foreground = colors.fg
 
+-- Groups used for my statusline.
 ---@type table<string, vim.api.keyset.highlight>
-local groups = {
+local statusline_groups = {}
+for mode, color in pairs({
+    Normal = "fg",
+    Pending = "orange",
+    Visual = "yellow",
+    Insert = "blue",
+    Command = "green",
+    Other = "red",
+}) do
+    statusline_groups["StatuslineMode" .. mode] =
+    { fg = colors.transparent_black, bg = colors[color] }
+    statusline_groups["StatuslineModeSeparator" .. mode] =
+    { fg = colors[color], bg = colors.transparent_black }
+end
+statusline_groups = vim.tbl_extend("error", statusline_groups, {
+    StatuslineItalic = { fg = colors.grey, bg = colors.transparent_black, italic = true },
+    StatuslineSpinner = { fg = colors.bright_green, bg = colors.transparent_black, bold = true },
+    StatuslineTitle = { fg = colors.bright_white, bg = colors.transparent_black, bold = true },
+})
+
+---@type table<string, vim.api.keyset.highlight>
+local groups = vim.tbl_extend("error", statusline_groups, {
     -- Builtins.
     Boolean = { fg = colors.cyan },
     Character = { fg = colors.green },
@@ -153,9 +118,9 @@ local groups = {
     Conceal = { fg = colors.comment },
     Conditional = { fg = colors.pink },
     Constant = { fg = colors.yellow },
-    CurSearch = { fg = colors.almost_black, bg = colors.pink },
-    Cursor = { fg = colors.almost_black, bg = colors.cherry },
-    CursorColumn = { bg = colors.almost_black },
+    CurSearch = { fg = colors.black, bg = colors.fuchsia },
+    Cursor = { fg = colors.black, bg = colors.white },
+    CursorColumn = { bg = colors.transparent_black },
     CursorLine = { bg = colors.selection },
     CursorLineNr = { fg = colors.lilac, bold = true },
     Define = { fg = colors.purple },
@@ -164,7 +129,7 @@ local groups = {
     Error = { fg = colors.bright_red },
     ErrorMsg = { fg = colors.bright_red },
     FoldColumn = {},
-    Folded = { bg = colors.almost_black },
+    Folded = { bg = colors.transparent_black },
     Function = { fg = colors.yellow },
     Identifier = { fg = colors.cyan },
     IncSearch = { link = "CurSearch" },
@@ -178,8 +143,8 @@ local groups = {
     Normal = { fg = colors.fg, bg = colors.bg },
     NormalFloat = { fg = colors.fg, bg = colors.bg },
     Number = { fg = colors.orange },
-    Pmenu = { fg = colors.cherry, bg = colors.bg },
-    PmenuSbar = { bg = colors.blue },
+    Pmenu = { fg = colors.white, bg = colors.bg },
+    PmenuSbar = { bg = colors.transparent_blue },
     PmenuSel = { fg = colors.cyan, bg = colors.selection },
     PmenuThumb = { bg = colors.selection },
     PreCondit = { fg = colors.cyan },
@@ -196,20 +161,20 @@ local groups = {
     SpellLocal = { sp = colors.yellow, underline = true },
     SpellRare = { sp = colors.yellow, underline = true },
     Statement = { fg = colors.purple },
-    StatusLine = { fg = colors.cherry, bg = colors.almost_black },
+    StatusLine = { fg = colors.white, bg = colors.transparent_black },
     StorageClass = { fg = colors.pink },
     Structure = { fg = colors.yellow },
-    Substitute = { fg = colors.pink, bg = colors.orange, bold = true },
+    Substitute = { fg = colors.fuchsia, bg = colors.orange, bold = true },
     Title = { fg = colors.cyan },
     Todo = { fg = colors.purple, bold = true, italic = true },
-    Type = { fg = colors.blue, bold = true },
+    Type = { fg = colors.cyan },
     TypeDef = { fg = colors.yellow },
     Underlined = { fg = colors.cyan, underline = true },
-    VertSplit = { fg = colors.cherry },
+    VertSplit = { fg = colors.white },
     Visual = { bg = colors.visual },
     VisualNOS = { fg = colors.visual },
     WarningMsg = { fg = colors.yellow },
-    WildMenu = { fg = colors.almost_black, bg = colors.cherry },
+    WildMenu = { fg = colors.transparent_black, bg = colors.white },
 
     -- Treesitter.
     ["@annotation"] = { fg = colors.yellow },
@@ -224,7 +189,7 @@ local groups = {
     ["@function"] = { fg = colors.green },
     ["@function.builtin"] = { fg = colors.cyan },
     ["@function.macro"] = { fg = colors.green },
-    ["@function.method"] = { fg = colors.mint_leaf },
+    ["@function.method"] = { fg = colors.green },
     ["@keyword"] = { fg = colors.pink },
     ["@keyword.conditional"] = { fg = colors.pink },
     ["@keyword.exception"] = { fg = colors.purple },
@@ -249,18 +214,18 @@ local groups = {
     ["@operator"] = { fg = colors.pink },
     ["@parameter.reference"] = { fg = colors.orange },
     ["@property"] = { fg = colors.purple },
-    ["@punctuation.bracket"] = { fg = colors.green },
+    ["@punctuation.bracket"] = { fg = colors.fg },
     ["@punctuation.delimiter"] = { fg = colors.fg },
-    ["@string"] = { fg = colors.gruvbox_yellow, italic = true },
-    ["@string.escape"] = { fg = colors.aqua },
-    ["@string.regexp"] = { fg = colors.aqua },
-    ["@string.special.symbol"] = { fg = colors.aqua },
+    ["@string"] = { fg = colors.yellow },
+    ["@string.escape"] = { fg = colors.cyan },
+    ["@string.regexp"] = { fg = colors.bright_red },
+    ["@string.special.symbol"] = { fg = colors.purple },
     ["@structure"] = { fg = colors.purple },
     ["@tag"] = { fg = colors.cyan },
     ["@tag.attribute"] = { fg = colors.green },
     ["@tag.delimiter"] = { fg = colors.cyan },
-    ["@type"] = { fg = colors.blue, bold = true },
-    ["@type.builtin"] = { fg = colors.sky, italic = true },
+    ["@type"] = { fg = colors.bright_cyan },
+    ["@type.builtin"] = { fg = colors.cyan, italic = true },
     ["@type.qualifier"] = { fg = colors.pink },
     ["@variable"] = { fg = colors.fg },
     ["@variable.builtin"] = { fg = colors.purple },
@@ -278,7 +243,7 @@ local groups = {
     ["@lsp.type.decorator"] = { fg = colors.green },
     ["@lsp.type.enum"] = { fg = colors.cyan },
     ["@lsp.type.enumMember"] = { fg = colors.purple },
-    ["@lsp.type.function"] = { fg = colors.mint_leaf },
+    ["@lsp.type.function"] = { fg = colors.green },
     ["@lsp.type.interface"] = { fg = colors.cyan },
     ["@lsp.type.macro"] = { fg = colors.cyan },
     ["@lsp.type.method"] = { fg = colors.green },
@@ -286,7 +251,7 @@ local groups = {
     ["@lsp.type.parameter"] = { fg = colors.orange },
     ["@lsp.type.property"] = { fg = colors.purple },
     ["@lsp.type.struct"] = { fg = colors.cyan },
-    ["@lsp.type.type"] = { fg = colors.sea_green },
+    ["@lsp.type.type"] = { fg = colors.bright_cyan },
     ["@lsp.type.variable"] = { fg = colors.fg },
     ["@modifier"] = { fg = colors.cyan },
     ["@regexp"] = { fg = colors.yellow },
@@ -311,17 +276,16 @@ local groups = {
     DiagnosticUnderlineInfo = { undercurl = true, sp = colors.cyan },
     DiagnosticUnderlineWarn = { undercurl = true, sp = colors.yellow },
     DiagnosticUnnecessary = { fg = colors.grey, italic = true },
-    DiagnosticVirtualTextError = { fg = colors.red, bg = colors.red },
-    DiagnosticVirtualTextHint = { fg = colors.cyan, bg = colors.blue },
-    DiagnosticVirtualTextInfo = { fg = colors.cyan, bg = colors.blue },
-    DiagnosticVirtualTextWarn = { fg = colors.yellow, bg = colors.yellow },
+    DiagnosticVirtualTextError = { fg = colors.red, bg = colors.transparent_red },
+    DiagnosticVirtualTextHint = { fg = colors.cyan, bg = colors.transparent_blue },
+    DiagnosticVirtualTextInfo = { fg = colors.cyan, bg = colors.transparent_blue },
+    DiagnosticVirtualTextWarn = { fg = colors.yellow, bg = colors.transparent_yellow },
     DiagnosticWarn = { fg = colors.yellow },
     LspCodeLens = { fg = colors.cyan, underline = true },
-    LspFloatWinBorder = { fg = colors.comment },
     LspInlayHint = { fg = colors.lavender, italic = true },
-    LspReferenceRead = { bg = colors.blue },
+    LspReferenceRead = { bg = colors.transparent_blue },
     LspReferenceText = {},
-    LspReferenceWrite = { bg = colors.red },
+    LspReferenceWrite = { bg = colors.transparent_red },
     LspSignatureActiveParameter = { bold = true, underline = true, sp = colors.fg },
 
     -- Completions:
@@ -361,14 +325,14 @@ local groups = {
     NvimDapVirtualText = { fg = colors.lavender, underline = true },
 
     -- Diffs.
-    DiffAdd = { fg = colors.green, bg = colors.green },
-    DiffChange = { fg = colors.cherry, bg = colors.yellow },
-    DiffDelete = { fg = colors.red, bg = colors.red },
-    DiffText = { fg = colors.orange, bg = colors.yellow, bold = true },
+    DiffAdd = { fg = colors.green, bg = colors.transparent_green },
+    DiffChange = { fg = colors.white, bg = colors.transparent_yellow },
+    DiffDelete = { fg = colors.red, bg = colors.transparent_red },
+    DiffText = { fg = colors.orange, bg = colors.transparent_yellow, bold = true },
     DiffviewFolderSign = { fg = colors.cyan },
     DiffviewNonText = { fg = colors.lilac },
     diffAdded = { fg = colors.bright_green, bold = true },
-    diffChanged = { fg = colors.lime, bold = true },
+    diffChanged = { fg = colors.bright_yellow, bold = true },
     diffRemoved = { fg = colors.bright_red, bold = true },
 
     -- Command line.
@@ -377,13 +341,13 @@ local groups = {
     MsgSeparator = { fg = colors.lilac },
 
     -- Winbar styling.
-    WinBar = { fg = colors.fg, bg = colors.almost_black },
-    WinBarNC = { bg = colors.almost_black },
-    WinBarDir = { fg = colors.purple, bg = colors.almost_black, italic = true },
-    WinBarSeparator = { fg = colors.green, bg = colors.almost_black },
+    WinBar = { fg = colors.fg, bg = colors.transparent_black },
+    WinBarNC = { bg = colors.transparent_black },
+    WinBarDir = { fg = colors.bright_magenta, bg = colors.transparent_black, italic = true },
+    WinBarSeparator = { fg = colors.green, bg = colors.transparent_black },
 
     -- Quickfix window.
-    QuickFixLine = { italic = true, bg = colors.red },
+    QuickFixLine = { italic = true, bg = colors.transparent_red },
 
     -- Gitsigns.
     GitSignsAdd = { fg = colors.bright_green },
@@ -424,9 +388,9 @@ local groups = {
     FzfLuaHeaderBind = { fg = colors.lavender },
     FzfLuaHeaderText = { fg = colors.pink },
     FzfLuaLivePrompt = { link = "Normal" },
-    FzfLuaLiveSym = { fg = colors.pink },
+    FzfLuaLiveSym = { fg = colors.fuchsia },
     FzfLuaPreviewTitle = { fg = colors.fg },
-    FzfLuaSearch = { bg = colors.red },
+    FzfLuaSearch = { bg = colors.transparent_red },
 
     -- Nicer sign column highlights for grug-far.
     GrugFarResultsChangeIndicator = { link = "Changed" },
@@ -434,8 +398,33 @@ local groups = {
     GrugFarResultsAddIndicator = { link = "Added" },
 
     -- Links.
-    HighlightUrl = { underline = true, fg = colors.blue, sp = colors.blue },
-}
+    HighlightUrl = { underline = true, fg = colors.neon_cyan, sp = colors.neon_cyan },
+
+    -- AI completions.
+    NeoCodeiumSuggestion = { link = "Comment" },
+
+    -- Barbar (tabline)
+    BufferCurrent = { fg = colors.fg, bg = colors.bg },
+    BufferCurrentIndex = { fg = colors.comment, bg = colors.bg },
+    BufferCurrentMod = { fg = colors.yellow, bg = colors.bg },
+    BufferCurrentSign = { fg = colors.cyan, bg = colors.bg },
+    BufferCurrentTarget = { fg = colors.red, bg = colors.bg, bold = true },
+    BufferVisible = { fg = colors.fg, bg = colors.transparent_black },
+    BufferVisibleIndex = { fg = colors.fg, bg = colors.transparent_black },
+    BufferVisibleMod = { fg = colors.yellow, bg = colors.transparent_black },
+    BufferVisibleSign = { fg = colors.nontext, bg = colors.transparent_black },
+    BufferVisibleTarget = { fg = colors.red, bg = colors.transparent_black, bold = true },
+    BufferInactive = { fg = colors.comment, bg = colors.transparent_black },
+    BufferInactiveIndex = { fg = colors.comment, bg = colors.transparent_black },
+    BufferInactiveMod = { fg = colors.yellow, bg = colors.transparent_black },
+    BufferInactiveSign = { fg = colors.nontext, bg = colors.transparent_black },
+    BufferInactiveTarget = { fg = colors.red, bg = colors.transparent_black, bold = true },
+    BufferTabpages = { fg = colors.cyan, bg = colors.transparent_black, bold = true },
+    BufferTabpageFill = { fg = colors.nontext, bg = colors.transparent_black, bold = true },
+    BufferOffset = { fg = colors.comment, bg = colors.bg, bold = true },
+    BufferScrollArrow = { fg = colors.fg, bg = colors.transparent_black, bold = true },
+    BufferPart = { fg = colors.cyan, bg = colors.transparent_blue, bold = true },
+})
 
 for group, opts in pairs(groups) do
     vim.api.nvim_set_hl(0, group, opts)
