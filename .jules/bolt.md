@@ -1,0 +1,3 @@
+## 2024-05-24 - Memoize Synchronous `vim.fn.system` in Formatter Callbacks
+**Learning:** Evaluating `vim.fn.system` inside frequently-called UI rendering logic (e.g., `current_line_blame_formatter` for `gitsigns`) blocks the main thread for about ~4ms per call due to the overhead of spawning a shell process, causing noticeable UI latency.
+**Action:** Always refactor configuration tables (like `opts`) into functions to create an upvalue closure. Memoize the `vim.fn.system` output once during plugin initialization instead of continuously fetching it within the callback. Also use the array-based syntax `{ "cmd", "arg" }` to prevent command injection risks.

@@ -9,63 +9,66 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            signs = {
-                add = { text = solid_bar },
-                change = { text = solid_bar },
-                delete = { text = delete_down },
-                topdelete = { text = delete_up },
-                changedelete = { text = change_gutter },
-                untracked = { text = dashed_bar },
-            },
-            signs_staged = {
-                add = { text = solid_bar },
-                change = { text = solid_bar },
-                delete = { text = delete_down },
-                topdelete = { text = delete_up },
-                changedelete = { text = change_gutter },
-                untracked = { text = dashed_bar },
-            },
-            preview_config = {
-                border = "rounded",
-            },
-            current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-            signs_staged_enable = true, -- show the signs mentioned in signs_staged at the top of the config
-            gh = true,
-            signcolumn = true,
-            numhl = true,
-            linehl = false,
-            word_diff = false,
-            watch_gitdir = {
-                interval = 1000,
-                follow_files = true,
-            },
-            attach_to_untracked = true,
-            current_line_blame_opts = {
-                virt_text = true,
-                virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
-                delay = 400,
-                ignore_whitespace = false,
-            },
-            current_line_blame_formatter = function(_, blame_info)
-                if blame_info.author == "Not Committed Yet" then
-                    return { { " Not committed yet", "GitSignsCurrentLineBlame" } }
-                end
-                -- Replace your name with "You"
-                local author = blame_info.author
-                local git_user = vim.fn.system("git config user.name"):gsub("\n", "")
-                if author == git_user then
-                    author = "You"
-                end
-                local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
-                local text = string.format(" %s, %s - %s", author, blame_info.summary, date)
-                return { { text, "GitSignsCurrentLineBlame" } }
-            end,
-            sign_priority = 6,
-            status_formatter = nil,
-            update_debounce = 200,
-            max_file_length = 40000,
-        },
+        opts = function()
+            -- Memoize git user to avoid sync process spawn in UI thread during formatting
+            local git_user = vim.fn.system({ "git", "config", "user.name" }):gsub("\n", "")
+            return {
+                signs = {
+                    add = { text = solid_bar },
+                    change = { text = solid_bar },
+                    delete = { text = delete_down },
+                    topdelete = { text = delete_up },
+                    changedelete = { text = change_gutter },
+                    untracked = { text = dashed_bar },
+                },
+                signs_staged = {
+                    add = { text = solid_bar },
+                    change = { text = solid_bar },
+                    delete = { text = delete_down },
+                    topdelete = { text = delete_up },
+                    changedelete = { text = change_gutter },
+                    untracked = { text = dashed_bar },
+                },
+                preview_config = {
+                    border = "rounded",
+                },
+                current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+                signs_staged_enable = true, -- show the signs mentioned in signs_staged at the top of the config
+                gh = true,
+                signcolumn = true,
+                numhl = true,
+                linehl = false,
+                word_diff = false,
+                watch_gitdir = {
+                    interval = 1000,
+                    follow_files = true,
+                },
+                attach_to_untracked = true,
+                current_line_blame_opts = {
+                    virt_text = true,
+                    virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
+                    delay = 400,
+                    ignore_whitespace = false,
+                },
+                current_line_blame_formatter = function(_, blame_info)
+                    if blame_info.author == "Not Committed Yet" then
+                        return { { " Not committed yet", "GitSignsCurrentLineBlame" } }
+                    end
+                    -- Replace your name with "You"
+                    local author = blame_info.author
+                    if author == git_user then
+                        author = "You"
+                    end
+                    local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
+                    local text = string.format(" %s, %s - %s", author, blame_info.summary, date)
+                    return { { text, "GitSignsCurrentLineBlame" } }
+                end,
+                sign_priority = 6,
+                status_formatter = nil,
+                update_debounce = 200,
+                max_file_length = 40000,
+            }
+        end,
         keys = {
             {
                 "[g",
