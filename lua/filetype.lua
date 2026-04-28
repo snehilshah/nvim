@@ -1,10 +1,18 @@
 vim.filetype.add({
+    extension = {
+        env = "dotenv",
+        mdx = "mdx",
+    },
     filename = {
+        [".env"] = "dotenv",
+        ["env"] = "dotenv",
         [".eslintrc.json"] = "jsonc",
     },
     pattern = {
+        ["[jt]sconfig.*.json"] = "jsonc",
         ["tsconfig*.json"] = "jsonc",
         [".*/%.vscode/.*%.json"] = "jsonc",
+        ["%.env%.[%w_.-]+"] = "dotenv",
         -- Borrowed from LazyVim. Mark huge files to disable features later.
         [".*"] = function(path, bufnr)
             return vim.bo[bufnr]

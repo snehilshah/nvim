@@ -56,20 +56,6 @@ api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
-local line_numbers_group = vim.api.nvim_create_augroup("snehilshah/toggle_line_numbers", {})
-vim.api.nvim_create_autocmd(
-    { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },
-    {
-        group = line_numbers_group,
-        desc = "Toggle relative line numbers on",
-        callback = function()
-            if vim.wo.nu and not vim.startswith(vim.api.nvim_get_mode().mode, "i") then
-                vim.wo.relativenumber = true
-            end
-        end,
-    }
-)
-
 -- Stop eslint_d daemon on exit (prevents orphaned processes)
 api.nvim_create_autocmd("VimLeavePre", {
     callback = function()

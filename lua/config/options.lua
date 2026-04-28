@@ -16,7 +16,6 @@ vim.opt.timeoutlen = 500
 vim.o.ttimeoutlen = 10
 -- confirm before exiting a modified buffer
 vim.opt.confirm = true
--- automatically reload files changed outside of nvim
 vim.opt.autoread = true
 
 -- ============================================================================
@@ -113,35 +112,26 @@ vim.opt.swapfile = false
 -- Completion
 -- ============================================================================
 vim.opt.conceallevel = 0 -- Show all text (don't hide markdown syntax/quotes)
-vim.opt.completeopt = { "menu", "menuone", "noselect" } -- Standard autocomplete options
+-- pum box show all suggestions, dont select the first option
+vim.o.completeopt = "menuone,noselect,noinsert"
+-- Limit the Autocomplete Menu to 10 items
+vim.opt.pumheight = 10
+vim.o.pumborder = "rounded"
+vim.opt.wildoptions:append("fuzzy")
+vim.opt.wildoptions:append("pum")
 
 -- ============================================================================
 -- Other
 -- ============================================================================
 vim.opt.title = true -- set the terminal title
--- vim.opt.guifont = "monospace:h17" -- no need as we run in terminal, maybe useful in neovide
 -- minimum number of screen lines to keep above and below the cursor, to have a context
 vim.opt.scrolloff = 5
 vim.opt.virtualedit = "block" -- in v-block mode allow to move cursor anywhere
 vim.o.inccommand = "split" -- show a preview of replace commands with :%s/foo/bar/g
-
--- ============================================================================
--- Filetype Detection
--- ============================================================================
-vim.filetype.add({
-    extension = {
-        env = "dotenv",
-        mdx = "mdx",
-    },
-    filename = {
-        [".env"] = "dotenv",
-        ["env"] = "dotenv",
-    },
-    pattern = {
-        ["[jt]sconfig.*.json"] = "jsonc",
-        ["%.env%.[%w_.-]+"] = "dotenv",
-    },
-})
+vim.opt.path:append("**")
+-- if nvim finds a local .nvim.lua file in the project directory it will run it on top
+vim.o.exrc = true
+vim.opt.autowrite = false
 
 -- ============================================================================
 -- Treesitter Folds
@@ -154,21 +144,9 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "expr"
 vim.wo.foldtext = ""
 
--- NOTE: Diagnostic signs are configured in plugins/lsp/init.lua via vim.diagnostic.config()
-
-vim.opt.path:append("**")
-vim.opt.wildoptions:append("fuzzy")
--- pum box show all suggestions, dont select the first option
-vim.o.completeopt = "menuone,noselect,noinsert"
--- Limit the Autocomplete Menu to 10 items
-vim.opt.pumheight = 10
-vim.o.pumborder = "rounded"
--- (Optional) Make the completion menu look like a modern dropdown popup
-vim.opt.wildoptions:append("pum")
--- if nvim finds a local .nvim.lua file in the project directory it will run it on top
-vim.o.exrc = true
-
--- Diff mode settings.
+-- ============================================================================
+-- Diff
+-- ============================================================================
 -- Setting the context to a very large number disables folding.
 vim.opt.diffopt:append("vertical,context:99")
 
@@ -177,13 +155,3 @@ vim.opt.shortmess:append({
     w = true,
     s = true,
 })
--- Show whitespace: disabled in favor of extension mcauley-penney/visual-whitespace.nvim
--- vim.opt.list = true
--- vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
--- auto read/write
-vim.opt.autoread = true
-vim.opt.autowrite = false -- never tested this
-
--- Getting some weird command line completion behaviors
--- vim.opt.wildmenu = true
--- vim.opt.wildmode = "longest:full,full"

@@ -2,7 +2,7 @@
 -- All linters should be installed globally.
 -- See docs/install.md for installation instructions.
 -- Note: Trigger linting manually with <leader>ll
--- Note: biome is handled via LSP (see justlsp.lua)
+-- Note: biome is handled via LSP (see after/lsp/biome.lua)
 return {
     "mfussenegger/nvim-lint",
     keys = {

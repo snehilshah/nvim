@@ -152,14 +152,13 @@ local function on_attach(client, bufnr)
 end
 
 -- Define the diagnostic signs.
--- Diagnostic configuration.
-local severity_name = {
-    [1] = "ERROR",
-    [2] = "WARN",
-    [3] = "INFO",
-    [4] = "HINT",
-}
+for severity, icon in pairs(diagnostic_icons) do
+    local hl = "DiagnosticSign" .. severity:sub(1, 1) .. severity:sub(2):lower()
+    vim.fn.sign_define(hl, { text = icon, texthl = hl })
+end
 
+-- Diagnostic configuration.
+-- virtual_text and virtual_lines are handled by tiny-inline-diagnostic.nvim.
 vim.diagnostic.config({
     status = {
         format = {
@@ -170,27 +169,18 @@ vim.diagnostic.config({
         },
     },
     virtual_text = false,
+    virtual_lines = false,
     float = {
         source = "if_many",
         -- Show severity icons as prefixes.
         prefix = function(diag)
-            local level = severity_name[diag.severity]
+            local level = vim.diagnostic.severity[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
     },
-    -- Disable signs in the gutter.
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
-            [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
-            [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
-            [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
-        },
-    },
+    signs = false,
 })
-
-
 
 local hover = vim.lsp.buf.hover
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -255,8 +245,6 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             "html", -- HTML
             "jsonls", -- JSON
             "yamlls", -- YAML
-            -- TODO: Re-enable markdown_oxide when needed
-            -- "markdown_oxide", -- Markdown
             "dockerls", -- Docker
             "clangd", -- C/C++
             "tailwindcss", -- Tailwind CSS

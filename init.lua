@@ -9,7 +9,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.autoformat = true
 
-vim.cmd.colorscheme("cosmic-gleam")
+vim.cmd.colorscheme("cosmic-gleam-new")
 
 require("config.options")
 require("config.keymaps")

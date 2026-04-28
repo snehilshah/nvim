@@ -221,26 +221,11 @@ return {
         -- For vim-native diffs: <leader>gD (Gitsigns diff HEAD) or <leader>dd (CodeDiff)
         map("n", "<leader>GD", _G.toggle_git_diff_file, { desc = "[G]it Diff (file) with Delta" })
 
-        -- Terminal mode mappings
-        map("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+        -- Terminal mode mappings (<Esc><Esc> already in keymaps.lua)
         map("t", "<C-h>", [[<Cmd>wincmd h<CR>]], { desc = "Navigate left" })
         map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], { desc = "Navigate down" })
         map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], { desc = "Navigate up" })
         map("t", "<C-l>", [[<Cmd>wincmd l<CR>]], { desc = "Navigate right" })
         map("t", "<C-w>", [[<C-\><C-n><C-w>]], { desc = "Window commands" })
-
-        -- Set terminal-specific options via autocmd
-        vim.api.nvim_create_autocmd("TermOpen", {
-            pattern = "term://*toggleterm#*",
-            callback = function()
-                local opts_local = {
-                    buf = 0,
-                }
-                vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts_local)
-                vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts_local)
-                vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts_local)
-                vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts_local)
-            end,
-        })
     end,
 }
