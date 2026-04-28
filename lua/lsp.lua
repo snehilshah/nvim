@@ -152,12 +152,14 @@ local function on_attach(client, bufnr)
 end
 
 -- Define the diagnostic signs.
-for severity, icon in pairs(diagnostic_icons) do
-    local hl = "DiagnosticSign" .. severity:sub(1, 1) .. severity:sub(2):lower()
-    vim.fn.sign_define(hl, { text = icon, texthl = hl })
-end
-
 -- Diagnostic configuration.
+local severity_name = {
+    [1] = "ERROR",
+    [2] = "WARN",
+    [3] = "INFO",
+    [4] = "HINT",
+}
+
 vim.diagnostic.config({
     status = {
         format = {
@@ -172,13 +174,20 @@ vim.diagnostic.config({
         source = "if_many",
         -- Show severity icons as prefixes.
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
+            local level = severity_name[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
     },
     -- Disable signs in the gutter.
-    signs = false,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
+            [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
+            [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
+            [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
+        },
+    },
 })
 
 
