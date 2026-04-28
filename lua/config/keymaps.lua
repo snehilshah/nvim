@@ -49,7 +49,7 @@ vim.keymap.set(
     { desc = "Copy Line Numbers", silent = true }
 )
 
--- NOTE: [d/]d diagnostic jumps are in plugins/lsp/init.lua (buffer-local on LspAttach)
+-- NOTE: [e/]e error/warning jumps are buffer-local in lua/lsp.lua (on LspAttach)
 vim.keymap.set(
     "n",
     "<leader>de",
@@ -138,14 +138,6 @@ end, { desc = "Escape, clear hlsearch", expr = true })
 
 -- Make U opposite to u.
 vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
-
--- Escape and save changes.
-vim.keymap.set(
-    { "s", "i", "n", "v" },
-    "<C-s>",
-    "<esc>:w<cr>",
-    { desc = "Exit insert mode and save changes" }
-)
 
 -- Mark management.
 vim.keymap.set("c", "dm", "delmarks", { desc = "Delete marks" })
