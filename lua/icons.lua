@@ -51,6 +51,7 @@ M.misc = {
     bug = "",
     dashed_bar = "┊",
     ellipsis = "…",
+    file = "󰈙",
     git = "",
     palette = "󰏘",
     robot = "󰚩",
