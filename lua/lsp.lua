@@ -158,6 +158,7 @@ for severity, icon in pairs(diagnostic_icons) do
 end
 
 -- Diagnostic configuration.
+-- virtual_text and virtual_lines are handled by tiny-inline-diagnostic.nvim.
 vim.diagnostic.config({
     status = {
         format = {
@@ -168,6 +169,7 @@ vim.diagnostic.config({
         },
     },
     virtual_text = false,
+    virtual_lines = false,
     float = {
         source = "if_many",
         -- Show severity icons as prefixes.
@@ -177,11 +179,8 @@ vim.diagnostic.config({
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
     },
-    -- Disable signs in the gutter.
     signs = false,
 })
-
-
 
 local hover = vim.lsp.buf.hover
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -246,8 +245,6 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             "html", -- HTML
             "jsonls", -- JSON
             "yamlls", -- YAML
-            -- TODO: Re-enable markdown_oxide when needed
-            -- "markdown_oxide", -- Markdown
             "dockerls", -- Docker
             "clangd", -- C/C++
             "tailwindcss", -- Tailwind CSS
