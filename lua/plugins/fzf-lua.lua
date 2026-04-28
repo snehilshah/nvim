@@ -146,6 +146,15 @@ return {
                         -- Return the original query if there's no separator.
                         return (regex or query), flags
                     end,
+                    -- Larger window with taller preview for live_grep.
+                    winopts = {
+                        height = 0.9,
+                        width = 0.9,
+                        preview = {
+                            layout = "vertical",
+                            vertical = "up:65%",
+                        },
+                    },
                 },
                 helptags = {
                     actions = {
