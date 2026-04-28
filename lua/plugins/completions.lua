@@ -63,13 +63,8 @@ return {
             },
         },
 
-        cmdline = {
-            enabled = false, -- mini.cmdline has better options, with previews
-            completion = { menu = { auto_show = true } },
-            keymap = {
-                ["<CR>"] = { "accept_and_enter", "fallback" },
-            },
-        },
+        -- mini.cmdline has better options with previews
+        cmdline = { enabled = false },
 
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -86,9 +81,6 @@ return {
                     score_offset = 100,
                 },
                 dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-                cmdline = {
-                    min_keyword_length = 2,
-                },
                 snippets = {
                     opts = {
                         search_paths = { vim.fn.stdpath("config") .. "/after/snippets" },
