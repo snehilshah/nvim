@@ -71,6 +71,7 @@ return {
             if not vim.g.autoformat then
                 return nil
             end
+            return {}
         end,
     },
     init = function()
