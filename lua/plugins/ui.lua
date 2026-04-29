@@ -22,6 +22,7 @@ return {
     },
     {
         "snehilshah/comfy-line-numbers.nvim",
+        branch = "imp/comfy-comfy",
         opts = {
             up_key = "k",
             down_key = "j",
