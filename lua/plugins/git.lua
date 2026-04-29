@@ -5,6 +5,8 @@ local delete_up = icons.misc.top_score
 local delete_down = icons.misc.under_score
 local change_gutter = icons.misc.change_gutter
 
+local _git_user = nil
+
 return {
     {
         "lewis6991/gitsigns.nvim",
@@ -53,8 +55,10 @@ return {
                 end
                 -- Replace your name with "You"
                 local author = blame_info.author
-                local git_user = vim.fn.system({ "git", "config", "user.name" }):gsub("\n", "")
-                if author == git_user then
+                if not _git_user then
+                    _git_user = vim.fn.system({ "git", "config", "user.name" }):gsub("\n", "")
+                end
+                if author == _git_user then
                     author = "You"
                 end
                 local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
