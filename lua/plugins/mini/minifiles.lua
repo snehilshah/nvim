@@ -134,14 +134,18 @@ return {
                         },
                     },
                 }
-                for _, client in ipairs(vim.lsp.get_clients({ method = "workspace/willRenameFiles" })) do
+                for _, client in
+                    ipairs(vim.lsp.get_clients({ method = "workspace/willRenameFiles" }))
+                do
                     local res = client:request_sync("workspace/willRenameFiles", changes, 1000, 0)
                     if res and res.result then
                         vim.lsp.util.apply_workspace_edit(res.result, client.offset_encoding)
                     end
                 end
 
-                for _, client in ipairs(vim.lsp.get_clients({ method = "workspace/didRenameFiles" })) do
+                for _, client in
+                    ipairs(vim.lsp.get_clients({ method = "workspace/didRenameFiles" }))
+                do
                     client:notify("workspace/didRenameFiles", changes)
                 end
             end,

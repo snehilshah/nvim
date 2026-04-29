@@ -7,5 +7,5 @@ return {
         sort = { prefix = "<leader>os" },
         multiply = { prefix = "<leader>om" },
         evaluate = { prefix = "<leader>oe" },
-    }
+    },
 }
