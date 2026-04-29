@@ -47,20 +47,7 @@ return {
                 delay = 400,
                 ignore_whitespace = false,
             },
-            current_line_blame_formatter = function(_, blame_info)
-                if blame_info.author == "Not Committed Yet" then
-                    return { { " Not committed yet", "GitSignsCurrentLineBlame" } }
-                end
-                -- Replace your name with "You"
-                local author = blame_info.author
-                local git_user = vim.fn.system({ "git", "config", "user.name" }):gsub("\n", "")
-                if author == git_user then
-                    author = "You"
-                end
-                local date = os.date("%d %b %Y, %H:%M", tonumber(blame_info.author_time))
-                local text = string.format(" %s, %s - %s", author, blame_info.summary, date)
-                return { { text, "GitSignsCurrentLineBlame" } }
-            end,
+            current_line_blame_formatter = " <author>, <summary> - <author_time:%d %b %Y, %H:%M>",
             sign_priority = 6,
             status_formatter = nil,
             update_debounce = 200,
