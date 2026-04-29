@@ -39,7 +39,7 @@ end
 M.copyFilePathAndLineNumber = function()
     local current_file = vim.fn.expand("%:p")
     local current_line = vim.fn.line(".")
-    local repo_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+    local repo_root = vim.fn.systemlist({ "git", "rev-parse", "--show-toplevel" })[1]
     if repo_root then
         current_file = current_file:sub(#repo_root + 2)
     end

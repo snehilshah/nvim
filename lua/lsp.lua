@@ -152,11 +152,6 @@ local function on_attach(client, bufnr)
 end
 
 -- Define the diagnostic signs.
-for severity, icon in pairs(diagnostic_icons) do
-    local hl = "DiagnosticSign" .. severity:sub(1, 1) .. severity:sub(2):lower()
-    vim.fn.sign_define(hl, { text = icon, texthl = hl })
-end
-
 -- Diagnostic configuration.
 -- virtual_text and virtual_lines are handled by tiny-inline-diagnostic.nvim.
 vim.diagnostic.config({
@@ -174,12 +169,27 @@ vim.diagnostic.config({
         source = "if_many",
         -- Show severity icons as prefixes.
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
+            -- Support backwards mapping correctly by iterating.
+            local level
+            for k, v in pairs(vim.diagnostic.severity) do
+                if v == diag.severity then
+                    level = k
+                    break
+                end
+            end
+            if not level then return "", "" end
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
     },
-    signs = false,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
+            [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
+            [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
+            [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
+        },
+    },
 })
 
 local hover = vim.lsp.buf.hover
