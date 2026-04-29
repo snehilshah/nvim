@@ -151,45 +151,30 @@ local function on_attach(client, bufnr)
     end
 end
 
--- Define the diagnostic signs.
+-- Severity-number → icon mapping, used by signs.text and status.format.
+local severity_icons = {
+    [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
+    [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
+    [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
+    [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
+}
+
 -- Diagnostic configuration.
 -- virtual_text and virtual_lines are handled by tiny-inline-diagnostic.nvim.
 vim.diagnostic.config({
-    status = {
-        format = {
-            [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
-            [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
-            [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
-            [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
-        },
-    },
+    status = { format = severity_icons },
     virtual_text = false,
     virtual_lines = false,
     float = {
         source = "if_many",
         -- Show severity icons as prefixes.
         prefix = function(diag)
-            -- Support backwards mapping correctly by iterating.
-            local level
-            for k, v in pairs(vim.diagnostic.severity) do
-                if v == diag.severity then
-                    level = k
-                    break
-                end
-            end
-            if not level then return "", "" end
+            local level = vim.diagnostic.severity[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
     },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
-            [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
-            [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
-            [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
-        },
-    },
+    signs = { text = severity_icons },
 })
 
 local hover = vim.lsp.buf.hover
