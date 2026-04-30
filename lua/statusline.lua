@@ -249,39 +249,42 @@ function M.position_component()
 end
 
 --- Renders the statusline.
+---@param component string
+---@param mode_hl string
+---@param hl string?
+---@return string
+local function wrap_component(component, mode_hl, hl)
+    if #component == 0 then
+        return ""
+    end
+
+    hl = hl or mode_hl
+    return table.concat({
+        string.format("%%#StatuslineModeSeparator%s#", hl),
+        string.format("%%#StatuslineMode%s#", hl),
+        component,
+        string.format("%%#StatuslineModeSeparator%s#", hl),
+    })
+end
+
+---@param components { component: string, hl: string? }[]
+---@param mode_hl string
+---@return string
+local function concat_components(components, mode_hl)
+    local acc = ""
+    for _, component in ipairs(components) do
+        local rendered = wrap_component(component.component, mode_hl, component.hl)
+        if #rendered > 0 then
+            acc = #acc == 0 and rendered or string.format("%s %s", acc, rendered)
+        end
+    end
+    return acc
+end
+
+--- Renders the statusline.
 ---@return string
 function M.render()
     local mode, mode_hl = M.mode_component()
-
-    ---@param component string
-    ---@param hl string?
-    ---@return string
-    local function wrap_component(component, hl)
-        if #component == 0 then
-            return ""
-        end
-
-        hl = hl or mode_hl
-        return table.concat({
-            string.format("%%#StatuslineModeSeparator%s#", hl),
-            string.format("%%#StatuslineMode%s#", hl),
-            component,
-            string.format("%%#StatuslineModeSeparator%s#", hl),
-        })
-    end
-
-    ---@param components { component: string, hl: string? }[]
-    ---@return string
-    local function concat_components(components)
-        return vim.iter(components):fold("", function(acc, component)
-            local rendered = wrap_component(component.component, component.hl)
-            if #rendered == 0 then
-                return acc
-            end
-
-            return #acc == 0 and rendered or string.format("%s %s", acc, rendered)
-        end)
-    end
 
     return table.concat({
         concat_components({
@@ -289,14 +292,14 @@ function M.render()
             { component = M.relative_path_component() },
             { component = M.git_component() },
             { component = M.lsp_progress_component() },
-        }),
+        }, mode_hl),
         "%#StatusLine#%=",
         concat_components({
             { component = M.diagnostics_component() },
             { component = M.filetype_component() },
             { component = M.lsp_clients_component() },
             { component = M.position_component() },
-        }),
+        }, mode_hl),
         " ",
     })
 end
