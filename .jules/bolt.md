@@ -1,0 +1,3 @@
+## 2024-05-24 - Statusline Table and Closure Allocations Optimization
+**Learning:** In Neovim configurations, modules like `statusline.lua` are executed extremely frequently (e.g. on every cursor move or window redraw). Defining static lookup tables and helper functions inside the `render` function causes significant overhead by creating new tables and closures on every call, leading to memory pressure and micro-stutters.
+**Action:** Always hoist static tables (like icon mappings) and helper functions to the module scope (file-level `local`). Also, in hot paths, avoid high-level iterators like `vim.iter(components):fold(...)` and prefer standard `for` loops to minimize closure allocation and function call overhead.
