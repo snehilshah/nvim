@@ -11,8 +11,8 @@ return {
                 function()
                     local opts = {
                         winopts = {
-                            height = 0.6,
-                            width = 0.5,
+                            height = 0.8,
+                            width = 0.8,
                             preview = { vertical = "up:70%" },
                             -- Disable Treesitter highlighting for the matches.
                             treesitter = {
@@ -125,7 +125,7 @@ return {
                         vertical = "up:40%",
                     },
                 },
-                defaults = { git_icons = false },
+                defaults = { git_icons = true },
                 previewers = {
                     codeaction = { toggle_behavior = "extend" },
                 },
