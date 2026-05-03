@@ -111,6 +111,8 @@ return {
                         ["<C-i>"] = "toggle-preview",
                     },
                     fzf = {
+                        ["ctrl-j"] = "down",
+                        ["ctrl-k"] = "up",
                         ["alt-s"] = "toggle",
                         ["alt-a"] = "toggle-all",
                         ["ctrl-i"] = "toggle-preview",
@@ -124,6 +126,11 @@ return {
                         layout = "vertical",
                         vertical = "up:40%",
                     },
+                    on_create = function()
+                        -- Prevent global terminal mappings (like window navigation) from breaking fzf-lua, configured in toggleterm
+                        vim.keymap.set("t", "<C-j>", "<C-j>", { buffer = true, nowait = true })
+                        vim.keymap.set("t", "<C-k>", "<C-k>", { buffer = true, nowait = true })
+                    end,
                 },
                 defaults = { git_icons = true },
                 previewers = {
