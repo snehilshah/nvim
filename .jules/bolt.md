@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid Closure Allocations and High-Level Iterators in Critical UI Code
+**Learning:** Functions like `M.render` in `statusline.lua` are called extremely frequently (on every cursor move/keystroke). Defining inner functions inside `M.render` creates new closure allocations on every single tick, adding measurable garbage collection overhead. Additionally, using `vim.iter` for simple arrays in these hot paths creates unnecessary iterator state allocation compared to standard `for` loops.
+**Action:** Always move helper functions out of hot rendering loops to module scope (passing required state explicitly), and prefer standard `for` loops over high-level abstractions like `vim.iter` or `table.foreach` for performance-critical components.
