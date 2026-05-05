@@ -83,7 +83,7 @@
 | `gd`         | n   | Goto Definition                        |     | `gD`         | n   | Goto Declaration                      |
 | `gi`         | n   | Goto Implementation                    |     | `grt`        | n   | Goto Type Definition                  |
 | `grp`        | n   | References                             |     | `ga`         | n,x | Code Action (native)                  |
-| `<leader>rn` | n   | Rename symbol                          |     | `<leader>ca` | n,x | Code Action (tiny-code-action)        |
+| `<leader>rn` | n   | Rename symbol                          |     | `<leader>ca` | n,x | Code Action                           |
 | `grx`        | n   | Run codelens actions                   |     |              |     |                                       |
 | `[d`         | n   | Previous diagnostic (LSP buffer-local) |     | `]d`         | n   | Next diagnostic (LSP buffer-local)    |
 | `<leader>cd` | n   | Show diagnostic (LSP buffer-local)     |     | `<leader>ih` | n   | Toggle inlay hints (LSP buffer-local) |
