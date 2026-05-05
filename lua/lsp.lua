@@ -230,6 +230,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
         local servers = {
             "lua_ls", -- Lua
+            "vimdoc_ls", -- Vimdoc
             "buf_ls", -- Protobuf via Buf workspaces/modules
             "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
             "tsgo", -- TypeScript/JavaScript
