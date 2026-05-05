@@ -73,6 +73,10 @@ return {
             end
             return {}
         end,
+        formatters = {
+            -- Require a Prettier configuration file to format.
+            prettier = { require_cwd = true },
+        },
     },
     init = function()
         vim.g.autoformat = true
