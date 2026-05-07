@@ -208,7 +208,7 @@ return {
                 function()
                     local branch = vim.fn.input("Compare with branch: ", "origin/")
                     if branch ~= "" and branch ~= "origin/" then
-                        vim.cmd("CodeDiff " .. branch .. "...HEAD")
+                        vim.cmd({ cmd = "CodeDiff", args = { branch .. "...HEAD" } })
                     end
                 end,
                 desc = "[M]erge-base diff vs specific branch",
