@@ -1,0 +1,3 @@
+## 2024-03-01 - Statusline Render Allocations
+**Learning:** In performance-critical Lua code like statusline rendering (`M.render`), dynamic allocations (e.g., nested helper functions, high-level iterators like `vim.iter`, and recreating static tables inside components) introduce significant overhead due to closure allocation and GC pressure on every redraw.
+**Action:** Move nested helper functions to the module scope, hoist static table allocations (like `severities`, `special_icons`, `mode_to_str`), and replace high-level iterators with standard `for` loops to minimize closure allocation and iterator overhead.
