@@ -159,6 +159,14 @@ local severity_icons = {
     [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
 }
 
+-- Reverse mapping from integer severity back to name (e.g. 1 -> "ERROR")
+local severity_name = {}
+for name, val in pairs(vim.diagnostic.severity) do
+    if type(val) == "number" then
+        severity_name[val] = name
+    end
+end
+
 -- Diagnostic configuration.
 -- virtual_text and virtual_lines are handled by tiny-inline-diagnostic.nvim.
 vim.diagnostic.config({
@@ -169,7 +177,7 @@ vim.diagnostic.config({
         source = "if_many",
         -- Show severity icons as prefixes.
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
+            local level = severity_name[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
