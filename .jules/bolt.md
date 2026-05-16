@@ -1,0 +1,3 @@
+## 2024-05-19 - Hoisting allocations and reducing iterators in performance-critical code
+**Learning:** In Neovim, `statusline` functions are called extremely frequently. Allocating tables inside these functions (like `mode_to_str`, `special_icons`, `severities`) and using high-level iterators (`vim.iter`) creates significant garbage collection overhead and closure allocations, which can cause micro-stutters.
+**Action:** Always hoist static table allocations to the module scope in performance-critical paths like `statusline`, move nested helper functions to the module scope, and prefer standard `for` loops over `vim.iter` or functional paradigms to minimize closure allocations.
