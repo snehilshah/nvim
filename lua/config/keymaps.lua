@@ -141,3 +141,6 @@ vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
 -- Mark management.
 vim.keymap.set("c", "dm", "delmarks", { desc = "Delete marks" })
+
+-- Insert literal tab character.
+vim.keymap.set("i", "<C-]>", "<C-v><Tab>", { desc = "Insert literal tab character" })
