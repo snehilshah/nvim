@@ -1,0 +1,3 @@
+## 2024-05-18 - Statusline Render Loop Optimizations
+**Learning:** In performance-critical Lua code like statusline rendering (`M.render`), it's important to move nested helper functions to the module scope, hoist static table allocations (like `severities`, `mode_to_str`, and `special_icons`), and replace high-level iterators (like `vim.iter`) with standard `for` loops to minimize closure allocation and iterator overhead.
+**Action:** Always check the hot paths like `M.render` for redundant allocations and iterator usage, and pull these out into module scope or use standard `for` loops for zero allocation overhead.
