@@ -310,7 +310,8 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 
 | Key     | M   | Desc                                   |     | Key       | M   | Desc                                   |
 | ------- | --- | -------------------------------------- | --- | --------- | --- | -------------------------------------- |
-| `<Tab>` | i   | Tabout / Super-tab preset (blink.cmp)  |     | `<S-Tab>` | i   | Backwards tabout                       |
+| `<Tab>` | i   | Super-tab preset (blink.cmp)           |     | `<S-Tab>` | i   | Backwards tab (blink.cmp)              |
+| `<C-t>` | i   | Indent current line (native)           |     | `<C-d>`   | i   | De-indent current line (native)        |
 | `<C-]>` | i   | Insert literal tab                     |     |           |     |                                        |
 | `<C-j>` | i   | Completion next (blink.cmp; menu only) |     | `<C-k>`   | i   | Completion prev (blink.cmp; menu only) |
 

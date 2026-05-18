@@ -169,7 +169,8 @@ vim.diagnostic.config({
         source = "if_many",
         -- Show severity icons as prefixes.
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
+            local mapping = { "ERROR", "WARN", "INFO", "HINT" }
+            local level = mapping[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
