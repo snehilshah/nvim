@@ -1,0 +1,3 @@
+## 2024-05-18 - Minimize GC overhead in Neovim statusline renders
+**Learning:** High-frequency Neovim callbacks like the statusline `render` function are extremely sensitive to garbage collection overhead. Local table allocations (e.g., mapping tables like `mode_to_str` or `special_icons`) and closures created inside these functions run on every redraw, causing unnecessary memory allocation and eventual GC pauses. High-level iterators like `vim.iter` also add significant overhead compared to standard `for` loops in hot paths.
+**Action:** Hoist static table allocations and helper functions to the module scope, and replace iterator abstractions with standard `for` loops in performance-critical rendering code to minimize closure allocation and GC pressure.
