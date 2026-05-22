@@ -63,8 +63,8 @@ return {
             },
         },
 
-        -- mini.cmdline has better options with previews
-        cmdline = { enabled = false },
+        -- Nvim 0.12+ ui2 covers cmdline completion/preview nicely
+        cmdline = { enabled = true },
 
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
