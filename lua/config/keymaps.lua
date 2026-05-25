@@ -141,3 +141,7 @@ vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
 -- Mark management.
 vim.keymap.set("c", "dm", "delmarks", { desc = "Delete marks" })
+
+-- resize windows
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
