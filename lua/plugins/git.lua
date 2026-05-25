@@ -124,22 +124,13 @@ return {
                 end,
                 desc = "[g]it [R]eset Buffer",
             },
-            -- Stage the current hunk (git add just this hunk)
+            -- Toggle stage state for the current hunk (stage if unstaged, unstage if staged).
             {
                 "<leader>ga",
                 function()
                     require("gitsigns").stage_hunk()
                 end,
-                desc = "[g]it [a]dd Hunk",
-            },
-            -- Toggle stage state for the current hunk.
-            -- On staged signs this unstages (replacement for deprecated undo_stage_hunk()).
-            {
-                "<leader>gu",
-                function()
-                    require("gitsigns").stage_hunk()
-                end,
-                desc = "[g]it [u]nstage Hunk",
+                desc = "[g]it stage/unstage Hunk",
             },
             -- Open a vim split diff comparing the current buffer against HEAD (last commit)
             {

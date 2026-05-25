@@ -26,14 +26,13 @@ return {
         opts = {
             up_key = "k",
             down_key = "j",
-
             hidden_file_types = { "undotree" },
             hidden_buffer_types = { "terminal", "nofile" },
             hide_in_insert_mode = true,
         },
         config = function(_, opts)
             require("comfy-line-numbers").setup(opts)
-            -- Add fold column (%C) to the statuscolumn set by comfy-line-numbers
+            -- Prepend fold column (%C) to the statuscolumn set by comfy-line-numbers.
             vim.api.nvim_create_autocmd({ "BufWinEnter", "ModeChanged" }, {
                 pattern = "*",
                 callback = function()
