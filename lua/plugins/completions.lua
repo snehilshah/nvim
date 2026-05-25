@@ -4,7 +4,6 @@ return {
     branch = "v1",
     dependencies = {
         "folke/lazydev.nvim",
-        "nvim-mini/mini.nvim",
     },
     opts = {
         keymap = {
@@ -63,8 +62,7 @@ return {
             },
         },
 
-        -- mini.cmdline has better options with previews
-        cmdline = { enabled = false },
+        cmdline = { enabled = true },
 
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
