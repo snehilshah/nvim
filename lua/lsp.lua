@@ -88,6 +88,21 @@ local function on_attach(client, bufnr)
         })
     end
 
+    if client:supports_method("textDocument/codeLens") then
+        local codelens_group =
+            vim.api.nvim_create_augroup("snehilshah/codelens_" .. bufnr, { clear = true })
+        vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "BufWritePost" }, {
+            group = codelens_group,
+            buffer = bufnr,
+            desc = "Refresh code lens",
+            callback = function()
+                vim.lsp.codelens.refresh({ bufnr = bufnr })
+            end,
+        })
+        keymap("<leader>cc", vim.lsp.codelens.run, "Run code lens action")
+        vim.lsp.codelens.refresh({ bufnr = bufnr })
+    end
+
     if client:supports_method("textDocument/inlayHint") then
         local inlay_hints_group =
             vim.api.nvim_create_augroup("mariasolos/toggle_inlay_hints", { clear = false })
@@ -135,10 +150,7 @@ local function on_attach(client, bufnr)
                 command = client.name == "eslint" and "eslint.applyAllFixes"
                     or "stylelint.applyAutoFixes",
                 arguments = {
-                    {
-                        uri = vim.uri_from_bufnr(bufnr),
-                        version = vim.lsp.util.buf_versions[bufnr],
-                    },
+                    { uri = vim.uri_from_bufnr(bufnr) },
                 },
             }, nil, bufnr)
         end, {
@@ -160,21 +172,21 @@ local severity_icons = {
 }
 
 -- Diagnostic configuration.
--- virtual_text and virtual_lines are handled by tiny-inline-diagnostic.nvim.
+-- tiny-inline-diagnostic.nvim owns inline rendering; native rendering disabled.
 vim.diagnostic.config({
     status = { format = severity_icons },
     virtual_text = false,
     virtual_lines = false,
+    signs = false,
+    underline = false,
     float = {
         source = "if_many",
-        -- Show severity icons as prefixes.
         prefix = function(diag)
             local level = vim.diagnostic.severity[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
     },
-    signs = { text = severity_icons },
 })
 
 local hover = vim.lsp.buf.hover
@@ -250,12 +262,5 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         vim.lsp.enable(servers)
     end,
 })
-
--- HACK: Override buf_request to ignore notifications from LSP servers that don't implement a method.
-local buf_request = vim.lsp.buf_request
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf_request = function(bufnr, method, params, handler)
-    return buf_request(bufnr, method, params, handler, function() end)
-end
 
 return M

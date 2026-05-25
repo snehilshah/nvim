@@ -59,13 +59,13 @@ local function render(bufnr, client)
         triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Automatic,
     }
 
-    vim.lsp.buf_request(bufnr, code_action_method, params, function(_, res, _)
+    client:request(code_action_method, params, function(_, res, _)
         if vim.api.nvim_get_current_buf() ~= bufnr then
             return
         end
 
         update_extmark(bufnr, (res and #res > 0 and line) or nil)
-    end)
+    end, bufnr)
 end
 
 -- I don't fully understand how this works, kind of just copy-pasted it
