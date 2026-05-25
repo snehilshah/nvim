@@ -306,12 +306,12 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 | `<leader>as` | n       | Select CLI           |     | `<leader>ap` | n,x | Select prompt |
 | `<leader>ad` | n       | Detach CLI           |     | `<leader>ac` | n   | Toggle Claude |
 
-## Tabout & Completion
+## Completion
 
 | Key     | M   | Desc                                   |     | Key       | M   | Desc                                   |
 | ------- | --- | -------------------------------------- | --- | --------- | --- | -------------------------------------- |
-| `<Tab>` | i   | Tabout / Super-tab preset (blink.cmp)  |     | `<S-Tab>` | i   | Backwards tabout                       |
-| `<C-]>` | i   | Insert literal tab                     |     |           |     |                                        |
+| `<Tab>` | i    | Super-tab preset (blink.cmp)           |     |           |      |                                        |
+| `<C-]>` | i    | Insert literal tab                     |     |           |      |                                        |
 | `<C-j>` | i   | Completion next (blink.cmp; menu only) |     | `<C-k>`   | i   | Completion prev (blink.cmp; menu only) |
 
 ## Mini.surround
