@@ -3,7 +3,7 @@ return {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "mdx" },
         enabled = true,
-        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.icons" },
         opts = {
             file_types = { "markdown", "mdx" },
             html = {

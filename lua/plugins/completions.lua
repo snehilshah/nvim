@@ -4,7 +4,7 @@ return {
     branch = "v1",
     dependencies = {
         "folke/lazydev.nvim",
-        "nvim-mini/mini.nvim",
+        "nvim-mini/mini.icons",
     },
     opts = {
         keymap = {
