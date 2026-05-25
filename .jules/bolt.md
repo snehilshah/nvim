@@ -1,0 +1,3 @@
+## 2024-05-25 - Statusline Rendering Optimization
+**Learning:** In Neovim, statusline rendering functions run extremely frequently. Allocating static tables, closures, and iterators (like `vim.iter`) inside the render loop causes significant unnecessary garbage collection overhead and potential micro-stutters.
+**Action:** Always hoist static tables and helper functions to the module scope, pass required dynamic state explicitly as arguments, and prefer native `for` loops over high-level iterators for hot paths like `statusline` and `winbar`.
