@@ -45,10 +45,7 @@ return {
             },
         },
         typescript = {
-            -- Enable TypeScript features within Astro files
-            tsdk = "node_modules/typescript/lib", -- Use workspace tsdk if available
-
-            -- Import Preferences
+            -- tsdk lives in init_options.typescript.tsdk (probed by get_typescript_tsdk).
             preferences = {
                 importModuleSpecifierPreference = "shortest",
                 importModuleSpecifierEnding = "auto",
