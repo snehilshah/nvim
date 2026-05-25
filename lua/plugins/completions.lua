@@ -63,8 +63,8 @@ return {
             },
         },
 
-        -- mini.cmdline has better options with previews
-        cmdline = { enabled = false },
+        -- Use ui2 cmdline features paired with blink.cmp
+        cmdline = { enabled = true },
 
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
