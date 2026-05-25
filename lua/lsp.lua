@@ -159,6 +159,14 @@ local severity_icons = {
     [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
 }
 
+-- Severity-number → name mapping for prefix in Neovim 0.12+
+local severity_names = {
+    [vim.diagnostic.severity.ERROR] = "ERROR",
+    [vim.diagnostic.severity.WARN] = "WARN",
+    [vim.diagnostic.severity.INFO] = "INFO",
+    [vim.diagnostic.severity.HINT] = "HINT",
+}
+
 -- Diagnostic configuration.
 -- virtual_text and virtual_lines are handled by tiny-inline-diagnostic.nvim.
 vim.diagnostic.config({
@@ -169,7 +177,7 @@ vim.diagnostic.config({
         source = "if_many",
         -- Show severity icons as prefixes.
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
+            local level = severity_names[diag.severity] or "ERROR"
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,

@@ -37,6 +37,9 @@ end, { desc = "Exit insert mode and save changes (without formatting)", expr = t
 -- Quickly go to the end of the line while in insert mode.
 vim.keymap.set({ "i", "c" }, "<C-l>", "<C-o>A", { desc = "Go to the end of the line" })
 
+-- Insert literal tab (to avoid conflicts with super-tab)
+vim.keymap.set("i", "<C-]>", "<C-v><Tab>", { desc = "Insert literal tab" })
+
 -- Move to start/end of line in normal modes
 vim.keymap.set({ "n", "x", "o" }, "H", "^", { desc = "Start of Line" })
 vim.keymap.set({ "n", "x", "o" }, "L", "g_", { desc = "End of Line" })
