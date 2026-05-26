@@ -40,7 +40,9 @@ local function on_attach(client, bufnr)
     end
 
     if client:supports_method("textDocument/references") then
-        keymap("grr", "<cmd>FzfLua lsp_references<cr>", "vim.lsp.buf.references()")
+        keymap("grr", function()
+            require("utils").lsp_references()
+        end, "Find references")
     end
 
     if client:supports_method("textDocument/typeDefinition") then
@@ -53,11 +55,35 @@ local function on_attach(client, bufnr)
 
     if client:supports_method("textDocument/definition") then
         keymap("gd", function()
-            require("fzf-lua").lsp_definitions({ jump1 = true })
-        end, "Go to definition")
-        keymap("gD", function()
-            require("fzf-lua").lsp_definitions({ jump1 = false })
-        end, "Peek definition")
+            require("utils").lsp_goto_definition()
+        end, "Go to definition (def + impl)")
+    end
+
+    if client:supports_method("textDocument/declaration") then
+        keymap("gD", vim.lsp.buf.declaration, "Go to declaration")
+    end
+
+    if client:supports_method("textDocument/implementation") then
+        keymap("gri", "<cmd>FzfLua lsp_implementations<cr>", "Go to implementation")
+    end
+
+    if client:supports_method("textDocument/codeAction") then
+        keymap("<leader>ca", "<cmd>FzfLua lsp_code_actions<cr>", "Code action", { "n", "x" })
+        -- nvim 0.11 also exposes `gra` by default; this leader binding is the
+        -- fzf-lua-backed picker for consistent UI.
+    end
+
+    if client:supports_method("textDocument/rename") then
+        keymap("<leader>rn", function()
+            local cword = vim.fn.expand("<cword>")
+            vim.ui.input({ prompt = "Rename: ", default = cword }, function(new_name)
+                if not new_name or new_name == "" or new_name == cword then
+                    return
+                end
+                vim.lsp.buf.rename(new_name)
+            end)
+        end, "Rename symbol")
+        -- nvim 0.11 default `grn` also calls vim.lsp.buf.rename(); leader keeps a memorable alias.
     end
 
     if client:supports_method("textDocument/signatureHelp") then
@@ -89,18 +115,8 @@ local function on_attach(client, bufnr)
     end
 
     if client:supports_method("textDocument/codeLens") then
-        local codelens_group =
-            vim.api.nvim_create_augroup("snehilshah/codelens_" .. bufnr, { clear = true })
-        vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "BufWritePost" }, {
-            group = codelens_group,
-            buffer = bufnr,
-            desc = "Refresh code lens",
-            callback = function()
-                vim.lsp.codelens.refresh({ bufnr = bufnr })
-            end,
-        })
         keymap("<leader>cc", vim.lsp.codelens.run, "Run code lens action")
-        vim.lsp.codelens.refresh({ bufnr = bufnr })
+        vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end
 
     if client:supports_method("textDocument/inlayHint") then
