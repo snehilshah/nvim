@@ -22,29 +22,22 @@ return {
     },
     {
         "snehilshah/comfy-line-numbers.nvim",
+        -- dev = true: load from ~/myCodes/comfy-line-numbers.nvim (lazy `dev.path`).
+        -- Keep this true while iterating locally; flip to false to use the GitHub copy.
+        dev = true,
         branch = "imp/comfy-comfy",
+        lazy = false,
+        priority = 900,
         opts = {
             up_key = "k",
             down_key = "j",
             hidden_file_types = { "undotree" },
             hidden_buffer_types = { "terminal", "nofile" },
             hide_in_insert_mode = true,
+            right_padding = 1,
         },
-        config = function(_, opts)
-            require("comfy-line-numbers").setup(opts)
-            -- Prepend fold column (%C) to the statuscolumn set by comfy-line-numbers.
-            vim.api.nvim_create_autocmd({ "BufWinEnter", "ModeChanged" }, {
-                pattern = "*",
-                callback = function()
-                    vim.schedule(function()
-                        local sc = vim.opt.statuscolumn:get()
-                        if sc ~= "" and not sc:match("%%C") then
-                            vim.opt.statuscolumn = "%C" .. sc
-                        end
-                    end)
-                end,
-            })
-        end,
+        -- Fold column (%C) is baked into comfy's statuscolumn template directly,
+        -- so no external prepend autocmd is needed. Avoids per-event stacking races.
     },
     {
         "mcauley-penney/visual-whitespace.nvim",
