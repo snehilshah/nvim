@@ -22,9 +22,6 @@ return {
     },
     {
         "snehilshah/comfy-line-numbers.nvim",
-        -- dev = true: load from ~/myCodes/comfy-line-numbers.nvim (lazy `dev.path`).
-        -- Keep this true while iterating locally; flip to false to use the GitHub copy.
-        dev = true,
         branch = "imp/comfy-comfy",
         lazy = false,
         priority = 900,
