@@ -126,6 +126,8 @@ vim.opt.wildoptions:append("pum")
 vim.opt.title = true -- set the terminal title
 -- minimum number of screen lines to keep above and below the cursor, to have a context
 vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 8
+vim.opt.smoothscroll = true -- scroll by screen lines instead of buffer lines on wrapped text
 vim.opt.virtualedit = "block" -- in v-block mode allow to move cursor anywhere
 vim.o.inccommand = "split" -- show a preview of replace commands with :%s/foo/bar/g
 vim.opt.path:append("**")
@@ -137,7 +139,7 @@ vim.opt.autowrite = false
 -- Treesitter Folds
 -- ============================================================================
 vim.opt.foldenable = true
-vim.opt.foldcolumn = "auto"
+vim.opt.foldcolumn = "auto:1"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99 -- Start with all folds open
 vim.opt.foldlevelstart = 99
