@@ -1,6 +1,6 @@
 {
   "CamelCaseMotion": { "branch": "master", "commit": "e69b0024f8f63db10c5d0df26d4920760755d454" },
-  "SchemaStore.nvim": { "branch": "main", "commit": "5330d61a3b2f7ecf8bf6f9ab4ce12878497f2cee" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "e25e63f3b24fd6b8c2fc713107ad5d5594028eac" },
   "barbar.nvim": { "branch": "master", "commit": "53b5a2f34b68875898f0531032fbf090e3952ad7" },
   "blink.cmp": { "branch": "v1", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "codediff.nvim": { "branch": "main", "commit": "76ff1b13f0bcba655dca85cea1ef0df877a53c0f" },
@@ -41,7 +41,6 @@
   "render-markdown.nvim": { "branch": "main", "commit": "5adf0895310c1904e5abfaad40a2baad7fe44a07" },
   "tabout.nvim": { "branch": "master", "commit": "9a3499480a8e53dcaa665e2836f287e3b7764009" },
   "tiny-code-action.nvim": { "branch": "main", "commit": "0d040ed81f7953118b81cd12681fcdfcac069803" },
-  "tiny-glimmer.nvim": { "branch": "main", "commit": "f26728abf811324d7ed6b035a11d7b76a27c06c3" },
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "6bdbc9a2f5a846ff5fc55a998ff97c0e2968b7e5" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "toggleterm.nvim": { "branch": "main", "commit": "50ea089fc548917cc3cc16b46a8211833b9e3c7c" },
