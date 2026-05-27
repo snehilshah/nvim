@@ -68,9 +68,9 @@ local function on_attach(client, bufnr)
     end
 
     if client:supports_method("textDocument/codeAction") then
-        keymap("<leader>ca", "<cmd>FzfLua lsp_code_actions<cr>", "Code action", { "n", "x" })
-        -- nvim 0.11 also exposes `gra` by default; this leader binding is the
-        -- fzf-lua-backed picker for consistent UI.
+        keymap("gra", function()
+            require("tiny-code-action").code_action()
+        end, "Code action (tiny)", { "n", "x" })
     end
 
     if client:supports_method("textDocument/rename") then

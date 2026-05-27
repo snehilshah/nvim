@@ -75,7 +75,7 @@ end
 local function update(bufnr, client)
     timer:stop()
     update_extmark(updated_bufnr)
-    timer:start(100, 0, function()
+    timer:start(300, 0, function()
         timer:stop()
         vim.schedule(function()
             if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_get_current_buf() == bufnr then
