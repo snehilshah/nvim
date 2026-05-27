@@ -57,7 +57,7 @@ return {
             },
             list = {
                 selection = {
-                    preselect = false, -- dont select the first item by default, but tab completes it still
+                    preselect = true, -- Automatically select the first item
                     auto_insert = true, --insert preview into editor only when selecting
                 },
             },
