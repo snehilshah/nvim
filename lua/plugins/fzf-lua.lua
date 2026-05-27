@@ -202,7 +202,7 @@ return {
                                     opts.severity_only = nil
                                 else
                                     -- Else only show errors.
-                                    opts.severity_only = vim.diagnostic.severity.ERROR
+                                    opts.severity_only = 1
                                 end
                                 require("fzf-lua").resume(opts)
                             end,

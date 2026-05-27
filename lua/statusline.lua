@@ -104,57 +104,10 @@ function M.git_component()
     return stl_escape(component)
 end
 
----@type table<string, string?>
-local progress_status = {
-    client = nil,
-    kind = nil,
-    title = nil,
-}
-
-vim.api.nvim_create_autocmd("LspProgress", {
-    group = vim.api.nvim_create_augroup("mariasolos/statusline", { clear = true }),
-    desc = "Update LSP progress in statusline",
-    pattern = { "begin", "end" },
-    callback = function(args)
-        -- This should in theory never happen, but I've seen weird errors.
-        if not args.data then
-            return
-        end
-
-        progress_status = {
-            client = vim.lsp.get_client_by_id(args.data.client_id).name,
-            kind = args.data.params.value.kind,
-            title = args.data.params.value.title,
-        }
-
-        if progress_status.kind == "end" then
-            progress_status.title = nil
-            -- Wait a bit before clearing the status.
-            vim.defer_fn(function()
-                vim.cmd.redrawstatus()
-            end, 3000)
-        else
-            vim.cmd.redrawstatus()
-        end
-    end,
-})
 --- The latest LSP progress message.
 ---@return string
 function M.lsp_progress_component()
-    if not progress_status.client or not progress_status.title then
-        return ""
-    end
-
-    -- Avoid noisy messages while typing.
-    if vim.startswith(vim.api.nvim_get_mode().mode, "i") then
-        return ""
-    end
-
-    return string.format(
-        "󱥸 %s  %s...",
-        stl_escape(progress_status.client),
-        stl_escape(progress_status.title)
-    )
+    return vim.lsp.status()
 end
 
 --- The buffer's filetype.
@@ -221,10 +174,10 @@ end
 function M.diagnostics_component()
     local diagnostic_counts = vim.diagnostic.count(0)
     local severities = {
-        { severity = vim.diagnostic.severity.ERROR, icon = icons.diagnostics.ERROR },
-        { severity = vim.diagnostic.severity.WARN, icon = icons.diagnostics.WARN },
-        { severity = vim.diagnostic.severity.INFO, icon = icons.diagnostics.INFO },
-        { severity = vim.diagnostic.severity.HINT, icon = icons.diagnostics.HINT },
+        { severity = 1, icon = icons.diagnostics.ERROR },
+        { severity = 2, icon = icons.diagnostics.WARN },
+        { severity = 3, icon = icons.diagnostics.INFO },
+        { severity = 4, icon = icons.diagnostics.HINT },
     }
 
     local parts = {}
