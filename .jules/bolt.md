@@ -1,0 +1,3 @@
+## 2024-05-24 - Extracted statusline logic to module scope
+**Learning:** In performance-critical Lua code like statusline rendering (`M.render`), moving nested helper functions to the module scope and hoisting static table allocations (like `severities`, `mode_to_str`, and `special_icons`) minimizes closure allocation and overhead. Additionally, replacing high-level iterators (like `vim.iter`) with standard `for` loops avoids iterator overhead.
+**Action:** When working with Neovim statuslines or fast rendering loops, extract static mappings and utility functions to the outermost scope and prefer basic control structures over abstractions.
