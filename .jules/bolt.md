@@ -1,0 +1,3 @@
+## 2024-05-24 - Statusline Performance Insights
+**Learning:** Found statusline implementations that do heavy work in `M.render()`, particularly allocating iterators via `vim.iter` and nested helper functions (`wrap_component`, `concat_components`). Neovim's statusline `render()` is called extremely often (potentially multiple times per second per window). Creating closures, nested functions, and `vim.iter` instances inside `render()` causes unnecessary GC pressure.
+**Action:** Extract inner helper functions and static mappings to the file level rather than declaring them inside the rendering loop. Optimize string concatenation where iterators are currently used.
