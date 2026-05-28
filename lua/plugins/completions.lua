@@ -64,7 +64,7 @@ return {
         },
 
         -- mini.cmdline has better options with previews
-        cmdline = { enabled = false },
+        cmdline = { enabled = true },
 
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
