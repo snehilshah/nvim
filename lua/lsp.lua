@@ -41,7 +41,11 @@ local function on_attach(client, bufnr)
 
     if client:supports_method("textDocument/references") then
         keymap("grr", function()
-            require("utils").lsp_references()
+            require("fzf-lua").lsp_references({
+                jump1 = false,
+                includeDeclaration = true,
+                ignore_current_line = false,
+            })
         end, "Find references")
     end
 
@@ -55,8 +59,18 @@ local function on_attach(client, bufnr)
 
     if client:supports_method("textDocument/definition") then
         keymap("gd", function()
-            require("utils").lsp_goto_definition()
-        end, "Go to definition (def + impl)")
+            require("fzf-lua").lsp_finder({
+                prompt = "Definitions/Implementations> ",
+                jump1 = false,
+                providers = {
+                    { "definitions", prefix = require("fzf-lua.utils").ansi_codes.green("def ") },
+                    {
+                        "implementations",
+                        prefix = require("fzf-lua.utils").ansi_codes.cyan("impl"),
+                    },
+                },
+            })
+        end, "Find definitions/implementations")
     end
 
     if client:supports_method("textDocument/declaration") then
