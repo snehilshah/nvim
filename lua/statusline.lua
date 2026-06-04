@@ -121,8 +121,9 @@ vim.api.nvim_create_autocmd("LspProgress", {
             return
         end
 
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
         progress_status = {
-            client = vim.lsp.get_client_by_id(args.data.client_id).name,
+            client = client and client.name or "LSP",
             kind = args.data.params.value.kind,
             title = args.data.params.value.title,
         }
