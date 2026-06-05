@@ -5,6 +5,91 @@ local M = {}
 -- Don't show the command that produced the quickfix list.
 vim.g.qf_disable_statusline = 1
 
+local mode_to_str = {
+    ["n"] = "NORMAL",
+    ["no"] = "OP-PENDING",
+    ["nov"] = "OP-PENDING",
+    ["noV"] = "OP-PENDING",
+    ["no\22"] = "OP-PENDING",
+    ["niI"] = "NORMAL",
+    ["niR"] = "NORMAL",
+    ["niV"] = "NORMAL",
+    ["nt"] = "NORMAL",
+    ["ntT"] = "NORMAL",
+    ["v"] = "VISUAL",
+    ["vs"] = "VISUAL",
+    ["V"] = "VISUAL",
+    ["Vs"] = "VISUAL",
+    ["\22"] = "VISUAL",
+    ["\22s"] = "VISUAL",
+    ["s"] = "SELECT",
+    ["S"] = "SELECT",
+    ["\19"] = "SELECT",
+    ["i"] = "INSERT",
+    ["ic"] = "INSERT",
+    ["ix"] = "INSERT",
+    ["R"] = "REPLACE",
+    ["Rc"] = "REPLACE",
+    ["Rx"] = "REPLACE",
+    ["Rv"] = "VIRT REPLACE",
+    ["Rvc"] = "VIRT REPLACE",
+    ["Rvx"] = "VIRT REPLACE",
+    ["c"] = "COMMAND",
+    ["cv"] = "VIM EX",
+    ["ce"] = "EX",
+    ["r"] = "PROMPT",
+    ["rm"] = "MORE",
+    ["r?"] = "CONFIRM",
+    ["!"] = "SHELL",
+    ["t"] = "TERMINAL",
+}
+
+local special_icons = {
+    DiffviewFileHistory = { icons.misc.git, "Number" },
+    DiffviewFiles = { icons.misc.git, "Number" },
+    ["ccc-ui"] = { icons.misc.palette, "Comment" },
+    ["dap-view"] = { icons.misc.bug, "Special" },
+    ["grug-far"] = { icons.misc.search, "Constant" },
+    fzf = { icons.misc.terminal, "Special" },
+    gitcommit = { icons.misc.git, "Number" },
+    gitrebase = { icons.misc.git, "Number" },
+    lazy = { icons.symbol_kinds.Method, "Special" },
+    lazyterm = { icons.misc.terminal, "Special" },
+    minifiles = { icons.symbol_kinds.Folder, "Directory" },
+    qf = { icons.misc.search, "Conditional" },
+}
+
+local severities = {
+    { severity = 1, icon = icons.diagnostics.ERROR },
+    { severity = 2, icon = icons.diagnostics.WARN },
+    { severity = 3, icon = icons.diagnostics.INFO },
+    { severity = 4, icon = icons.diagnostics.HINT },
+}
+
+local function wrap_component(component, hl)
+    if #component == 0 then
+        return ""
+    end
+
+    return table.concat({
+        string.format("%%#StatuslineModeSeparator%s#", hl),
+        string.format("%%#StatuslineMode%s#", hl),
+        component,
+        string.format("%%#StatuslineModeSeparator%s#", hl),
+    })
+end
+
+local function concat_components(components)
+    local acc = ""
+    for _, component in ipairs(components) do
+        local rendered = wrap_component(component.component, component.hl)
+        if #rendered > 0 then
+            acc = #acc == 0 and rendered or string.format("%s %s", acc, rendered)
+        end
+    end
+    return acc
+end
+
 local function stl_escape(text)
     local escaped = text:gsub("%%", "%%%%")
     return escaped
@@ -14,46 +99,6 @@ end
 ---@return string component
 ---@return string hl
 function M.mode_component()
-    -- Note that: \19 = ^S and \22 = ^V.
-    local mode_to_str = {
-        ["n"] = "NORMAL",
-        ["no"] = "OP-PENDING",
-        ["nov"] = "OP-PENDING",
-        ["noV"] = "OP-PENDING",
-        ["no\22"] = "OP-PENDING",
-        ["niI"] = "NORMAL",
-        ["niR"] = "NORMAL",
-        ["niV"] = "NORMAL",
-        ["nt"] = "NORMAL",
-        ["ntT"] = "NORMAL",
-        ["v"] = "VISUAL",
-        ["vs"] = "VISUAL",
-        ["V"] = "VISUAL",
-        ["Vs"] = "VISUAL",
-        ["\22"] = "VISUAL",
-        ["\22s"] = "VISUAL",
-        ["s"] = "SELECT",
-        ["S"] = "SELECT",
-        ["\19"] = "SELECT",
-        ["i"] = "INSERT",
-        ["ic"] = "INSERT",
-        ["ix"] = "INSERT",
-        ["R"] = "REPLACE",
-        ["Rc"] = "REPLACE",
-        ["Rx"] = "REPLACE",
-        ["Rv"] = "VIRT REPLACE",
-        ["Rvc"] = "VIRT REPLACE",
-        ["Rvx"] = "VIRT REPLACE",
-        ["c"] = "COMMAND",
-        ["cv"] = "VIM EX",
-        ["ce"] = "EX",
-        ["r"] = "PROMPT",
-        ["rm"] = "MORE",
-        ["r?"] = "CONFIRM",
-        ["!"] = "SHELL",
-        ["t"] = "TERMINAL",
-    }
-
     -- Get the respective string to display.
     local mode = mode_to_str[vim.api.nvim_get_mode().mode] or "UNKNOWN"
 
@@ -105,44 +150,11 @@ function M.git_component()
 end
 
 ---@type table<string, string?>
-local progress_status = {
-    client = nil,
-    kind = nil,
-    title = nil,
-}
-
-vim.api.nvim_create_autocmd("LspProgress", {
-    group = vim.api.nvim_create_augroup("mariasolos/statusline", { clear = true }),
-    desc = "Update LSP progress in statusline",
-    pattern = { "begin", "end" },
-    callback = function(args)
-        -- This should in theory never happen, but I've seen weird errors.
-        if not args.data then
-            return
-        end
-
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        progress_status = {
-            client = client and client.name or "LSP",
-            kind = args.data.params.value.kind,
-            title = args.data.params.value.title,
-        }
-
-        if progress_status.kind == "end" then
-            progress_status.title = nil
-            -- Wait a bit before clearing the status.
-            vim.defer_fn(function()
-                vim.cmd.redrawstatus()
-            end, 3000)
-        else
-            vim.cmd.redrawstatus()
-        end
-    end,
-})
 --- The latest LSP progress message.
 ---@return string
 function M.lsp_progress_component()
-    if not progress_status.client or not progress_status.title then
+    local status = vim.lsp.status()
+    if not status or status == "" then
         return ""
     end
 
@@ -151,33 +163,13 @@ function M.lsp_progress_component()
         return ""
     end
 
-    return string.format(
-        "󱥸 %s  %s...",
-        stl_escape(progress_status.client),
-        stl_escape(progress_status.title)
-    )
+    return string.format("󱥸 %s", stl_escape(status))
 end
 
 --- The buffer's filetype.
 ---@return string
 function M.filetype_component()
     local devicons = require("nvim-web-devicons")
-
-    -- Special icons for some filetypes.
-    local special_icons = {
-        DiffviewFileHistory = { icons.misc.git, "Number" },
-        DiffviewFiles = { icons.misc.git, "Number" },
-        ["ccc-ui"] = { icons.misc.palette, "Comment" },
-        ["dap-view"] = { icons.misc.bug, "Special" },
-        ["grug-far"] = { icons.misc.search, "Constant" },
-        fzf = { icons.misc.terminal, "Special" },
-        gitcommit = { icons.misc.git, "Number" },
-        gitrebase = { icons.misc.git, "Number" },
-        lazy = { icons.symbol_kinds.Method, "Special" },
-        lazyterm = { icons.misc.terminal, "Special" },
-        minifiles = { icons.symbol_kinds.Folder, "Directory" },
-        qf = { icons.misc.search, "Conditional" },
-    }
 
     local filetype = vim.bo.filetype
     if filetype == "" then
@@ -220,14 +212,12 @@ end
 --- Diagnostic counts for the current buffer.
 ---@return string
 function M.diagnostics_component()
-    local diagnostic_counts = vim.diagnostic.count(0)
-    local severities = {
-        { severity = vim.diagnostic.severity.ERROR, icon = icons.diagnostics.ERROR },
-        { severity = vim.diagnostic.severity.WARN, icon = icons.diagnostics.WARN },
-        { severity = vim.diagnostic.severity.INFO, icon = icons.diagnostics.INFO },
-        { severity = vim.diagnostic.severity.HINT, icon = icons.diagnostics.HINT },
-    }
+    local status = vim.diagnostic.status()
+    if status and status ~= "" then
+        return status
+    end
 
+    local diagnostic_counts = vim.diagnostic.count(0)
     local parts = {}
     for _, item in ipairs(severities) do
         local count = diagnostic_counts[item.severity]
@@ -254,49 +244,19 @@ end
 function M.render()
     local mode, mode_hl = M.mode_component()
 
-    ---@param component string
-    ---@param hl string?
-    ---@return string
-    local function wrap_component(component, hl)
-        if #component == 0 then
-            return ""
-        end
-
-        hl = hl or mode_hl
-        return table.concat({
-            string.format("%%#StatuslineModeSeparator%s#", hl),
-            string.format("%%#StatuslineMode%s#", hl),
-            component,
-            string.format("%%#StatuslineModeSeparator%s#", hl),
-        })
-    end
-
-    ---@param components { component: string, hl: string? }[]
-    ---@return string
-    local function concat_components(components)
-        return vim.iter(components):fold("", function(acc, component)
-            local rendered = wrap_component(component.component, component.hl)
-            if #rendered == 0 then
-                return acc
-            end
-
-            return #acc == 0 and rendered or string.format("%s %s", acc, rendered)
-        end)
-    end
-
     return table.concat({
         concat_components({
             { component = mode, hl = mode_hl },
-            { component = M.relative_path_component() },
-            { component = M.git_component() },
-            { component = M.lsp_progress_component() },
+            { component = M.relative_path_component(), hl = mode_hl },
+            { component = M.git_component(), hl = mode_hl },
+            { component = M.lsp_progress_component(), hl = mode_hl },
         }),
         "%#StatusLine#%=",
         concat_components({
-            { component = M.diagnostics_component() },
-            { component = M.filetype_component() },
-            { component = M.lsp_clients_component() },
-            { component = M.position_component() },
+            { component = M.diagnostics_component(), hl = mode_hl },
+            { component = M.filetype_component(), hl = mode_hl },
+            { component = M.lsp_clients_component(), hl = mode_hl },
+            { component = M.position_component(), hl = mode_hl },
         }),
         " ",
     })
