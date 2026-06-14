@@ -100,6 +100,16 @@
 | `<leader>sF` | n   | Replace in current file |     | `<leader>sv` | v   | Replace visual selection  |
 
 
+## Fzf-lua Pickers
+
+| Key          | M   | Desc                         |     | Key          | M   | Desc                |
+| ------------ | --- | ---------------------------- | --- | ------------ | --- | ------------------- |
+| `<leader>fb` | n,x | Search current buffer        |     | `<leader>fB` | n   | Buffers             |
+| `<leader>ff` | n   | Find files                   |     | `<leader>fg` | n,x | Grep                |
+| `<leader>fw` | n   | Grep word under cursor       |     | `<leader>fW` | n   | Grep word in buffer |
+| `<leader>fh` | n   | Help                         |     | `<leader>fr` | n   | Recently opened     |
+| `<leader>f<` | n   | Resume last fzf command      |     |              |     |                     |
+
 ## Fzf-lua Picker Window
 
 | Key     | M   | Desc                            |
