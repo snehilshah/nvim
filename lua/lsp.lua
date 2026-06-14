@@ -57,20 +57,14 @@ local function on_attach(client, bufnr)
         keymap("<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", "Document symbols")
     end
 
+    if client:supports_method("workspace/symbol") then
+        keymap("<leader>fS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", "Workspace symbols")
+    end
+
     if client:supports_method("textDocument/definition") then
         keymap("gd", function()
-            require("fzf-lua").lsp_finder({
-                prompt = "Definitions/Implementations> ",
-                jump1 = false,
-                providers = {
-                    { "definitions", prefix = require("fzf-lua.utils").ansi_codes.green("def ") },
-                    {
-                        "implementations",
-                        prefix = require("fzf-lua.utils").ansi_codes.cyan("impl"),
-                    },
-                },
-            })
-        end, "Find definitions/implementations")
+            require("fzf-lua").lsp_definitions({ jump1 = true })
+        end, "Go to definition")
     end
 
     if client:supports_method("textDocument/declaration") then
