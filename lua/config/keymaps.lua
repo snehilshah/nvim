@@ -110,14 +110,14 @@ vim.keymap.set(
 vim.keymap.set(
     "n",
     "<leader>ci",
-    vim.lsp.buf.incoming_calls,
+    "<cmd>FzfLua lsp_incoming_calls<cr>",
     { desc = "Show [C]all hierarchy [I]ncoming" }
 )
 -- LSP Call Hierarchy - show outgoing calls
 vim.keymap.set(
     "n",
     "<leader>co",
-    vim.lsp.buf.outgoing_calls,
+    "<cmd>FzfLua lsp_outgoing_calls<cr>",
     { desc = "Show [C]all hierarchy [O]utgoing" }
 )
 

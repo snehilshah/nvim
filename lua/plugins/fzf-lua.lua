@@ -56,6 +56,17 @@ return {
                 desc = "Grep",
                 mode = "x",
             },
+            { "<leader>fw", "<cmd>FzfLua grep_cword<cr>", desc = "Grep word" },
+            {
+                "<leader>fW",
+                function()
+                    require("fzf-lua").grep_curbuf({
+                        no_esc = true,
+                        search = require("fzf-lua.utils").rg_escape_cword(vim.fn.expand("<cword>")),
+                    })
+                end,
+                desc = "Grep word in buffer",
+            },
             { "<leader>fh", "<cmd>FzfLua help_tags<cr>", desc = "Help" },
             {
                 "<leader>fr",
