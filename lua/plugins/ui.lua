@@ -30,11 +30,10 @@ return {
             down_key = "j",
             hidden_file_types = { "undotree" },
             hidden_buffer_types = { "terminal", "nofile" },
-            hide_in_insert_mode = true,
+            -- false: show absolute numbers in insert mode (true hides the column)
+            hide_in_insert_mode = false,
             right_padding = 1,
         },
-        -- Fold column (%C) is baked into comfy's statuscolumn template directly,
-        -- so no external prepend autocmd is needed. Avoids per-event stacking races.
     },
     {
         "mcauley-penney/visual-whitespace.nvim",

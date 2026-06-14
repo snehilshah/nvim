@@ -21,8 +21,10 @@ return {
             },
         },
         modes = {
-            -- Enable flash when searching with ? or /
-            search = { enabled = true },
+            -- Disable flash on / and ? search: labels teleported the cursor
+            -- mid-query and recomputing them per keystroke lagged the cmdline.
+            -- Use `s` for explicit jumps instead.
+            search = { enabled = false },
         },
     },
     keys = {
