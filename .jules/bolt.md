@@ -1,0 +1,3 @@
+## 2024-05-10 - [Statusline Refactoring]
+**Learning:** High-level iterators (like `vim.iter`) and nested helper functions within a frequently called loop (e.g., statusline renderer) introduce significant overhead due to constant closure allocation and iterator initialization. Additionally, repeatedly allocating static tables like `severities` per component call also hurts performance.
+**Action:** In performance-critical Lua code like statusline rendering (`M.render`), move nested helper functions to the module scope, hoist static table allocations (like `severities`), and replace high-level iterators with standard `for` loops to minimize closure allocation and iterator overhead.
