@@ -1,0 +1,3 @@
+## 2024-05-14 - Optimize Neovim Statusline Renders
+**Learning:** Neovim evaluates the statusline frequently. Re-allocating static tables (like `mode_to_str`, `special_icons`, `severities`), redefining nested helper functions (`wrap_component`, `concat_components`), and using high-level iterators (`vim.iter`) inside the render loop (`M.render`) creates unnecessary memory allocations and garbage collection overhead, impacting perceived responsiveness.
+**Action:** When writing performance-critical Lua code like statuslines, always hoist static structures to the module scope, move helper functions out of the hot loop, and replace closure-heavy iterators with standard `for` loops.
