@@ -23,10 +23,10 @@ local function on_attach(client, bufnr)
     end
 
     keymap("[e", function()
-        vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN } })
+        vim.diagnostic.jump({ count = -1, severity = { min = 2 } })
     end, "Previous error/warning")
     keymap("]e", function()
-        vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } })
+        vim.diagnostic.jump({ count = 1, severity = { min = 2 } })
     end, "Next error/warning")
 
     if client:supports_method("textDocument/codeAction") then
@@ -77,8 +77,8 @@ local function on_attach(client, bufnr)
 
     if client:supports_method("textDocument/codeAction") then
         keymap("gra", function()
-            require("tiny-code-action").code_action()
-        end, "Code action (tiny)", { "n", "x" })
+            vim.lsp.buf.code_action()
+        end, "Code action", { "n", "x" })
     end
 
     if client:supports_method("textDocument/rename") then
@@ -189,10 +189,10 @@ end
 
 -- Severity-number → icon mapping, used by signs.text and status.format.
 local severity_icons = {
-    [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
-    [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
-    [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
-    [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
+    [1] = diagnostic_icons.ERROR,
+    [2] = diagnostic_icons.WARN,
+    [3] = diagnostic_icons.INFO,
+    [4] = diagnostic_icons.HINT,
 }
 
 -- Diagnostic configuration.
@@ -206,7 +206,7 @@ vim.diagnostic.config({
     float = {
         source = "if_many",
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
+            local level = ({ "ERROR", "WARN", "INFO", "HINT" })[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
