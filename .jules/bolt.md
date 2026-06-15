@@ -1,0 +1,3 @@
+## 2024-05-19 - Hoist statusline static tables and remove render closures
+**Learning:** Neovim statusline `render()` loops trigger on almost every keystroke/movement. Allocating tables (like `mode_to_str` or `severities`) or closures (`wrap_component`) inside these functions creates significant, frequent garbage collection overhead. Furthermore, `vim.iter()` introduces iterator overhead compared to raw `for` loops in hot paths.
+**Action:** Always extract static dictionaries/tables and nested closure helper functions to the file/module scope in high-frequency rendering functions. Prefer standard `for` loops over `vim.iter` inside `render` loops for maximum performance.
