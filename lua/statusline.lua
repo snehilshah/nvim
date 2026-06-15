@@ -217,19 +217,20 @@ function M.lsp_clients_component()
     return stl_escape(client)
 end
 
+local diagnostic_severities = {
+    { severity = vim.diagnostic.severity.ERROR, icon = icons.diagnostics.ERROR },
+    { severity = vim.diagnostic.severity.WARN, icon = icons.diagnostics.WARN },
+    { severity = vim.diagnostic.severity.INFO, icon = icons.diagnostics.INFO },
+    { severity = vim.diagnostic.severity.HINT, icon = icons.diagnostics.HINT },
+}
+
 --- Diagnostic counts for the current buffer.
 ---@return string
 function M.diagnostics_component()
     local diagnostic_counts = vim.diagnostic.count(0)
-    local severities = {
-        { severity = vim.diagnostic.severity.ERROR, icon = icons.diagnostics.ERROR },
-        { severity = vim.diagnostic.severity.WARN, icon = icons.diagnostics.WARN },
-        { severity = vim.diagnostic.severity.INFO, icon = icons.diagnostics.INFO },
-        { severity = vim.diagnostic.severity.HINT, icon = icons.diagnostics.HINT },
-    }
 
     local parts = {}
-    for _, item in ipairs(severities) do
+    for _, item in ipairs(diagnostic_severities) do
         local count = diagnostic_counts[item.severity]
         if count and count > 0 then
             table.insert(parts, string.format("%s:%d", item.icon, count))
@@ -249,40 +250,47 @@ function M.position_component()
     return string.format("l: %d/%d c: %d", line, line_count, col)
 end
 
+---@param component string
+---@param hl string?
+---@param default_hl string
+---@return string
+local function wrap_component(component, hl, default_hl)
+    if #component == 0 then
+        return ""
+    end
+
+    hl = hl or default_hl
+    return table.concat({
+        string.format("%%#StatuslineModeSeparator%s#", hl),
+        string.format("%%#StatuslineMode%s#", hl),
+        component,
+        string.format("%%#StatuslineModeSeparator%s#", hl),
+    })
+end
+
+---@param components { component: string, hl: string? }[]
+---@param default_hl string
+---@return string
+local function concat_components(components, default_hl)
+    local acc = ""
+    for i = 1, #components do
+        local component = components[i]
+        local rendered = wrap_component(component.component, component.hl, default_hl)
+        if #rendered > 0 then
+            if #acc == 0 then
+                acc = rendered
+            else
+                acc = string.format("%s %s", acc, rendered)
+            end
+        end
+    end
+    return acc
+end
+
 --- Renders the statusline.
 ---@return string
 function M.render()
     local mode, mode_hl = M.mode_component()
-
-    ---@param component string
-    ---@param hl string?
-    ---@return string
-    local function wrap_component(component, hl)
-        if #component == 0 then
-            return ""
-        end
-
-        hl = hl or mode_hl
-        return table.concat({
-            string.format("%%#StatuslineModeSeparator%s#", hl),
-            string.format("%%#StatuslineMode%s#", hl),
-            component,
-            string.format("%%#StatuslineModeSeparator%s#", hl),
-        })
-    end
-
-    ---@param components { component: string, hl: string? }[]
-    ---@return string
-    local function concat_components(components)
-        return vim.iter(components):fold("", function(acc, component)
-            local rendered = wrap_component(component.component, component.hl)
-            if #rendered == 0 then
-                return acc
-            end
-
-            return #acc == 0 and rendered or string.format("%s %s", acc, rendered)
-        end)
-    end
 
     return table.concat({
         concat_components({
@@ -290,14 +298,14 @@ function M.render()
             { component = M.relative_path_component() },
             { component = M.git_component() },
             { component = M.lsp_progress_component() },
-        }),
+        }, mode_hl),
         "%#StatusLine#%=",
         concat_components({
             { component = M.diagnostics_component() },
             { component = M.filetype_component() },
             { component = M.lsp_clients_component() },
             { component = M.position_component() },
-        }),
+        }, mode_hl),
         " ",
     })
 end

@@ -1,0 +1,3 @@
+## 2024-05-15 - [Avoid Nested Functions and Iterators in Statusline Redraw]
+**Learning:** Performance-critical UI components like `M.render()` for a statusline are called hundreds of times a second. Defining helper functions (`wrap_component`, `concat_components`) or using high-level abstractions like `vim.iter` inside these frequently executed functions causes unnecessary closure allocation and garbage collection overhead, leading to observable stuttering.
+**Action:** Extract all helper functions to the module scope (or pass state explicitly), hoist static table allocations (like `severities`), and prefer simple numeric `for` loops in hot paths to minimize allocation and iterator overhead.
