@@ -1,0 +1,3 @@
+## 2024-05-18 - [Statusline Render Optimizations]
+**Learning:** Neovim statusline rendering functions are called frequently (on every redraw). Nested functions, high-level iterators (`vim.iter`), and static table allocations within the render loop cause significant closure allocation and garbage collection overhead in Lua.
+**Action:** Always hoist static table allocations (like `mode_to_str` and `special_icons`) out of render functions to the module scope, extract helper functions to the module scope (passing captured locals as arguments), and replace `vim.iter` with standard `for` loops in performance-critical paths.
