@@ -40,7 +40,7 @@ local function on_attach(client, bufnr)
     end
 
     if client:supports_method("textDocument/references") then
-        keymap("grr", function()
+        keymap("grp", function()
             require("fzf-lua").lsp_references({
                 jump1 = false,
                 includeDeclaration = true,

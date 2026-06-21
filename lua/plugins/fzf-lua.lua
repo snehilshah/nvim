@@ -49,9 +49,9 @@ return {
                 desc = "Document diagnostics",
             },
             { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find files" },
-            { "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Grep" },
+            { "<leader>fa", "<cmd>FzfLua live_grep<cr>", desc = "Grep" },
             {
-                "<leader>fg",
+                "<leader>fa",
                 "<cmd>FzfLua grep_visual<cr>",
                 desc = "Grep",
                 mode = "x",
