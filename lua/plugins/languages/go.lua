@@ -3,6 +3,7 @@ return {
     branch = "no-no-go",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     ft = "go",
+    enabled = false,
     opts = {
         enabled = true,
         identifiers = { "err", "error" },
