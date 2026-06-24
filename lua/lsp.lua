@@ -206,9 +206,13 @@ vim.diagnostic.config({
     float = {
         source = "if_many",
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
-            local prefix = string.format(" %s ", diagnostic_icons[level])
-            return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
+            for level, value in pairs(vim.diagnostic.severity) do
+                if type(level) == "string" and value == diag.severity then
+                    local prefix = string.format(" %s ", diagnostic_icons[value] or "")
+                    return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
+                end
+            end
+            return "", ""
         end,
     },
 })
