@@ -1,0 +1,3 @@
+## 2024-05-01 - Optimizing statusline rendering loop
+**Learning:** High-frequency rendering functions like the statusline `render` loop can suffer significant performance penalties from allocating closures, tables, and iterators (`vim.iter`) inside the loop. The `vim.diagnostic.severity` table mapping is also less efficient than raw integer indexing.
+**Action:** Hoist static tables (`mode_to_str`, `special_icons`, `severities`), extract nested closure functions to module-scope, prefer raw `for` loops over iterators in hot paths, and use integer indices (1, 2, 3, 4) for diagnostic severities. Also, favor native built-in APIs like `vim.lsp.status()` over custom autocmds.
