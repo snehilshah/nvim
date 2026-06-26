@@ -63,8 +63,8 @@ return {
             },
         },
 
-        -- mini.cmdline has better options with previews
-        cmdline = { enabled = false },
+        -- Enable cmdline completions as mini.cmdline is removed
+        cmdline = { enabled = true },
 
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
