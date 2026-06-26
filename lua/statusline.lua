@@ -142,6 +142,11 @@ vim.api.nvim_create_autocmd("LspProgress", {
 --- The latest LSP progress message.
 ---@return string
 function M.lsp_progress_component()
+    local status = vim.lsp.status()
+    if status ~= "" then
+        return string.format("󱥸 %s", stl_escape(status))
+    end
+
     if not progress_status.client or not progress_status.title then
         return ""
     end
@@ -222,10 +227,10 @@ end
 function M.diagnostics_component()
     local diagnostic_counts = vim.diagnostic.count(0)
     local severities = {
-        { severity = vim.diagnostic.severity.ERROR, icon = icons.diagnostics.ERROR },
-        { severity = vim.diagnostic.severity.WARN, icon = icons.diagnostics.WARN },
-        { severity = vim.diagnostic.severity.INFO, icon = icons.diagnostics.INFO },
-        { severity = vim.diagnostic.severity.HINT, icon = icons.diagnostics.HINT },
+        { severity = 1, icon = icons.diagnostics.ERROR },
+        { severity = 2, icon = icons.diagnostics.WARN },
+        { severity = 3, icon = icons.diagnostics.INFO },
+        { severity = 4, icon = icons.diagnostics.HINT },
     }
 
     local parts = {}
