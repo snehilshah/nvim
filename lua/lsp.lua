@@ -187,7 +187,7 @@ local function on_attach(client, bufnr)
     end
 end
 
--- Severity-number → icon mapping, used by signs.text and status.format.
+-- Severity-number → icon mapping, used by status.format.
 local severity_icons = {
     [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
     [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
@@ -195,10 +195,43 @@ local severity_icons = {
     [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
 }
 
+local diagnostic_status_hl = {
+    [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+    [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+    [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+    [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+}
+
+local diagnostic_severity_order = {
+    vim.diagnostic.severity.ERROR,
+    vim.diagnostic.severity.WARN,
+    vim.diagnostic.severity.INFO,
+    vim.diagnostic.severity.HINT,
+}
+
+---@param severity_counts table<vim.diagnostic.Severity, integer>
+---@return string
+local function diagnostic_status(severity_counts)
+    local items = {}
+    for _, severity in ipairs(diagnostic_severity_order) do
+        local count = severity_counts[severity]
+        if count and count > 0 then
+            items[#items + 1] = string.format(
+                "%%#%s#%s:%d",
+                diagnostic_status_hl[severity],
+                severity_icons[severity],
+                count
+            )
+        end
+    end
+
+    return table.concat(items, " ")
+end
+
 -- Diagnostic configuration.
 -- tiny-inline-diagnostic.nvim owns inline rendering; native rendering disabled.
 vim.diagnostic.config({
-    status = { format = severity_icons },
+    status = { format = diagnostic_status },
     virtual_text = false,
     virtual_lines = false,
     signs = false,
