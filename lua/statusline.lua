@@ -161,8 +161,6 @@ end
 --- The buffer's filetype.
 ---@return string
 function M.filetype_component()
-    local devicons = require("nvim-web-devicons")
-
     -- Special icons for some filetypes.
     local special_icons = {
         DiffviewFileHistory = { icons.misc.git, "Number" },
@@ -188,12 +186,15 @@ function M.filetype_component()
     if special_icons[filetype] then
         icon = special_icons[filetype][1]
     else
-        local buf_name = vim.api.nvim_buf_get_name(0)
-        local name, ext = vim.fn.fnamemodify(buf_name, ":t"), vim.fn.fnamemodify(buf_name, ":e")
+        local ok, devicons = pcall(require, "nvim-web-devicons")
+        if ok then
+            local buf_name = vim.api.nvim_buf_get_name(0)
+            local name, ext = vim.fn.fnamemodify(buf_name, ":t"), vim.fn.fnamemodify(buf_name, ":e")
 
-        icon = devicons.get_icon(name, ext)
-        if not icon then
-            icon = devicons.get_icon_by_filetype(filetype, { default = true })
+            icon = devicons.get_icon(name, ext)
+            if not icon then
+                icon = devicons.get_icon_by_filetype(filetype, { default = true })
+            end
         end
     end
     icon = icon or icons.misc.file
