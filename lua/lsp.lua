@@ -76,9 +76,7 @@ local function on_attach(client, bufnr)
     end
 
     if client:supports_method("textDocument/codeAction") then
-        keymap("gra", function()
-            require("tiny-code-action").code_action()
-        end, "Code action (tiny)", { "n", "x" })
+        keymap("gra", vim.lsp.buf.code_action, "Code action", { "n", "x" })
     end
 
     if client:supports_method("textDocument/rename") then
@@ -189,24 +187,24 @@ end
 
 -- Severity-number → icon mapping, used by status.format.
 local severity_icons = {
-    [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
-    [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
-    [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
-    [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
+    [1] = diagnostic_icons.ERROR,
+    [2] = diagnostic_icons.WARN,
+    [3] = diagnostic_icons.INFO,
+    [4] = diagnostic_icons.HINT,
 }
 
 local diagnostic_status_hl = {
-    [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-    [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-    [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-    [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+    [1] = "DiagnosticSignError",
+    [2] = "DiagnosticSignWarn",
+    [3] = "DiagnosticSignInfo",
+    [4] = "DiagnosticSignHint",
 }
 
 local diagnostic_severity_order = {
-    vim.diagnostic.severity.ERROR,
-    vim.diagnostic.severity.WARN,
-    vim.diagnostic.severity.INFO,
-    vim.diagnostic.severity.HINT,
+    1,
+    2,
+    3,
+    4,
 }
 
 ---@param severity_counts table<vim.diagnostic.Severity, integer>
@@ -234,12 +232,19 @@ vim.diagnostic.config({
     status = { format = diagnostic_status },
     virtual_text = false,
     virtual_lines = false,
-    signs = false,
+    signs = {
+        text = {
+            [1] = diagnostic_icons.ERROR,
+            [2] = diagnostic_icons.WARN,
+            [3] = diagnostic_icons.INFO,
+            [4] = diagnostic_icons.HINT,
+        },
+    },
     underline = false,
     float = {
         source = "if_many",
         prefix = function(diag)
-            local level = vim.diagnostic.severity[diag.severity]
+            local level = ({ "ERROR", "WARN", "INFO", "HINT" })[diag.severity]
             local prefix = string.format(" %s ", diagnostic_icons[level])
             return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
         end,
