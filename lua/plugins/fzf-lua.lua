@@ -7,6 +7,38 @@ return {
         cmd = "FzfLua",
         keys = {
             {
+                "<leader>ci",
+                function()
+                    require("fzf-lua").lsp_incoming_calls({
+                        winopts = {
+                            height = 0.9,
+                            width = 0.9,
+                            preview = {
+                                layout = "vertical",
+                                vertical = "up:65%",
+                            },
+                        },
+                    })
+                end,
+                desc = "Show [C]all hierarchy [I]ncoming",
+            },
+            {
+                "<leader>co",
+                function()
+                    require("fzf-lua").lsp_outgoing_calls({
+                        winopts = {
+                            height = 0.9,
+                            width = 0.9,
+                            preview = {
+                                layout = "vertical",
+                                vertical = "up:65%",
+                            },
+                        },
+                    })
+                end,
+                desc = "Show [C]all hierarchy [O]utgoing",
+            },
+            {
                 "<leader>fb",
                 function()
                     local opts = {
