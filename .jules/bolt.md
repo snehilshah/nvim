@@ -1,0 +1,3 @@
+## 2024-05-13 - [Optimize Neovim Statusline Rendering]
+**Learning:** High-level iterators (`vim.iter`) and closure allocations inside frequently executed functions like Neovim's statusline rendering (`M.render`) add significant overhead. The statusline is refreshed constantly, so even small allocations pile up and cause performance issues.
+**Action:** When writing performance-critical Lua code (like UI rendering loops), always hoist static table allocations (like static configurations or severities mapping) outside the loop, move nested helper functions to the module scope to avoid closure allocation, and prefer standard `for` loops over high-level iterators.
