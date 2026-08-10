@@ -20,7 +20,6 @@ return {
                 "vimdoc",
                 "javascript",
                 "typescript",
-                "jsx",
                 "tsx",
                 "yaml",
                 "proto",
@@ -91,10 +90,11 @@ return {
             require("nvim-treesitter-textobjects").setup({
                 select = {
                     lookahead = true,
-                    selection_modes = {
-                        ["@parameter.outer"] = "v",
-                        ["@function.outer"] = "V",
-                    },
+                    -- `selection_modes` is deliberately NOT set. With it unset the
+                    -- mode defaults to charwise, and linewise visual mode is honored:
+                    --   vaf -> charwise    Vaf -> linewise
+                    --   daf -> charwise    dVaf -> linewise (forced motion)
+                    -- Forcing @function.outer = "V" here would make vaf linewise too.
                     include_surrounding_whitespace = false,
                 },
                 move = {
@@ -103,6 +103,7 @@ return {
                 },
             })
 
+            -- Treesitter owns syntax-aware text objects, movement and parameter swaps.
             local select = require("nvim-treesitter-textobjects.select")
             local swap = require("nvim-treesitter-textobjects.swap")
             local move = require("nvim-treesitter-textobjects.move")
