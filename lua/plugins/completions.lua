@@ -9,9 +9,14 @@ return {
     opts = {
         keymap = {
             preset = "super-tab",
-            ["<C-j>"] = { "select_next" },
-            ["<C-k>"] = { "select_prev" },
-            ["<C-\\>"] = { "hide", "fallback" },
+            -- <C-j>/<C-k> are deliberately NOT overridden. The super-tab preset
+            -- already binds <C-p>/<C-n> and <Up>/<Down> for prev/next, and it maps
+            -- <C-k> to show_signature/hide_signature -- blink owns signature help.
+            -- (An override here would silently replace the LSP buffer-local
+            -- signature map, since buffer-local maps overwrite rather than stack.)
+            -- <C-\> intentionally NOT bound here: toggleterm owns it in every mode
+            -- (insert_mappings = true). Dismiss the menu with <C-e> (stays in insert)
+            -- or <Esc> (leaves insert, menu closes with it).
             ["<C-b>"] = { "scroll_documentation_up", "fallback" },
             ["<C-f>"] = { "scroll_documentation_down", "fallback" },
         },

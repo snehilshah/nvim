@@ -18,6 +18,8 @@ return {
         shade_terminals = true,
         shading_factor = 2,
         start_in_insert = true,
+        -- <C-\> opens the terminal from any mode, including mid-insert.
+        -- blink.cmp deliberately does not bind <C-\> (use <C-e> to dismiss the menu).
         insert_mappings = true,
         terminal_mappings = true,
         persist_size = true,
@@ -176,13 +178,8 @@ return {
         -- Keymaps
         local map = vim.keymap.set
 
-        -- Main toggle (float)
-        map(
-            { "n", "t" },
-            "<C-\\>",
-            "<cmd>ToggleTerm direction=float<CR>",
-            { desc = "Toggle Terminal (float)" }
-        )
+        -- Main toggle (float) is handled by open_mapping = <C-\> in normal,
+        -- insert and terminal mode; the manual duplicate map was removed.
 
         -- Direction-specific toggles
         map(

@@ -29,6 +29,15 @@ local function on_attach(client, bufnr)
         vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } })
     end, "Next error/warning")
 
+    if client:supports_method("textDocument/hover") then
+        keymap("K", function()
+            vim.lsp.buf.hover({
+                max_height = math.floor(vim.o.lines * 0.5),
+                max_width = math.floor(vim.o.columns * 0.4),
+            })
+        end, "Hover documentation")
+    end
+
     if client:supports_method("textDocument/codeAction") then
         require("lightbulb").attach_lightbulb(bufnr, client)
     end
@@ -94,20 +103,15 @@ local function on_attach(client, bufnr)
         -- nvim 0.11 default `grn` also calls vim.lsp.buf.rename(); leader keeps a memorable alias.
     end
 
-    if client:supports_method("textDocument/signatureHelp") then
-        keymap("<C-k>", function()
-            -- Close the completion menu first (if open).
-            if require("blink.cmp.completion.windows.menu").win:is_open() then
-                require("blink.cmp").hide()
-            end
-
-            vim.lsp.buf.signature_help()
-        end, "Signature help", "i")
-    end
+    -- Blink owns insert-mode signature help. It applies its buffer-local <C-k>
+    -- mapping on InsertEnter, after LspAttach.
 
     if client:supports_method("textDocument/documentHighlight") then
         local under_cursor_highlights_group =
             vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })
+        -- on_attach may run again for this buffer (dynamic capability registration),
+        -- so drop this buffer's previous autocmds instead of stacking duplicates.
+        vim.api.nvim_clear_autocmds({ group = under_cursor_highlights_group, buffer = bufnr })
         vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
             group = under_cursor_highlights_group,
             desc = "Highlight references under the cursor",
@@ -130,6 +134,9 @@ local function on_attach(client, bufnr)
     if client:supports_method("textDocument/inlayHint") then
         local inlay_hints_group =
             vim.api.nvim_create_augroup("mariasolos/toggle_inlay_hints", { clear = false })
+        -- Same reasoning as the cursor-highlight group: clear this buffer's entries
+        -- so a re-run of on_attach cannot stack duplicate autocmds.
+        vim.api.nvim_clear_autocmds({ group = inlay_hints_group, buffer = bufnr })
 
         if vim.g.inlay_hints then
             -- Initial inlay hint display.
@@ -160,29 +167,6 @@ local function on_attach(client, bufnr)
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end
             end,
-        })
-    end
-
-    -- Add "Fix all" command for linters.
-    if client.name == "eslint" or client.name == "stylelint_lsp" then
-        vim.keymap.set("n", "<leader>cl", function()
-            if not client then
-                return
-            end
-
-            client:request("workspace/executeCommand", {
-                command = client.name == "eslint" and "eslint.applyAllFixes"
-                    or "stylelint.applyAutoFixes",
-                arguments = {
-                    { uri = vim.uri_from_bufnr(bufnr) },
-                },
-            }, nil, bufnr)
-        end, {
-            desc = string.format(
-                "Fix all %s errors",
-                client.name == "eslint" and "ESLint" or "Stylelint"
-            ),
-            buffer = bufnr,
         })
     end
 end
@@ -234,35 +218,32 @@ vim.diagnostic.config({
     },
 })
 
-local hover = vim.lsp.buf.hover
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.hover = function()
-    return hover({
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    })
-end
-
-local signature_help = vim.lsp.buf.signature_help
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.signature_help = function()
-    return signature_help({
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    })
-end
-
--- Update mappings when registering dynamic capabilities.
+-- Re-apply buffer setup when a server registers a capability *after* attaching
+-- (LSP dynamic registration). Without this, keymaps gated on `supports_method`
+-- at attach time would never be created for late-arriving capabilities.
+--
+-- Differences from the old LazyVim-era version this replaces:
+--   * the core handler runs FIRST, so `supports_method()` already sees the new
+--     capability when on_attach re-runs (the old one ran on_attach first);
+--   * it re-attaches to every buffer this client is actually attached to,
+--     instead of `nvim_get_current_buf()`, which was often the wrong buffer;
+--   * the autocmd groups in on_attach clear per buffer, so re-running cannot
+--     stack duplicate document-highlight / inlay-hint autocmds.
 local register_capability = vim.lsp.handlers["client/registerCapability"]
 vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
+    local result = register_capability(err, res, ctx)
+
     local client = vim.lsp.get_client_by_id(ctx.client_id)
-    if not client then
-        return
+    if client then
+        -- `attached_buffers` is keyed by bufnr (get_buffers_by_client_id is deprecated).
+        for bufnr in pairs(client.attached_buffers or {}) do
+            if vim.api.nvim_buf_is_loaded(bufnr) then
+                on_attach(client, bufnr)
+            end
+        end
     end
 
-    on_attach(client, vim.api.nvim_get_current_buf())
-
-    return register_capability(err, res, ctx)
+    return result
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -279,36 +260,33 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- Set up LSP servers.
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-    once = true,
-    callback = function()
-        -- Extend neovim's client capabilities with the completion ones.
-        vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
-        local servers = {
-            "lua_ls", -- Lua
-            "vimdoc_ls", -- Vimdoc
-            "buf_ls", -- Protobuf via Buf workspaces/modules
-            "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
-            "tsgo", -- TypeScript/JavaScript
-            "angularls", -- Angular Language Service (template intelligence, requires @angular/language-server)
-            "biome", -- Biome (linting/formatting for JS/TS/JSON - only activates with biome.json)
-            "bashls", -- Bash/Shell
-            "cssls", -- CSS/SCSS/Less
-            "html", -- HTML
-            "jsonls", -- JSON
-            "yamlls", -- YAML
-            "dockerls", -- Docker
-            "clangd", -- C/C++
-            "tailwindcss", -- Tailwind CSS
-            "emmet_language_server", -- Emmet
-            "astro",
-            -- Inline completions and Next Edit Suggestions. Buffer gate in
-            -- after/lsp/copilot.lua, wiring in lua/plugins/ai/sidekick.lua.
-            "copilot",
-        }
-        vim.lsp.enable(servers)
-    end,
+-- Extend neovim's client capabilities with the completion ones.
+vim.lsp.config("*", {
+    capabilities = require("blink.cmp").get_lsp_capabilities(nil, true),
 })
+-- Exposed on M so :CheckTools can audit these against $PATH.
+M.servers = {
+    "lua_ls", -- Lua
+    "vimdoc_ls", -- Vimdoc
+    "buf_ls", -- Protobuf via Buf workspaces/modules
+    "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
+    "tsgo", -- TypeScript/JavaScript
+    "angularls", -- Angular Language Service (template intelligence, requires @angular/language-server)
+    "biome", -- Biome (linting/formatting for JS/TS/JSON - only activates with biome.json)
+    "bashls", -- Bash/Shell
+    "cssls", -- CSS/SCSS/Less
+    "html", -- HTML
+    "jsonls", -- JSON
+    "yamlls", -- YAML
+    "dockerls", -- Docker
+    "clangd", -- C/C++
+    "tailwindcss", -- Tailwind CSS
+    "emmet_language_server", -- Emmet
+    "astro",
+    -- Inline completions and Next Edit Suggestions. Buffer gate in
+    -- after/lsp/copilot.lua, wiring in lua/plugins/ai/sidekick.lua.
+    "copilot",
+}
+vim.lsp.enable(M.servers)
 
 return M
