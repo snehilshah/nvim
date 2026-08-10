@@ -23,13 +23,14 @@ return {
         modes = {
             -- Disable flash on / and ? search: labels teleported the cursor
             -- mid-query and recomputing them per keystroke lagged the cmdline.
-            -- Use `s` for explicit jumps instead.
+            -- Use `gh` for explicit jumps instead.
             search = { enabled = false },
         },
     },
     keys = {
         {
-            "s",
+            -- Moved off `s` to avoid clashing with mini.surround's `s` prefix.
+            "gh",
             mode = { "n", "x", "o" },
             function()
                 require("flash").jump()

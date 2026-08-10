@@ -44,7 +44,8 @@ return {
     {
         "bkad/CamelCaseMotion",
         init = function()
-            vim.g.camelcasemotion_key = "<leader>"
+            -- Deliberately NOT <leader>: as a leader prefix it claimed <leader>w/b/e/ge
+            vim.g.camelcasemotion_key = ","
         end,
     },
     { "b0o/SchemaStore.nvim", lazy = true, version = false },

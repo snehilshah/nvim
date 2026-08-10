@@ -227,6 +227,9 @@ function M.lsp_clients_component()
 end
 
 --- Diagnostic counts for the current buffer.
+--- Content and format come from vim.diagnostic.status(), configured once in
+--- lua/lsp.lua. It deliberately contains no highlight switches, so it inherits the
+--- mode pill's foreground and background and remains readable in every mode.
 ---@return string
 function M.diagnostics_component()
     return vim.diagnostic.status()
@@ -358,7 +361,7 @@ function M.position_component()
     local line_count = vim.api.nvim_buf_line_count(0)
     local col = vim.fn.virtcol(".")
 
-    return string.format("l: %d/%d c: %d", line, line_count, col)
+    return string.format("l: %d/%d c:%-3d", line, line_count, col)
 end
 
 --- Renders the statusline.

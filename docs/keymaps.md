@@ -10,22 +10,22 @@
 | ----------- | --- | ------------------------------------------- | --- | ------------ | --- | ---------------------------- |
 | `<leader>x` | n   | Execute line as Lua                         |     | `<c-_>`      | n   | Toggle Terminal (alias)      |
 | `<leader>x` | v   | Execute selection as Lua                    |     | `<Esc><Esc>` | t   | Exit terminal mode           |
-| `<leader>?` | n   | Buffer Local Keymaps (which-key)            |     | `<C-w>f`     | n   | Focus floating window        |
+| `<leader>?` | n   | Buffer Local Keymaps (which-key)            |     | `<leader>wf` | n   | Focus floating window        |
 | `q`         | n   | Close certain special buffers (help/qf/etc) |     | `<leader>cp` | n   | Copy file path + line number |
 | `gX`        | n   | Open link under cursor                      |     |              |     |                              |
 
 ## ToggleTerm
 
-| Key           | M   | Desc                           |     | Key          | M   | Desc                  |
-| ------------- | --- | ------------------------------ | --- | ------------ | --- | --------------------- |
-| `<C-\>`       | n,t | Toggle terminal (float)        |     | `<leader>th` | n   | Terminal horizontal   |
-| `<leader>tv`  | n   | Terminal vertical              |     | `<leader>tt` | n   | Terminal tab          |
-| `<leader>ta`  | n   | Toggle all terminals           |     | `<leader>ts` | n   | Terminal select       |
-| `<leader>t1`  | n   | Terminal 1                     |     | `<leader>t2` | n   | Terminal 2            |
-| `<leader>t3`  | n   | Terminal 3                     |     | `<leader>t4` | n   | Terminal 4            |
-| `<leader>tp`  | n   | Terminal btop                  |     | `<leader>tb` | n   | Terminal Bun REPL     |
-| `<leader>ty`  | n   | Terminal Python                |     |              |     |                       |
-| `<C-h/j/k/l>` | t   | Navigate windows from terminal |     | `<C-w>`      | t   | Window command prefix |
+| Key           | M     | Desc                           |     | Key          | M   | Desc                  |
+| ------------- | ----- | ------------------------------ | --- | ------------ | --- | --------------------- |
+| `<C-\>`       | n,i,t | Toggle terminal (float)        |     | `<leader>th` | n   | Terminal horizontal   |
+| `<leader>tv`  | n     | Terminal vertical              |     | `<leader>tt` | n   | Terminal tab          |
+| `<leader>ta`  | n     | Toggle all terminals           |     | `<leader>ts` | n   | Terminal select       |
+| `<leader>t1`  | n     | Terminal 1                     |     | `<leader>t2` | n   | Terminal 2            |
+| `<leader>t3`  | n     | Terminal 3                     |     | `<leader>t4` | n   | Terminal 4            |
+| `<leader>tp`  | n     | Terminal btop                  |     | `<leader>tb` | n   | Terminal Bun REPL     |
+| `<leader>ty`  | n     | Terminal Python                |     |              |     |                       |
+| `<C-h/j/k/l>` | t     | Navigate windows from terminal |     | `<C-w>`      | t   | Window command prefix |
 
 ## Editing & Navigation
 
@@ -39,10 +39,10 @@
 
 ## Flash (Motion)
 
-| Key  | M     | Desc         |     | Key  | M     | Desc              |
-| ---- | ----- | ------------ | --- | ---- | ----- | ----------------- |
-| `zj` | n,x,o | Flash jump   |     | `zp` | n,x,o | Flash Treesitter  |
-| `zk` | o     | Remote Flash |     | `zo` | o,x   | Treesitter Search |
+| Key  | M     | Desc         |     | Key | M   | Desc              |
+| ---- | ----- | ------------ | --- | --- | --- | ----------------- |
+| `gh` | n,x,o | Flash jump   |     | `r` | o   | Treesitter search |
+| `R`  | o     | Remote Flash |     |     |     |                   |
 
 ## Window Management
 
@@ -79,7 +79,7 @@
 
 | Key          | M   | Desc                                   |     | Key          | M   | Desc                                  |
 | ------------ | --- | -------------------------------------- | --- | ------------ | --- | ------------------------------------- |
-| `K`          | n   | Hover (rounded)                        |     | `<C-k>`      | n,i | Signature help (rounded)              |
+| `K`          | n   | Hover documentation                    |     | `<C-k>`      | i   | Signature help (Blink)                |
 | `gd`         | n   | Goto Definition                        |     | `gD`         | n   | Goto Declaration                      |
 | `gi`         | n   | Goto Implementation                    |     | `grt`        | n   | Goto Type Definition                  |
 | `grp`        | n   | References                             |     | `ga`         | n,x | Code Action (native)                  |
@@ -99,22 +99,22 @@
 | `<leader>sR` | n,v | Search & Replace        |     | `<leader>sW` | n   | Replace word under cursor |
 | `<leader>sF` | n   | Replace in current file |     | `<leader>sv` | v   | Replace visual selection  |
 
-
 ## Fzf-lua Pickers
 
-| Key          | M   | Desc                         |     | Key          | M   | Desc                |
-| ------------ | --- | ---------------------------- | --- | ------------ | --- | ------------------- |
-| `<leader>fb` | n,x | Search current buffer        |     | `<leader>fB` | n   | Buffers             |
-| `<leader>ff` | n   | Find files                   |     | `<leader>fg` | n,x | Grep                |
-| `<leader>fw` | n   | Grep word under cursor       |     | `<leader>fW` | n   | Grep word in buffer |
-| `<leader>fh` | n   | Help                         |     | `<leader>fr` | n   | Recently opened     |
-| `<leader>f<` | n   | Resume last fzf command      |     |              |     |                     |
+| Key          | M   | Desc                    |     | Key          | M   | Desc                |
+| ------------ | --- | ----------------------- | --- | ------------ | --- | ------------------- |
+| `<leader>fb` | n,x | Search current buffer   |     | `<leader>fB` | n   | Buffers             |
+| `<leader>ff` | n   | Find files              |     | `<leader>fg` | n,x | Grep                |
+| `<leader>fw` | n   | Grep word under cursor  |     | `<leader>fW` | n   | Grep word in buffer |
+| `<leader>fh` | n   | Help                    |     | `<leader>fr` | n   | Recently opened     |
+| `<leader>f<` | n   | Resume last fzf command |     |              |     |                     |
 
 ## Fzf-lua Picker Window
 
-| Key     | M   | Desc                            |
-| ------- | --- | ------------------------------- |
-| `<C-t>` | n,i | Open current results in Trouble |
+| Key     | M   | Desc                            |     | Key     | M   | Desc           |
+| ------- | --- | ------------------------------- | --- | ------- | --- | -------------- |
+| `<C-t>` | n,i | Open current results in Trouble |     | `<A-p>` | n,i | Toggle preview |
+| `<Tab>` | i   | Toggle result selection         |     |         |     |                |
 
 ## Artio Picker
 
@@ -142,6 +142,53 @@
 | `<leader>gn` | n   | Open Neogit status (stage, commit, push, pull, rebase, stash — press ? for help) |
 | `<leader>gc` | n   | Neogit commit (skip status, go straight to commit message)                       |
 
+### Inside the Neogit status buffer
+
+Everything below is typed in the status buffer, not globally. `?` lists the rest.
+
+| Key   | Desc                        |     | Key           | Desc                      |
+| ----- | --------------------------- | --- | ------------- | ------------------------- |
+| `s`   | Stage selected change       |     | `c c`         | Commit staged changes     |
+| `u`   | Unstage selected change     |     | `<C-c> <C-c>` | Submit the commit message |
+| `S`   | Stage everything            |     | `x`           | Discard selected change   |
+| `d d` | Review selected in CodeDiff |     | `<C-r>`       | Refresh                   |
+| `q`   | Close                       |     | `b o`         | Open PR page in browser   |
+
+Remotes — the flag goes between the verb and the target:
+
+| Key   | Desc           |     | Key      | Desc                            |
+| ----- | -------------- | --- | -------- | ------------------------------- |
+| `f u` | Fetch upstream |     | `f -p u` | Fetch and prune stale remotes   |
+| `p u` | Pull upstream  |     | `p -f u` | Pull only if fast-forward       |
+| `P u` | Push upstream  |     | `P -f u` | Force-with-lease after a rebase |
+
+Branches and worktrees:
+
+| Key   | Desc                            |     | Key   | Desc                             |
+| ----- | ------------------------------- | --- | ----- | -------------------------------- |
+| `b`   | Branch actions                  |     | `w W` | New task branch **and** worktree |
+| `b n` | New branch, stay where you are  |     | `w w` | Worktree for an existing branch  |
+| `b D` | Delete a local or remote branch |     | `w g` | Point Neogit at another worktree |
+|       |                                 |     | `w D` | Remove a linked worktree         |
+
+Bringing a task branch up to date — rebase a private branch, merge a shared one:
+
+| Key   | Desc                           |     | Key   | Desc            |
+| ----- | ------------------------------ | --- | ----- | --------------- |
+| `r e` | Rebase onto `main` (then pick) |     | `m m` | Merge `main` in |
+| `r r` | Continue after resolving       |     | `m a` | Abort the merge |
+| `r a` | Abort the rebase               |     |       |                 |
+
+Stashes are shared across every worktree of the repo:
+
+| Key      | Desc                      |     | Key   | Desc                   |
+| -------- | ------------------------- | --- | ----- | ---------------------- |
+| `Z z`    | Stash tracked changes     |     | `Z p` | Pop a stash            |
+| `Z -u z` | Stash, untracked included |     | `Z a` | Apply without removing |
+| `Z l`    | List stashes              |     | `Z d` | Delete a stash         |
+
+Longer notes on the worktree model live in `keys.md`.
+
 ## Git (Lazygit / Toggleterm)
 
 | Key          | M   | Desc                                                                     |
@@ -156,17 +203,52 @@
 | `<leader>dd` | n   | Toggle CodeDiff (uncommitted changes)    |     | `<leader>dh` | n   | File history (all files, browse commits) |
 | `<leader>d.` | n   | Current file history                     |     | `<leader>df` | n   | Current file diff vs HEAD                |
 | `<leader>dm` | n   | Merge-base diff vs origin/main (PR-like) |     | `<leader>dM` | n   | Merge-base diff vs any branch (prompts)  |
+| `<leader>ds` | n   | Staged diff (index vs HEAD)              |     |              |     |                                          |
+
+### Inside the diff view
+
+`g?` opens a floating window with all of them.
+
+| Key  | Desc                                |     | Key          | Desc                           |
+| ---- | ----------------------------------- | --- | ------------ | ------------------------------ |
+| `]f` | Next changed file                   |     | `]c` / `[c`  | Next / previous hunk           |
+| `[f` | Previous changed file               |     | `ih`         | Hunk textobject (`vih`, `yih`) |
+| `t`  | Toggle side-by-side / inline        |     | `do` / `dp`  | Get / put change, like vimdiff |
+| `gc` | Fold unchanged regions              |     | `<leader>hs` | Stage the hunk under cursor    |
+| `gm` | Align a moved block with its origin |     | `<leader>hu` | Unstage that hunk              |
+| `gS` | Swap staged / unstaged view         |     | `<leader>hr` | Discard that hunk              |
+| `-`  | Stage / unstage the whole file      |     | `gf`         | Open this file in the prev tab |
+| `q`  | Close the diff tab                  |     |              |                                |
+
+In the explorer panel: `<CR>` opens, `K` hovers, `i` swaps list/tree, `R` refreshes,
+`S`/`U` stage or unstage everything, `X` discards a file, `za`/`zR`/`zM` fold.
+`<leader>e` focuses it, `<leader>b` hides it.
+
+The explorer shows `+N -N` per file and per folder, and totals on the group
+headers — `Changes (12 · +340 -87)`.
+
+Scope any diff to a path by appending a pathspec:
+
+```vim
+:CodeDiff origin/main...HEAD -- lua/
+```
+
+## GitHub (Octo) — see `docs/github.md`
+
+| Key           | M   | Desc                  |     | Key           | M   | Desc                    |
+| ------------- | --- | --------------------- | --- | ------------- | --- | ----------------------- |
+| `<leader>ghp` | n   | List pull requests    |     | `<leader>ghi` | n   | List issues             |
+| `<leader>ghc` | n   | Create PR from branch |     | `<leader>ghI` | n   | Create issue            |
+| `<leader>ghr` | n   | Review a PR (own tab) |     | `<leader>ghn` | n   | Notifications           |
+| `<leader>ghs` | n   | Search GitHub         |     | `:Octo`       | n   | List every Octo command |
 
 ## Database (vim-dadbod)
 
 | Key          | M   | Desc                       |
-| ------------ | --- | -------------------------- | --- | ------------ | --- | ----------------------- |
+| ------------ | --- | -------------------------- |
 | `<leader>Du` | n   | Toggle Database UI sidebar |
 | `<leader>Da` | n   | Add database connection    |
 | `<leader>Df` | n   | Find saved query buffer    |
-| `-`          | n   | Stage/unstage file         |     | `<leader>hs` | n   | Stage hunk under cursor |
-| `<leader>hu` | n   | Unstage hunk               |     | `<leader>hr` | n   | Discard hunk            |
-| `q`          | n   | Close diff tab             |     | `g?`         | n   | Show help (all keymaps) |
 
 ## Trouble
 
@@ -212,17 +294,15 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 
 ## Formatting & Linting
 
-| Key          | M   | Desc                    |     | Key          | M   | Desc            |
-| ------------ | --- | ----------------------- | --- | ------------ | --- | --------------- |
-| `<leader>fb` | n,v | Format buffer/selection |     | `<leader>ll` | n   | Trigger linting |
+| Key             | M   | Desc                  |     | Key          | M   | Desc            |
+| --------------- | --- | --------------------- | --- | ------------ | --- | --------------- |
+| `:ToggleFormat` | n   | Toggle format-on-save |     | `<leader>ll` | n   | Trigger linting |
 
-## Treesitter Selection & Swap
+## Treesitter Parameter Swap
 
-| Key          | M   | Desc              |     | Key          | M   | Desc                |
-| ------------ | --- | ----------------- | --- | ------------ | --- | ------------------- |
-| `<leader>ss` | n   | Init selection    |     | `<leader>a`  | n   | Swap next parameter |
-| `<leader>si` | n   | Node incremental  |     | `<leader>A`  | n   | Swap prev parameter |
-| `<leader>sc` | n   | Scope incremental |     | `<leader>sn` | n   | Node decremental    |
+| Key  | M   | Desc                     |     | Key  | M   | Desc                         |
+| ---- | --- | ------------------------ | --- | ---- | --- | ---------------------------- |
+| `g>` | n   | Swap with next parameter |     | `g<` | n   | Swap with previous parameter |
 
 ## Treesitter Movement
 
@@ -301,28 +381,28 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 
 ## Clipboard & CamelCase
 
-| Key         | M   | Desc                  |     | Key         | M   | Desc                  |
-| ----------- | --- | --------------------- | --- | ----------- | --- | --------------------- |
-| `<leader>w` | n   | Next camel/snake word |     | `<leader>b` | n   | Prev camel/snake word |
-| `<leader>e` | n   | End camel/snake word  |     |             |     |                       |
+| Key  | M   | Desc                    |     | Key   | M   | Desc                          |
+| ---- | --- | ----------------------- | --- | ----- | --- | ----------------------------- |
+| `,w` | n,o | Next camel/snake word   |     | `,b`  | n,o | Previous camel/snake word     |
+| `,e` | n,o | End of camel/snake word |     | `,ge` | n,o | Previous camel/snake ending   |
+| `c`  | n,x | Change without yanking  |     | `C`   | n,x | Change to EOL without yanking |
 
-## AI / Sidekick _(Disabled)_
+## AI / Sidekick
 
-| Key          | M       | Desc                 |     | Key          | M   | Desc          |
-| ------------ | ------- | -------------------- | --- | ------------ | --- | ------------- |
-| `<tab>`      | n       | Next edit suggestion |     | `<leader>at` | n,x | Send this     |
-| `<c-.>`      | n,t,i,x | Sidekick toggle      |     | `<leader>af` | n   | Send file     |
-| `<leader>aa` | n       | Toggle CLI           |     | `<leader>av` | x   | Send visual   |
-| `<leader>as` | n       | Select CLI           |     | `<leader>ap` | n,x | Select prompt |
-| `<leader>ad` | n       | Detach CLI           |     | `<leader>ac` | n   | Toggle Claude |
+| Key          | M   | Desc                       |     | Key          | M       | Desc                            |
+| ------------ | --- | -------------------------- | --- | ------------ | ------- | ------------------------------- |
+| `<M-l>`      | i,n | Accept/apply AI suggestion |     | `<C-.>`      | n,t,i,x | Focus open CLI                  |
+| `<leader>ac` | n   | Toggle Codex               |     | `<leader>ag` | n       | Toggle Antigravity              |
+| `<leader>af` | n   | Send file reference        |     | `<leader>at` | n,x     | Send cursor/selection reference |
+| `<leader>ad` | n   | Send diagnostics           |     | `<leader>av` | x       | Send selected text              |
 
 ## Tabout & Completion
 
-| Key     | M   | Desc                                   |     | Key       | M   | Desc                                   |
-| ------- | --- | -------------------------------------- | --- | --------- | --- | -------------------------------------- |
-| `<Tab>` | i   | Tabout / Super-tab preset (blink.cmp)  |     | `<S-Tab>` | i   | Backwards tabout                       |
-| `<C-]>` | i   | Insert literal tab                     |     |           |     |                                        |
-| `<C-j>` | i   | Completion next (blink.cmp; menu only) |     | `<C-k>`   | i   | Completion prev (blink.cmp; menu only) |
+| Key     | M   | Desc                                  |     | Key       | M   | Desc                  |
+| ------- | --- | ------------------------------------- | --- | --------- | --- | --------------------- |
+| `<Tab>` | i   | Tabout / Super-tab preset (blink.cmp) |     | `<S-Tab>` | i   | Backwards tabout      |
+| `<C-]>` | i   | Insert literal tab                    |     | `<C-k>`   | i   | Toggle signature help |
+| `<C-n>` | i   | Next completion                       |     | `<C-p>`   | i   | Previous completion   |
 
 ## Mini.surround
 

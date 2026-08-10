@@ -151,14 +151,15 @@ return {
                     builtin = {
                         ["<C-/>"] = "toggle-help",
                         ["<C-a>"] = "toggle-fullscreen",
-                        ["<C-i>"] = "toggle-preview",
+                        -- <C-i> == <Tab>; keep Tab for default multi-select toggle.
+                        ["<A-p>"] = "toggle-preview",
                     },
                     fzf = {
                         ["ctrl-j"] = "down",
                         ["ctrl-k"] = "up",
                         ["alt-s"] = "toggle",
                         ["alt-a"] = "toggle-all",
-                        ["ctrl-i"] = "toggle-preview",
+                        ["alt-p"] = "toggle-preview",
                     },
                 },
                 winopts = {

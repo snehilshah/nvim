@@ -159,6 +159,24 @@ return {
             },
             explorer = {
                 flatten_dirs = false,
+                -- `+N -N` per file, per folder, and totalled on the group headers
+                -- ("Changes (12 · +340 -87)"). The point is triage: on a merge-base
+                -- diff, which entries are real work and which are one-liners.
+                --
+                -- count_untracked reads each untracked file to count its lines --
+                -- worth it because `untracked = "all"` is the default, so they are
+                -- already listed and would otherwise be the only blank rows.
+                -- max_untracked_bytes caps that at 1MB per file.
+                line_stats = {
+                    enabled = true,
+                    count_untracked = true,
+                },
+            },
+            history = {
+                -- Absolute over the default "%ar" ("3 days ago"): history is where
+                -- you go to line a change up against something else, and relative
+                -- dates cannot be compared to a date from anywhere outside nvim.
+                date_format = "%Y-%m-%d",
             },
             keymaps = {
                 view = {
@@ -186,6 +204,14 @@ return {
                 "<leader>df",
                 "<cmd>CodeDiff file HEAD<cr>",
                 desc = "[f]ile diff vs last commit",
+            },
+            -- Index vs HEAD -- what a commit right now would actually contain.
+            -- `gS` inside the explorer toggles between staged and unstaged, so
+            -- this is an entry point rather than a separate mode.
+            {
+                "<leader>ds",
+                "<cmd>CodeDiff --staged<cr>",
+                desc = "[s]taged diff (index vs HEAD)",
             },
             -- PR-like merge-base diff: only changes introduced since branching from origin/main
             {
@@ -245,6 +271,57 @@ return {
                 "<cmd>GitLink! blame<cr>",
                 mode = { "n", "v" },
                 desc = "Open git link",
+            },
+        },
+    },
+    -- GitHub itself: issues, PRs, reviews, notifications. Everything runs through
+    -- the `gh` CLI, so it reuses the login you already have -- no separate token.
+    --
+    -- Deliberately not wired into codediff or Neogit; neither exposes a seam for
+    -- it. See docs/github.md for what that does and does not cost.
+    {
+        "pwntester/octo.nvim",
+        cmd = "Octo",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "ibhagwan/fzf-lua",
+            "nvim-tree/nvim-web-devicons",
+        },
+        opts = {
+            picker = "fzf-lua",
+            -- Bare `:Octo` lists every action, which is the only practical way to
+            -- discover a command surface this large without memorising it.
+            enable_builtin = true,
+            -- Projects v2 is in active use, so ask for it: this pulls the
+            -- ProjectV2 timeline fragments into the GraphQL query, and points
+            -- bare `Octo card ...` at v2 instead of the deprecated classic API.
+            --
+            -- Requires `read:project` on the gh token. Left unsuppressed on
+            -- purpose -- if the scope ever goes missing, a clear error beats a
+            -- timeline that silently fails to parse.
+            default_to_projects_v2 = true,
+            suppress_missing_scope = { projects_v2 = false },
+        },
+        keys = {
+            -- Nested under the git prefix: this is git-adjacent, and <leader>o is
+            -- already taken. `gh` reads as both "git hub" and the CLI's own name.
+            { "<leader>gh", "", desc = "+github" },
+            { "<leader>ghp", "<cmd>Octo pr list<cr>", desc = "[p]ull requests" },
+            { "<leader>ghi", "<cmd>Octo issue list<cr>", desc = "[i]ssues" },
+            { "<leader>ghn", "<cmd>Octo notification list<cr>", desc = "[n]otifications" },
+            { "<leader>ghc", "<cmd>Octo pr create<cr>", desc = "[c]reate PR" },
+            { "<leader>ghI", "<cmd>Octo issue create<cr>", desc = "Create [I]ssue" },
+            -- Review mode opens its own tabpage. <leader>ghr on a branch with an
+            -- open PR picks it up; inside an Octo PR buffer it reviews that one.
+            { "<leader>ghr", "<cmd>Octo review start<cr>", desc = "[r]eview PR" },
+            {
+                "<leader>ghs",
+                function()
+                    require("octo.utils").create_base_search_command({
+                        include_current_repo = true,
+                    })
+                end,
+                desc = "[s]earch GitHub",
             },
         },
     },

@@ -83,8 +83,8 @@ vim.keymap.set("n", "<leader>dy", function()
     end
 end, { desc = "[D]iagnostic [Y]ank message" })
 
--- Alternative: Enter any floating window
-vim.keymap.set("n", "<C-w>f", function()
+-- Focus any floating window (moved off <C-w>f to keep builtin split-open-file).
+vim.keymap.set("n", "<leader>wf", function()
     local wins = vim.api.nvim_list_wins()
     for _, win in ipairs(wins) do
         local config = vim.api.nvim_win_get_config(win)
@@ -97,7 +97,8 @@ end, { desc = "Focus floating [W]indow" })
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- Delete without copying to clipboard
+-- Delete/change without clobbering the clipboard (x stays a real "cut").
+-- Note: `s` is owned by mini.surround, so it is intentionally not remapped here.
 vim.keymap.set({ "n", "x" }, "d", '"_d', { desc = "Delete without copying to clipboard" })
 vim.keymap.set(
     { "n", "x" },
@@ -105,8 +106,13 @@ vim.keymap.set(
     '"_D',
     { desc = "Delete to end of line without copying to clipboard" }
 )
-
-
+vim.keymap.set({ "n", "x" }, "c", '"_c', { desc = "Change without copying to clipboard" })
+vim.keymap.set(
+    { "n", "x" },
+    "C",
+    '"_C',
+    { desc = "Change to end of line without copying to clipboard" }
+)
 
 vim.keymap.set("n", "<leader>cp", function()
     require("utils").copyFilePathAndLineNumber()
