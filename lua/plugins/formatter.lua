@@ -12,38 +12,79 @@ return {
             c = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
             cpp = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
 
+            -- Prettier wins when a config exists (require_cwd), otherwise Biome.
+            -- LSP formatting is the last fallback when neither is available.
             javascript = {
                 "prettier",
-                name = "biome-check",
+                "biome",
+                stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             javascriptreact = {
                 "prettier",
-                name = "biome-check",
+                "biome",
+                stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             typescript = {
                 "prettier",
-                name = "biome-check",
+                "biome",
+                stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             typescriptreact = {
                 "prettier",
-                name = "biome-check",
+                "biome",
+                stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
-            astro = { "prettier", name = "biome-check", timeout_ms = 500, lsp_format = "fallback" },
+            astro = {
+                "prettier",
+                "biome",
+                stop_after_first = true,
+                timeout_ms = 500,
+                lsp_format = "fallback",
+            },
 
-            json = { "prettier", name = "biome-check", timeout_ms = 500, lsp_format = "fallback" },
-            jsonc = { "prettier", name = "biome-check", timeout_ms = 500, lsp_format = "fallback" },
+            json = {
+                "prettier",
+                "biome",
+                stop_after_first = true,
+                timeout_ms = 500,
+                lsp_format = "fallback",
+            },
+            jsonc = {
+                "prettier",
+                "biome",
+                stop_after_first = true,
+                timeout_ms = 500,
+                lsp_format = "fallback",
+            },
 
-            html = { "prettier", name = "biome-check", timeout_ms = 500, lsp_format = "fallback" },
-            css = { "prettier", name = "biome-check", timeout_ms = 500, lsp_format = "fallback" },
-            scss = { "prettier", name = "biome-check", timeout_ms = 500, lsp_format = "fallback" },
+            -- Biome formats CSS, but not HTML or SCSS.
+            html = {
+                "prettier",
+                stop_after_first = true,
+                timeout_ms = 500,
+                lsp_format = "fallback",
+            },
+            css = {
+                "prettier",
+                "biome",
+                stop_after_first = true,
+                timeout_ms = 500,
+                lsp_format = "fallback",
+            },
+            scss = {
+                "prettier",
+                stop_after_first = true,
+                timeout_ms = 500,
+                lsp_format = "fallback",
+            },
 
             yaml = { "yamlfmt", stop_after_first = true },
             yml = { "yamlfmt", stop_after_first = true },
