@@ -139,10 +139,12 @@ return {
             -- stylua: ignore end
 
             -- ── Swap ────────────────────────────────────────────────────────────
-            map("n", "<leader>a", function()
+            -- `g<` shadows the builtin "show last page of command output"; that is
+            -- reachable via :messages anyway.
+            map("n", "g>", function()
                 swap.swap_next("@parameter.inner")
             end, { desc = "Swap next parameter" })
-            map("n", "<leader>A", function()
+            map("n", "g<", function()
                 swap.swap_previous("@parameter.inner")
             end, { desc = "Swap prev parameter" })
 

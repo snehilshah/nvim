@@ -64,4 +64,10 @@ M.misc = {
     change_gutter = " ",
 }
 
+M.copilots = {
+    pilot = "",
+    pilot_error = "",
+    pilot_warning = "",
+}
+
 return M

@@ -37,11 +37,13 @@ return {
                     },
                 },
             },
-            ghost_text = {
-                enabled = true,
-                show_with_menu = false, -- show ghost text even with menu open
-                show_without_selection = true, -- only show when item is selected
-            },
+            -- Copilot owns inline ghost text (see lua/plugins/ai/sidekick.lua).
+            -- Two extmark renderers at the cursor stack on top of each other rather
+            -- than dedupe, so only one may be active. blink loses nothing here:
+            -- `menu.auto_show` plus `list.selection.auto_insert` already preview the
+            -- selected item, and with auto_show on, the menu-closed state this used
+            -- to draw in barely occurred.
+            ghost_text = { enabled = false },
             documentation = {
                 auto_show = true,
                 treesitter_highlighting = true,

@@ -205,12 +205,20 @@ end
 --- Active LSP clients for the current buffer.
 ---@return string
 function M.lsp_clients_component()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    -- Copilot is skipped: it has its own island (ai_component). Counting it here
+    -- inflated every buffer to `lua_ls[+1]` and hid whichever real server came second.
+    local clients = {}
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+        if client.name ~= "copilot" then
+            clients[#clients + 1] = client.name
+        end
+    end
+
     if #clients == 0 then
         return ""
     end
 
-    local client = clients[1].name
+    local client = clients[1]
     if #clients > 1 then
         client = string.format("%s[+%d]", client, #clients - 1)
     end
@@ -221,23 +229,126 @@ end
 --- Diagnostic counts for the current buffer.
 ---@return string
 function M.diagnostics_component()
-    local diagnostic_counts = vim.diagnostic.count(0)
-    local severities = {
-        { severity = vim.diagnostic.severity.ERROR, icon = icons.diagnostics.ERROR },
-        { severity = vim.diagnostic.severity.WARN, icon = icons.diagnostics.WARN },
-        { severity = vim.diagnostic.severity.INFO, icon = icons.diagnostics.INFO },
-        { severity = vim.diagnostic.severity.HINT, icon = icons.diagnostics.HINT },
-    }
+    return vim.diagnostic.status()
+end
 
-    local parts = {}
-    for _, item in ipairs(severities) do
-        local count = diagnostic_counts[item.severity]
-        if count and count > 0 then
-            table.insert(parts, string.format("%s:%d", item.icon, count))
+local ai_spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+local ai_spinner_timer = nil
+
+---@param active boolean
+local function ai_tick(active)
+    if active and not ai_spinner_timer then
+        ai_spinner_timer = assert(vim.uv.new_timer())
+        ai_spinner_timer:start(
+            0,
+            100,
+            vim.schedule_wrap(function()
+                vim.cmd.redrawstatus()
+            end)
+        )
+    elseif not active and ai_spinner_timer then
+        ai_spinner_timer:stop()
+        ai_spinner_timer:close()
+        ai_spinner_timer = nil
+    end
+end
+
+local ai_group = vim.api.nvim_create_augroup("snehilshah/statusline_ai", { clear = true })
+
+-- Ghost text lands asynchronously, after you have stopped typing, and core fires no
+-- event when it does. Without a tick the island would sit a suggestion behind, and
+-- the spinner would not spin. Insert mode is the only mode ghost text appears in, so
+-- the timer is scoped to exactly that, on copilot buffers only.
+vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+    group = ai_group,
+    desc = "Drive Copilot island redraws",
+    callback = function(args)
+        ai_tick(
+            args.event == "InsertEnter"
+                and #vim.lsp.get_clients({ bufnr = args.buf, name = "copilot" }) > 0
+        )
+    end,
+})
+
+-- NES arrives in normal mode, outside the insert-mode tick above. sidekick announces
+-- it, so a single redraw is enough -- no timer needed for this half.
+vim.api.nvim_create_autocmd("User", {
+    group = ai_group,
+    pattern = "SidekickNesDone",
+    desc = "Refresh Copilot island when a next edit suggestion lands",
+    callback = function()
+        vim.cmd.redrawstatus()
+    end,
+})
+
+-- vim.lsp.inline_completion draws its ghost text into this namespace but exposes no
+-- "is a suggestion showing?" API, so the extmark is the only honest signal. The name
+-- follows core's `nvim.*` namespace convention and is stable across 0.12.
+local inline_completion_ns = nil
+
+--- Whether Copilot is currently showing ghost text in the given buffer.
+---@param buf integer
+---@return boolean
+local function has_inline_suggestion(buf)
+    inline_completion_ns = inline_completion_ns
+        or vim.api.nvim_get_namespaces()["nvim.lsp.inline_completion"]
+    if not inline_completion_ns then
+        return false
+    end
+
+    local marks = vim.api.nvim_buf_get_extmarks(buf, inline_completion_ns, 0, -1, { limit = 1 })
+    return #marks > 0
+end
+
+--- Copilot island for the current buffer.
+---
+--- Present whenever Copilot is attached, so its absence is itself information
+--- (denied buffer, or the client failed to start).
+---
+--- Sidekick also draws the NES diff in the buffer; this island makes the pending
+--- state visible even when the edit is outside the current viewport.
+---
+---           attached, nothing pending
+---    ✓      ghost text on screen, <M-l> takes it
+---    NES    a next edit is waiting, <M-l> jumps to or applies it
+---    ⠹      request in flight
+---           client errored
+---
+--- State rides on a trailing glyph rather than colour. Tinting was tried and cannot
+--- be made theme-proof: the pill background follows the *mode*, so any semantic
+--- foreground eventually lands on a mode that shares it. gruvbox-material is exactly
+--- that case -- DiagnosticSignInfo and StatuslineModeInsert are both #7daea3, so the
+--- "suggestion ready" state, which only ever occurs in insert mode, drew itself
+--- invisible. The pill's own foreground is the one colour a theme guarantees is
+--- readable here.
+---@return string
+function M.ai_component()
+    local buf = vim.api.nvim_get_current_buf()
+    if #vim.lsp.get_clients({ bufnr = buf, name = "copilot" }) == 0 then
+        return ""
+    end
+
+    -- render() runs on every redraw, so this must never require() sidekick --
+    -- that would drag the plugin in at startup and undo its lazy loading.
+    local sidekick_status = package.loaded["sidekick.status"]
+    local status = sidekick_status and sidekick_status.get()
+
+    local icon, state = icons.copilots.pilot, ""
+    if status and status.kind == "Error" then
+        icon = icons.copilots.pilot_error
+    elseif status and status.busy then
+        state = ai_spinner[math.floor(vim.uv.now() / 100) % #ai_spinner + 1]
+    else
+        local nes = package.loaded["sidekick.nes"]
+        if nes and nes.have() then
+            icon, state = icons.copilots.pilot_warning, "NES"
+        elseif has_inline_suggestion(buf) then
+            state = "✓"
         end
     end
 
-    return table.concat(parts, " ")
+    local content = state == "" and icon or string.format("%s %s", icon, state)
+    return content .. " "
 end
 
 --- The current line, total line count, and column position.
@@ -294,6 +405,7 @@ function M.render()
         }),
         "%#StatusLine#%=",
         concat_components({
+            { component = M.ai_component() },
             { component = M.diagnostics_component() },
             { component = M.filetype_component() },
             { component = M.lsp_clients_component() },

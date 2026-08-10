@@ -195,13 +195,6 @@ local severity_icons = {
     [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
 }
 
-local diagnostic_status_hl = {
-    [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-    [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-    [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-    [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-}
-
 local diagnostic_severity_order = {
     vim.diagnostic.severity.ERROR,
     vim.diagnostic.severity.WARN,
@@ -216,12 +209,7 @@ local function diagnostic_status(severity_counts)
     for _, severity in ipairs(diagnostic_severity_order) do
         local count = severity_counts[severity]
         if count and count > 0 then
-            items[#items + 1] = string.format(
-                "%%#%s#%s:%d",
-                diagnostic_status_hl[severity],
-                severity_icons[severity],
-                count
-            )
+            items[#items + 1] = string.format("%s:%d", severity_icons[severity], count)
         end
     end
 
@@ -315,6 +303,9 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             "tailwindcss", -- Tailwind CSS
             "emmet_language_server", -- Emmet
             "astro",
+            -- Inline completions and Next Edit Suggestions. Buffer gate in
+            -- after/lsp/copilot.lua, wiring in lua/plugins/ai/sidekick.lua.
+            "copilot",
         }
         vim.lsp.enable(servers)
     end,
