@@ -282,16 +282,28 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 
 ## Buffers / Tabline (Barbar)
 
-| Key           | M   | Desc                           |     | Key          | M   | Desc               |
-| ------------- | --- | ------------------------------ | --- | ------------ | --- | ------------------ |
-| `<A-,>`       | n   | Buffer previous                |     | `<A-.>`      | n   | Buffer next        |
-| `<A-S-,>`     | n   | Move buffer left               |     | `<A-S-.>`    | n   | Move buffer right  |
-| `<A-1>-<A-9>` | n   | Goto buffer 1-9                |     | `<A-0>`      | n   | Goto last buffer   |
-| `<A-p>`       | n   | Pin buffer                     |     | `<A-c>`      | n   | Close buffer       |
-| `<C-p>`       | n   | Pick buffer                    |     | `<C-s-p>`    | n   | Pick buffer delete |
-| `<leader>bb`  | n   | Order by buffer number         |     | `<leader>bn` | n   | Order by name      |
-| `<leader>bd`  | n   | Order by directory (conflicts) |     | `<leader>bl` | n   | Order by language  |
-| `<leader>bw`  | n   | Order by window number         |     |              |     |                    |
+The statusline identifies the current layout, for example `EDITING · TAB 1/2` or
+`CODEDIFF · TAB 2/2`.
+
+| Key           | M   | Desc                           |     | Key          | M   | Desc                 |
+| ------------- | --- | ------------------------------ | --- | ------------ | --- | -------------------- |
+| `<A-,>`       | n   | Buffer previous                |     | `<A-.>`      | n   | Buffer next          |
+| `<A-S-,>`     | n   | Move buffer left               |     | `<A-S-.>`    | n   | Move buffer right    |
+| `<A-1>-<A-9>` | n   | Goto buffer 1-9                |     | `<A-0>`      | n   | Goto last buffer     |
+| `<A-p>`       | n   | Pin buffer                     |     | `<A-c>`      | n   | Close editing buffer |
+| `<C-p>`       | n   | Pick buffer                    |     | `<C-s-p>`    | n   | Pick buffer delete   |
+| `<leader>bb`  | n   | Order by buffer number         |     | `<leader>bn` | n   | Order by name        |
+| `<leader>bd`  | n   | Order by directory (conflicts) |     | `<leader>bl` | n   | Order by language    |
+| `<leader>bw`  | n   | Order by window number         |     |              |     |                      |
+
+### Real tabs / layouts
+
+| Key      | M   | Desc                             |
+| -------- | --- | -------------------------------- |
+| `g<Tab>` | n   | Toggle current and previous tab  |
+| `gt`     | n   | Next tab                         |
+| `gT`     | n   | Previous tab                     |
+| `q`      | n   | Close the NeoGit or CodeDiff tab |
 
 ## Formatting & Linting
 

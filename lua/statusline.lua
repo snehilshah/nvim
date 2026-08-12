@@ -1,4 +1,5 @@
 local icons = require("icons")
+local tabpages = require("tabpages")
 
 local M = {}
 
@@ -364,6 +365,12 @@ function M.position_component()
     return string.format("l: %d/%d c:%-3d", line, line_count, col)
 end
 
+--- The current tab's purpose and position among real tabpages.
+---@return string
+function M.tabpage_component()
+    return tabpages.component()
+end
+
 --- Renders the statusline.
 ---@return string
 function M.render()
@@ -402,6 +409,7 @@ function M.render()
     return table.concat({
         concat_components({
             { component = mode, hl = mode_hl },
+            { component = M.tabpage_component() },
             { component = M.relative_path_component() },
             { component = M.git_component() },
             { component = M.lsp_progress_component() },

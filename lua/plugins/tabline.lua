@@ -22,7 +22,7 @@ return {
         map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
         map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-        map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
+        map("n", "<A-c>", require("tabpages").close_buffer, opts)
         map("n", "<C-p>", "<Cmd>BufferPick<CR>", opts)
 
         map("n", "<Space>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
@@ -33,8 +33,8 @@ return {
     end,
     opts = {
         animation = true,
-        -- Enable/disable current/total tabpages indicator (top right corner)
-        tabpages = true,
+        -- The statusline shows a clearer workspace label and tabpage count.
+        tabpages = false,
         -- A buffer to this direction will be focused (if it exists) when closing the current buffer.
         -- Valid options are 'left' (the default), 'previous', and 'right'
         focus_on_close = "left",

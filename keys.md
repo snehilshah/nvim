@@ -13,6 +13,7 @@
 | Open next changed file in CodeDiff     | `] f`               |
 | Open previous changed file in CodeDiff | `[ f`               |
 | Close CodeDiff or Neogit               | `q`                 |
+| Return to the tab you came from        | `g <Tab>`           |
 | Stage selected change                  | `s`                 |
 | Unstage selected change                | `u`                 |
 | Stage all changes                      | `S`                 |
