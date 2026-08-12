@@ -5,6 +5,50 @@ local delete_up = icons.misc.top_score
 local delete_down = icons.misc.under_score
 local change_gutter = icons.misc.change_gutter
 
+local function open_line_commit_in_codediff()
+    local file = vim.api.nvim_buf_get_name(0)
+    if file == "" then
+        vim.notify("Current buffer is not a file", vim.log.levels.ERROR)
+        return
+    end
+
+    local line = vim.api.nvim_win_get_cursor(0)[1]
+    local directory = vim.fs.dirname(file)
+    local filename = vim.fs.basename(file)
+
+    vim.system({
+        "git",
+        "-C",
+        directory,
+        "blame",
+        "--line-porcelain",
+        "-L",
+        line .. "," .. line,
+        "--",
+        filename,
+    }, { text = true }, function(result)
+        vim.schedule(function()
+            if result.code ~= 0 then
+                vim.notify(
+                    vim.trim(result.stderr or "Unable to find commit for line"),
+                    vim.log.levels.ERROR
+                )
+                return
+            end
+
+            local commit = (result.stdout or ""):match("^([0-9a-f]+)")
+            if not commit or commit:match("^0+$") then
+                vim.notify("This line has not been committed yet", vim.log.levels.INFO)
+                return
+            end
+
+            vim.cmd(
+                ("CodeDiff --repo %s %s^ %s"):format(vim.fn.fnameescape(directory), commit, commit)
+            )
+        end)
+    end)
+end
+
 return {
     {
         "lewis6991/gitsigns.nvim",
@@ -72,9 +116,9 @@ return {
             {
                 "<leader>gb",
                 function()
-                    require("gitsigns").blame_line()
+                    require("gitsigns").blame_line({ full = true })
                 end,
-                desc = "[g]it [b]lame line",
+                desc = "[g]it [b]lame line details",
             },
             -- Show git blame annotations for every line in the buffer (full buffer blame view)
             {
@@ -91,6 +135,12 @@ return {
                     require("gitsigns").toggle_current_line_blame()
                 end,
                 desc = "[B]lame mode",
+            },
+            -- Open every file changed by the commit responsible for the current line in CodeDiff.
+            {
+                "<leader>gC",
+                open_line_commit_in_codediff,
+                desc = "[g]it line [C]ommit in CodeDiff",
             },
             -- Show hunk diff in a floating popup window
             {

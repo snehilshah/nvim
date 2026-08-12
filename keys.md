@@ -22,6 +22,18 @@
 | Open GitHub PR creation page           | `b o`               |
 | Discard selected change                | `x`                 |
 
+## Blame and Commit History
+
+| Use case | Keymap |
+| --- | --- |
+| Show current line's commit details and hunk | `<Space> g b` |
+| Open current line's full commit in CodeDiff | `<Space> g C` |
+| Open interactive blame for current file | `<Space> g B` |
+| Toggle inline blame annotation | `<Space> G B` |
+| Show blamed commit as plain Git diff | `s` |
+| Show blamed commit as plain Git diff in a new tab | `S` |
+| Show blamed file's side-by-side diff | `d` |
+
 ## Remotes
 
 | Use case                                       | Keymap   |
