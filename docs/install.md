@@ -25,7 +25,7 @@ Only the servers actually enabled in `lua/lsp.lua` are listed.
 | ----------------------------- | ------------- | ---------------------------------------------------------------------- |
 | `lua-language-server`         | Lua           | `brew install lua-language-server`                                     |
 | `gopls`                       | Go            | `brew install gopls` (or `go install golang.org/x/tools/gopls@latest`) |
-| `ty`                          | Python        | `brew install ty`                                                      |
+| `basedpyright-langserver`     | Python        | `brew install basedpyright`                                            |
 | `clangd`                      | C/C++         | `brew install llvm`                                                    |
 | `biome`                       | JS/TS/JSON    | `brew install biome`                                                   |
 | `buf`                         | Protobuf      | `brew install bufbuild/buf/buf`                                        |
@@ -115,7 +115,7 @@ vim-dadbod shells out to these. Install only what you need.
 # brew (preferred)
 brew install \
   neovim tree-sitter uv \
-  lua-language-server gopls ty llvm biome bufbuild/buf/buf \
+  lua-language-server gopls basedpyright llvm biome bufbuild/buf/buf \
   bash-language-server yaml-language-server \
   prettier stylua gofumpt ruff shfmt yamlfmt dockerfmt markdownlint-cli2 \
   golangci-lint shellcheck cppcheck hadolint yamllint
@@ -149,5 +149,6 @@ Verify afterwards with `:CheckTools` in Neovim.
 - **Mason is not used** — everything is installed globally.
 - **Formatting** is conform.nvim, on save (toggle with `:ToggleFormat`).
 - **Linting** is nvim-lint, triggered manually with `<leader>ll`.
-- **Python** uses Ty for LSP/type checking, Ruff for formatting and manual linting,
-  and uv for project environments and the `<leader>ty` REPL.
+- **Python** uses Basedpyright in `basic` mode for LSP/type checking, Ruff for
+  formatting and manual linting, and uv for project environments and the
+  `<leader>ty` REPL.
