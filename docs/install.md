@@ -15,6 +15,7 @@ managers (npm / go / cargo) as fallback.
 | ------------- | ---------------------------------- | -------------------------- |
 | Neovim 0.12+  | Native LSP and diagnostic status   | `brew install neovim`      |
 | `tree-sitter` | Parser compilation for `:TSUpdate` | `brew install tree-sitter` |
+| `uv`          | Python projects and environments   | `brew install uv`          |
 
 ## Language Servers
 
@@ -24,6 +25,7 @@ Only the servers actually enabled in `lua/lsp.lua` are listed.
 | ----------------------------- | ------------- | ---------------------------------------------------------------------- |
 | `lua-language-server`         | Lua           | `brew install lua-language-server`                                     |
 | `gopls`                       | Go            | `brew install gopls` (or `go install golang.org/x/tools/gopls@latest`) |
+| `ty`                          | Python        | `brew install ty`                                                      |
 | `clangd`                      | C/C++         | `brew install llvm`                                                    |
 | `biome`                       | JS/TS/JSON    | `brew install biome`                                                   |
 | `buf`                         | Protobuf      | `brew install bufbuild/buf/buf`                                        |
@@ -57,6 +59,7 @@ Only the servers actually enabled in `lua/lsp.lua` are listed.
 | `markdownlint-cli2` | Markdown                       | `brew install markdownlint-cli2`                     |
 | `buf`               | Protobuf                       | `brew install bufbuild/buf/buf`                      |
 | `goimports`         | Go                             | `go install golang.org/x/tools/cmd/goimports@latest` |
+| `ruff`              | Python                         | `brew install ruff`                                  |
 | `tombi`             | TOML                           | `cargo install --locked tombi-cli`                   |
 
 C/C++ formatting is done by the `clangd` LSP, not a standalone formatter.
@@ -67,6 +70,13 @@ fall back to their LSP formatter because Biome does not format them.
 `:CheckTools` marks Prettier as unverified outside a configured project; that is
 expected, not a broken install.
 
+For Python projects, keep Ruff's style policy in the project `pyproject.toml`:
+
+```toml
+[tool.ruff]
+line-length = 120
+```
+
 ## Linters (nvim-lint)
 
 Triggered manually with `<leader>ll`.
@@ -74,6 +84,7 @@ Triggered manually with `<leader>ll`.
 | Linter              | Languages  | Install                            |
 | ------------------- | ---------- | ---------------------------------- |
 | `golangci-lint`     | Go         | `brew install golangci-lint`       |
+| `ruff`              | Python     | `brew install ruff`                |
 | `cppcheck`          | C/C++      | `brew install cppcheck`            |
 | `hadolint`          | Dockerfile | `brew install hadolint`            |
 | `yamllint`          | YAML       | `brew install yamllint`            |
@@ -103,10 +114,10 @@ vim-dadbod shells out to these. Install only what you need.
 ```bash
 # brew (preferred)
 brew install \
-  neovim tree-sitter \
-  lua-language-server gopls llvm biome bufbuild/buf/buf \
+  neovim tree-sitter uv \
+  lua-language-server gopls ty llvm biome bufbuild/buf/buf \
   bash-language-server yaml-language-server \
-  prettier stylua gofumpt shfmt yamlfmt dockerfmt markdownlint-cli2 \
+  prettier stylua gofumpt ruff shfmt yamlfmt dockerfmt markdownlint-cli2 \
   golangci-lint shellcheck cppcheck hadolint yamllint
 
 # npm (no brew formula available)
@@ -138,3 +149,5 @@ Verify afterwards with `:CheckTools` in Neovim.
 - **Mason is not used** — everything is installed globally.
 - **Formatting** is conform.nvim, on save (toggle with `:ToggleFormat`).
 - **Linting** is nvim-lint, triggered manually with `<leader>ll`.
+- **Python** uses Ty for LSP/type checking, Ruff for formatting and manual linting,
+  and uv for project environments and the `<leader>ty` REPL.

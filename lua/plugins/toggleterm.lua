@@ -114,9 +114,9 @@ return {
             hidden = true,
         })
 
-        -- Python REPL
+        -- Python REPL in the current uv project environment
         local python = Terminal:new({
-            cmd = "python3",
+            cmd = "uv run python",
             direction = "float",
             hidden = true,
         })

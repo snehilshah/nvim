@@ -270,6 +270,7 @@ M.servers = {
     "vimdoc_ls", -- Vimdoc
     "buf_ls", -- Protobuf via Buf workspaces/modules
     "gopls", -- Go, you might see 2 processes, spawned for gopls, most likely one of them is just telemetry, check `pgrep -a gopls`
+    "ty", -- Python: LSP features and type checking
     "tsgo", -- TypeScript/JavaScript
     "angularls", -- Angular Language Service (template intelligence, requires @angular/language-server)
     "biome", -- Biome (linting/formatting for JS/TS/JSON - only activates with biome.json)

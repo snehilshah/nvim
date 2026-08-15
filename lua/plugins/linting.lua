@@ -62,6 +62,7 @@ return {
             json = { "jsonlint" },
             jsonc = { "jsonlint" },
             go = { "golangcilint" },
+            python = { "ruff" },
             dockerfile = { "hadolint" },
             yaml = { "yamllint" },
             yml = { "yamllint" },

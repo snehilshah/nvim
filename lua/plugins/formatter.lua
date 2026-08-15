@@ -92,6 +92,7 @@ return {
 
             go = { "goimports", "gofumpt" },
             proto = { "buf" },
+            python = { "ruff_organize_imports", "ruff_format" },
 
             sh = { "shfmt" },
             bash = { "shfmt" },
@@ -100,7 +101,6 @@ return {
             lua = { "stylua" },
             dockerfile = { "dockerfmt" },
             markdown = { "markdownlint-cli2", stop_after_first = true },
-            -- python = { "isort", "black" },
         },
         format_on_save = function()
             -- Skip formatting if triggered from my special save command.
