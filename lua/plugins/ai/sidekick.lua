@@ -1,5 +1,26 @@
 -- Copilot provides inline and next-edit suggestions through Neovim's LSP
 -- support. Sidekick handles next edits and the Codex/Antigravity terminals.
+local function toggle_ai_completions()
+    local enabled = vim.lsp.is_enabled("copilot")
+
+    if enabled then
+        vim.g.sidekick_nes = false
+        require("sidekick.nes").disable()
+        vim.lsp.inline_completion.enable(false)
+        vim.lsp.enable("copilot", false)
+    else
+        vim.g.sidekick_nes = nil
+        vim.lsp.enable("copilot")
+        vim.lsp.inline_completion.enable()
+        require("sidekick.nes").enable()
+    end
+
+    vim.cmd.redrawstatus()
+    vim.notify(
+        enabled and "AI completions disabled; chat stays available" or "AI completions enabled"
+    )
+end
+
 return {
     "folke/sidekick.nvim",
     event = { "BufReadPost", "BufNewFile" },
@@ -39,6 +60,11 @@ return {
                 require("sidekick.cli").toggle({ name = "codex", focus = true })
             end,
             desc = "Toggle codex",
+        },
+        {
+            "<leader>ak",
+            toggle_ai_completions,
+            desc = "Toggle AI completions",
         },
         {
             "<leader>ag",

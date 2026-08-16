@@ -406,6 +406,7 @@ The statusline identifies the current layout, for example `EDITING · TAB 1/2` o
 | ------------ | --- | -------------------------- | --- | ------------ | ------- | ------------------------------- |
 | `<M-l>`      | i,n | Accept/apply AI suggestion |     | `<C-.>`      | n,t,i,x | Focus open CLI                  |
 | `<leader>ac` | n   | Toggle Codex               |     | `<leader>ag` | n       | Toggle Antigravity              |
+| `<leader>ak` | n   | Toggle AI completions      |     |              |         |                                 |
 | `<leader>af` | n   | Send file reference        |     | `<leader>at` | n,x     | Send cursor/selection reference |
 | `<leader>ad` | n   | Send diagnostics           |     | `<leader>av` | x       | Send selected text              |
 
@@ -414,7 +415,7 @@ The statusline identifies the current layout, for example `EDITING · TAB 1/2` o
 | Key     | M   | Desc                                  |     | Key       | M   | Desc                  |
 | ------- | --- | ------------------------------------- | --- | --------- | --- | --------------------- |
 | `<Tab>` | i   | Tabout / Super-tab preset (blink.cmp) |     | `<S-Tab>` | i   | Backwards tabout      |
-| `<C-]>` | i   | Insert literal tab                    |     | `<C-k>`   | i   | Toggle signature help |
+| `<C-t>` | i   | Insert literal tab                    |     | `<C-k>`   | i   | Toggle signature help |
 | `<C-n>` | i   | Next completion                       |     | `<C-p>`   | i   | Previous completion   |
 
 ## Mini.surround
