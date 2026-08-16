@@ -52,7 +52,7 @@ local function on_attach(client, bufnr)
         keymap("grp", function()
             require("fzf-lua").lsp_references({
                 jump1 = false,
-                includeDeclaration = true,
+                includeDeclaration = false,
                 ignore_current_line = false,
             })
         end, "Find references")
@@ -261,8 +261,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Extend neovim's client capabilities with the completion ones.
+-- Neovim disables LSP file watching on Linux by default. Enable it so servers
+-- notice files created outside the current buffer without needing a restart.
+local capabilities = require("blink.cmp").get_lsp_capabilities(nil, true)
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
 vim.lsp.config("*", {
-    capabilities = require("blink.cmp").get_lsp_capabilities(nil, true),
+    capabilities = capabilities,
 })
 -- Exposed on M so :CheckTools can audit these against $PATH.
 M.servers = {
