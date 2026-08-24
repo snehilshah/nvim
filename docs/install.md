@@ -31,7 +31,7 @@ Only the servers actually enabled in `lua/lsp.lua` are listed.
 | `buf`                         | Protobuf      | `brew install bufbuild/buf/buf`                                        |
 | `bash-language-server`        | Bash/Shell    | `brew install bash-language-server`                                    |
 | `yaml-language-server`        | YAML          | `brew install yaml-language-server`                                    |
-| `tsgo`                        | TS/JS         | `npm install -g @typescript/native-preview typescript`                 |
+| `tsc`                         | TS/JS         | `brew install typescript`                                              |
 | `vscode-css-language-server`  | CSS/HTML/JSON | `npm install -g vscode-langservers-extracted`                          |
 | `docker-langserver`           | Docker        | `npm install -g dockerfile-language-server-nodejs`                     |
 | `tailwindcss-language-server` | Tailwind      | `npm install -g @tailwindcss/language-server`                          |
@@ -44,6 +44,12 @@ Only the servers actually enabled in `lua/lsp.lua` are listed.
 `vscode-langservers-extracted` provides the CSS, HTML and JSON servers in one package.
 `bash-language-server` invokes `shellcheck` for diagnostics, so install it with
 `brew install shellcheck`; nvim-lint does not run a second copy.
+
+TypeScript 7 provides the native LSP through `tsc --lsp --stdio`. The Neovim
+config prefers a project-local TypeScript 7 compiler and falls back to the
+global Homebrew install when a project still uses TypeScript 5 or 6. Astro and
+Angular keep using their dedicated language servers with compatible
+project-local tooling; they are not pointed at the global TypeScript 7 SDK.
 
 ## Formatters (conform.nvim)
 
@@ -115,14 +121,13 @@ vim-dadbod shells out to these. Install only what you need.
 # brew (preferred)
 brew install \
   neovim tree-sitter uv \
-  lua-language-server gopls basedpyright llvm biome bufbuild/buf/buf \
+  lua-language-server gopls basedpyright llvm biome typescript bufbuild/buf/buf \
   bash-language-server yaml-language-server \
   prettier stylua gofumpt ruff shfmt yamlfmt dockerfmt markdownlint-cli2 \
   golangci-lint shellcheck cppcheck hadolint yamllint
 
 # npm (no brew formula available)
 npm install -g \
-  @typescript/native-preview typescript \
   vscode-langservers-extracted \
   dockerfile-language-server-nodejs \
   @tailwindcss/language-server \

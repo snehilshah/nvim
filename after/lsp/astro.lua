@@ -1,26 +1,6 @@
 -- Astro Language Server Configuration
--- Ensure `@astrojs/language-server` and `typescript` are installed globally.
-
-local function get_typescript_tsdk()
-    local home = os.getenv("HOME")
-    local search_paths = {
-        -- Bun global
-        home .. "/.bun/install/global/node_modules/typescript/lib",
-        -- Npm global
-        "/usr/local/lib/node_modules/typescript/lib",
-        "/usr/lib/node_modules/typescript/lib",
-        -- Brew macOS
-        "/opt/homebrew/opt/typescript/libexec/lib/node_modules/typescript/lib",
-        -- Brew Linux
-        "/home/linuxbrew/.linuxbrew/opt/typescript/libexec/lib/node_modules/typescript/lib",
-    }
-    for _, path in ipairs(search_paths) do
-        if vim.fn.isdirectory(path) == 1 then
-            return path
-        end
-    end
-    return ""
-end
+-- nvim-lspconfig resolves Astro's project-local TypeScript SDK. Do not point
+-- this server at global TypeScript 7, which has no tsserverlibrary.js.
 
 return {
     root_markers = {
@@ -28,11 +8,6 @@ return {
         "astro.config.js",
         "astro.config.cjs",
         "astro.config.ts",
-    },
-    init_options = {
-        typescript = {
-            tsdk = get_typescript_tsdk(),
-        },
     },
     settings = {
         astro = {
@@ -45,14 +20,13 @@ return {
             },
         },
         typescript = {
-            -- tsdk lives in init_options.typescript.tsdk (probed by get_typescript_tsdk).
             preferences = {
-                importModuleSpecifierPreference = "shortest",
+                importModuleSpecifier = "shortest",
                 importModuleSpecifierEnding = "auto",
                 quoteStyle = "auto",
             },
 
-            -- Inlay Hints (same configuration as tsgo)
+            -- Astro deliberately uses more verbose hints than regular TS files.
             inlayHints = {
                 parameterNames = {
                     enabled = "all",
