@@ -136,14 +136,12 @@ vim.o.exrc = true
 vim.opt.autowrite = false
 
 -- ============================================================================
--- Treesitter Folds
+-- Folds (Treesitter assigns foldmethod/foldexpr when a parser attaches)
 -- ============================================================================
 vim.opt.foldenable = true
 vim.opt.foldcolumn = "auto:1"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99 -- Start with all folds open
 vim.opt.foldlevelstart = 99
-vim.opt.foldmethod = "expr"
 vim.wo.foldtext = ""
 
 -- ============================================================================

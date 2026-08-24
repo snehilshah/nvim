@@ -35,17 +35,22 @@ return {
                 -- enables syntax highlighting and other treesitter features
                 vim.treesitter.start(buf, language)
 
-                -- enables treesitter based folds
-                -- for more info on folds see `:help folds`
-                vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                vim.wo.foldmethod = "expr"
+                -- Folding is window-local, so configure the window displaying
+                -- this buffer while the FileType callback is active.
+                vim.api.nvim_buf_call(buf, function()
+                    vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                    vim.wo[0][0].foldmethod = "expr"
+                    vim.cmd.normal("zx")
+                end)
 
                 -- enables treesitter based indentation
-                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end
 
             local available_parsers = require("nvim-treesitter").get_available()
             vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("snehilshah/treesitter", { clear = true }),
+                desc = "Enable Treesitter features",
                 callback = function(args)
                     local buf, filetype = args.buf, args.match
 
