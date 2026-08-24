@@ -7,14 +7,20 @@ vim.api.nvim_create_user_command("ToggleFormat", function()
 end, { desc = "Toggle conform.nvim auto-formatting", nargs = 0 })
 
 vim.api.nvim_create_user_command("ToggleInlayHints", function()
-    vim.g.inlay_hints = not vim.g.inlay_hints
+    local enable = not vim.lsp.inlay_hint.is_enabled()
+    vim.lsp.inlay_hint.enable(enable)
+
+    -- The normal-mode mapping cannot hit this branch, but keep manual command
+    -- execution from showing hints during Insert or Replace mode.
+    local mode = vim.api.nvim_get_mode().mode
+    if enable and mode:match("^[iR]") then
+        vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
+    end
+
     vim.notify(
-        string.format("%s inlay hints...", vim.g.inlay_hints and "Enabling" or "Disabling"),
+        string.format("%s inlay hints...", enable and "Enabling" or "Disabling"),
         vim.log.levels.INFO
     )
-
-    local mode = vim.api.nvim_get_mode().mode
-    vim.lsp.inlay_hint.enable(vim.g.inlay_hints and (mode == "n" or mode == "v"))
 end, { desc = "Toggle inlay hints", nargs = 0 })
 
 -- Verify that the formatter, linter, and LSP commands referenced by the config

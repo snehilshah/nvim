@@ -3,9 +3,6 @@ local diagnostic_icons = require("icons").diagnostics
 
 local M = {}
 
--- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
-vim.g.inlay_hints = false
-
 --- Sets up LSP keymaps and autocommands for the given buffer.
 ---@param client vim.lsp.Client
 ---@param bufnr integer
@@ -22,6 +19,13 @@ local function on_attach(client, bufnr)
         vim.keymap.set(mode, lhs, rhs, opts)
     end
 
+    --- Some dynamically registered capabilities only apply to selected buffers.
+    ---@param method vim.lsp.protocol.Method.ClientToServer
+    ---@return boolean
+    local function supports(method)
+        return client:supports_method(method, bufnr)
+    end
+
     keymap("[e", function()
         vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN } })
     end, "Previous error/warning")
@@ -29,7 +33,7 @@ local function on_attach(client, bufnr)
         vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } })
     end, "Next error/warning")
 
-    if client:supports_method("textDocument/hover") then
+    if supports("textDocument/hover") then
         keymap("K", function()
             vim.lsp.buf.hover({
                 max_height = math.floor(vim.o.lines * 0.5),
@@ -38,17 +42,17 @@ local function on_attach(client, bufnr)
         end, "Hover documentation")
     end
 
-    if client:supports_method("textDocument/codeAction") then
+    if supports("textDocument/codeAction") then
         require("lightbulb").attach_lightbulb(bufnr, client)
     end
 
-    if client:supports_method("textDocument/documentColor") then
+    if supports("textDocument/documentColor") then
         keymap("grc", function()
             vim.lsp.document_color.color_presentation()
         end, "vim.lsp.document_color.color_presentation()", { "n", "x" })
     end
 
-    if client:supports_method("textDocument/references") then
+    if supports("textDocument/references") then
         keymap("grp", function()
             require("fzf-lua").lsp_references({
                 jump1 = false,
@@ -58,39 +62,39 @@ local function on_attach(client, bufnr)
         end, "Find references")
     end
 
-    if client:supports_method("textDocument/typeDefinition") then
+    if supports("textDocument/typeDefinition") then
         keymap("gy", "<cmd>FzfLua lsp_typedefs<cr>", "Go to type definition")
     end
 
-    if client:supports_method("textDocument/documentSymbol") then
+    if supports("textDocument/documentSymbol") then
         keymap("<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", "Document symbols")
     end
 
-    if client:supports_method("workspace/symbol") then
+    if supports("workspace/symbol") then
         keymap("<leader>fS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", "Workspace symbols")
     end
 
-    if client:supports_method("textDocument/definition") then
+    if supports("textDocument/definition") then
         keymap("gd", function()
             require("fzf-lua").lsp_definitions({ jump1 = true })
         end, "Go to definition")
     end
 
-    if client:supports_method("textDocument/declaration") then
+    if supports("textDocument/declaration") then
         keymap("gD", vim.lsp.buf.declaration, "Go to declaration")
     end
 
-    if client:supports_method("textDocument/implementation") then
+    if supports("textDocument/implementation") then
         keymap("gri", "<cmd>FzfLua lsp_implementations<cr>", "Go to implementation")
     end
 
-    if client:supports_method("textDocument/codeAction") then
+    if supports("textDocument/codeAction") then
         keymap("gra", function()
             require("tiny-code-action").code_action()
         end, "Code action (tiny)", { "n", "x" })
     end
 
-    if client:supports_method("textDocument/rename") then
+    if supports("textDocument/rename") then
         keymap("<leader>rn", function()
             local cword = vim.fn.expand("<cword>")
             vim.ui.input({ prompt = "Rename: ", default = cword }, function(new_name)
@@ -106,7 +110,7 @@ local function on_attach(client, bufnr)
     -- Blink owns insert-mode signature help. It applies its buffer-local <C-k>
     -- mapping on InsertEnter, after LspAttach.
 
-    if client:supports_method("textDocument/documentHighlight") then
+    if supports("textDocument/documentHighlight") then
         local under_cursor_highlights_group =
             vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })
         -- on_attach may run again for this buffer (dynamic capability registration),
@@ -126,33 +130,32 @@ local function on_attach(client, bufnr)
         })
     end
 
-    if client:supports_method("textDocument/codeLens") then
+    if supports("textDocument/codeLens") then
         keymap("<leader>cc", vim.lsp.codelens.run, "Run code lens action")
         vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end
 
-    if client:supports_method("textDocument/inlayHint") then
+    if supports("textDocument/inlayHint") then
+        keymap("<leader>ih", "<cmd>ToggleInlayHints<cr>", "Toggle inlay hints")
+
         local inlay_hints_group =
             vim.api.nvim_create_augroup("mariasolos/toggle_inlay_hints", { clear = false })
         -- Same reasoning as the cursor-highlight group: clear this buffer's entries
         -- so a re-run of on_attach cannot stack duplicate autocmds.
         vim.api.nvim_clear_autocmds({ group = inlay_hints_group, buffer = bufnr })
 
-        if vim.g.inlay_hints then
-            -- Initial inlay hint display.
-            -- Idk why but without the delay inlay hints aren't displayed at the very start.
-            vim.defer_fn(function()
-                local mode = vim.api.nvim_get_mode().mode
-                vim.lsp.inlay_hint.enable(mode == "n" or mode == "v", { bufnr = bufnr })
-            end, 500)
+        if vim.lsp.inlay_hint.is_enabled() then
+            local mode = vim.api.nvim_get_mode().mode
+            local editing = mode:match("^[iR]") ~= nil
+            vim.lsp.inlay_hint.enable(not editing, { bufnr = bufnr })
         end
 
         vim.api.nvim_create_autocmd("InsertEnter", {
             group = inlay_hints_group,
-            desc = "Enable inlay hints",
+            desc = "Disable inlay hints",
             buffer = bufnr,
             callback = function()
-                if vim.g.inlay_hints then
+                if vim.lsp.inlay_hint.is_enabled() then
                     vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
                 end
             end,
@@ -160,10 +163,10 @@ local function on_attach(client, bufnr)
 
         vim.api.nvim_create_autocmd("InsertLeave", {
             group = inlay_hints_group,
-            desc = "Disable inlay hints",
+            desc = "Enable inlay hints",
             buffer = bufnr,
             callback = function()
-                if vim.g.inlay_hints then
+                if vim.lsp.inlay_hint.is_enabled() then
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end
             end,

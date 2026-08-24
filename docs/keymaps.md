@@ -86,7 +86,7 @@
 | `<leader>rn` | n   | Rename symbol                          |     | `gra`        | n,x | Code Action (tiny-code-action)        |
 | `grx`        | n   | Run codelens actions                   |     |              |     |                                       |
 | `[d`         | n   | Previous diagnostic (LSP buffer-local) |     | `]d`         | n   | Next diagnostic (LSP buffer-local)    |
-| `<leader>cd` | n   | Show diagnostic (LSP buffer-local)     |     | `<leader>ih` | n   | Toggle inlay hints (LSP buffer-local) |
+| `<leader>cd` | n   | Show diagnostic (LSP buffer-local)     |     | `<leader>ih` | n   | Toggle inlay hints globally           |
 | `<leader>wa` | n   | Add workspace folder                   |     | `<leader>wr` | n   | Remove workspace folder               |
 | `<leader>wl` | n   | List workspace folders                 |     | `<leader>cR` | n   | Rename file                           |
 | `<leader>ci` | n   | Incoming calls (vim.lsp)               |     | `<leader>co` | n   | Outgoing calls (vim.lsp)              |
