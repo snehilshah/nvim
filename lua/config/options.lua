@@ -29,8 +29,8 @@ vim.o.background = "dark"
 -- relative line numbering
 vim.opt.number = true
 vim.opt.relativenumber = true
--- the number column on the left with the allowed width of 4
-vim.opt.numberwidth = 1
+-- the number column on the left with the allowed width of 4, keep 4, 3 digit numbers + comfy line numbers adding a padding of 1
+vim.opt.numberwidth = 4
 -- the 2 is required in case of 3 digist relative numbers caused by easy motions
 -- the sign column of the left with the width of 2
 vim.opt.signcolumn = "yes"
