@@ -86,6 +86,9 @@ return {
             function()
                 require("sidekick.cli").send({ filter = { attached = true }, msg = "{file}" })
             end,
+            -- "x" keeps visual <Space>af away from the treesitter `af`
+            -- textobject, which would otherwise swallow the fall-through.
+            mode = { "n", "x" },
             desc = "Send file ref to CLI",
         },
         {
