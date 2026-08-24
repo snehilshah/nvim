@@ -14,6 +14,7 @@
 | Open previous changed file in CodeDiff | `[ f`               |
 | Close CodeDiff or Neogit               | `q`                 |
 | Return to the tab you came from        | `g <Tab>`           |
+| Open CodeDiff file for editing         | `g f`               |
 | Stage selected change                  | `s`                 |
 | Unstage selected change                | `u`                 |
 | Stage all changes                      | `S`                 |
@@ -67,6 +68,26 @@
 | Merge `main` into current branch            | `m m`, then select `main` |
 | Abort an active merge                       | `m a`                     |
 
+## Conflicts and Rebase
+
+| Use case | Keymap |
+| --- | --- |
+| Open selected conflict in CodeDiff | `d d` |
+| Next conflict | `] x` |
+| Previous conflict | `[ x` |
+| Show CodeDiff key help | `g ?` |
+| Accept incoming / left change | `<Space> c t` |
+| Accept all incoming changes in file | `<Space> c T` |
+| Accept current / right change | `<Space> c o` |
+| Accept both changes | `<Space> c b` |
+| Take incoming/left hunk in Result | `2 d o` |
+| Take current/right hunk in Result | `3 d o` |
+| Save resolved Result file | `:w` |
+| Mark resolved file / stage it | `s` |
+| Continue rebase after staging resolutions | `r r` |
+| Skip the current rebased commit | `r s` |
+| Abort the rebase | `r a` |
+
 ## Stashes
 
 | Use case                                  | Keymap   |
@@ -104,3 +125,5 @@
 | Delete local branch  | Separate cleanup after its worktree has been removed.                                      |
 | Delete remote branch | Removes the GitHub branch for everyone; separate from local deletion.                      |
 | Shared stash         | A stash made in one worktree is visible from every other worktree.                         |
+| CodeDiff left pane   | The original/base Git version; do not edit it.                                      |
+| CodeDiff right pane  | Editable only when it represents the working file; saved Git revisions are read-only. |
