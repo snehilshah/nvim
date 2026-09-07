@@ -103,9 +103,9 @@
 
 | Key          | M   | Desc                    |     | Key          | M   | Desc                |
 | ------------ | --- | ----------------------- | --- | ------------ | --- | ------------------- |
+| `<leader>p`  | n   | Find files              |     | `<leader>fa` | n   | Grep                |
+| `<leader>fw` | n,x | Grep word/selection     |     | `<leader>fW` | n   | Grep word in buffer |
 | `<leader>fb` | n,x | Search current buffer   |     | `<leader>fB` | n   | Buffers             |
-| `<leader>ff` | n   | Find files              |     | `<leader>fg` | n,x | Grep                |
-| `<leader>fw` | n   | Grep word under cursor  |     | `<leader>fW` | n   | Grep word in buffer |
 | `<leader>fh` | n   | Help                    |     | `<leader>fr` | n   | Recently opened     |
 | `<leader>f<` | n   | Resume last fzf command |     |              |     |                     |
 
@@ -285,16 +285,12 @@ Annotate lines with virtual text notes (without modifying files). Per git-branch
 The statusline identifies the current layout, for example `EDITING · TAB 1/2` or
 `CODEDIFF · TAB 2/2`.
 
-| Key           | M   | Desc                           |     | Key          | M   | Desc                 |
-| ------------- | --- | ------------------------------ | --- | ------------ | --- | -------------------- |
-| `<A-,>`       | n   | Buffer previous                |     | `<A-.>`      | n   | Buffer next          |
-| `<A-S-,>`     | n   | Move buffer left               |     | `<A-S-.>`    | n   | Move buffer right    |
-| `<A-1>-<A-9>` | n   | Goto buffer 1-9                |     | `<A-0>`      | n   | Goto last buffer     |
-| `<A-p>`       | n   | Pin buffer                     |     | `<A-c>`      | n   | Close editing buffer |
-| `<C-p>`       | n   | Pick buffer                    |     | `<C-s-p>`    | n   | Pick buffer delete   |
-| `<leader>bb`  | n   | Order by buffer number         |     | `<leader>bn` | n   | Order by name        |
-| `<leader>bd`  | n   | Order by directory (conflicts) |     | `<leader>bl` | n   | Order by language    |
-| `<leader>bw`  | n   | Order by window number         |     |              |     |                      |
+| Key          | M   | Desc                           |     | Key          | M   | Desc                       |
+| ------------ | --- | ------------------------------ | --- | ------------ | --- | -------------------------- |
+| `<A-,>`      | n   | Buffer previous                |     | `<A-.>`      | n   | Buffer next                |
+| `<A-S-,>`    | n   | Move buffer left               |     | `<A-S-.>`    | n   | Move buffer right          |
+| `<A-p>`      | n   | Pin buffer                     |     | `<A-c>`      | n   | Close editing buffer       |
+| `<C-p>`      | n   | Pick buffer                    |     | `<leader>br` | n   | Restore last closed buffer |
 
 ### Real tabs / layouts
 

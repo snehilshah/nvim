@@ -80,12 +80,12 @@ return {
                 "<cmd>FzfLua lsp_document_diagnostics<cr>",
                 desc = "Document diagnostics",
             },
-            { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find files" },
+            { "<leader>p", "<cmd>FzfLua files<cr>", desc = "Find files" },
             { "<leader>fa", "<cmd>FzfLua live_grep<cr>", desc = "Grep" },
             {
-                "<leader>fa",
+                "<leader>fw",
                 "<cmd>FzfLua grep_visual<cr>",
-                desc = "Grep",
+                desc = "Grep selection",
                 mode = "x",
             },
             { "<leader>fw", "<cmd>FzfLua grep_cword<cr>", desc = "Grep word" },
@@ -135,6 +135,10 @@ return {
 
             return {
                 { "border-fused", "hide" },
+                file_ignore_patterns = {
+                    "%.pb%.gw%.go$",
+                    "%.pb%.go$",
+                },
                 -- Make stuff better combine with the editor.
                 fzf_colors = {
                     bg = { "bg", "Normal" },
