@@ -118,10 +118,24 @@ vim.keymap.set("n", "<leader>cp", function()
     require("utils").copyFilePathAndLineNumber()
 end, { desc = "Copy file path with line number" })
 
--- Disable the frustrating command-line window that pops up when pressing q: instead of :q
-vim.keymap.set({ "n", "v" }, "q:", function()
-    vim.notify("Command-line window (q:) is disabled. Use :q to quit.", vim.log.levels.INFO)
-end, { desc = "Disable command-line window (q:)" })
+-- Enter the regular command line when pressing q: instead of opening the command-line window.
+vim.keymap.set({ "n", "v" }, "q:", ":", { desc = "Enter command line (q:)" })
+
+-- Also handle q: if a special buffer bypasses the keymap and opens the command-line window.
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+    group = vim.api.nvim_create_augroup("snehilshah/disable_cmdwin", { clear = true }),
+    callback = function()
+        if vim.fn.getcmdwintype() ~= ":" then
+            return
+        end
+
+        vim.cmd("quit")
+        vim.schedule(function()
+            vim.api.nvim_feedkeys(":", "n", false)
+        end)
+    end,
+    desc = "Use regular command line instead of command-line window",
+})
 
 -- Poweful <esc>.
 vim.keymap.set({ "i", "s", "n" }, "<esc>", function()
