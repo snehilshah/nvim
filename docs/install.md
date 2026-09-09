@@ -55,6 +55,7 @@ project-local tooling; they are not pointed at the global TypeScript 7 SDK.
 
 | Formatter           | Languages                      | Install                                              |
 | ------------------- | ------------------------------ | ---------------------------------------------------- |
+| `oxfmt`             | JS/TS/Astro/JSON               | `brew install oxfmt` (or `npm install -g oxfmt`)     |
 | `prettier`          | JS/TS/Astro/HTML/CSS/SCSS/JSON | `brew install prettier`                              |
 | `biome`             | JS/TS/Astro/JSON/CSS           | `brew install biome`                                 |
 | `stylua`            | Lua                            | `brew install stylua`                                |
@@ -70,10 +71,10 @@ project-local tooling; they are not pointed at the global TypeScript 7 SDK.
 
 C/C++ formatting is done by the `clangd` LSP, not a standalone formatter.
 
-`prettier` is gated on `require_cwd` and only runs when the project has a
-Prettier config. Otherwise Biome handles JS/TS/Astro/JSON/CSS. HTML and SCSS
-fall back to their LSP formatter because Biome does not format them.
-`:CheckTools` marks Prettier as unverified outside a configured project; that is
+`oxfmt`, `biome`, and `prettier` are each gated on `require_cwd` and only run
+when their respective configuration file is found in the project root.
+Otherwise, formatting falls back to LSP.
+`:CheckTools` marks them as unverified outside a configured project; that is
 expected, not a broken install.
 
 For Python projects, keep Ruff's style policy in the project `pyproject.toml`:
@@ -87,21 +88,20 @@ line-length = 120
 
 Triggered manually with `<leader>ll`.
 
-| Linter              | Languages  | Install                            |
-| ------------------- | ---------- | ---------------------------------- |
-| `golangci-lint`     | Go         | `brew install golangci-lint`       |
-| `ruff`              | Python     | `brew install ruff`                |
-| `cppcheck`          | C/C++      | `brew install cppcheck`            |
-| `hadolint`          | Dockerfile | `brew install hadolint`            |
-| `yamllint`          | YAML       | `brew install yamllint`            |
-| `markdownlint-cli2` | Markdown   | `brew install markdownlint-cli2`   |
-| `buf`               | Protobuf   | `brew install bufbuild/buf/buf`    |
-| `eslint_d`          | JS/TS      | `npm install -g eslint_d`          |
-| `jsonlint`          | JSON       | `npm install -g jsonlint`          |
-| `tombi`             | TOML       | `cargo install --locked tombi-cli` |
+| Linter              | Languages  | Install                                            |
+| ------------------- | ---------- | -------------------------------------------------- |
+| `oxlint`            | JS/TS      | `brew install oxlint` (or `npm install -g oxlint`) |
+| `golangci-lint`     | Go         | `brew install golangci-lint`                       |
+| `ruff`              | Python     | `brew install ruff`                                |
+| `cppcheck`          | C/C++      | `brew install cppcheck`                            |
+| `hadolint`          | Dockerfile | `brew install hadolint`                            |
+| `yamllint`          | YAML       | `brew install yamllint`                            |
+| `markdownlint-cli2` | Markdown   | `brew install markdownlint-cli2`                   |
+| `buf`               | Protobuf   | `brew install bufbuild/buf/buf`                    |
+| `jsonlint`          | JSON       | `npm install -g jsonlint`                          |
+| `tombi`             | TOML       | `cargo install --locked tombi-cli`                 |
 
-JS/TS linting also comes from the `biome` LSP, which only activates when the
-project has a `biome.json`.
+Biome linting is handled via its LSP server when `biome.json` is present.
 
 ## Database CLI Clients
 
@@ -124,7 +124,7 @@ brew install \
   lua-language-server gopls basedpyright llvm biome typescript bufbuild/buf/buf \
   bash-language-server yaml-language-server \
   prettier stylua gofumpt ruff shfmt yamlfmt dockerfmt markdownlint-cli2 \
-  golangci-lint shellcheck cppcheck hadolint yamllint
+  golangci-lint shellcheck cppcheck hadolint yamllint oxlint oxfmt
 
 # npm (no brew formula available)
 npm install -g \
@@ -135,7 +135,7 @@ npm install -g \
   @astrojs/language-server \
   @angular/language-server \
   @github/copilot-language-server \
-  eslint_d jsonlint
+  jsonlint
 
 # go (no brew formula available)
 go install golang.org/x/tools/cmd/goimports@latest

@@ -56,14 +56,6 @@ api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
--- Stop eslint_d daemon on exit (prevents orphaned processes)
-api.nvim_create_autocmd("VimLeavePre", {
-    callback = function()
-        if vim.fn.executable("eslint_d") == 1 then
-            vim.fn.system({ "eslint_d", "stop" })
-        end
-    end,
-})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("snehilshah/yank_highlight", { clear = true }),

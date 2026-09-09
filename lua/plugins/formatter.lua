@@ -12,54 +12,62 @@ return {
             c = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
             cpp = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
 
-            -- Prettier wins when a config exists (require_cwd), otherwise Biome.
-            -- LSP formatting is the last fallback when neither is available.
+            -- Prettier, Biome, and Oxfmt are each gated by require_cwd and only run
+            -- when their respective config exists in the project root.
+            -- LSP formatting is the last fallback when none is configured.
             javascript = {
-                "prettier",
+                "oxfmt",
                 "biome",
+                "prettier",
                 stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             javascriptreact = {
-                "prettier",
+                "oxfmt",
                 "biome",
+                "prettier",
                 stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             typescript = {
-                "prettier",
+                "oxfmt",
                 "biome",
+                "prettier",
                 stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             typescriptreact = {
-                "prettier",
+                "oxfmt",
                 "biome",
+                "prettier",
                 stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             astro = {
-                "prettier",
+                "oxfmt",
                 "biome",
+                "prettier",
                 stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
 
             json = {
-                "prettier",
+                "oxfmt",
                 "biome",
+                "prettier",
                 stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
             },
             jsonc = {
-                "prettier",
+                "oxfmt",
                 "biome",
+                "prettier",
                 stop_after_first = true,
                 timeout_ms = 500,
                 lsp_format = "fallback",
@@ -115,7 +123,18 @@ return {
             return {}
         end,
         formatters = {
-            -- Require a Prettier configuration file to format.
+            -- Only run if respective configuration file exists in project root.
+            oxfmt = {
+                cwd = function(self, ctx)
+                    return vim.fs.root(ctx.dirname, {
+                        ".oxfmtrc.json",
+                        ".oxfmtrc.jsonc",
+                        "oxfmt.config.ts",
+                    })
+                end,
+                require_cwd = true,
+            },
+            biome = { require_cwd = true },
             prettier = { require_cwd = true },
         },
     },

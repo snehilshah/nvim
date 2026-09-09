@@ -71,13 +71,12 @@ return {
             markdown = { "markdownlint-cli2" },
             toml = { "tombi" },
             proto = { "buf_lint" },
-            -- JS/TS: eslint_d will use its own root marker detection
-            -- biome linting is handled via LSP (only activates with biome.json)
-            javascript = { "eslint_d" },
-            javascriptreact = { "eslint_d" },
-            typescript = { "eslint_d" },
-            typescriptreact = { "eslint_d" },
-            astro = { "eslint_d" },
+            -- JS/TS/Astro: oxlint
+            javascript = { "oxlint" },
+            javascriptreact = { "oxlint" },
+            typescript = { "oxlint" },
+            typescriptreact = { "oxlint" },
+            astro = { "oxlint" },
         }
     end,
 }
