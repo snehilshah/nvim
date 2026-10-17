@@ -6,6 +6,8 @@ return {
         dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.icons" },
         opts = {
             file_types = { "markdown", "mdx" },
+            -- Refresh cached Markdown conceal rules when the first hover loads this plugin.
+            restart_highlighter = true,
             html = {
                 render_modes = true,
             },
