@@ -203,7 +203,6 @@ return {
     {
         "esmuellert/codediff.nvim",
         cmd = "CodeDiff",
-        tag = "v2.67.1",
         opts = {
             diff = {
                 compute_moves = true, -- show moved lines similar to vscode
