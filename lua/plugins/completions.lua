@@ -17,6 +17,28 @@ return {
             -- <C-\> intentionally NOT bound here: toggleterm owns it in every mode
             -- (insert_mappings = true). Dismiss the menu with <C-e> (stays in insert)
             -- or <Esc> (leaves insert, menu closes with it).
+            -- Right before a closing char, <Tab> tabs out (falls back to tabout.nvim)
+            -- unless an item was explicitly picked with <C-n>/<C-p>/<Up>/<Down>.
+            -- Elsewhere it behaves like the super-tab preset.
+            ["<Tab>"] = {
+                function(cmp)
+                    if cmp.snippet_active() then
+                        return cmp.accept()
+                    end
+                    if not cmp.is_menu_visible() then
+                        return
+                    end
+                    local col = vim.api.nvim_win_get_cursor(0)[2]
+                    local next_char = vim.api.nvim_get_current_line():sub(col + 1, col + 1)
+                    if next_char:match("[%)%]}\"'`>]") and not require("blink.cmp.completion.list").is_explicitly_selected then
+                        cmp.hide()
+                        return -- fall through to tabout
+                    end
+                    return cmp.select_and_accept()
+                end,
+                "snippet_forward",
+                "fallback",
+            },
             ["<C-b>"] = { "scroll_documentation_up", "fallback" },
             ["<C-f>"] = { "scroll_documentation_down", "fallback" },
         },
