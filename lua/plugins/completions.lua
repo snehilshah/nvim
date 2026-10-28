@@ -1,9 +1,9 @@
 return {
     "saghen/blink.cmp",
-    -- build = "cargo +nightly build --release",
-    branch = "v1",
+    -- Track release tags, not the v1 branch: prebuilt fuzzy binaries are only
+    -- downloaded/used when blink is checked out exactly on a release tag.
+    version = "1.*",
     dependencies = {
-        "folke/lazydev.nvim",
         "nvim-mini/mini.icons",
     },
     opts = {
@@ -96,8 +96,10 @@ return {
         cmdline = { enabled = false },
 
         sources = {
-            default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+            default = { "lsp", "path", "snippets", "buffer" },
             per_filetype = {
+                -- lazydev only in Lua buffers, so it keeps lazy-loading on ft = "lua"
+                lua = { inherit_defaults = true, "lazydev" },
                 go = { "lsp", "path", "buffer" }, -- disable snippets for go to avoid gopls malformed snippet ranges
                 sql = { "dadbod", "snippets", "buffer" },
                 mysql = { "dadbod", "snippets", "buffer" },
