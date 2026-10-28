@@ -24,5 +24,13 @@ return {
             exclude = {}, -- tabout will ignore these filetypes
         },
         priority = 1000,
+        config = function(_, opts)
+            require("tabout").setup(opts)
+
+            -- <Tab> tabs out from anywhere inside a string/bracket (treesitter-based).
+            -- This always inserts a tab instead (respects expandtab).
+            -- Replaces the built-in <C-t> "indent line" (use >> instead).
+            vim.keymap.set("i", "<C-t>", "<Tab>", { desc = "Insert tab (skip tabout)" })
+        end,
     },
 }
