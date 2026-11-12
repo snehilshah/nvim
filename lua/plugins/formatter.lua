@@ -9,8 +9,10 @@ return {
         notify_no_formatters = false,
         notify_on_error = false,
         formatters_by_ft = {
-            c = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
-            cpp = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
+            -- clang-format directly (not clangd) so the no-.clang-format default
+            -- can be LLVM with 4-space indents; see formatters["clang-format"].
+            c = { "clang-format", timeout_ms = 500, lsp_format = "fallback" },
+            cpp = { "clang-format", timeout_ms = 500, lsp_format = "fallback" },
 
             -- Prettier, Biome, and Oxfmt are each gated by require_cwd and only run
             -- when their respective config exists in the project root.
@@ -136,6 +138,16 @@ return {
             },
             biome = { require_cwd = true },
             prettier = { require_cwd = true },
+            -- A project's .clang-format wins. Without one, clang-format (and
+            -- clangd) default to LLVM style with 2-space indents; use 4 instead.
+            ["clang-format"] = {
+                prepend_args = function(_, ctx)
+                    if vim.fs.root(ctx.dirname, { ".clang-format", "_clang-format" }) then
+                        return {}
+                    end
+                    return { "--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}" }
+                end,
+            },
         },
     },
     init = function()

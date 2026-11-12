@@ -17,8 +17,11 @@ return {
             -- <C-\> intentionally NOT bound here: toggleterm owns it in every mode
             -- (insert_mappings = true). Dismiss the menu with <C-e> (stays in insert)
             -- or <Esc> (leaves insert, menu closes with it).
-            -- Right before a closing char, <Tab> tabs out (falls back to tabout.nvim)
-            -- unless an item was explicitly picked with <C-n>/<C-p>/<Up>/<Down>.
+            -- With the menu open, <Tab> accepts. The exception: right before a
+            -- closing char, it only accepts when the suggestion extends what you
+            -- typed (`foo(cou|)` -> `counter`). If the word is already complete or
+            -- the suggestion is just a fuzzy match (`src` -> `struct`), it closes
+            -- the menu and falls back to tabout.nvim instead.
             -- Elsewhere it behaves like the super-tab preset.
             ["<Tab>"] = {
                 function(cmp)
@@ -31,8 +34,14 @@ return {
                     local col = vim.api.nvim_win_get_cursor(0)[2]
                     local next_char = vim.api.nvim_get_current_line():sub(col + 1, col + 1)
                     if next_char:match("[%)%]}\"'`>]") and not require("blink.cmp.completion.list").is_explicitly_selected then
-                        cmp.hide()
-                        return -- fall through to tabout
+                        local item = cmp.get_selected_item()
+                        local text = item and (item.textEdit and item.textEdit.newText or item.insertText or item.label) or ""
+                        local typed = require("blink.cmp.completion.trigger.context").get_keyword():lower()
+                        local extends = #text > #typed and text:lower():sub(1, #typed) == typed
+                        if not extends then
+                            cmp.hide()
+                            return -- fall through to tabout
+                        end
                     end
                     return cmp.select_and_accept()
                 end,
